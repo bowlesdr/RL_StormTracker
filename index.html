@@ -90,7 +90,13 @@
   #status.disconnected { background: #6b1f1f; }
   #settingsPanel .control { justify-content: space-between; }
 
-  #ytPlayer { position: fixed; left: -9999px; top: -9999px; width: 1px; height: 1px; }
+  /* Bottom-right corner, sized to 1/8 of the screen area (50vw x 25vh).
+     Offset above the radar bar so the two don't overlap. */
+  #ytPlayer {
+    position: fixed; right: 0; bottom: 80px; width: 50vw; height: 25vh; z-index: 15;
+    background: #000; border: 1px solid #3a4256;
+  }
+  #ytPlayer iframe { width: 100%; height: 100%; display: block; }
   .sectionLabel { font-size: 12px; opacity: 0.6; margin-top: 4px; }
   #ytUrlInput {
     width: 100%; box-sizing: border-box; background: #0e1117; color: #e8ebf0;
@@ -775,11 +781,9 @@
     }
   }
 
-  // Plays a supplemental YouTube stream/video's audio in the background via
-  // the official IFrame Player API — there's no legitimate way to pull just
-  // an audio stream out of a YouTube URL, so this loads their real player
-  // into a 1x1 off-screen element instead. The API script loads lazily, on
-  // first use, rather than up front.
+  // Plays a supplemental YouTube stream/video via the official IFrame Player
+  // API, visible in the bottom-right corner (#ytPlayer). The API script loads
+  // lazily, on first use, rather than up front.
   let ytPlayer = null;
   let ytApiLoading = false;
   let pendingYtVideoId = null;
@@ -813,9 +817,9 @@
     }
     if (!ytPlayer) {
       ytPlayer = new YT.Player('ytPlayer', {
-        height: '1', width: '1',
+        height: '100%', width: '100%',
         videoId,
-        playerVars: { autoplay: 1, controls: 0 },
+        playerVars: { autoplay: 1, controls: 1 },
         events: {
           onReady: () => setYtStatus('Playing'),
           onError: () => setYtStatus('Could not play that video')
