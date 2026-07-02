@@ -522,7 +522,7 @@
       radarCountdownTimerId = setInterval(tickCountdown, 1000);
     } else {
       const frameTime = new Date(radarFrameTimes[index]);
-      const clockText = frameTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      const clockText = frameTime.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', second: '2-digit' });
       label.innerHTML = `${clockText}<br>${ageMinutes} min ago`;
     }
   }
