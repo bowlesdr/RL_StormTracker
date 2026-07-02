@@ -126,7 +126,7 @@
   <h2>Lightning Watch</h2>
   <span id="status">connecting&hellip;</span>
   <label class="control">Radius (km)
-    <input type="number" id="radiusInput" min="10" max="3000" step="5" value="25">
+    <input type="number" id="radiusInput" min="10" max="3000" step="5" value="50">
   </label>
   <label class="control">
     <input type="checkbox" id="radarToggle"> Radar
@@ -181,7 +181,7 @@
   }
 
   let map, homeMarker, radiusCircle, userLocationMarker, strikeInfoWindow;
-  let radiusKm = 25;
+  let radiusKm = 50;
   const overlayState = {}; // key -> { visible, mapType, bucket }
   const activeStrikes = []; // { marker, timestampMs }
 
