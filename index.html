@@ -166,7 +166,7 @@
       Math.abs(b - RADAR_HIDE_COLOR.b) <= RADAR_HIDE_TOLERANCE;
   }
 
-  let map, homeMarker, radiusCircle;
+  let map, homeMarker, radiusCircle, userLocationMarker;
   let radiusKm = 25;
   const overlayState = {}; // key -> { visible, mapType, bucket }
   const activeStrikes = []; // { marker, timestampMs }
@@ -590,6 +590,39 @@
     };
   }
 
+  // Shows where the phone/browser viewing the page currently is, distinct from
+  // the fixed HOME watch location. Silently does nothing if geolocation is
+  // unsupported or denied — the map is fully usable without it.
+  function initGeolocation() {
+    if (!('geolocation' in navigator)) return;
+
+    navigator.geolocation.watchPosition(
+      (pos) => {
+        const position = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+        if (!userLocationMarker) {
+          userLocationMarker = new google.maps.Marker({
+            position,
+            map,
+            icon: {
+              path: google.maps.SymbolPath.CIRCLE,
+              scale: 6,
+              fillColor: '#4285f4',
+              fillOpacity: 1,
+              strokeColor: '#ffffff',
+              strokeWeight: 2
+            },
+            zIndex: 999,
+            title: 'Your location'
+          });
+        } else {
+          userLocationMarker.setPosition(position);
+        }
+      },
+      () => {},
+      { enableHighAccuracy: true, maximumAge: 10000, timeout: 10000 }
+    );
+  }
+
   function updateRadiusCircle() {
     if (radiusCircle) {
       radiusCircle.setRadius(radiusKm * 1000);
@@ -653,6 +686,7 @@
       streetViewControl: false,
       rotateControl: false,
       cameraControl: false,
+      fullscreenControl: false,
       styles: [
         { elementType: 'labels', stylers: [{ visibility: 'off' }] },
         { featureType: 'administrative.locality', elementType: 'labels', stylers: [{ visibility: 'on' }] },
@@ -693,6 +727,7 @@
     initControls();
     connectBlitzortung();
     startRadarPlayback();
+    initGeolocation();
   }
 
   window.gm_authFailure = function () {
