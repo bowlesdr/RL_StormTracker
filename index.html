@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<title>Lightning Watch</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="theme-color" content="#10131a">
+<style>
+  html, body {
+    height: 100%; height: 100dvh; margin: 0; overflow: hidden; overscroll-behavior: none;
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: #10131a; color: #e8ebf0;
+  }
+  /* Google Maps sets an inline position:relative on whatever container it's
+     given, overriding any position we set directly on #map. So the viewport-
+     filling is done by this wrapper instead, and #map just fills it via
+     ordinary width/height, which Maps' inline styles don't touch. */
+  #mapWrap { position: fixed; inset: 0; }
+  #map { width: 100%; height: 100%; }
+
+  .control {
+    display: flex; align-items: center; gap: 6px; font-size: 13px;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
+  .control input[type=number] {
+    width: 70px; background: #0e1117; color: #e8ebf0; border: 1px solid #2a3040;
+    border-radius: 4px; padding: 6px; font-size: 16px; /* 16px avoids iOS auto-zoom-on-focus */
+  }
+  .control input[type=checkbox] { width: 18px; height: 18px; }
+
+  /* Permanent radar playback bar — always visible regardless of the settings panel */
+  #radarBar {
+    position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 20;
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(23, 27, 36, 0.9); border: 1px solid #3a4256; border-radius: 8px;
+    padding: 8px 14px; -webkit-tap-highlight-color: transparent;
+  }
+  #radarPlayBtn {
+    background: #2a3040; color: #e8ebf0; border: 1px solid #3a4256; border-radius: 4px;
+    padding: 6px 12px; font-size: 13px; cursor: pointer; white-space: nowrap;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
+  #radarPlayBtn:disabled { opacity: 0.6; cursor: default; }
+  #radarAgeSlider { width: 90px; accent-color: #ffb454; opacity: 1; }
+  #radarFrameLabel { opacity: 0.7; min-width: 60px; font-size: 13px; }
+  #radarFrameLabel.live {
+    opacity: 1; color: #4dff88; font-weight: 700; letter-spacing: 0.04em;
+    animation: liveBlink 1.4s ease-in-out infinite;
+  }
+  @keyframes liveBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  #placeholderNotice {
+    position: fixed; top: 40px; left: 50%; transform: translateX(-50%);
+    max-width: 480px; padding: 16px; background: #3a2c12; border: 1px solid #6b4e1f;
+    border-radius: 8px; font-size: 13px; line-height: 1.5; z-index: 30;
+  }
+
+  /* Single button that opens the "everything else" settings panel */
+  #settingsBtn {
+    position: fixed; top: 12px; right: 12px; z-index: 20;
+    background: rgba(23, 27, 36, 0.85); color: #e8ebf0; border: 1px solid #3a4256;
+    border-radius: 6px; width: 40px; height: 40px; font-size: 18px; cursor: pointer;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
+
+  #settingsPanel {
+    display: none; position: fixed; top: 12px; right: 12px; z-index: 25;
+    width: 220px; background: #171b24; border: 1px solid #3a4256; border-radius: 8px;
+    padding: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    flex-direction: column; gap: 12px;
+  }
+  #settingsPanel.open { display: flex; }
+  #settingsPanel h2 { font-size: 13px; margin: 0 24px 0 0; }
+  #settingsCloseBtn {
+    position: absolute; top: 10px; right: 10px; background: none; border: none;
+    color: #e8ebf0; font-size: 15px; cursor: pointer; padding: 4px;
+  }
+  #status { font-size: 13px; padding: 3px 10px; border-radius: 12px; background: #333c4d; align-self: flex-start; }
+  #status.connected { background: #1e5c33; }
+  #status.disconnected { background: #6b1f1f; }
+  #settingsPanel .control { justify-content: space-between; }
+
+  @media (max-width: 640px) {
+    #radarBar { padding: 6px 10px; gap: 6px; }
+    #radarPlayBtn { padding: 8px 10px; }
+    #radarAgeSlider { width: 60px; }
+    #placeholderNotice { top: 16px; max-width: calc(100% - 32px); }
+    #settingsPanel { width: calc(100% - 24px); right: 12px; }
+  }
+</style>
+</head>
+<body>
+<div id="mapWrap"><div id="map"></div></div>
+
+<div id="placeholderNotice">
+  <strong>Google Maps API key needed.</strong> Edit <code>index.html</code>, find the
+  <code>YOUR_API_KEY_HERE</code> placeholder in the script tag near the bottom of the file, and
+  replace it with a key from the
+  <a href="https://console.cloud.google.com/google/maps-apis" target="_blank" rel="noopener">Google Cloud Console</a>
+  that has the <strong>Maps JavaScript API</strong> enabled. Restrict it by HTTP referrer to the
+  origin you'll serve this page from (e.g. <code>http://localhost:*/*</code> if you run it via a
+  local dev server &mdash; the <code>file://</code> origin cannot be referrer-restricted, so an
+  unrestricted key or a local HTTP server is required).
+</div>
+
+<div id="radarBar">
+  <button id="radarPlayBtn" type="button">&#9654; Play radar (1h)</button>
+  <input type="range" id="radarAgeSlider" min="0" max="60" step="6" value="0" disabled>
+  <span id="radarFrameLabel"></span>
+</div>
+
+<button id="settingsBtn" type="button" title="Settings">&#9881;</button>
+
+<div id="settingsPanel">
+  <button id="settingsCloseBtn" type="button" aria-label="Close">&#10005;</button>
+  <h2>Lightning Watch</h2>
+  <span id="status">connecting&hellip;</span>
+  <label class="control">Radius (km)
+    <input type="number" id="radiusInput" min="10" max="3000" step="5" value="25">
+  </label>
+  <label class="control">
+    <input type="checkbox" id="radarToggle"> Radar
+  </label>
+  <label class="control">
+    <input type="checkbox" id="satelliteToggle"> Satellite
+  </label>
+</div>
+
+<script>
+  // ---- Fixed watch location ----
+  const HOME = { lat: 44.80996960818295, lng: -76.25362035830996 };
+
+  // ---- Tunables ----
+  const STRIKE_TTL_MS = 2 * 60 * 1000;    // how long a strike stays on the map / list, fading to nothing
+  const SWEEP_INTERVAL_MS = 2000;         // how often expired strikes are pruned / faded
+  const NEAR_ALERT_KM = 8;                // "very close" marker color threshold
+  const BLITZORTUNG_SERVERS = ['ws1', 'ws3', 'ws7', 'ws8'];
+  const RECONNECT_DELAY_MS = 3000;
+  const MERCATOR_RADIUS = 6378137;
+  const MERCATOR_ORIGIN_SHIFT = Math.PI * MERCATOR_RADIUS;
+
+  // Toggle-able MSC GeoMet WMS overlays. refreshMs should roughly match each
+  // product's own update cadence, since the server always serves its latest
+  // data and we cache-bust the tile URLs to pick that up.
+  const OVERLAYS = {
+    radar: { layer: 'RADAR_1KM_RRAI', style: 'Radar-Rain_Dis-8colors', opacity: 0.65, refreshMs: 6 * 60 * 1000 },
+    satellite: { layer: 'GOES-East_1km_DayVis-NightIR', style: '', opacity: 0.55, refreshMs: 10 * 60 * 1000 }
+  };
+
+  // The discrete 8-color radar style's lightest band (0.1-1.0 mm/h "trace"
+  // precipitation) is what shows up as scattered, meaningless-looking blotches
+  // that don't represent real rain. We filter it out client-side by matching
+  // its exact flat RGB (sampled from GeoMet's own legend) since the WMS
+  // service has no server-side intensity threshold parameter.
+  const RADAR_HIDE_COLOR = { r: 152, g: 254, b: 152 };
+  const RADAR_HIDE_TOLERANCE = 20;
+
+  function isRadarNoisePixel(r, g, b) {
+    return Math.abs(r - RADAR_HIDE_COLOR.r) <= RADAR_HIDE_TOLERANCE &&
+      Math.abs(g - RADAR_HIDE_COLOR.g) <= RADAR_HIDE_TOLERANCE &&
+      Math.abs(b - RADAR_HIDE_COLOR.b) <= RADAR_HIDE_TOLERANCE;
+  }
+
+  let map, homeMarker, radiusCircle;
+  let radiusKm = 25;
+  const overlayState = {}; // key -> { visible, mapType, bucket }
+  const activeStrikes = []; // { marker, timestampMs }
+
+  function haversineKm(lat1, lon1, lat2, lon2) {
+    const R = 6371;
+    const toRad = d => d * Math.PI / 180;
+    const dLat = toRad(lat2 - lat1);
+    const dLon = toRad(lon2 - lon1);
+    const a = Math.sin(dLat / 2) ** 2 +
+      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  }
+
+  // Blitzortung streams each strike LZW-compressed, one code point per symbol.
+  // This is a direct port of the decompressor their own clients use.
+  function lzwDecode(input) {
+    const dict = {};
+    let currChar = input[0];
+    let oldPhrase = currChar;
+    const out = [currChar];
+    let code = 256;
+    for (let i = 1; i < input.length; i++) {
+      const currCode = input.charCodeAt(i);
+      let phrase;
+      if (currCode < 256) {
+        phrase = input[i];
+      } else {
+        phrase = dict[currCode] ? dict[currCode] : (oldPhrase + currChar);
+      }
+      out.push(phrase);
+      currChar = phrase.charAt(0);
+      dict[code] = oldPhrase + currChar;
+      code++;
+      oldPhrase = phrase;
+    }
+    return out.join('');
+  }
+
+  function setStatus(text, cls) {
+    const el = document.getElementById('status');
+    el.textContent = text;
+    el.className = cls || '';
+  }
+
+  function ageOpacity(ageMs) {
+    return Math.max(0, 1 - ageMs / STRIKE_TTL_MS);
+  }
+
+  // Converts a Google Maps tile coordinate to its EPSG:3857 bounding box,
+  // so the WMS radar image lines up exactly with the map's own tiles.
+  function tileToMercatorBBox(x, y, zoom) {
+    const tileSize = 256;
+    const resolution = (2 * Math.PI * MERCATOR_RADIUS / tileSize) / Math.pow(2, zoom);
+    const minX = x * tileSize * resolution - MERCATOR_ORIGIN_SHIFT;
+    const maxX = (x + 1) * tileSize * resolution - MERCATOR_ORIGIN_SHIFT;
+    const maxY = MERCATOR_ORIGIN_SHIFT - y * tileSize * resolution;
+    const minY = MERCATOR_ORIGIN_SHIFT - (y + 1) * tileSize * resolution;
+    return [minX, minY, maxX, maxY];
+  }
+
+  // Historical (time-stamped) frames never change once generated, so their
+  // URLs are left stable to let the browser's own HTTP cache (GeoMet sends
+  // Cache-Control: max-age=360) serve repeat loop passes without refetching.
+  // The "live" overlay has no time param, so it needs a cache-busting bucket
+  // to actually pick up new data on each periodic refresh.
+  function wmsTileUrl(def, bucket, time, coord, zoom) {
+    const tileCount = Math.pow(2, zoom);
+    let x = coord.x % tileCount;
+    if (x < 0) x += tileCount;
+    if (coord.y < 0 || coord.y >= tileCount) return null;
+
+    const bbox = tileToMercatorBBox(x, coord.y, zoom).join(',');
+    const params = new URLSearchParams({
+      service: 'WMS', version: '1.3.0', request: 'GetMap',
+      layers: def.layer, styles: def.style, format: 'image/png', transparent: 'true',
+      width: '256', height: '256', crs: 'EPSG:3857', bbox
+    });
+    if (time) params.set('time', time);
+    else if (bucket) params.set('_bucket', bucket);
+    return `https://geo.weather.gc.ca/geomet?${params.toString()}`;
+  }
+
+  // Renders radar tiles onto a canvas so the noise-band pixels can be made
+  // transparent client-side (see isRadarNoisePixel above). Requires drawing
+  // through an actual <canvas> rather than google.maps.ImageMapType, since
+  // ImageMapType only accepts a tile URL and can't post-process pixels.
+  function createRadarMapType(time) {
+    const def = OVERLAYS.radar;
+    const bucket = time ? null : Date.now();
+    overlayState.radar.bucket = bucket;
+    return {
+      tileSize: new google.maps.Size(256, 256),
+      name: 'radar',
+      getTile(coord, zoom, ownerDocument) {
+        const canvas = ownerDocument.createElement('canvas');
+        canvas.width = 256;
+        canvas.height = 256;
+        canvas.style.opacity = def.opacity;
+        const ctx = canvas.getContext('2d');
+        const url = wmsTileUrl(def, bucket, time, coord, zoom);
+        if (url) {
+          const img = new Image();
+          img.crossOrigin = 'anonymous';
+          img.onload = () => {
+            ctx.drawImage(img, 0, 0, 256, 256);
+            try {
+              const imageData = ctx.getImageData(0, 0, 256, 256);
+              const data = imageData.data;
+              for (let i = 0; i < data.length; i += 4) {
+                if (data[i + 3] > 0 && isRadarNoisePixel(data[i], data[i + 1], data[i + 2])) {
+                  data[i + 3] = 0;
+                }
+              }
+              ctx.putImageData(imageData, 0, 0);
+            } catch (e) { /* pixel access failed; leave tile unfiltered */ }
+          };
+          img.src = url;
+        }
+        return canvas;
+      },
+      releaseTile() {}
+    };
+  }
+
+  function createOverlay(key, time) {
+    if (key === 'radar') return createRadarMapType(time);
+
+    const def = OVERLAYS[key];
+    const bucket = time ? null : Date.now();
+    overlayState[key].bucket = bucket;
+    return new google.maps.ImageMapType({
+      getTileUrl: (coord, zoom) => wmsTileUrl(def, bucket, time, coord, zoom),
+      tileSize: new google.maps.Size(256, 256),
+      opacity: def.opacity,
+      name: key
+    });
+  }
+
+  function setOverlayVisible(key, visible) {
+    const state = overlayState[key];
+    state.visible = visible;
+    if (state.mapType) {
+      map.overlayMapTypes.removeAt(map.overlayMapTypes.getArray().indexOf(state.mapType));
+      state.mapType = null;
+    }
+    if (visible) {
+      state.mapType = createOverlay(key);
+      map.overlayMapTypes.push(state.mapType);
+    }
+  }
+
+  function refreshOverlay(key) {
+    if (!overlayState[key].visible) return;
+    setOverlayVisible(key, true); // rebuilds with a fresh cache-busting bucket
+  }
+
+  // Radar playback: animates the last hour of composites (11 frames, 6-min apart).
+  const RADAR_PLAYBACK_STEP_MS = 6 * 60 * 1000;
+  const RADAR_PLAYBACK_FRAMES = 11;
+  const RADAR_PLAYBACK_FRAME_MS = 1000;
+  const RADAR_CYCLE_PAUSE_MS = 5000; // blank pause between the last frame and the loop restarting
+  const RADAR_WINDOW_CHECK_MS = 60 * 1000;
+  let radarPlaying = false;
+  let radarFrameTimes = [];
+  let radarFrameIndex = 0;
+  let radarPlayTimerId = null;
+  let radarWindowTimerId = null;
+
+  async function fetchLatestRadarTime() {
+    const resp = await fetch('https://geo.weather.gc.ca/geomet?service=WMS&version=1.3.0&request=GetCapabilities&layers=' + OVERLAYS.radar.layer);
+    const text = await resp.text();
+    const match = text.match(/<Dimension[^>]*name="time"[^>]*default="([^"]+)"/);
+    return match ? new Date(match[1]) : new Date(Math.floor(Date.now() / RADAR_PLAYBACK_STEP_MS) * RADAR_PLAYBACK_STEP_MS);
+  }
+
+  function buildRadarWindow(latest) {
+    const frames = [];
+    for (let i = RADAR_PLAYBACK_FRAMES - 1; i >= 0; i--) {
+      frames.push(new Date(latest.getTime() - i * RADAR_PLAYBACK_STEP_MS).toISOString().replace(/\.\d+Z$/, 'Z'));
+    }
+    return frames;
+  }
+
+  // Keeps playback a true rolling "last hour" as real time passes, rather
+  // than looping the same fixed hour forever. Rebuilds the whole window from
+  // the server's authoritative latest time (rather than incrementally
+  // shifting) so it self-corrects even after a long gap, e.g. the tab being
+  // backgrounded and its timers throttled for a while.
+  async function refreshRadarWindow() {
+    if (!radarPlaying) return;
+    const latest = await fetchLatestRadarTime();
+    const newFrames = buildRadarWindow(latest);
+    if (newFrames[newFrames.length - 1] === radarFrameTimes[radarFrameTimes.length - 1]) return;
+
+    const currentTime = radarFrameTimes[radarFrameIndex];
+    radarFrameTimes = newFrames;
+    const preservedIndex = radarFrameTimes.indexOf(currentTime);
+    radarFrameIndex = preservedIndex !== -1 ? preservedIndex : radarFrameTimes.length - 1;
+  }
+
+  function removeAllRadarOverlays() {
+    const arr = map.overlayMapTypes.getArray();
+    for (let i = arr.length - 1; i >= 0; i--) {
+      if (arr[i] && arr[i].name === 'radar') map.overlayMapTypes.removeAt(i);
+    }
+  }
+
+  function latLngToTile(lat, lng, zoom) {
+    const n = Math.pow(2, zoom);
+    const x = Math.floor((lng + 180) / 360 * n);
+    const latRad = lat * Math.PI / 180;
+    const y = Math.floor((1 - Math.log(Math.tan(latRad) + 1 / Math.cos(latRad)) / Math.PI) / 2 * n);
+    return { x, y };
+  }
+
+  // A 1-tile margin beyond the visible bounds, since Maps itself fetches a
+  // small buffer of off-screen tiles for smooth panning, and since floating
+  // point bounds don't always land exactly on our own tile-grid edges.
+  const TILE_PRELOAD_MARGIN = 1;
+
+  function getVisibleTileCoords(zoom) {
+    const bounds = map.getBounds();
+    if (!bounds) return [];
+    const ne = bounds.getNorthEast();
+    const sw = bounds.getSouthWest();
+    const topLeft = latLngToTile(ne.lat(), sw.lng(), zoom);
+    const bottomRight = latLngToTile(sw.lat(), ne.lng(), zoom);
+    const coords = [];
+    for (let x = topLeft.x - TILE_PRELOAD_MARGIN; x <= bottomRight.x + TILE_PRELOAD_MARGIN; x++) {
+      for (let y = topLeft.y - TILE_PRELOAD_MARGIN; y <= bottomRight.y + TILE_PRELOAD_MARGIN; y++) {
+        coords.push({ x, y });
+      }
+    }
+    return coords;
+  }
+
+  // Preloads the exact tile images the new overlay is about to request, via
+  // real Image objects whose onload fires reliably whether the tile comes
+  // from cache or network (unlike the map's "tilesloaded" event). Once these
+  // resolve, Maps' own fetch of the same URLs will resolve instantly too.
+  function preloadFrameTiles(time) {
+    const zoom = Math.round(map.getZoom());
+    const def = OVERLAYS.radar;
+    const coords = getVisibleTileCoords(zoom);
+    return Promise.all(coords.map(coord => new Promise(resolve => {
+      const url = wmsTileUrl(def, null, time, coord, zoom);
+      if (!url) { resolve(); return; }
+      const img = new Image();
+      img.crossOrigin = 'anonymous'; // must match the canvas renderer's fetch mode, or the
+      img.onload = resolve;          // browser caches this separately and preload buys nothing
+      img.onerror = resolve; // don't let one bad tile block the swap
+      img.src = url;
+    })));
+  }
+
+  let radarShowRequestId = 0;
+  const RADAR_SAFETY_BUFFER_MS = 80;
+
+  // Preloads the new frame (plus a margin) so almost everything Maps needs
+  // is already cache-warm, then swaps it in. A small fixed buffer runs after
+  // the preload too, as a fallback for any tile our own bounds math missed —
+  // belt-and-suspenders, since exactly predicting Maps' internal tile
+  // requests isn't guaranteed to be perfect.
+  async function showRadarFrame(index) {
+    const time = radarFrameTimes[index];
+    const requestId = ++radarShowRequestId;
+    await preloadFrameTiles(time);
+    if (requestId !== radarShowRequestId) return; // superseded by a later frame
+
+    const state = overlayState.radar;
+    const previousMapType = state.mapType;
+
+    state.mapType = createOverlay('radar', time);
+    map.overlayMapTypes.push(state.mapType);
+
+    const stepMinutes = RADAR_PLAYBACK_STEP_MS / 60000;
+    const ageMinutes = (radarFrameTimes.length - 1 - index) * stepMinutes;
+    const elapsedMinutes = index * stepMinutes; // rises left-to-right so "live" lands on the right
+    const slider = document.getElementById('radarAgeSlider');
+    slider.max = (radarFrameTimes.length - 1) * stepMinutes;
+    slider.value = elapsedMinutes;
+
+    const label = document.getElementById('radarFrameLabel');
+    label.classList.toggle('live', ageMinutes === 0);
+    label.textContent = ageMinutes === 0 ? '● LIVE' : `${ageMinutes} min ago`;
+
+    if (previousMapType) {
+      setTimeout(() => {
+        const idx = map.overlayMapTypes.getArray().indexOf(previousMapType);
+        if (idx !== -1) map.overlayMapTypes.removeAt(idx);
+      }, RADAR_SAFETY_BUFFER_MS);
+    }
+  }
+
+  async function startRadarPlayback() {
+    const btn = document.getElementById('radarPlayBtn');
+    const radarToggle = document.getElementById('radarToggle');
+    btn.disabled = true;
+    btn.textContent = 'Loading…';
+
+    const latest = await fetchLatestRadarTime();
+    radarFrameTimes = buildRadarWindow(latest);
+
+    removeAllRadarOverlays();
+    overlayState.radar.mapType = null;
+    radarPlaying = true;
+    radarFrameIndex = 0;
+    radarToggle.checked = true;
+    radarToggle.disabled = true;
+    overlayState.radar.visible = true;
+    showRadarFrame(radarFrameIndex);
+
+    radarWindowTimerId = setInterval(refreshRadarWindow, RADAR_WINDOW_CHECK_MS);
+    scheduleNextRadarFrame();
+
+    btn.disabled = false;
+    btn.textContent = '⏸ Stop';
+  }
+
+  // Advances to the next frame after RADAR_PLAYBACK_FRAME_MS, except once the
+  // last (live) frame in the window has been shown: then playback holds on
+  // that live frame for RADAR_CYCLE_PAUSE_MS before looping back to frame 0,
+  // so each pass through the hour reads as a distinct loop rather than
+  // blurring straight into the next one, without ever blanking the map.
+  function scheduleNextRadarFrame() {
+    radarPlayTimerId = setTimeout(() => {
+      if (radarFrameIndex >= radarFrameTimes.length - 1) {
+        radarPlayTimerId = setTimeout(() => {
+          radarFrameIndex = 0;
+          showRadarFrame(radarFrameIndex);
+          scheduleNextRadarFrame();
+        }, RADAR_CYCLE_PAUSE_MS);
+      } else {
+        radarFrameIndex++;
+        showRadarFrame(radarFrameIndex);
+        scheduleNextRadarFrame();
+      }
+    }, RADAR_PLAYBACK_FRAME_MS);
+  }
+
+  function stopRadarPlayback() {
+    clearTimeout(radarPlayTimerId);
+    clearInterval(radarWindowTimerId);
+    radarPlaying = false;
+    document.getElementById('radarPlayBtn').textContent = '▶ Play radar (1h)';
+    const label = document.getElementById('radarFrameLabel');
+    label.textContent = '';
+    label.classList.remove('live');
+    const radarToggle = document.getElementById('radarToggle');
+    radarToggle.disabled = false;
+    radarToggle.checked = false;
+    removeAllRadarOverlays();
+    overlayState.radar.mapType = null;
+    setOverlayVisible('radar', false);
+  }
+
+  function addStrike(lat, lng, timestampMs, distanceKm) {
+    const marker = new google.maps.Marker({
+      position: { lat, lng },
+      map,
+      opacity: 1,
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: 6,
+        fillColor: distanceKm <= NEAR_ALERT_KM ? '#ff4d4d' : '#ffb454',
+        fillOpacity: 0.9,
+        strokeColor: '#ffffff',
+        strokeWeight: 1
+      },
+      title: `${distanceKm.toFixed(0)} km away, ${new Date(timestampMs).toLocaleTimeString()}`
+    });
+
+    activeStrikes.push({ marker, timestampMs });
+  }
+
+  function sweepExpiredStrikes() {
+    const now = Date.now();
+    for (let i = activeStrikes.length - 1; i >= 0; i--) {
+      const s = activeStrikes[i];
+      const age = now - s.timestampMs;
+      if (age > STRIKE_TTL_MS) {
+        s.marker.setMap(null);
+        activeStrikes.splice(i, 1);
+      } else {
+        s.marker.setOpacity(ageOpacity(age));
+      }
+    }
+  }
+
+  function connectBlitzortung() {
+    const server = BLITZORTUNG_SERVERS[Math.floor(Math.random() * BLITZORTUNG_SERVERS.length)];
+    const ws = new WebSocket(`wss://${server}.blitzortung.org:443/`);
+
+    ws.onopen = () => {
+      setStatus(`connected (${server}) – watching within ${radiusKm} km`, 'connected');
+      ws.send(JSON.stringify({ a: 111 }));
+    };
+
+    ws.onmessage = (event) => {
+      let strike;
+      try {
+        strike = JSON.parse(lzwDecode(event.data));
+      } catch (e) {
+        return; // malformed / partial frame, skip
+      }
+      if (typeof strike.lat !== 'number' || typeof strike.lon !== 'number') return;
+
+      const distanceKm = haversineKm(HOME.lat, HOME.lng, strike.lat, strike.lon);
+      if (distanceKm > radiusKm) return;
+
+      const timestampMs = strike.time ? Math.floor(strike.time / 1e6) : Date.now();
+      addStrike(strike.lat, strike.lon, timestampMs, distanceKm);
+    };
+
+    ws.onerror = () => ws.close();
+
+    ws.onclose = () => {
+      setStatus('disconnected – reconnecting…', 'disconnected');
+      setTimeout(connectBlitzortung, RECONNECT_DELAY_MS);
+    };
+  }
+
+  function updateRadiusCircle() {
+    if (radiusCircle) {
+      radiusCircle.setRadius(radiusKm * 1000);
+    }
+  }
+
+  function initControls() {
+    const radiusInput = document.getElementById('radiusInput');
+    radiusInput.addEventListener('change', () => {
+      const v = parseFloat(radiusInput.value);
+      if (!isNaN(v) && v > 0) {
+        radiusKm = v;
+        updateRadiusCircle();
+      }
+    });
+
+    const toggleIds = { radar: 'radarToggle', satellite: 'satelliteToggle' };
+    for (const [key, elId] of Object.entries(toggleIds)) {
+      const el = document.getElementById(elId);
+      el.addEventListener('change', () => setOverlayVisible(key, el.checked));
+      setInterval(() => refreshOverlay(key), OVERLAYS[key].refreshMs);
+    }
+
+    document.getElementById('radarPlayBtn').addEventListener('click', () => {
+      if (radarPlaying) stopRadarPlayback(); else startRadarPlayback();
+    });
+
+    initSettingsPanel();
+
+    setInterval(sweepExpiredStrikes, SWEEP_INTERVAL_MS);
+  }
+
+  // The map always fills the whole screen now — everything except the
+  // permanent radar playback bar lives behind this one settings button.
+  function initSettingsPanel() {
+    const btn = document.getElementById('settingsBtn');
+    const panel = document.getElementById('settingsPanel');
+    const closeBtn = document.getElementById('settingsCloseBtn');
+
+    btn.addEventListener('click', () => panel.classList.toggle('open'));
+    closeBtn.addEventListener('click', () => panel.classList.remove('open'));
+
+    document.addEventListener('click', (e) => {
+      if (panel.classList.contains('open') && !panel.contains(e.target) && e.target !== btn) {
+        panel.classList.remove('open');
+      }
+    });
+  }
+
+  // Called by the Google Maps script tag once the API has loaded.
+  function initMap() {
+    for (const key of Object.keys(OVERLAYS)) {
+      overlayState[key] = { visible: false, mapType: null, bucket: null };
+    }
+
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: HOME,
+      zoom: 7,
+      mapTypeId: 'hybrid',
+      mapTypeControl: false,
+      streetViewControl: false,
+      rotateControl: false,
+      cameraControl: false,
+      styles: [
+        { elementType: 'labels', stylers: [{ visibility: 'off' }] },
+        { featureType: 'administrative.locality', elementType: 'labels', stylers: [{ visibility: 'on' }] },
+        { featureType: 'road', stylers: [{ visibility: 'off' }] },
+        { featureType: 'transit', stylers: [{ visibility: 'off' }] },
+        { featureType: 'poi', stylers: [{ visibility: 'off' }] }
+      ]
+    });
+
+    homeMarker = new google.maps.Marker({
+      position: HOME,
+      map,
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: 7,
+        fillColor: '#4dd0ff',
+        fillOpacity: 1,
+        strokeColor: '#ffffff',
+        strokeWeight: 2
+      },
+      title: 'Watch location'
+    });
+
+    radiusCircle = new google.maps.Circle({
+      map,
+      center: HOME,
+      radius: radiusKm * 1000,
+      fillColor: '#4dd0ff',
+      fillOpacity: 0.05,
+      strokeColor: '#4dd0ff',
+      strokeOpacity: 0.4,
+      strokeWeight: 1
+    });
+
+    map.fitBounds(radiusCircle.getBounds()); // center + zoom to fit the monitored radius exactly
+
+    document.getElementById('placeholderNotice').style.display = 'none';
+    initControls();
+    connectBlitzortung();
+    startRadarPlayback();
+  }
+
+  window.gm_authFailure = function () {
+    setStatus('Google Maps key invalid/missing', 'disconnected');
+    document.getElementById('placeholderNotice').style.display = 'block';
+  };
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
+</script>
+
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDk0lWAqeSq5Jle4G7803Es7ZgdOi8AQUI&callback=initMap">
+</script>
+</body>
+</html>
