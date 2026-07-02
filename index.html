@@ -347,7 +347,7 @@
     const generation = ++radarProgressGeneration;
     radarTilesRequested = 0;
     radarTilesLoaded = 0;
-    updateRadarProgressUI();
+    scheduleRadarProgressUIUpdate();
 
     return {
       tileSize: new google.maps.Size(256, 256),
@@ -364,11 +364,11 @@
         const markLoaded = () => {
           if (generation !== radarProgressGeneration) return; // superseded by a later swap
           radarTilesLoaded++;
-          updateRadarProgressUI();
+          scheduleRadarProgressUIUpdate();
         };
         if (generation === radarProgressGeneration) {
           radarTilesRequested++;
-          updateRadarProgressUI();
+          scheduleRadarProgressUIUpdate();
         }
 
         const cacheKey = time ? `${time}|${coord.x}|${coord.y}|${zoom}` : null;
@@ -488,6 +488,20 @@
     }
     track.classList.remove('hidden');
     bar.style.width = `${Math.min(100, Math.round((radarTilesLoaded / radarTilesRequested) * 100))}%`;
+  }
+
+  // Batches rapid-fire counter changes (e.g. a burst of cache-hit tiles
+  // incrementing requested/loaded back-to-back in the same synchronous loop)
+  // into a single paint update instead of one per increment — otherwise the
+  // bar visibly toggles hidden/visible/hidden many times per frame swap.
+  let radarProgressUIScheduled = false;
+  function scheduleRadarProgressUIUpdate() {
+    if (radarProgressUIScheduled) return;
+    radarProgressUIScheduled = true;
+    requestAnimationFrame(() => {
+      radarProgressUIScheduled = false;
+      updateRadarProgressUI();
+    });
   }
 
   function formatCountdown(ms) {
@@ -965,7 +979,7 @@
       if (overlayState.radar && overlayState.radar.visible) {
         radarTilesRequested = 0;
         radarTilesLoaded = 0;
-        updateRadarProgressUI();
+        scheduleRadarProgressUIUpdate();
       }
     });
 
