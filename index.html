@@ -150,6 +150,14 @@
   const MERCATOR_RADIUS = 6378137;
   const MERCATOR_ORIGIN_SHIFT = Math.PI * MERCATOR_RADIUS;
 
+  // Tiles are always requested/rendered at this many device pixels per CSS
+  // tile pixel, so overlay imagery matches the screen's actual pixel density
+  // instead of being upscaled from a fixed 256x256 buffer (which is what made
+  // radar/satellite tiles look blocky on high-DPI phones). Capped at 2 to
+  // keep tile requests/processing reasonable on 3x+ displays.
+  const TILE_DPR = Math.min(window.devicePixelRatio || 1, 2);
+  const TILE_PX = 256 * TILE_DPR;
+
   // Toggle-able MSC GeoMet WMS overlays. refreshMs should roughly match each
   // product's own update cadence, since the server always serves its latest
   // data and we cache-bust the tile URLs to pick that up.
@@ -249,7 +257,7 @@
     const params = new URLSearchParams({
       service: 'WMS', version: '1.3.0', request: 'GetMap',
       layers: def.layer, styles: def.style, format: 'image/png', transparent: 'true',
-      width: '256', height: '256', crs: 'EPSG:3857', bbox
+      width: String(TILE_PX), height: String(TILE_PX), crs: 'EPSG:3857', bbox
     });
     if (time) params.set('time', time);
     else if (bucket) params.set('_bucket', bucket);
@@ -269,8 +277,10 @@
       name: 'radar',
       getTile(coord, zoom, ownerDocument) {
         const canvas = ownerDocument.createElement('canvas');
-        canvas.width = 256;
-        canvas.height = 256;
+        canvas.width = TILE_PX;
+        canvas.height = TILE_PX;
+        canvas.style.width = '256px';
+        canvas.style.height = '256px';
         canvas.style.opacity = def.opacity;
         const ctx = canvas.getContext('2d');
         const url = wmsTileUrl(def, bucket, time, coord, zoom);
@@ -278,9 +288,9 @@
           const img = new Image();
           img.crossOrigin = 'anonymous';
           img.onload = () => {
-            ctx.drawImage(img, 0, 0, 256, 256);
+            ctx.drawImage(img, 0, 0, TILE_PX, TILE_PX);
             try {
-              const imageData = ctx.getImageData(0, 0, 256, 256);
+              const imageData = ctx.getImageData(0, 0, TILE_PX, TILE_PX);
               const data = imageData.data;
               for (let i = 0; i < data.length; i += 4) {
                 if (data[i + 3] > 0 && isRadarNoisePixel(data[i], data[i + 1], data[i + 2])) {
