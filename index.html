@@ -298,6 +298,20 @@
                 }
               }
               ctx.putImageData(imageData, 0, 0);
+
+              // Softens the hard edges of the source data's native grid cells
+              // (that's the actual "pixelated" look — the composite really is
+              // coarse-resolution, not just upscaled) by blurring a snapshot
+              // back onto the tile. Alpha-aware, so it doesn't smear color
+              // into the transparent background.
+              const snapshot = ownerDocument.createElement('canvas');
+              snapshot.width = TILE_PX;
+              snapshot.height = TILE_PX;
+              snapshot.getContext('2d').drawImage(canvas, 0, 0);
+              ctx.clearRect(0, 0, TILE_PX, TILE_PX);
+              ctx.filter = `blur(${TILE_DPR}px)`;
+              ctx.drawImage(snapshot, 0, 0);
+              ctx.filter = 'none';
             } catch (e) { /* pixel access failed; leave tile unfiltered */ }
           };
           img.src = url;
