@@ -96,6 +96,7 @@
      own inline width/height:100%, so sizing must live on an ancestor rather
      than on the element YouTube takes over — otherwise its inline style wins. */
   #ytPlayer {
+    display: none;
     position: fixed; right: 0; bottom: 80px; width: 12.5vw; height: 25vh; z-index: 15;
     background: #000; border: 1px solid #3a4256;
   }
@@ -123,7 +124,7 @@
     #radarAgeSlider { flex: 1; width: auto; min-width: 0; }
     #placeholderNotice { top: 16px; max-width: calc(100% - 32px); }
     #settingsPanel { width: calc(100% - 24px); right: 12px; }
-    #ytPlayer, .sectionLabel, #ytUrlInput, .ytButtons, #ytStatus { display: none; }
+    #ytPlayer, .sectionLabel, #ytUrlInput, .ytButtons, #ytStatus { display: none !important; }
   }
 </style>
 </head>
@@ -852,6 +853,7 @@
         return;
       }
       setYtStatus('Loading…');
+      document.getElementById('ytPlayer').style.display = 'block';
       playYouTubeAudio(id);
     });
 
@@ -860,6 +862,7 @@
         ytPlayer.stopVideo();
         setYtStatus('Stopped');
       }
+      document.getElementById('ytPlayer').style.display = 'none';
     });
   }
 
