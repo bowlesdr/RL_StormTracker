@@ -344,10 +344,14 @@
     const bucket = time ? null : Date.now();
     overlayState.radar.bucket = bucket;
 
-    const generation = ++radarProgressGeneration;
-    radarTilesRequested = 0;
-    radarTilesLoaded = 0;
-    scheduleRadarProgressUIUpdate();
+    const alreadyWarm = Boolean(time) && radarWarmFrameTimes.has(time);
+    const generation = ++radarLoadGeneration;
+    let frameComplete = false; // guards against double-adding this frame's time to the warm set
+    if (!alreadyWarm) {
+      radarCurrentLoadRequested = 0;
+      radarCurrentLoadLoaded = 0;
+      scheduleRadarProgressUIUpdate();
+    }
 
     return {
       tileSize: new google.maps.Size(256, 256),
@@ -362,12 +366,16 @@
         const ctx = canvas.getContext('2d');
 
         const markLoaded = () => {
-          if (generation !== radarProgressGeneration) return; // superseded by a later swap
-          radarTilesLoaded++;
+          if (alreadyWarm || generation !== radarLoadGeneration) return; // stale/superseded load, or nothing to track
+          radarCurrentLoadLoaded++;
+          if (!frameComplete && radarCurrentLoadLoaded >= radarCurrentLoadRequested) {
+            frameComplete = true;
+            if (time) radarWarmFrameTimes.add(time); // live frame (time===null) never counts as permanently warm
+          }
           scheduleRadarProgressUIUpdate();
         };
-        if (generation === radarProgressGeneration) {
-          radarTilesRequested++;
+        if (!alreadyWarm) {
+          radarCurrentLoadRequested++;
           scheduleRadarProgressUIUpdate();
         }
 
@@ -470,24 +478,31 @@
   let radarCountdownTimerId = null;
   let radarLatestObservedAt = 0; // wall-clock time we last saw a new newest frame, not the server's own timestamp
 
-  // Tracks how many of the currently-swapping-in frame's tiles have finished
-  // loading, for the progress bar. Scoped to a generation counter so tiles
-  // from a superseded frame (e.g. rapid scrubbing) don't corrupt the count
-  // for whichever frame is current by the time they resolve.
-  let radarProgressGeneration = 0;
-  let radarTilesRequested = 0;
-  let radarTilesLoaded = 0;
+  // Tracks warm-up progress across the whole rolling window of frames at the
+  // current zoom level, not per individual frame-swap — a frame's time, once
+  // fully cached, goes into radarWarmFrameTimes permanently and never gets
+  // re-tracked or re-flashed on later revisits (e.g. later playback loops).
+  // The bar is (fully-warm frame count + in-progress frame's own fractional
+  // completion) / total frames, so it only moves forward within a zoom level
+  // and only resets when zoom changes (a different, uncached tile grid).
+  const radarWarmFrameTimes = new Set();
+  let radarLoadGeneration = 0;
+  let radarCurrentLoadRequested = 0;
+  let radarCurrentLoadLoaded = 0;
 
   function updateRadarProgressUI() {
     const track = document.getElementById('radarProgressTrack');
     const bar = document.getElementById('radarProgressBar');
-    if (radarTilesRequested === 0 || radarTilesLoaded >= radarTilesRequested) {
+    const total = radarFrameTimes.length;
+    if (total === 0 || radarWarmFrameTimes.size >= total) {
       track.classList.add('hidden');
       bar.style.width = '0%';
       return;
     }
+    const partial = radarCurrentLoadRequested > 0 ? radarCurrentLoadLoaded / radarCurrentLoadRequested : 0;
+    const fraction = (radarWarmFrameTimes.size + partial) / total;
     track.classList.remove('hidden');
-    bar.style.width = `${Math.min(100, Math.round((radarTilesLoaded / radarTilesRequested) * 100))}%`;
+    bar.style.width = `${Math.min(100, Math.round(fraction * 100))}%`;
   }
 
   // Batches rapid-fire counter changes (e.g. a burst of cache-hit tiles
@@ -977,8 +992,9 @@
     // against a stale, already-superseded frame's tiles.
     map.addListener('zoom_changed', () => {
       if (overlayState.radar && overlayState.radar.visible) {
-        radarTilesRequested = 0;
-        radarTilesLoaded = 0;
+        radarWarmFrameTimes.clear();
+        radarCurrentLoadRequested = 0;
+        radarCurrentLoadLoaded = 0;
         scheduleRadarProgressUIUpdate();
       }
     });
