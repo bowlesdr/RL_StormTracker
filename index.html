@@ -81,6 +81,11 @@
     color: #e8ebf0; font-size: 15px; cursor: pointer; padding: 4px;
   }
   #status { font-size: 13px; padding: 3px 10px; border-radius: 12px; background: #333c4d; align-self: flex-start; }
+  #forceReloadBtn {
+    background: #2a3040; color: #e8ebf0; border: 1px solid #3a4256; border-radius: 4px;
+    padding: 8px; font-size: 13px; cursor: pointer;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
   #status.connected { background: #1e5c33; }
   #status.disconnected { background: #6b1f1f; }
   #settingsPanel .control { justify-content: space-between; }
@@ -129,6 +134,7 @@
   <label class="control">
     <input type="checkbox" id="satelliteToggle"> Satellite
   </label>
+  <button id="forceReloadBtn" type="button">&#8635; Reload latest version</button>
 </div>
 
 <script>
@@ -689,6 +695,14 @@
       if (panel.classList.contains('open') && !panel.contains(e.target) && e.target !== btn) {
         panel.classList.remove('open');
       }
+    });
+
+    // A cache-busting query string forces a real network fetch of index.html,
+    // since the browser's HTTP cache is keyed on the exact URL and this one
+    // has never been requested before — bypassing max-age entirely rather
+    // than relying on a normal reload, which can still be served from cache.
+    document.getElementById('forceReloadBtn').addEventListener('click', () => {
+      location.href = location.pathname + '?r=' + Date.now();
     });
   }
 
