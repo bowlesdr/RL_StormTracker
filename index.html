@@ -32,9 +32,9 @@
 
   /* Permanent radar playback bar — always visible regardless of the settings panel */
   #radarBar {
-    position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 20;
+    position: fixed; left: 0; right: 0; bottom: 16px; z-index: 20;
     display: flex; align-items: center; gap: 10px;
-    background: rgba(23, 27, 36, 0.9); border: 1px solid #3a4256; border-radius: 8px;
+    background: rgba(23, 27, 36, 0.9); border-top: 1px solid #3a4256; border-bottom: 1px solid #3a4256;
     padding: 8px 14px; -webkit-tap-highlight-color: transparent;
   }
   #radarPlayBtn {
@@ -43,7 +43,7 @@
     -webkit-tap-highlight-color: transparent; touch-action: manipulation;
   }
   #radarPlayBtn:disabled { opacity: 0.6; cursor: default; }
-  #radarAgeSlider { width: 90px; accent-color: #ffb454; opacity: 1; }
+  #radarAgeSlider { flex: 1; min-width: 0; accent-color: #ffb454; opacity: 1; }
   #radarFrameLabel { opacity: 0.7; min-width: 60px; font-size: 13px; }
   #radarFrameLabel.live {
     opacity: 1; color: #4dff88; font-weight: 700; letter-spacing: 0.04em;
@@ -93,7 +93,6 @@
   @media (max-width: 640px) {
     #radarBar { padding: 6px 10px; gap: 6px; }
     #radarPlayBtn { padding: 8px 10px; }
-    #radarAgeSlider { width: 60px; }
     #placeholderNotice { top: 16px; max-width: calc(100% - 32px); }
     #settingsPanel { width: calc(100% - 24px); right: 12px; }
   }
@@ -115,7 +114,7 @@
 
 <div id="radarBar">
   <button id="radarPlayBtn" type="button">&#9654; Play radar (1h)</button>
-  <input type="range" id="radarAgeSlider" min="0" max="60" step="6" value="0" disabled>
+  <input type="range" id="radarAgeSlider" min="0" max="120" step="6" value="0">
   <span id="radarFrameLabel"></span>
 </div>
 
@@ -359,8 +358,8 @@
 
   // Radar playback: animates the last hour of composites (11 frames, 6-min apart).
   const RADAR_PLAYBACK_STEP_MS = 6 * 60 * 1000;
-  const RADAR_PLAYBACK_FRAMES = 11;
-  const RADAR_PLAYBACK_FRAME_MS = 1000;
+  const RADAR_PLAYBACK_FRAMES = 21; // 20 steps of 6 min = 2 hours
+  const RADAR_PLAYBACK_FRAME_MS = 700; // 1000ms stock speed, 30% faster
   const RADAR_CYCLE_PAUSE_MS = 5000; // blank pause between the last frame and the loop restarting
   const RADAR_WINDOW_CHECK_MS = 60 * 1000;
   let radarPlaying = false;
@@ -560,6 +559,27 @@
     }, RADAR_PLAYBACK_FRAME_MS);
   }
 
+  // Lets the user drag the slider to scrub through frames directly, pausing
+  // auto-advance for the duration of the drag and resuming it from wherever
+  // they let go.
+  function initRadarScrubbing() {
+    const slider = document.getElementById('radarAgeSlider');
+    const stepMinutes = RADAR_PLAYBACK_STEP_MS / 60000;
+
+    slider.addEventListener('input', () => {
+      if (!radarPlaying || radarFrameTimes.length === 0) return;
+      clearTimeout(radarPlayTimerId);
+      const index = Math.round(parseFloat(slider.value) / stepMinutes);
+      radarFrameIndex = Math.min(Math.max(index, 0), radarFrameTimes.length - 1);
+      showRadarFrame(radarFrameIndex);
+    });
+
+    slider.addEventListener('change', () => {
+      if (!radarPlaying) return;
+      scheduleNextRadarFrame();
+    });
+  }
+
   function stopRadarPlayback() {
     clearTimeout(radarPlayTimerId);
     clearInterval(radarWindowTimerId);
@@ -720,6 +740,7 @@
       if (radarPlaying) stopRadarPlayback(); else startRadarPlayback();
     });
 
+    initRadarScrubbing();
     initSettingsPanel();
 
     setInterval(sweepExpiredStrikes, SWEEP_INTERVAL_MS);
