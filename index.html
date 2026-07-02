@@ -492,7 +492,10 @@
       tickCountdown();
       radarCountdownTimerId = setInterval(tickCountdown, 1000);
     } else {
-      label.textContent = `${ageMinutes} min ago`;
+      const frameTime = new Date(radarFrameTimes[index]);
+      const hh = String(frameTime.getHours()).padStart(2, '0');
+      const mm = String(frameTime.getMinutes()).padStart(2, '0');
+      label.textContent = `${ageMinutes} min ago (${hh}:${mm})`;
     }
   }
 
