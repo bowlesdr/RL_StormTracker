@@ -198,6 +198,28 @@
   const TILE_DPR = Math.min(window.devicePixelRatio || 1, 2);
   const TILE_PX = 256 * TILE_DPR;
 
+  // Finished (fetched + noise-filtered + blurred) radar tile canvases, keyed
+  // by frame time + tile coord, so scrubbing back to an already-seen frame is
+  // an instant synchronous redraw instead of redoing the fetch and per-pixel
+  // processing. Only historical (time-stamped) frames are cached — the live
+  // frame's bucket changes each refresh, so caching it would be pointless.
+  // Capped and evicted oldest-first (Map preserves insertion order) to keep
+  // memory bounded over a long session.
+  const RADAR_TILE_CACHE_MAX = 800;
+  const radarTileCache = new Map();
+
+  function cacheRadarTile(key, canvas) {
+    const copy = document.createElement('canvas');
+    copy.width = canvas.width;
+    copy.height = canvas.height;
+    copy.getContext('2d').drawImage(canvas, 0, 0);
+    radarTileCache.delete(key);
+    radarTileCache.set(key, copy);
+    if (radarTileCache.size > RADAR_TILE_CACHE_MAX) {
+      radarTileCache.delete(radarTileCache.keys().next().value);
+    }
+  }
+
   // Toggle-able MSC GeoMet WMS overlays. refreshMs should roughly match each
   // product's own update cadence, since the server always serves its latest
   // data and we cache-bust the tile URLs to pick that up.
@@ -324,6 +346,14 @@
         canvas.style.height = '256px';
         canvas.style.opacity = def.opacity;
         const ctx = canvas.getContext('2d');
+
+        const cacheKey = time ? `${time}|${coord.x}|${coord.y}|${zoom}` : null;
+        const cached = cacheKey && radarTileCache.get(cacheKey);
+        if (cached) {
+          ctx.drawImage(cached, 0, 0);
+          return canvas;
+        }
+
         const url = wmsTileUrl(def, bucket, time, coord, zoom);
         if (url) {
           const img = new Image();
@@ -353,6 +383,8 @@
               ctx.filter = `blur(${TILE_DPR}px)`;
               ctx.drawImage(snapshot, 0, 0);
               ctx.filter = 'none';
+
+              if (cacheKey) cacheRadarTile(cacheKey, canvas);
             } catch (e) { /* pixel access failed; leave tile unfiltered */ }
           };
           img.src = url;
