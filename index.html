@@ -36,7 +36,14 @@
     display: flex; align-items: center; gap: 10px;
     background: rgba(23, 27, 36, 0.9); border: 1px solid #3a4256; border-radius: 8px;
     padding: 8px 14px; -webkit-tap-highlight-color: transparent;
+    overflow: hidden; /* clips the progress strip to the bar's rounded corners */
   }
+  #radarProgressTrack {
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+  #radarProgressTrack.hidden { display: none; }
+  #radarProgressBar { height: 100%; width: 0%; background: #ffb454; transition: width 0.15s linear; }
   #radarPlayBtn {
     background: #2a3040; color: #e8ebf0; border: 1px solid #3a4256; border-radius: 4px;
     padding: 6px 12px; font-size: 13px; cursor: pointer; white-space: nowrap;
@@ -143,6 +150,7 @@
 </div>
 
 <div id="radarBar">
+  <div id="radarProgressTrack" class="hidden"><div id="radarProgressBar"></div></div>
   <button id="radarPlayBtn" type="button">&#9654; Play radar (1h)</button>
   <input type="range" id="radarAgeSlider" min="0" max="120" step="6" value="0">
   <span id="radarFrameLabel"></span>
@@ -335,6 +343,12 @@
     const def = OVERLAYS.radar;
     const bucket = time ? null : Date.now();
     overlayState.radar.bucket = bucket;
+
+    const generation = ++radarProgressGeneration;
+    radarTilesRequested = 0;
+    radarTilesLoaded = 0;
+    updateRadarProgressUI();
+
     return {
       tileSize: new google.maps.Size(256, 256),
       name: 'radar',
@@ -347,10 +361,21 @@
         canvas.style.opacity = def.opacity;
         const ctx = canvas.getContext('2d');
 
+        const markLoaded = () => {
+          if (generation !== radarProgressGeneration) return; // superseded by a later swap
+          radarTilesLoaded++;
+          updateRadarProgressUI();
+        };
+        if (generation === radarProgressGeneration) {
+          radarTilesRequested++;
+          updateRadarProgressUI();
+        }
+
         const cacheKey = time ? `${time}|${coord.x}|${coord.y}|${zoom}` : null;
         const cached = cacheKey && radarTileCache.get(cacheKey);
         if (cached) {
           ctx.drawImage(cached, 0, 0);
+          markLoaded();
           return canvas;
         }
 
@@ -386,8 +411,12 @@
 
               if (cacheKey) cacheRadarTile(cacheKey, canvas);
             } catch (e) { /* pixel access failed; leave tile unfiltered */ }
+            markLoaded();
           };
+          img.onerror = markLoaded; // don't leave the progress bar stuck on a failed tile
           img.src = url;
+        } else {
+          markLoaded();
         }
         return canvas;
       },
@@ -440,6 +469,26 @@
   let radarWindowTimerId = null;
   let radarCountdownTimerId = null;
   let radarLatestObservedAt = 0; // wall-clock time we last saw a new newest frame, not the server's own timestamp
+
+  // Tracks how many of the currently-swapping-in frame's tiles have finished
+  // loading, for the progress bar. Scoped to a generation counter so tiles
+  // from a superseded frame (e.g. rapid scrubbing) don't corrupt the count
+  // for whichever frame is current by the time they resolve.
+  let radarProgressGeneration = 0;
+  let radarTilesRequested = 0;
+  let radarTilesLoaded = 0;
+
+  function updateRadarProgressUI() {
+    const track = document.getElementById('radarProgressTrack');
+    const bar = document.getElementById('radarProgressBar');
+    if (radarTilesRequested === 0 || radarTilesLoaded >= radarTilesRequested) {
+      track.classList.add('hidden');
+      bar.style.width = '0%';
+      return;
+    }
+    track.classList.remove('hidden');
+    bar.style.width = `${Math.min(100, Math.round((radarTilesLoaded / radarTilesRequested) * 100))}%`;
+  }
 
   function formatCountdown(ms) {
     const totalSeconds = Math.max(0, Math.round(ms / 1000));
