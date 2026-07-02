@@ -90,6 +90,20 @@
   #status.disconnected { background: #6b1f1f; }
   #settingsPanel .control { justify-content: space-between; }
 
+  #ytPlayer { position: fixed; left: -9999px; top: -9999px; width: 1px; height: 1px; }
+  .sectionLabel { font-size: 12px; opacity: 0.6; margin-top: 4px; }
+  #ytUrlInput {
+    width: 100%; box-sizing: border-box; background: #0e1117; color: #e8ebf0;
+    border: 1px solid #2a3040; border-radius: 4px; padding: 6px; font-size: 13px;
+  }
+  .ytButtons { display: flex; gap: 6px; }
+  .ytButtons button {
+    flex: 1; background: #2a3040; color: #e8ebf0; border: 1px solid #3a4256; border-radius: 4px;
+    padding: 8px; font-size: 13px; cursor: pointer;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
+  #ytStatus { font-size: 12px; opacity: 0.7; }
+
   @media (max-width: 640px) {
     #radarBar {
       left: 0; right: 0; transform: none; border-radius: 0;
@@ -138,8 +152,17 @@
   <label class="control">
     <input type="checkbox" id="satelliteToggle"> Satellite
   </label>
+  <div class="sectionLabel">InstantWeather audio</div>
+  <input type="text" id="ytUrlInput" placeholder="Paste YouTube URL">
+  <div class="ytButtons">
+    <button id="ytPlayBtn" type="button">&#9654; Play</button>
+    <button id="ytStopBtn" type="button">&#9632; Stop</button>
+  </div>
+  <span id="ytStatus"></span>
+
   <button id="forceReloadBtn" type="button">&#8635; Reload latest version</button>
 </div>
+<div id="ytPlayer"></div>
 
 <script>
   // ---- Fixed watch location ----
@@ -752,6 +775,86 @@
     }
   }
 
+  // Plays a supplemental YouTube stream/video's audio in the background via
+  // the official IFrame Player API — there's no legitimate way to pull just
+  // an audio stream out of a YouTube URL, so this loads their real player
+  // into a 1x1 off-screen element instead. The API script loads lazily, on
+  // first use, rather than up front.
+  let ytPlayer = null;
+  let ytApiLoading = false;
+  let pendingYtVideoId = null;
+
+  function extractYouTubeId(url) {
+    try {
+      const u = new URL(url.trim());
+      if (u.hostname === 'youtu.be') return u.pathname.slice(1) || null;
+      if (u.pathname.startsWith('/live/')) return u.pathname.split('/')[2] || null;
+      if (u.pathname.startsWith('/embed/')) return u.pathname.split('/')[2] || null;
+      return u.searchParams.get('v');
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function setYtStatus(text) {
+    document.getElementById('ytStatus').textContent = text;
+  }
+
+  function playYouTubeAudio(videoId) {
+    if (!window.YT || !window.YT.Player) {
+      pendingYtVideoId = videoId;
+      if (!ytApiLoading) {
+        ytApiLoading = true;
+        const tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        document.head.appendChild(tag);
+      }
+      return;
+    }
+    if (!ytPlayer) {
+      ytPlayer = new YT.Player('ytPlayer', {
+        height: '1', width: '1',
+        videoId,
+        playerVars: { autoplay: 1, controls: 0 },
+        events: {
+          onReady: () => setYtStatus('Playing'),
+          onError: () => setYtStatus('Could not play that video')
+        }
+      });
+    } else {
+      ytPlayer.loadVideoById(videoId);
+      setYtStatus('Playing');
+    }
+  }
+
+  // Called by the YouTube IFrame API script once it's finished loading.
+  window.onYouTubeIframeAPIReady = function () {
+    if (pendingYtVideoId) {
+      const id = pendingYtVideoId;
+      pendingYtVideoId = null;
+      playYouTubeAudio(id);
+    }
+  };
+
+  function initYouTubeAudio() {
+    document.getElementById('ytPlayBtn').addEventListener('click', () => {
+      const id = extractYouTubeId(document.getElementById('ytUrlInput').value);
+      if (!id) {
+        setYtStatus('Could not read a video ID from that URL');
+        return;
+      }
+      setYtStatus('Loading…');
+      playYouTubeAudio(id);
+    });
+
+    document.getElementById('ytStopBtn').addEventListener('click', () => {
+      if (ytPlayer && ytPlayer.stopVideo) {
+        ytPlayer.stopVideo();
+        setYtStatus('Stopped');
+      }
+    });
+  }
+
   function initControls() {
     const radiusInput = document.getElementById('radiusInput');
     radiusInput.addEventListener('change', () => {
@@ -774,6 +877,7 @@
     });
 
     initRadarScrubbing();
+    initYouTubeAudio();
     initSettingsPanel();
 
     setInterval(sweepExpiredStrikes, SWEEP_INTERVAL_MS);
