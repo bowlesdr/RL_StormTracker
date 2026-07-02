@@ -32,9 +32,9 @@
 
   /* Permanent radar playback bar — always visible regardless of the settings panel */
   #radarBar {
-    position: fixed; left: 0; right: 0; bottom: 16px; z-index: 20;
+    position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 20;
     display: flex; align-items: center; gap: 10px;
-    background: rgba(23, 27, 36, 0.9); border-top: 1px solid #3a4256; border-bottom: 1px solid #3a4256;
+    background: rgba(23, 27, 36, 0.9); border: 1px solid #3a4256; border-radius: 8px;
     padding: 8px 14px; -webkit-tap-highlight-color: transparent;
   }
   #radarPlayBtn {
@@ -43,7 +43,7 @@
     -webkit-tap-highlight-color: transparent; touch-action: manipulation;
   }
   #radarPlayBtn:disabled { opacity: 0.6; cursor: default; }
-  #radarAgeSlider { flex: 1; min-width: 0; accent-color: #ffb454; opacity: 1; }
+  #radarAgeSlider { width: 90px; accent-color: #ffb454; opacity: 1; }
   #radarFrameLabel { opacity: 0.7; min-width: 60px; font-size: 13px; }
   #radarFrameLabel.live {
     opacity: 1; color: #4dff88; font-weight: 700; letter-spacing: 0.04em;
@@ -91,8 +91,13 @@
   #settingsPanel .control { justify-content: space-between; }
 
   @media (max-width: 640px) {
-    #radarBar { padding: 6px 10px; gap: 6px; }
+    #radarBar {
+      left: 0; right: 0; transform: none; border-radius: 0;
+      border-left: none; border-right: none;
+      padding: 6px 10px; gap: 6px;
+    }
     #radarPlayBtn { padding: 8px 10px; }
+    #radarAgeSlider { flex: 1; width: auto; min-width: 0; }
     #placeholderNotice { top: 16px; max-width: calc(100% - 32px); }
     #settingsPanel { width: calc(100% - 24px); right: 12px; }
   }
@@ -468,23 +473,9 @@
   let radarShowRequestId = 0;
   const RADAR_SAFETY_BUFFER_MS = 80;
 
-  // Preloads the new frame (plus a margin) so almost everything Maps needs
-  // is already cache-warm, then swaps it in. A small fixed buffer runs after
-  // the preload too, as a fallback for any tile our own bounds math missed —
-  // belt-and-suspenders, since exactly predicting Maps' internal tile
-  // requests isn't guaranteed to be perfect.
-  async function showRadarFrame(index) {
-    const time = radarFrameTimes[index];
-    const requestId = ++radarShowRequestId;
-    await preloadFrameTiles(time);
-    if (requestId !== radarShowRequestId) return; // superseded by a later frame
-
-    const state = overlayState.radar;
-    const previousMapType = state.mapType;
-
-    state.mapType = createOverlay('radar', time);
-    map.overlayMapTypes.push(state.mapType);
-
+  // Updates the slider position and age/countdown label for whichever frame
+  // is now showing, regardless of how it got swapped in.
+  function updateRadarUI(index) {
     const stepMinutes = RADAR_PLAYBACK_STEP_MS / 60000;
     const ageMinutes = (radarFrameTimes.length - 1 - index) * stepMinutes;
     const elapsedMinutes = index * stepMinutes; // rises left-to-right so "live" lands on the right
@@ -503,6 +494,27 @@
     } else {
       label.textContent = `${ageMinutes} min ago`;
     }
+  }
+
+  // Preloads the new frame (plus a margin) so almost everything Maps needs
+  // is already cache-warm, then swaps it in. A small fixed buffer runs after
+  // the preload too, as a fallback for any tile our own bounds math missed —
+  // belt-and-suspenders, since exactly predicting Maps' internal tile
+  // requests isn't guaranteed to be perfect. Used by the automatic playback
+  // loop, where a consistent frame cadence matters more than instant response.
+  async function showRadarFrame(index) {
+    const time = radarFrameTimes[index];
+    const requestId = ++radarShowRequestId;
+    await preloadFrameTiles(time);
+    if (requestId !== radarShowRequestId) return; // superseded by a later frame
+
+    const state = overlayState.radar;
+    const previousMapType = state.mapType;
+
+    state.mapType = createOverlay('radar', time);
+    map.overlayMapTypes.push(state.mapType);
+
+    updateRadarUI(index);
 
     if (previousMapType) {
       setTimeout(() => {
@@ -510,6 +522,25 @@
         if (idx !== -1) map.overlayMapTypes.removeAt(idx);
       }, RADAR_SAFETY_BUFFER_MS);
     }
+  }
+
+  // Swaps the overlay immediately, without waiting for tiles to preload —
+  // used while dragging the slider, where instant feedback per movement
+  // matters more than a flash-free swap. Also invalidates any in-flight
+  // showRadarFrame preload so it doesn't clobber the scrub once it resolves.
+  function scrubToFrame(index) {
+    radarShowRequestId++;
+    const time = radarFrameTimes[index];
+    const state = overlayState.radar;
+    const previousMapType = state.mapType;
+
+    state.mapType = createOverlay('radar', time);
+    map.overlayMapTypes.push(state.mapType);
+    if (previousMapType) {
+      map.overlayMapTypes.removeAt(map.overlayMapTypes.getArray().indexOf(previousMapType));
+    }
+
+    updateRadarUI(index);
   }
 
   async function startRadarPlayback() {
@@ -571,7 +602,7 @@
       clearTimeout(radarPlayTimerId);
       const index = Math.round(parseFloat(slider.value) / stepMinutes);
       radarFrameIndex = Math.min(Math.max(index, 0), radarFrameTimes.length - 1);
-      showRadarFrame(radarFrameIndex);
+      scrubToFrame(radarFrameIndex);
     });
 
     slider.addEventListener('change', () => {
