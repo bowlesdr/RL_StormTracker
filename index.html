@@ -90,13 +90,16 @@
   #status.disconnected { background: #6b1f1f; }
   #settingsPanel .control { justify-content: space-between; }
 
-  /* Bottom-right corner, sized to 1/8 of the screen area (50vw x 25vh).
-     Offset above the radar bar so the two don't overlap. */
+  /* Bottom-right corner. Offset above the radar bar so the two don't overlap.
+     #ytPlayer (this wrapper) controls the actual on-screen size; the YouTube
+     API replaces the #ytPlayerInner div inside it with an iframe carrying its
+     own inline width/height:100%, so sizing must live on an ancestor rather
+     than on the element YouTube takes over — otherwise its inline style wins. */
   #ytPlayer {
     position: fixed; right: 0; bottom: 80px; width: 12.5vw; height: 25vh; z-index: 15;
     background: #000; border: 1px solid #3a4256;
   }
-  #ytPlayer iframe { width: 100%; height: 100%; display: block; }
+  #ytPlayerInner { width: 100%; height: 100%; display: block; }
   .sectionLabel { font-size: 12px; opacity: 0.6; margin-top: 4px; }
   #ytUrlInput {
     width: 100%; box-sizing: border-box; background: #0e1117; color: #e8ebf0;
@@ -168,7 +171,7 @@
 
   <button id="forceReloadBtn" type="button">&#8635; Reload latest version</button>
 </div>
-<div id="ytPlayer"></div>
+<div id="ytPlayer"><div id="ytPlayerInner"></div></div>
 
 <script>
   // ---- Fixed watch location ----
@@ -816,7 +819,7 @@
       return;
     }
     if (!ytPlayer) {
-      ytPlayer = new YT.Player('ytPlayer', {
+      ytPlayer = new YT.Player('ytPlayerInner', {
         height: '100%', width: '100%',
         videoId,
         playerVars: { autoplay: 1, controls: 1 },
