@@ -336,6 +336,7 @@
   let radarPlayTimerId = null;
   let radarWindowTimerId = null;
   let radarCountdownTimerId = null;
+  let radarLatestObservedAt = 0; // wall-clock time we last saw a new newest frame, not the server's own timestamp
 
   function formatCountdown(ms) {
     const totalSeconds = Math.max(0, Math.round(ms / 1000));
@@ -370,6 +371,7 @@
     const newFrames = buildRadarWindow(latest);
     if (newFrames[newFrames.length - 1] === radarFrameTimes[radarFrameTimes.length - 1]) return;
 
+    radarLatestObservedAt = Date.now();
     const currentTime = radarFrameTimes[radarFrameIndex];
     radarFrameTimes = newFrames;
     const preservedIndex = radarFrameTimes.indexOf(currentTime);
@@ -462,7 +464,7 @@
     label.classList.toggle('live', ageMinutes === 0);
     clearInterval(radarCountdownTimerId);
     if (ageMinutes === 0) {
-      const nextFrameAt = new Date(time).getTime() + RADAR_PLAYBACK_STEP_MS;
+      const nextFrameAt = radarLatestObservedAt + RADAR_PLAYBACK_STEP_MS;
       const tickCountdown = () => { label.textContent = formatCountdown(nextFrameAt - Date.now()); };
       tickCountdown();
       radarCountdownTimerId = setInterval(tickCountdown, 1000);
@@ -486,6 +488,7 @@
 
     const latest = await fetchLatestRadarTime();
     radarFrameTimes = buildRadarWindow(latest);
+    radarLatestObservedAt = Date.now();
 
     removeAllRadarOverlays();
     overlayState.radar.mapType = null;
