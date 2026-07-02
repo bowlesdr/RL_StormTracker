@@ -955,6 +955,20 @@
       ]
     });
 
+    // Zoom uses a different tile grid entirely, so every visible radar tile
+    // misses the cache and needs re-fetching — reset the progress counters so
+    // the bar reflects that new batch. The overlay object itself isn't
+    // recreated on zoom (Maps just calls its existing getTile again), so this
+    // resets the counts without touching the generation guard that protects
+    // against a stale, already-superseded frame's tiles.
+    map.addListener('zoom_changed', () => {
+      if (overlayState.radar && overlayState.radar.visible) {
+        radarTilesRequested = 0;
+        radarTilesLoaded = 0;
+        updateRadarProgressUI();
+      }
+    });
+
     homeMarker = new google.maps.Marker({
       position: HOME,
       map,
