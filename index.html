@@ -335,6 +335,14 @@
   let radarFrameIndex = 0;
   let radarPlayTimerId = null;
   let radarWindowTimerId = null;
+  let radarCountdownTimerId = null;
+
+  function formatCountdown(ms) {
+    const totalSeconds = Math.max(0, Math.round(ms / 1000));
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes}:${String(seconds).padStart(2, '0')}`;
+  }
 
   async function fetchLatestRadarTime() {
     const resp = await fetch('https://geo.weather.gc.ca/geomet?service=WMS&version=1.3.0&request=GetCapabilities&layers=' + OVERLAYS.radar.layer);
@@ -452,7 +460,15 @@
 
     const label = document.getElementById('radarFrameLabel');
     label.classList.toggle('live', ageMinutes === 0);
-    label.textContent = ageMinutes === 0 ? '● LIVE' : `${ageMinutes} min ago`;
+    clearInterval(radarCountdownTimerId);
+    if (ageMinutes === 0) {
+      const nextFrameAt = new Date(time).getTime() + RADAR_PLAYBACK_STEP_MS;
+      const tickCountdown = () => { label.textContent = formatCountdown(nextFrameAt - Date.now()); };
+      tickCountdown();
+      radarCountdownTimerId = setInterval(tickCountdown, 1000);
+    } else {
+      label.textContent = `${ageMinutes} min ago`;
+    }
 
     if (previousMapType) {
       setTimeout(() => {
@@ -511,6 +527,7 @@
   function stopRadarPlayback() {
     clearTimeout(radarPlayTimerId);
     clearInterval(radarWindowTimerId);
+    clearInterval(radarCountdownTimerId);
     radarPlaying = false;
     document.getElementById('radarPlayBtn').textContent = '▶ Play radar (1h)';
     const label = document.getElementById('radarFrameLabel');
