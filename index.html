@@ -488,57 +488,6 @@
     }
   }
 
-  function latLngToTile(lat, lng, zoom) {
-    const n = Math.pow(2, zoom);
-    const x = Math.floor((lng + 180) / 360 * n);
-    const latRad = lat * Math.PI / 180;
-    const y = Math.floor((1 - Math.log(Math.tan(latRad) + 1 / Math.cos(latRad)) / Math.PI) / 2 * n);
-    return { x, y };
-  }
-
-  // A 1-tile margin beyond the visible bounds, since Maps itself fetches a
-  // small buffer of off-screen tiles for smooth panning, and since floating
-  // point bounds don't always land exactly on our own tile-grid edges.
-  const TILE_PRELOAD_MARGIN = 1;
-
-  function getVisibleTileCoords(zoom) {
-    const bounds = map.getBounds();
-    if (!bounds) return [];
-    const ne = bounds.getNorthEast();
-    const sw = bounds.getSouthWest();
-    const topLeft = latLngToTile(ne.lat(), sw.lng(), zoom);
-    const bottomRight = latLngToTile(sw.lat(), ne.lng(), zoom);
-    const coords = [];
-    for (let x = topLeft.x - TILE_PRELOAD_MARGIN; x <= bottomRight.x + TILE_PRELOAD_MARGIN; x++) {
-      for (let y = topLeft.y - TILE_PRELOAD_MARGIN; y <= bottomRight.y + TILE_PRELOAD_MARGIN; y++) {
-        coords.push({ x, y });
-      }
-    }
-    return coords;
-  }
-
-  // Preloads the exact tile images the new overlay is about to request, via
-  // real Image objects whose onload fires reliably whether the tile comes
-  // from cache or network (unlike the map's "tilesloaded" event). Once these
-  // resolve, Maps' own fetch of the same URLs will resolve instantly too.
-  function preloadFrameTiles(time) {
-    const zoom = Math.round(map.getZoom());
-    const def = OVERLAYS.radar;
-    const coords = getVisibleTileCoords(zoom);
-    return Promise.all(coords.map(coord => new Promise(resolve => {
-      const url = wmsTileUrl(def, null, time, coord, zoom);
-      if (!url) { resolve(); return; }
-      const img = new Image();
-      img.crossOrigin = 'anonymous'; // must match the canvas renderer's fetch mode, or the
-      img.onload = resolve;          // browser caches this separately and preload buys nothing
-      img.onerror = resolve; // don't let one bad tile block the swap
-      img.src = url;
-    })));
-  }
-
-  let radarShowRequestId = 0;
-  const RADAR_SAFETY_BUFFER_MS = 80;
-
   // Updates the slider position and age/countdown label for whichever frame
   // is now showing, regardless of how it got swapped in.
   function updateRadarUI(index) {
@@ -564,48 +513,30 @@
     }
   }
 
-  // Preloads the new frame (plus a margin) so almost everything Maps needs
-  // is already cache-warm, then swaps it in. A small fixed buffer runs after
-  // the preload too, as a fallback for any tile our own bounds math missed —
-  // belt-and-suspenders, since exactly predicting Maps' internal tile
-  // requests isn't guaranteed to be perfect. Used by the automatic playback
-  // loop, where a consistent frame cadence matters more than instant response.
-  async function showRadarFrame(index) {
-    const time = radarFrameTimes[index];
-    const requestId = ++radarShowRequestId;
-    await preloadFrameTiles(time);
-    if (requestId !== radarShowRequestId) return; // superseded by a later frame
+  // Swaps the overlay immediately rather than waiting for tiles to preload —
+  // used for both automatic playback and slider dragging. An earlier version
+  // blocked each automatic-playback frame swap on a full network preload of
+  // every visible tile first; if any single WMS tile was slow to respond
+  // (common under load on a public weather server), the whole animation
+  // would stall waiting for it. Individual tiles now simply pop in as they
+  // load — repeat views of a frame are instant anyway via radarTileCache.
+  const RADAR_OVERLAY_SWAP_DELAY_MS = 150;
 
+  function scrubToFrame(index) {
+    const time = radarFrameTimes[index];
     const state = overlayState.radar;
     const previousMapType = state.mapType;
 
     state.mapType = createOverlay('radar', time);
     map.overlayMapTypes.push(state.mapType);
-
-    updateRadarUI(index);
-
     if (previousMapType) {
+      // Give the new overlay's tiles a brief head start before removing the
+      // old one, so the map doesn't flash blank while cache-miss tiles are
+      // still loading. Short enough not to reintroduce a perceptible delay.
       setTimeout(() => {
         const idx = map.overlayMapTypes.getArray().indexOf(previousMapType);
         if (idx !== -1) map.overlayMapTypes.removeAt(idx);
-      }, RADAR_SAFETY_BUFFER_MS);
-    }
-  }
-
-  // Swaps the overlay immediately, without waiting for tiles to preload —
-  // used while dragging the slider, where instant feedback per movement
-  // matters more than a flash-free swap. Also invalidates any in-flight
-  // showRadarFrame preload so it doesn't clobber the scrub once it resolves.
-  function scrubToFrame(index) {
-    radarShowRequestId++;
-    const time = radarFrameTimes[index];
-    const state = overlayState.radar;
-    const previousMapType = state.mapType;
-
-    state.mapType = createOverlay('radar', time);
-    map.overlayMapTypes.push(state.mapType);
-    if (previousMapType) {
-      map.overlayMapTypes.removeAt(map.overlayMapTypes.getArray().indexOf(previousMapType));
+      }, RADAR_OVERLAY_SWAP_DELAY_MS);
     }
 
     updateRadarUI(index);
@@ -628,7 +559,7 @@
     radarToggle.checked = true;
     radarToggle.disabled = true;
     overlayState.radar.visible = true;
-    showRadarFrame(radarFrameIndex);
+    scrubToFrame(radarFrameIndex);
 
     radarWindowTimerId = setInterval(refreshRadarWindow, RADAR_WINDOW_CHECK_MS);
     scheduleNextRadarFrame();
@@ -647,12 +578,12 @@
       if (radarFrameIndex >= radarFrameTimes.length - 1) {
         radarPlayTimerId = setTimeout(() => {
           radarFrameIndex = 0;
-          showRadarFrame(radarFrameIndex);
+          scrubToFrame(radarFrameIndex);
           scheduleNextRadarFrame();
         }, RADAR_CYCLE_PAUSE_MS);
       } else {
         radarFrameIndex++;
-        showRadarFrame(radarFrameIndex);
+        scrubToFrame(radarFrameIndex);
         scheduleNextRadarFrame();
       }
     }, RADAR_PLAYBACK_FRAME_MS);
