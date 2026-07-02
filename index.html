@@ -180,7 +180,7 @@
       Math.abs(b - RADAR_HIDE_COLOR.b) <= RADAR_HIDE_TOLERANCE;
   }
 
-  let map, homeMarker, radiusCircle, userLocationMarker;
+  let map, homeMarker, radiusCircle, userLocationMarker, strikeInfoWindow;
   let radiusKm = 25;
   const overlayState = {}; // key -> { visible, mapType, bucket }
   const activeStrikes = []; // { marker, timestampMs }
@@ -575,6 +575,7 @@
   }
 
   function addStrike(lat, lng, timestampMs, distanceKm) {
+    const label = `${distanceKm.toFixed(0)} km away`;
     const marker = new google.maps.Marker({
       position: { lat, lng },
       map,
@@ -587,7 +588,12 @@
         strokeColor: '#ffffff',
         strokeWeight: 1
       },
-      title: `${distanceKm.toFixed(0)} km away, ${new Date(timestampMs).toLocaleTimeString()}`
+      title: label // hover tooltip on desktop; tap uses the InfoWindow below instead, since touch has no hover
+    });
+
+    marker.addListener('click', () => {
+      strikeInfoWindow.setContent(label);
+      strikeInfoWindow.open(map, marker);
     });
 
     activeStrikes.push({ marker, timestampMs });
@@ -767,6 +773,8 @@
       },
       title: 'Watch location'
     });
+
+    strikeInfoWindow = new google.maps.InfoWindow();
 
     radiusCircle = new google.maps.Circle({
       map,
