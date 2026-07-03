@@ -99,7 +99,7 @@
     position: absolute; top: 10px; right: 10px; background: none; border: none;
     color: #e8ebf0; font-size: 15px; cursor: pointer; padding: 4px;
   }
-  #forceReloadBtn, #showAllStrikesBtn {
+  #forceReloadBtn {
     background: #2a3040; color: #e8ebf0; border: 1px solid #3a4256; border-radius: 4px;
     padding: 8px; font-size: 13px; cursor: pointer;
     -webkit-tap-highlight-color: transparent; touch-action: manipulation;
@@ -184,8 +184,13 @@
     <input type="checkbox" id="satelliteToggle"> Clouds
   </label>
 
-  <button id="showAllStrikesBtn" type="button">Show All Lightning</button>
+  <div class="sectionLabel">Lightning</div>
+  <div class="buttonRow">
+    <button type="button" class="strikeViewBtn active" data-mode="recent">Show Recent</button>
+    <button type="button" class="strikeViewBtn" data-mode="all">Show All</button>
+  </div>
 
+  <div class="sectionLabel">Zoom Level</div>
   <div class="zoomButtonGrid">
     <button type="button" class="zoomPresetBtn" data-zoom="14">Neighborhood</button>
     <button type="button" class="zoomPresetBtn" data-zoom="11">Local</button>
@@ -294,9 +299,9 @@
   const activeStrikes = []; // { marker, timestampMs }
 
   // Every strike seen since the page loaded, anywhere in Ontario, regardless
-  // of the current viewport and never expired — the data backing "Show All
-  // Lightning". Markers for these are only created on demand (see
-  // toggleShowAllStrikes), not as each strike arrives.
+  // of the current viewport and never expired — the data backing "Show All".
+  // Markers for these are only created on demand (see setStrikeViewMode),
+  // not as each strike arrives.
   const allSessionStrikes = []; // { lat, lng, timestampMs, distanceKm }
   let allStrikeMarkers = [];
   let showingAllStrikes = false;
@@ -841,20 +846,24 @@
     });
   }
 
-  // Shows/hides every recorded strike from allSessionStrikes. While shown,
-  // newly-arriving strikes get a marker added immediately too (see
-  // ws.onmessage) rather than this being a one-time snapshot.
-  function toggleShowAllStrikes() {
-    showingAllStrikes = !showingAllStrikes;
-    const btn = document.getElementById('showAllStrikesBtn');
+  // Shows/hides every recorded strike from allSessionStrikes depending on
+  // which of the two mutually-exclusive "Show Recent"/"Show All" buttons is
+  // selected. While "all" is active, newly-arriving strikes get a marker
+  // added immediately too (see ws.onmessage) rather than this being a
+  // one-time snapshot.
+  function setStrikeViewMode(mode) {
+    const wantAll = mode === 'all';
+    if (wantAll === showingAllStrikes) return; // already in the requested mode
+    showingAllStrikes = wantAll;
     if (showingAllStrikes) {
-      btn.textContent = 'Show Recent Lightning (5-min)';
       allStrikeMarkers = allSessionStrikes.map(createAllStrikeMarker);
     } else {
-      btn.textContent = 'Show All Lightning';
       allStrikeMarkers.forEach(m => m.setMap(null));
       allStrikeMarkers = [];
     }
+    document.querySelectorAll('.strikeViewBtn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.mode === mode);
+    });
   }
 
   function sweepExpiredStrikes() {
@@ -1105,7 +1114,9 @@
       location.href = location.pathname + '?r=' + Date.now();
     });
 
-    document.getElementById('showAllStrikesBtn').addEventListener('click', toggleShowAllStrikes);
+    document.querySelectorAll('.strikeViewBtn').forEach(btn => {
+      btn.addEventListener('click', () => setStrikeViewMode(btn.dataset.mode));
+    });
   }
 
   // Called by the Google Maps script tag once the API has loaded.
