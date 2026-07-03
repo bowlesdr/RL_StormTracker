@@ -56,12 +56,6 @@
   #radarRefreshBar { height: 100%; width: 0%; background: #ffb454; transition: width 0.15s linear; }
   #radarRefreshPercent { margin-top: 8px; font-size: 13px; opacity: 0.8; }
 
-  #radarPlayBtn {
-    background: #2a3040; color: #e8ebf0; border: 1px solid #3a4256; border-radius: 4px;
-    padding: 6px 12px; font-size: 13px; cursor: pointer; white-space: nowrap;
-    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
-  }
-  #radarPlayBtn:disabled { opacity: 0.6; cursor: default; }
   #radarAgeSlider { width: 90px; accent-color: #ffb454; opacity: 1; }
   #radarFrameLabel { opacity: 0.7; min-width: 60px; font-size: 13px; }
   #radarFrameLabel.live {
@@ -159,7 +153,6 @@
       border-left: none; border-right: none;
       padding: 6px 10px; gap: 6px;
     }
-    #radarPlayBtn { padding: 8px 10px; }
     #radarAgeSlider { flex: 1; width: auto; min-width: 0; }
     #placeholderNotice { top: 16px; max-width: calc(100% - 32px); }
     #settingsPanel { width: calc(100% - 24px); right: 12px; }
@@ -184,7 +177,6 @@
 </div>
 
 <div id="radarBar">
-  <button id="radarPlayBtn" type="button">&#9654; Play radar (1h)</button>
   <input type="range" id="radarAgeSlider" min="0" max="120" step="6" value="0">
   <span id="radarFrameLabel"></span>
 </div>
@@ -202,6 +194,9 @@
   <h2>Rock Lake Weather</h2>
   <label class="control">
     <input type="checkbox" id="satelliteToggle"> Clouds
+  </label>
+  <label class="control">
+    <input type="checkbox" id="stormIntensityToggle"> Storm Intensity (next 1h)
   </label>
 
   <div class="sectionLabel">Lightning</div>
@@ -296,7 +291,13 @@
   // data and we cache-bust the tile URLs to pick that up.
   const OVERLAYS = {
     radar: { layer: 'RADAR_1KM_RRAI', style: 'Radar-Rain_Dis-8colors', opacity: 0.65, refreshMs: 6 * 60 * 1000 },
-    satellite: { layer: 'GOES-East_1km_DayVis-NightIR', style: '', opacity: 0.55, refreshMs: 10 * 60 * 1000 }
+    satellite: { layer: 'GOES-East_1km_DayVis-NightIR', style: '', opacity: 0.55, refreshMs: 10 * 60 * 1000 },
+    // Raw dBZ reflectivity, the closest public substitute for "storm
+    // intensity" — ECCC doesn't expose VIL or echo tops. This specific layer
+    // is a 1-hour-forward nowcast (extrapolated from current motion), not a
+    // historical composite, so unlike the rain radar it's just a simple
+    // current/latest toggle rather than a scrubbable timeline.
+    stormIntensity: { layer: 'Radar_1km_dBZ-Extrapolation', style: 'Radar-dBZ_Dis-8colors', opacity: 0.6, refreshMs: 6 * 60 * 1000 }
   };
 
   // The discrete 8-color radar style's lightest band (0.1-1.0 mm/h "trace"
@@ -737,8 +738,6 @@
   }
 
   function beginRadarPlayback() {
-    const btn = document.getElementById('radarPlayBtn');
-
     removeAllRadarOverlays();
     overlayState.radar.mapType = null;
     radarPlaying = true;
@@ -748,9 +747,6 @@
 
     radarWindowTimerId = setInterval(refreshRadarWindow, RADAR_WINDOW_CHECK_MS);
     scheduleNextRadarFrame();
-
-    btn.disabled = false;
-    btn.textContent = '⏸ Stop';
   }
 
   // Advances to the next frame after RADAR_PLAYBACK_FRAME_MS, except once the
@@ -793,22 +789,6 @@
       if (!radarPlaying) return;
       scheduleNextRadarFrame();
     });
-  }
-
-  function stopRadarPlayback() {
-    radarRefreshId++; // invalidate any in-flight refresh so it doesn't resurrect playback
-    hideRadarRefreshOverlay();
-    clearTimeout(radarPlayTimerId);
-    clearInterval(radarWindowTimerId);
-    clearInterval(radarCountdownTimerId);
-    radarPlaying = false;
-    document.getElementById('radarPlayBtn').textContent = '▶ Play radar (1h)';
-    const label = document.getElementById('radarFrameLabel');
-    label.textContent = '';
-    label.classList.remove('live');
-    removeAllRadarOverlays();
-    overlayState.radar.mapType = null;
-    setOverlayVisible('radar', false);
   }
 
   function addStrike(lat, lng, timestampMs, distanceKm) {
@@ -1207,16 +1187,12 @@
   }
 
   function initControls() {
-    const toggleIds = { satellite: 'satelliteToggle' };
+    const toggleIds = { satellite: 'satelliteToggle', stormIntensity: 'stormIntensityToggle' };
     for (const [key, elId] of Object.entries(toggleIds)) {
       const el = document.getElementById(elId);
       el.addEventListener('change', () => setOverlayVisible(key, el.checked));
       setInterval(() => refreshOverlay(key), OVERLAYS[key].refreshMs);
     }
-
-    document.getElementById('radarPlayBtn').addEventListener('click', () => {
-      if (radarPlaying) stopRadarPlayback(); else refreshRadarDataAndPlay();
-    });
 
     initRadarScrubbing();
     initYouTubeAudio();
