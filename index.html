@@ -120,13 +120,14 @@
     background: #000; border: 1px solid #3a4256;
   }
   #ytPlayerInner { width: 100%; height: 100%; display: block; }
+  #ytControls { display: flex; flex-direction: column; gap: 12px; }
   .sectionLabel { font-size: 12px; opacity: 0.6; margin-top: 4px; }
   #ytUrlInput {
     width: 100%; box-sizing: border-box; background: #0e1117; color: #e8ebf0;
     border: 1px solid #2a3040; border-radius: 4px; padding: 6px; font-size: 13px;
   }
-  .ytButtons { display: flex; gap: 6px; }
-  .ytButtons button {
+  .buttonRow { display: flex; gap: 6px; }
+  .buttonRow button {
     flex: 1; background: #2a3040; color: #e8ebf0; border: 1px solid #3a4256; border-radius: 4px;
     padding: 8px; font-size: 13px; cursor: pointer;
     -webkit-tap-highlight-color: transparent; touch-action: manipulation;
@@ -143,7 +144,7 @@
     #radarAgeSlider { flex: 1; width: auto; min-width: 0; }
     #placeholderNotice { top: 16px; max-width: calc(100% - 32px); }
     #settingsPanel { width: calc(100% - 24px); right: 12px; }
-    #ytPlayer, .sectionLabel, #ytUrlInput, .ytButtons, #ytStatus { display: none !important; }
+    #ytPlayer, #ytControls { display: none !important; }
   }
 </style>
 </head>
@@ -185,13 +186,23 @@
   <label class="control">
     <input type="checkbox" id="satelliteToggle"> Satellite
   </label>
-  <div class="sectionLabel">InstantWeather audio</div>
-  <input type="text" id="ytUrlInput" placeholder="Paste YouTube URL">
-  <div class="ytButtons">
-    <button id="ytPlayBtn" type="button">&#9654; Play</button>
-    <button id="ytStopBtn" type="button">&#9632; Stop</button>
+
+  <div class="sectionLabel">Map view</div>
+  <div class="buttonRow">
+    <button type="button" class="zoomPresetBtn" data-zoom="10">Local</button>
+    <button type="button" class="zoomPresetBtn" data-zoom="8">Regional</button>
+    <button type="button" class="zoomPresetBtn" data-zoom="6">Ontario</button>
   </div>
-  <span id="ytStatus"></span>
+
+  <div id="ytControls">
+    <div class="sectionLabel">InstantWeather audio</div>
+    <input type="text" id="ytUrlInput" placeholder="Paste YouTube URL">
+    <div class="buttonRow">
+      <button id="ytPlayBtn" type="button">&#9654; Play</button>
+      <button id="ytStopBtn" type="button">&#9632; Stop</button>
+    </div>
+    <span id="ytStatus"></span>
+  </div>
 
   <button id="forceReloadBtn" type="button">&#8635; Reload latest version</button>
 </div>
@@ -202,6 +213,11 @@
   const HOME = { lat: 44.80996960818295, lng: -76.25362035830996 };
   const HOME_NAME = 'Rock Lake';
   const DEVICE_DISTANCE_MIN_KM = 1; // don't bother showing a device distance when it's basically at HOME already
+
+  // Where HOME should sit on screen for every preset view: vertically
+  // centered, two-thirds of the way to the right edge (leaving more room to
+  // the west, where Ontario extends from this near-the-eastern-border spot).
+  const HOME_SCREEN_FRACTION = { x: 2 / 3, y: 0.5 };
 
   // ---- Tunables ----
   const STRIKE_TTL_MS = 5 * 60 * 1000;    // how long a strike stays on the map / list, fading to nothing
@@ -886,6 +902,34 @@
     );
   }
 
+  // Google Maps only knows how to center a LatLng dead in the middle of the
+  // viewport — putting HOME at a specific fractional screen position instead
+  // means computing a different "center" coordinate ourselves: the point
+  // that, when centered normally, places HOME at the desired spot. Requires
+  // the map's projection, which isn't available until shortly after creation
+  // (see the 'projection_changed' listener in initMap).
+  function applyZoomPreset(zoom) {
+    const projection = map.getProjection();
+    if (!projection) return;
+    const mapDiv = document.getElementById('map');
+    const scale = Math.pow(2, zoom);
+    const homeWorldPoint = projection.fromLatLngToPoint(HOME);
+    const dx = (HOME_SCREEN_FRACTION.x - 0.5) * mapDiv.clientWidth;
+    const dy = (HOME_SCREEN_FRACTION.y - 0.5) * mapDiv.clientHeight;
+    const centerWorldPoint = new google.maps.Point(
+      homeWorldPoint.x - dx / scale,
+      homeWorldPoint.y - dy / scale
+    );
+    map.setCenter(projection.fromPointToLatLng(centerWorldPoint));
+    map.setZoom(zoom);
+  }
+
+  function initZoomPresets() {
+    document.querySelectorAll('.zoomPresetBtn').forEach(btn => {
+      btn.addEventListener('click', () => applyZoomPreset(parseInt(btn.dataset.zoom, 10)));
+    });
+  }
+
   // Plays a supplemental YouTube stream/video via the official IFrame Player
   // API, visible in the bottom-right corner (#ytPlayer). The API script loads
   // lazily, on first use, rather than up front.
@@ -980,6 +1024,7 @@
 
     initRadarScrubbing();
     initYouTubeAudio();
+    initZoomPresets();
     initSettingsPanel();
 
     setInterval(sweepExpiredStrikes, SWEEP_INTERVAL_MS);
@@ -1035,10 +1080,19 @@
     });
 
     // 'idle' fires once after the viewport settles from *any* change — the
-    // initial fitBounds below, a pan, or a zoom — so it's the single trigger
-    // covering all three "we need a full radar refresh" cases in one place.
+    // initial load, a pan, or a zoom — so it's the single trigger covering
+    // all three "we need a full radar refresh" cases in one place.
     map.addListener('idle', () => {
       refreshRadarDataAndPlay();
+    });
+
+    // The projection needed to compute an offset center isn't available
+    // immediately at construction; 'projection_changed' fires as soon as it
+    // is, letting the initial view be positioned correctly (HOME at the
+    // preset screen fraction) before anything is shown, rather than briefly
+    // flashing the constructor's plain center: HOME first.
+    google.maps.event.addListenerOnce(map, 'projection_changed', () => {
+      applyZoomPreset(10); // "Local" — tightly focused on the watch location
     });
 
     homeMarker = new google.maps.Marker({
