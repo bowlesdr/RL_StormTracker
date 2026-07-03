@@ -195,10 +195,10 @@
 <div id="settingsPanel">
   <button id="settingsCloseBtn" type="button" aria-label="Close">&#10005;</button>
   <h2>Rock Lake Weather</h2>
-  <label class="control">
+  <label class="control" title="Satellite imagery (visible light by day, infrared by night) showing actual cloud cover from space — useful for seeing storm systems and broader cloud patterns that radar, which only detects precipitation, doesn't capture.">
     <input type="checkbox" id="satelliteToggle"> Clouds
   </label>
-  <label class="control">
+  <label class="control" title="Raw radar reflectivity (dBZ), not converted to a rain rate like the main radar forecast. Both come from the same 1-hour motion-extrapolated nowcast, but this skips the rain-rate conversion. Very high values (roughly 55+ dBZ) signal an unusually intense cell — often hail — even when the rain forecast alongside it just looks like heavy rain, since that conversion assumes what's being detected is rain.">
     <input type="checkbox" id="stormIntensityToggle"> Storm Intensity (next 1h)
   </label>
 
