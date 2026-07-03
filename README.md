@@ -1,4 +1,4 @@
-# Lightning Watch (RL_StormTracker)
+# Rock Lake Weather (RL_StormTracker)
 
 Live: https://bowlesdr.github.io/RL_StormTracker/
 

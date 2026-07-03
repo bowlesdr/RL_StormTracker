@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
-<title>Lightning Watch</title>
+<title>Rock Lake Weather</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -124,12 +124,13 @@
     border: 1px solid #2a3040; border-radius: 4px; padding: 6px; font-size: 13px;
   }
   .buttonRow { display: flex; gap: 6px; }
-  .buttonRow button {
+  .zoomButtonGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .buttonRow button, .zoomButtonGrid button {
     flex: 1; background: #2a3040; color: #e8ebf0; border: 1px solid #3a4256; border-radius: 4px;
     padding: 8px; font-size: 13px; cursor: pointer;
     -webkit-tap-highlight-color: transparent; touch-action: manipulation;
   }
-  .buttonRow button.active {
+  .buttonRow button.active, .zoomButtonGrid button.active {
     background: #ffb454; color: #10131a; border-color: #ffb454; font-weight: 700;
   }
   #ytStatus { font-size: 12px; opacity: 0.7; }
@@ -178,21 +179,19 @@
 
 <div id="settingsPanel">
   <button id="settingsCloseBtn" type="button" aria-label="Close">&#10005;</button>
-  <h2>Lightning Watch</h2>
+  <h2>Rock Lake Weather</h2>
   <label class="control">
     <input type="checkbox" id="satelliteToggle"> Clouds
   </label>
 
-  <div class="sectionLabel">Map view</div>
-  <div class="buttonRow">
+  <div class="zoomButtonGrid">
+    <button type="button" id="neighborhoodZoomBtn" class="zoomPresetBtn" data-zoom="19">Neighborhood</button>
     <button type="button" class="zoomPresetBtn" data-zoom="11">Local</button>
     <button type="button" class="zoomPresetBtn" data-zoom="8">Regional</button>
     <button type="button" class="zoomPresetBtn" data-zoom="6">Ontario</button>
-    <button type="button" class="zoomPresetBtn" data-zoom="5">Neighborhood</button>
   </div>
 
   <div id="ytControls">
-    <div class="sectionLabel">InstantWeather audio</div>
     <a href="https://www.youtube.com/@InstantWeather/streams" target="_blank" rel="noopener">Find current stream</a>
     <input type="text" id="ytUrlInput" placeholder="Paste YouTube URL">
     <div class="buttonRow">
@@ -915,6 +914,18 @@
   function initZoomPresets() {
     document.querySelectorAll('.zoomPresetBtn').forEach(btn => {
       btn.addEventListener('click', () => applyZoomPreset(parseInt(btn.dataset.zoom, 10)));
+    });
+
+    // Max zoom (how close imagery actually goes before running out of
+    // detail) varies by location — a rural spot like HOME may cap out lower
+    // than the API's usual ceiling of 21. Ask Google what it really is here
+    // rather than assuming, and set "Neighborhood" 2 steps back from that.
+    // The static data-zoom="19" on the button is just the fallback in case
+    // this lookup fails.
+    new google.maps.MaxZoomService().getMaxZoomAtLatLng(HOME, (result) => {
+      if (result.status === 'OK') {
+        document.getElementById('neighborhoodZoomBtn').dataset.zoom = String(result.zoom - 2);
+      }
     });
   }
 

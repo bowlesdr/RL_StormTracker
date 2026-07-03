@@ -1,6 +1,6 @@
 {
-  "name": "Lightning Watch",
-  "short_name": "Lightning",
+  "name": "Rock Lake Weather",
+  "short_name": "Rock Lake",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
