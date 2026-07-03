@@ -132,6 +132,9 @@
     padding: 8px; font-size: 13px; cursor: pointer;
     -webkit-tap-highlight-color: transparent; touch-action: manipulation;
   }
+  .buttonRow button.active {
+    background: #ffb454; color: #10131a; border-color: #ffb454; font-weight: 700;
+  }
   #ytStatus { font-size: 12px; opacity: 0.7; }
 
   @media (max-width: 640px) {
@@ -189,7 +192,7 @@
 
   <div class="sectionLabel">Map view</div>
   <div class="buttonRow">
-    <button type="button" class="zoomPresetBtn" data-zoom="10">Local</button>
+    <button type="button" class="zoomPresetBtn" data-zoom="11">Local</button>
     <button type="button" class="zoomPresetBtn" data-zoom="8">Regional</button>
     <button type="button" class="zoomPresetBtn" data-zoom="6">Ontario</button>
   </div>
@@ -922,6 +925,10 @@
     );
     map.setCenter(projection.fromPointToLatLng(centerWorldPoint));
     map.setZoom(zoom);
+
+    document.querySelectorAll('.zoomPresetBtn').forEach(btn => {
+      btn.classList.toggle('active', parseInt(btn.dataset.zoom, 10) === zoom);
+    });
   }
 
   function initZoomPresets() {
@@ -1092,7 +1099,7 @@
     // preset screen fraction) before anything is shown, rather than briefly
     // flashing the constructor's plain center: HOME first.
     google.maps.event.addListenerOnce(map, 'projection_changed', () => {
-      applyZoomPreset(10); // "Local" — tightly focused on the watch location
+      applyZoomPreset(11); // "Local" — tightly focused on the watch location
     });
 
     homeMarker = new google.maps.Marker({
