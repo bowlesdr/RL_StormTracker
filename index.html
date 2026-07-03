@@ -99,7 +99,7 @@
     position: absolute; top: 10px; right: 10px; background: none; border: none;
     color: #e8ebf0; font-size: 15px; cursor: pointer; padding: 4px;
   }
-  #forceReloadBtn {
+  #forceReloadBtn, #showAllStrikesBtn {
     background: #2a3040; color: #e8ebf0; border: 1px solid #3a4256; border-radius: 4px;
     padding: 8px; font-size: 13px; cursor: pointer;
     -webkit-tap-highlight-color: transparent; touch-action: manipulation;
@@ -184,6 +184,8 @@
     <input type="checkbox" id="satelliteToggle"> Clouds
   </label>
 
+  <button id="showAllStrikesBtn" type="button">Show All Lightning</button>
+
   <div class="zoomButtonGrid">
     <button type="button" class="zoomPresetBtn" data-zoom="14">Neighborhood</button>
     <button type="button" class="zoomPresetBtn" data-zoom="11">Local</button>
@@ -215,6 +217,15 @@
   // centered, two-thirds of the way to the right edge (leaving more room to
   // the west, where Ontario extends from this near-the-eastern-border spot).
   const HOME_SCREEN_FRACTION = { x: 2 / 3, y: 0.5 };
+
+  // Rough bounding box for all of Ontario — used only to decide what counts
+  // toward the session-wide "Show All Lightning" history, independent of
+  // whatever the current map viewport happens to be.
+  const ONTARIO_BOUNDS = { minLat: 41.5, maxLat: 57, minLng: -95.5, maxLng: -74 };
+  function isWithinOntario(lat, lng) {
+    return lat >= ONTARIO_BOUNDS.minLat && lat <= ONTARIO_BOUNDS.maxLat &&
+      lng >= ONTARIO_BOUNDS.minLng && lng <= ONTARIO_BOUNDS.maxLng;
+  }
 
   // ---- Tunables ----
   const STRIKE_TTL_MS = 5 * 60 * 1000;    // how long a strike stays on the map / list, fading to nothing
@@ -281,6 +292,14 @@
   let userPosition = null;
   const overlayState = {}; // key -> { visible, mapType, bucket }
   const activeStrikes = []; // { marker, timestampMs }
+
+  // Every strike seen since the page loaded, anywhere in Ontario, regardless
+  // of the current viewport and never expired — the data backing "Show All
+  // Lightning". Markers for these are only created on demand (see
+  // toggleShowAllStrikes), not as each strike arrives.
+  const allSessionStrikes = []; // { lat, lng, timestampMs, distanceKm }
+  let allStrikeMarkers = [];
+  let showingAllStrikes = false;
 
   function haversineKm(lat1, lon1, lat2, lon2) {
     const R = 6371;
@@ -802,6 +821,42 @@
     activeStrikes.push({ marker, timestampMs });
   }
 
+  // Small, permanent (non-fading) marker style for allSessionStrikes entries
+  // — visually distinct from the live view's near-real-time markers so the
+  // two aren't confused.
+  function createAllStrikeMarker(s) {
+    return new google.maps.Marker({
+      position: { lat: s.lat, lng: s.lng },
+      map,
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: 3,
+        fillColor: '#4dd0ff',
+        fillOpacity: 0.5,
+        strokeColor: '#ffffff',
+        strokeWeight: 0.5
+      },
+      zIndex: 1,
+      title: `${s.distanceKm.toFixed(0)} km from ${HOME_NAME}, ${new Date(s.timestampMs).toLocaleTimeString()}`
+    });
+  }
+
+  // Shows/hides every recorded strike from allSessionStrikes. While shown,
+  // newly-arriving strikes get a marker added immediately too (see
+  // ws.onmessage) rather than this being a one-time snapshot.
+  function toggleShowAllStrikes() {
+    showingAllStrikes = !showingAllStrikes;
+    const btn = document.getElementById('showAllStrikesBtn');
+    if (showingAllStrikes) {
+      btn.textContent = 'Show Recent Lightning (5-min)';
+      allStrikeMarkers = allSessionStrikes.map(createAllStrikeMarker);
+    } else {
+      btn.textContent = 'Show All Lightning';
+      allStrikeMarkers.forEach(m => m.setMap(null));
+      allStrikeMarkers = [];
+    }
+  }
+
   function sweepExpiredStrikes() {
     const now = Date.now();
     for (let i = activeStrikes.length - 1; i >= 0; i--) {
@@ -833,14 +888,23 @@
       }
       if (typeof strike.lat !== 'number' || typeof strike.lon !== 'number') return;
 
-      // Shown/filtered by whatever's currently on-screen, rather than a fixed
-      // distance from HOME — panning/zooming the map is now what controls
-      // which strikes appear.
-      const bounds = map.getBounds();
-      if (!bounds || !bounds.contains({ lat: strike.lat, lng: strike.lon })) return;
-
       const distanceKm = haversineKm(HOME.lat, HOME.lng, strike.lat, strike.lon);
       const timestampMs = strike.time ? Math.floor(strike.time / 1e6) : Date.now();
+
+      // Tracked for "Show All Lightning" regardless of the current viewport
+      // or the live view's 5-minute fade-out — this is the full session
+      // history, kept separately from the transient on-screen markers below.
+      if (isWithinOntario(strike.lat, strike.lon)) {
+        const record = { lat: strike.lat, lng: strike.lon, timestampMs, distanceKm };
+        allSessionStrikes.push(record);
+        if (showingAllStrikes) allStrikeMarkers.push(createAllStrikeMarker(record));
+      }
+
+      // The live, fading view is still shown/filtered by whatever's
+      // currently on-screen — panning/zooming the map controls which recent
+      // strikes appear there.
+      const bounds = map.getBounds();
+      if (!bounds || !bounds.contains({ lat: strike.lat, lng: strike.lon })) return;
       addStrike(strike.lat, strike.lon, timestampMs, distanceKm);
     };
 
@@ -1040,6 +1104,8 @@
     document.getElementById('forceReloadBtn').addEventListener('click', () => {
       location.href = location.pathname + '?r=' + Date.now();
     });
+
+    document.getElementById('showAllStrikesBtn').addEventListener('click', toggleShowAllStrikes);
   }
 
   // Called by the Google Maps script tag once the API has loaded.
