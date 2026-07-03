@@ -185,7 +185,7 @@
   </label>
 
   <div class="zoomButtonGrid">
-    <button type="button" id="neighborhoodZoomBtn" class="zoomPresetBtn" data-zoom="19">Neighborhood</button>
+    <button type="button" class="zoomPresetBtn" data-zoom="16">Neighborhood</button>
     <button type="button" class="zoomPresetBtn" data-zoom="11">Local</button>
     <button type="button" class="zoomPresetBtn" data-zoom="8">Regional</button>
     <button type="button" class="zoomPresetBtn" data-zoom="6">Ontario</button>
@@ -914,18 +914,6 @@
   function initZoomPresets() {
     document.querySelectorAll('.zoomPresetBtn').forEach(btn => {
       btn.addEventListener('click', () => applyZoomPreset(parseInt(btn.dataset.zoom, 10)));
-    });
-
-    // Max zoom (how close imagery actually goes before running out of
-    // detail) varies by location — a rural spot like HOME may cap out lower
-    // than the API's usual ceiling of 21. Ask Google what it really is here
-    // rather than assuming, and set "Neighborhood" 2 steps back from that.
-    // The static data-zoom="19" on the button is just the fallback in case
-    // this lookup fails.
-    new google.maps.MaxZoomService().getMaxZoomAtLatLng(HOME, (result) => {
-      if (result.status === 'OK') {
-        document.getElementById('neighborhoodZoomBtn').dataset.zoom = String(result.zoom - 2);
-      }
     });
   }
 
