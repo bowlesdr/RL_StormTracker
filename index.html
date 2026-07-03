@@ -79,6 +79,24 @@
     border-radius: 8px; font-size: 13px; line-height: 1.5; z-index: 30;
   }
 
+  /* Active severe weather alerts covering HOME — deliberately the most
+     prominent thing on screen, since these are the most actionable of
+     everything this app shows. */
+  #alertBanner {
+    position: fixed; top: 12px; left: 50%; transform: translateX(-50%); z-index: 32;
+    width: calc(100% - 32px); max-width: 480px;
+  }
+  #alertBanner.hidden { display: none; }
+  #alertBanner details {
+    background: rgba(30, 20, 10, 0.95); border: 1px solid #6b4e1f; border-radius: 8px;
+    padding: 10px 14px; margin-bottom: 6px; font-size: 13px;
+  }
+  #alertBanner summary { cursor: pointer; font-weight: 700; }
+  #alertBanner .alertText {
+    margin-top: 8px; white-space: pre-line; font-size: 12px; line-height: 1.5;
+    opacity: 0.9; max-height: 200px; overflow-y: auto;
+  }
+
   /* Single button that opens the "everything else" settings panel */
   #settingsBtn {
     position: fixed; top: 12px; right: 12px; z-index: 20;
@@ -151,6 +169,8 @@
 </head>
 <body>
 <div id="mapWrap"><div id="map"></div></div>
+
+<div id="alertBanner" class="hidden"></div>
 
 <div id="placeholderNotice">
   <strong>Google Maps API key needed.</strong> Edit <code>index.html</code>, find the
@@ -958,6 +978,122 @@
     );
   }
 
+  // ---- Severe weather alerts (ECCC, via MSC GeoMet's OGC API Features —
+  // same public infrastructure as the radar/satellite WMS layers, a
+  // different collection: weather-alerts). The bbox query only narrows
+  // candidates down to what's near HOME; whether HOME is actually inside a
+  // given alert's zone still needs a real point-in-polygon test against its
+  // geometry, since a warning zone can be much larger than the search box
+  // and only partially overlap it.
+  const ALERT_REFRESH_MS = 2 * 60 * 1000;
+  const ALERT_SEARCH_MARGIN_DEG = 0.5;
+  const ALERT_RISK_COLORS = { red: '#e63946', orange: '#ff8c3c', yellow: '#ffd83c' };
+
+  function isPointInRing(lat, lng, ring) {
+    let inside = false;
+    for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+      const [xi, yi] = ring[i];
+      const [xj, yj] = ring[j];
+      const crosses = ((yi > lat) !== (yj > lat)) &&
+        (lng < (xj - xi) * (lat - yi) / (yj - yi) + xi);
+      if (crosses) inside = !inside;
+    }
+    return inside;
+  }
+
+  // GeoJSON Polygon coordinates are [outerRing, hole1, hole2, ...]; a point
+  // counts as inside only if it's in the outer ring and not in any hole.
+  function isPointInGeometry(lat, lng, geometry) {
+    if (!geometry) return false;
+    if (geometry.type === 'Polygon') {
+      const [outer, ...holes] = geometry.coordinates;
+      if (!isPointInRing(lat, lng, outer)) return false;
+      return !holes.some(hole => isPointInRing(lat, lng, hole));
+    }
+    if (geometry.type === 'MultiPolygon') {
+      return geometry.coordinates.some(poly => isPointInGeometry(lat, lng, { type: 'Polygon', coordinates: poly }));
+    }
+    return false;
+  }
+
+  function geometryToPaths(geometry) {
+    const toLatLng = ([lng, lat]) => ({ lat, lng });
+    if (geometry.type === 'Polygon') return geometry.coordinates.map(ring => ring.map(toLatLng));
+    if (geometry.type === 'MultiPolygon') return geometry.coordinates.flatMap(poly => poly.map(ring => ring.map(toLatLng)));
+    return [];
+  }
+
+  async function fetchActiveAlertsAtHome() {
+    const bbox = [
+      HOME.lng - ALERT_SEARCH_MARGIN_DEG, HOME.lat - ALERT_SEARCH_MARGIN_DEG,
+      HOME.lng + ALERT_SEARCH_MARGIN_DEG, HOME.lat + ALERT_SEARCH_MARGIN_DEG
+    ].join(',');
+    const url = `https://api.weather.gc.ca/collections/weather-alerts/items?bbox=${bbox}&limit=100&f=json`;
+    const resp = await fetch(url);
+    const data = await resp.json();
+
+    const now = Date.now();
+    const active = [];
+    for (const feature of data.features || []) {
+      const p = feature.properties;
+      if (p.status_en === 'ended') continue; // forecasters can cancel an alert before its nominal expiry
+      if (new Date(p.expiration_datetime).getTime() <= now) continue;
+      if (!isPointInGeometry(HOME.lat, HOME.lng, feature.geometry)) continue;
+
+      active.push({
+        name: p.alert_short_name_en,
+        color: ALERT_RISK_COLORS[p.risk_colour_en] || '#999999',
+        text: p.alert_text_en || p.alert_text_fr || '',
+        areaName: p.feature_name_en,
+        expirationMs: new Date(p.expiration_datetime).getTime(),
+        geometry: feature.geometry
+      });
+    }
+    return active;
+  }
+
+  let alertPolygons = [];
+
+  function updateAlertBanner(active) {
+    const el = document.getElementById('alertBanner');
+    if (active.length === 0) {
+      el.classList.add('hidden');
+      el.innerHTML = '';
+      return;
+    }
+    el.classList.remove('hidden');
+    el.innerHTML = active.map(a => {
+      const until = new Date(a.expirationMs).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+      return `<details>
+        <summary style="color:${a.color}">${a.name} — ${a.areaName}, until ${until}</summary>
+        <div class="alertText">${a.text.replace(/\n/g, '<br>')}</div>
+      </details>`;
+    }).join('');
+  }
+
+  async function refreshAlerts() {
+    let active;
+    try {
+      active = await fetchActiveAlertsAtHome();
+    } catch (e) {
+      return; // leave whatever's currently displayed on a transient fetch failure
+    }
+
+    alertPolygons.forEach(poly => poly.setMap(null));
+    alertPolygons = active.map(a => new google.maps.Polygon({
+      paths: geometryToPaths(a.geometry),
+      map,
+      strokeColor: a.color,
+      strokeOpacity: 0.7,
+      strokeWeight: 2,
+      fillColor: a.color,
+      fillOpacity: 0.12,
+      zIndex: 5
+    }));
+
+    updateAlertBanner(active);
+  }
+
   // Google Maps only knows how to center a LatLng dead in the middle of the
   // viewport — putting HOME at a specific fractional screen position instead
   // means computing a different "center" coordinate ourselves: the point
@@ -1179,6 +1315,8 @@
     initControls();
     connectBlitzortung();
     initGeolocation();
+    refreshAlerts();
+    setInterval(refreshAlerts, ALERT_REFRESH_MS);
   }
 
   window.gm_authFailure = function () {
