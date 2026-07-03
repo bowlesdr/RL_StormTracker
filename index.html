@@ -58,7 +58,7 @@
 
   #radarAgeSlider { width: 90px; accent-color: #ffb454; opacity: 1; }
   #radarAgeSlider.forecast { accent-color: #4dd0ff; }
-  #radarNextUpdateLabel { opacity: 0.7; min-width: 40px; font-size: 13px; }
+  #radarNextUpdateLabel { opacity: 0.7; min-width: 60px; font-size: 13px; }
   #radarFrameLabel { opacity: 0.7; min-width: 60px; font-size: 13px; }
   #radarFrameLabel.live {
     opacity: 1; color: #4dff88; font-weight: 700; letter-spacing: 0.04em;
@@ -587,7 +587,7 @@
     clearInterval(radarNextUpdateTimerId);
     const el = document.getElementById('radarNextUpdateLabel');
     const tick = () => {
-      el.textContent = formatCountdown((radarLatestObservedAt + RADAR_PLAYBACK_STEP_MS) - Date.now());
+      el.innerHTML = `Next Data<br>${formatCountdown((radarLatestObservedAt + RADAR_PLAYBACK_STEP_MS) - Date.now())}`;
     };
     tick();
     radarNextUpdateTimerId = setInterval(tick, 1000);
