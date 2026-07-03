@@ -30,20 +30,32 @@
   }
   .control input[type=checkbox] { width: 18px; height: 18px; }
 
-  /* Permanent radar playback bar — always visible regardless of the settings panel */
+  /* Permanent radar playback bar — always visible regardless of the settings
+     panel, except while a full radar data refresh is in progress (see
+     #radarRefreshOverlay below), during which it's hidden entirely. */
   #radarBar {
     position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 20;
     display: flex; align-items: center; gap: 10px;
     background: rgba(23, 27, 36, 0.9); border: 1px solid #3a4256; border-radius: 8px;
     padding: 8px 14px; -webkit-tap-highlight-color: transparent;
-    overflow: hidden; /* clips the progress strip to the bar's rounded corners */
   }
-  #radarProgressTrack {
-    position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: rgba(255, 255, 255, 0.08);
+  #radarBar.hidden { display: none; }
+
+  /* Shown prominently center-screen whenever the radar data needs a full
+     refresh (first load, or the tile grid changing on pan/zoom) — the exact
+     total tile count is known upfront for these, so this is a real 0-100%
+     measure rather than an approximation. */
+  #radarRefreshOverlay {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 40;
+    background: rgba(23, 27, 36, 0.95); border: 1px solid #3a4256; border-radius: 10px;
+    padding: 20px 28px; width: min(80vw, 360px); text-align: center;
   }
-  #radarProgressTrack.hidden { display: none; }
-  #radarProgressBar { height: 100%; width: 0%; background: #ffb454; transition: width 0.15s linear; }
+  #radarRefreshOverlay.hidden { display: none; }
+  #radarRefreshLabel { font-size: 14px; margin-bottom: 12px; }
+  #radarRefreshTrack { height: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden; }
+  #radarRefreshBar { height: 100%; width: 0%; background: #ffb454; transition: width 0.15s linear; }
+  #radarRefreshPercent { margin-top: 8px; font-size: 13px; opacity: 0.8; }
+
   #radarPlayBtn {
     background: #2a3040; color: #e8ebf0; border: 1px solid #3a4256; border-radius: 4px;
     padding: 6px 12px; font-size: 13px; cursor: pointer; white-space: nowrap;
@@ -150,10 +162,15 @@
 </div>
 
 <div id="radarBar">
-  <div id="radarProgressTrack" class="hidden"><div id="radarProgressBar"></div></div>
   <button id="radarPlayBtn" type="button">&#9654; Play radar (1h)</button>
   <input type="range" id="radarAgeSlider" min="0" max="120" step="6" value="0">
   <span id="radarFrameLabel"></span>
+</div>
+
+<div id="radarRefreshOverlay" class="hidden">
+  <div id="radarRefreshLabel">Loading radar data&hellip;</div>
+  <div id="radarRefreshTrack"><div id="radarRefreshBar"></div></div>
+  <div id="radarRefreshPercent">0%</div>
 </div>
 
 <button id="settingsBtn" type="button" title="Settings">&#9881;</button>
@@ -338,7 +355,8 @@
   // Applies the noise-filter + blur pipeline to a loaded tile image and
   // draws the result onto ctx (whether that's a tile actually on-screen, or
   // an offscreen canvas used purely for background prefetching). Shared by
-  // both the live getTile path and warmAllRadarFrames so the two don't drift.
+  // both the live getTile path and the refreshRadarDataAndPlay prefetch loop
+  // so the two don't drift.
   function processRadarTileImage(ctx, img, cacheKey) {
     ctx.drawImage(img, 0, 0, TILE_PX, TILE_PX);
     try {
@@ -372,16 +390,14 @@
   // transparent client-side (see isRadarNoisePixel above). Requires drawing
   // through an actual <canvas> rather than google.maps.ImageMapType, since
   // ImageMapType only accepts a tile URL and can't post-process pixels.
+  // Purely a renderer — draws whatever's cached, or fetches+processes+caches
+  // what isn't. Loading *progress* is tracked separately by refreshRadarData,
+  // which fetches everything up front before this ever needs to run for real
+  // (so in normal use this is almost always a cache hit).
   function createRadarMapType(time) {
     const def = OVERLAYS.radar;
     const bucket = time ? null : Date.now();
     overlayState.radar.bucket = bucket;
-
-    const alreadyWarm = Boolean(time) && radarWarmFrameTimes.has(time);
-    const generation = ++radarLoadGeneration;
-    let frameComplete = false; // guards against double-adding this frame's time to the warm set
-    let localRequested = 0;
-    let localLoaded = 0;
 
     return {
       tileSize: new google.maps.Size(256, 256),
@@ -395,27 +411,10 @@
         canvas.style.opacity = def.opacity;
         const ctx = canvas.getContext('2d');
 
-        const markLoaded = () => {
-          if (alreadyWarm || generation !== radarLoadGeneration) return; // stale/superseded load, or nothing to track
-          localLoaded++;
-          // Only touches the UI on an actual frame-completion transition —
-          // never on individual tile progress — so the bar only ever moves
-          // forward in whole per-frame steps instead of sawtoothing.
-          if (!frameComplete && localLoaded >= localRequested) {
-            frameComplete = true;
-            if (time) {
-              radarWarmFrameTimes.add(time); // live frame (time===null) never counts as permanently warm
-              scheduleRadarProgressUIUpdate();
-            }
-          }
-        };
-        if (!alreadyWarm) localRequested++;
-
         const cacheKey = time ? `${time}|${coord.x}|${coord.y}|${zoom}` : null;
         const cached = cacheKey && radarTileCache.get(cacheKey);
         if (cached) {
           ctx.drawImage(cached, 0, 0);
-          markLoaded();
           return canvas;
         }
 
@@ -423,14 +422,8 @@
         if (url) {
           const img = new Image();
           img.crossOrigin = 'anonymous';
-          img.onload = () => {
-            processRadarTileImage(ctx, img, cacheKey);
-            markLoaded();
-          };
-          img.onerror = markLoaded; // don't leave the progress bar stuck on a failed tile
+          img.onload = () => processRadarTileImage(ctx, img, cacheKey);
           img.src = url;
-        } else {
-          markLoaded();
         }
         return canvas;
       },
@@ -479,28 +472,6 @@
     });
   }
 
-  // Fetches every not-yet-warm frame's tiles concurrently in the background,
-  // rather than one frame at a time gated by the ~700ms display rotation —
-  // that serial approach meant fully warming a 2-hour, 21-frame window took
-  // far longer than it needed to, since only whichever frame happened to be
-  // on-screen at that moment was ever being fetched. The browser's own
-  // per-host connection limit naturally throttles this rather than firing
-  // everything at once unbounded.
-  let radarWarmupRunId = 0;
-  async function warmAllRadarFrames() {
-    if (!map) return;
-    const runId = ++radarWarmupRunId;
-    const zoom = Math.round(map.getZoom());
-    const coords = getVisibleTileCoords(zoom);
-    const framesToWarm = radarFrameTimes.filter(t => t && !radarWarmFrameTimes.has(t));
-    await Promise.all(framesToWarm.map(async (time) => {
-      await Promise.all(coords.map(coord => prefetchRadarTile(time, coord, zoom)));
-      if (runId !== radarWarmupRunId) return; // superseded by a zoom change / new window
-      radarWarmFrameTimes.add(time);
-      scheduleRadarProgressUIUpdate();
-    }));
-  }
-
   function createOverlay(key, time) {
     if (key === 'radar') return createRadarMapType(time);
 
@@ -547,42 +518,21 @@
   let radarCountdownTimerId = null;
   let radarLatestObservedAt = 0; // wall-clock time we last saw a new newest frame, not the server's own timestamp
 
-  // Tracks warm-up progress across the whole rolling window of frames at the
-  // current zoom level, not per individual frame-swap — a frame's time, once
-  // fully cached, goes into radarWarmFrameTimes permanently and never gets
-  // re-tracked or re-flashed on later revisits (e.g. later playback loops).
-  // The bar is a pure step function of warm-frame-count / total-frames: it
-  // only moves forward, once per frame that finishes, and only resets when
-  // zoom changes (a different, uncached tile grid) — no per-tile partial
-  // term, since that was what caused it to visibly saw up and down.
-  const radarWarmFrameTimes = new Set();
-  let radarLoadGeneration = 0;
-
-  function updateRadarProgressUI() {
-    const track = document.getElementById('radarProgressTrack');
-    const bar = document.getElementById('radarProgressBar');
-    const total = radarFrameTimes.length;
-    if (total === 0 || radarWarmFrameTimes.size >= total) {
-      track.classList.add('hidden');
-      bar.style.width = '0%';
-      return;
-    }
-    track.classList.remove('hidden');
-    bar.style.width = `${Math.min(100, Math.round((radarWarmFrameTimes.size / total) * 100))}%`;
+  function showRadarRefreshOverlay() {
+    document.getElementById('radarBar').classList.add('hidden');
+    document.getElementById('radarRefreshOverlay').classList.remove('hidden');
+    updateRadarRefreshProgress(0, 0);
   }
 
-  // Batches rapid-fire counter changes (e.g. a burst of cache-hit tiles
-  // incrementing requested/loaded back-to-back in the same synchronous loop)
-  // into a single paint update instead of one per increment — otherwise the
-  // bar visibly toggles hidden/visible/hidden many times per frame swap.
-  let radarProgressUIScheduled = false;
-  function scheduleRadarProgressUIUpdate() {
-    if (radarProgressUIScheduled) return;
-    radarProgressUIScheduled = true;
-    requestAnimationFrame(() => {
-      radarProgressUIScheduled = false;
-      updateRadarProgressUI();
-    });
+  function hideRadarRefreshOverlay() {
+    document.getElementById('radarRefreshOverlay').classList.add('hidden');
+    document.getElementById('radarBar').classList.remove('hidden');
+  }
+
+  function updateRadarRefreshProgress(completed, total) {
+    const pct = total > 0 ? Math.min(100, Math.round((completed / total) * 100)) : 0;
+    document.getElementById('radarRefreshBar').style.width = `${pct}%`;
+    document.getElementById('radarRefreshPercent').textContent = `${pct}%`;
   }
 
   function formatCountdown(ms) {
@@ -623,8 +573,14 @@
     radarFrameTimes = newFrames;
     const preservedIndex = radarFrameTimes.indexOf(currentTime);
     radarFrameIndex = preservedIndex !== -1 ? preservedIndex : radarFrameTimes.length - 1;
-    scheduleRadarProgressUIUpdate(); // total frame count may have shifted
-    warmAllRadarFrames(); // background-fetch whatever's newly in the window
+
+    // Quietly warm just the newest frame in the background — this routine
+    // rolling-window update isn't one of the events (first load, pan/zoom)
+    // that warrants the full-screen refresh treatment.
+    const zoom = Math.round(map.getZoom());
+    const coords = getVisibleTileCoords(zoom);
+    const newestTime = radarFrameTimes[radarFrameTimes.length - 1];
+    coords.forEach(coord => prefetchRadarTile(newestTime, coord, zoom));
   }
 
   function removeAllRadarOverlays() {
@@ -688,15 +644,54 @@
     updateRadarUI(index);
   }
 
-  async function startRadarPlayback() {
-    const btn = document.getElementById('radarPlayBtn');
-    const radarToggle = document.getElementById('radarToggle');
-    btn.disabled = true;
-    btn.textContent = 'Loading…';
+  // The one entry point for "we need radar data now": first page load, and
+  // every pan/zoom (via the map's 'idle' listener in initMap). Unlike the
+  // background warm-up used for the routine rolling-window update, this
+  // knows the *exact* total tile count up front (frames × currently-visible
+  // tiles), so it can show real 0-100% progress — and while it runs, all the
+  // now-stale frame UI (slider, label, map overlay) is hidden rather than
+  // left showing data for the wrong viewport.
+  let radarRefreshId = 0;
+
+  async function refreshRadarDataAndPlay() {
+    const refreshId = ++radarRefreshId;
+
+    clearTimeout(radarPlayTimerId);
+    clearInterval(radarWindowTimerId);
+    clearInterval(radarCountdownTimerId);
+    radarPlaying = false;
+    removeAllRadarOverlays();
+    overlayState.radar.mapType = null;
+
+    showRadarRefreshOverlay();
 
     const latest = await fetchLatestRadarTime();
+    if (refreshId !== radarRefreshId) return; // superseded by a newer pan/zoom
     radarFrameTimes = buildRadarWindow(latest);
     radarLatestObservedAt = Date.now();
+
+    const zoom = Math.round(map.getZoom());
+    const coords = getVisibleTileCoords(zoom);
+    const total = radarFrameTimes.length * coords.length;
+    let completed = 0;
+    updateRadarRefreshProgress(0, total);
+
+    await Promise.all(radarFrameTimes.map(time => Promise.all(coords.map(coord =>
+      prefetchRadarTile(time, coord, zoom).then(() => {
+        if (refreshId !== radarRefreshId) return;
+        completed++;
+        updateRadarRefreshProgress(completed, total);
+      })
+    ))));
+    if (refreshId !== radarRefreshId) return; // superseded partway through
+
+    hideRadarRefreshOverlay();
+    beginRadarPlayback();
+  }
+
+  function beginRadarPlayback() {
+    const btn = document.getElementById('radarPlayBtn');
+    const radarToggle = document.getElementById('radarToggle');
 
     removeAllRadarOverlays();
     overlayState.radar.mapType = null;
@@ -706,7 +701,6 @@
     radarToggle.disabled = true;
     overlayState.radar.visible = true;
     scrubToFrame(radarFrameIndex);
-    warmAllRadarFrames(); // fetch the rest of the window concurrently in the background
 
     radarWindowTimerId = setInterval(refreshRadarWindow, RADAR_WINDOW_CHECK_MS);
     scheduleNextRadarFrame();
@@ -758,6 +752,8 @@
   }
 
   function stopRadarPlayback() {
+    radarRefreshId++; // invalidate any in-flight refresh so it doesn't resurrect playback
+    hideRadarRefreshOverlay();
     clearTimeout(radarPlayTimerId);
     clearInterval(radarWindowTimerId);
     clearInterval(radarCountdownTimerId);
@@ -994,7 +990,7 @@
     }
 
     document.getElementById('radarPlayBtn').addEventListener('click', () => {
-      if (radarPlaying) stopRadarPlayback(); else startRadarPlayback();
+      if (radarPlaying) stopRadarPlayback(); else refreshRadarDataAndPlay();
     });
 
     initRadarScrubbing();
@@ -1053,16 +1049,11 @@
       ]
     });
 
-    // Zoom uses a different tile grid entirely, so every visible radar tile
-    // misses the cache and needs re-fetching — clear the warm set so the bar
-    // reflects that, and kick off a fresh background warm-up for the new
-    // zoom level.
-    map.addListener('zoom_changed', () => {
-      if (overlayState.radar && overlayState.radar.visible) {
-        radarWarmFrameTimes.clear();
-        scheduleRadarProgressUIUpdate();
-        warmAllRadarFrames();
-      }
+    // 'idle' fires once after the viewport settles from *any* change — the
+    // initial fitBounds below, a pan, or a zoom — so it's the single trigger
+    // covering all three "we need a full radar refresh" cases in one place.
+    map.addListener('idle', () => {
+      refreshRadarDataAndPlay();
     });
 
     homeMarker = new google.maps.Marker({
@@ -1097,7 +1088,6 @@
     document.getElementById('placeholderNotice').style.display = 'none';
     initControls();
     connectBlitzortung();
-    startRadarPlayback();
     initGeolocation();
   }
 
