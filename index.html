@@ -179,9 +179,6 @@
   <button id="settingsCloseBtn" type="button" aria-label="Close">&#10005;</button>
   <h2>Lightning Watch</h2>
   <span id="status">connecting&hellip;</span>
-  <label class="control">Radius (km)
-    <input type="number" id="radiusInput" min="10" max="3000" step="5" value="400">
-  </label>
   <label class="control">
     <input type="checkbox" id="radarToggle"> Radar
   </label>
@@ -207,7 +204,7 @@
   const DEVICE_DISTANCE_MIN_KM = 1; // don't bother showing a device distance when it's basically at HOME already
 
   // ---- Tunables ----
-  const STRIKE_TTL_MS = 2 * 60 * 1000;    // how long a strike stays on the map / list, fading to nothing
+  const STRIKE_TTL_MS = 5 * 60 * 1000;    // how long a strike stays on the map / list, fading to nothing
   const SWEEP_INTERVAL_MS = 2000;         // how often expired strikes are pruned / faded
   const NEAR_ALERT_KM = 8;                // "very close" marker color threshold
   const BLITZORTUNG_SERVERS = ['ws1', 'ws3', 'ws7', 'ws8'];
@@ -267,9 +264,8 @@
       Math.abs(b - RADAR_HIDE_COLOR.b) <= RADAR_HIDE_TOLERANCE;
   }
 
-  let map, homeMarker, radiusCircle, userLocationMarker, strikeInfoWindow;
+  let map, homeMarker, userLocationMarker, strikeInfoWindow;
   let userPosition = null;
-  let radiusKm = 400;
   const overlayState = {}; // key -> { visible, mapType, bucket }
   const activeStrikes = []; // { marker, timestampMs }
 
@@ -824,7 +820,7 @@
     const ws = new WebSocket(`wss://${server}.blitzortung.org:443/`);
 
     ws.onopen = () => {
-      setStatus(`connected (${server}) – watching within ${radiusKm} km`, 'connected');
+      setStatus(`connected (${server}) – watching visible map area`, 'connected');
       ws.send(JSON.stringify({ a: 111 }));
     };
 
@@ -837,9 +833,13 @@
       }
       if (typeof strike.lat !== 'number' || typeof strike.lon !== 'number') return;
 
-      const distanceKm = haversineKm(HOME.lat, HOME.lng, strike.lat, strike.lon);
-      if (distanceKm > radiusKm) return;
+      // Shown/filtered by whatever's currently on-screen, rather than a fixed
+      // distance from HOME — panning/zooming the map is now what controls
+      // which strikes appear.
+      const bounds = map.getBounds();
+      if (!bounds || !bounds.contains({ lat: strike.lat, lng: strike.lon })) return;
 
+      const distanceKm = haversineKm(HOME.lat, HOME.lng, strike.lat, strike.lon);
       const timestampMs = strike.time ? Math.floor(strike.time / 1e6) : Date.now();
       addStrike(strike.lat, strike.lon, timestampMs, distanceKm);
     };
@@ -884,12 +884,6 @@
       () => {},
       { enableHighAccuracy: true, maximumAge: 10000, timeout: 10000 }
     );
-  }
-
-  function updateRadiusCircle() {
-    if (radiusCircle) {
-      radiusCircle.setRadius(radiusKm * 1000);
-    }
   }
 
   // Plays a supplemental YouTube stream/video via the official IFrame Player
@@ -973,15 +967,6 @@
   }
 
   function initControls() {
-    const radiusInput = document.getElementById('radiusInput');
-    radiusInput.addEventListener('change', () => {
-      const v = parseFloat(radiusInput.value);
-      if (!isNaN(v) && v > 0) {
-        radiusKm = v;
-        updateRadiusCircle();
-      }
-    });
-
     const toggleIds = { radar: 'radarToggle', satellite: 'satelliteToggle' };
     for (const [key, elId] of Object.entries(toggleIds)) {
       const el = document.getElementById(elId);
@@ -1071,19 +1056,6 @@
     });
 
     strikeInfoWindow = new google.maps.InfoWindow();
-
-    radiusCircle = new google.maps.Circle({
-      map,
-      center: HOME,
-      radius: radiusKm * 1000,
-      fillColor: '#4dd0ff',
-      fillOpacity: 0.05,
-      strokeColor: '#4dd0ff',
-      strokeOpacity: 0.4,
-      strokeWeight: 1
-    });
-
-    map.fitBounds(radiusCircle.getBounds()); // center + zoom to fit the monitored radius exactly
 
     document.getElementById('placeholderNotice').style.display = 'none';
     initControls();
