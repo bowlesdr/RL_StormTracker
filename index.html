@@ -177,7 +177,7 @@
 </div>
 
 <div id="radarBar">
-  <input type="range" id="radarAgeSlider" min="0" max="120" step="6" value="0">
+  <input type="range" id="radarAgeSlider" min="0" max="180" step="6" value="0">
   <span id="radarFrameLabel"></span>
 </div>
 
@@ -442,8 +442,8 @@
   // what isn't. Loading *progress* is tracked separately by refreshRadarData,
   // which fetches everything up front before this ever needs to run for real
   // (so in normal use this is almost always a cache hit).
-  function createRadarMapType(time) {
-    const def = OVERLAYS.radar;
+  function createRadarMapType(time, isForecast) {
+    const def = isForecast ? RADAR_FORECAST_LAYER : OVERLAYS.radar;
     const bucket = time ? null : Date.now();
     overlayState.radar.bucket = bucket;
 
@@ -503,11 +503,12 @@
     return coords;
   }
 
-  function prefetchRadarTile(time, coord, zoom) {
+  function prefetchRadarTile(time, coord, zoom, isForecast) {
     return new Promise(resolve => {
       const cacheKey = `${time}|${coord.x}|${coord.y}|${zoom}`;
       if (radarTileCache.has(cacheKey)) { resolve(); return; }
-      const url = wmsTileUrl(OVERLAYS.radar, null, time, coord, zoom);
+      const def = isForecast ? RADAR_FORECAST_LAYER : OVERLAYS.radar;
+      const url = wmsTileUrl(def, null, time, coord, zoom);
       if (!url) { resolve(); return; }
       const img = new Image();
       img.crossOrigin = 'anonymous';
@@ -520,8 +521,8 @@
     });
   }
 
-  function createOverlay(key, time) {
-    if (key === 'radar') return createRadarMapType(time);
+  function createOverlay(key, time, isForecast) {
+    if (key === 'radar') return createRadarMapType(time, isForecast);
 
     const def = OVERLAYS[key];
     const bucket = time ? null : Date.now();
@@ -552,11 +553,18 @@
     setOverlayVisible(key, true); // rebuilds with a fresh cache-busting bucket
   }
 
-  // Radar playback: animates the last hour of composites (11 frames, 6-min apart).
+  // Radar playback: animates 2 hours of past/current composites plus a
+  // 1-hour forecast nowcast (extrapolated from current motion — ECCC's
+  // public WMS doesn't expose anything further out or a true model
+  // forecast). Frames at index > RADAR_NOW_INDEX come from a different WMS
+  // layer (RADAR_FORECAST_LAYER) than the historical ones (OVERLAYS.radar).
   const RADAR_PLAYBACK_STEP_MS = 6 * 60 * 1000;
-  const RADAR_PLAYBACK_FRAMES = 21; // 20 steps of 6 min = 2 hours
+  const RADAR_PLAYBACK_FRAMES = 21; // 20 steps of 6 min = 2 hours of history, ending at "now"
+  const RADAR_FORECAST_FRAMES = 10; // 10 more steps of 6 min = 1 hour forecast
+  const RADAR_NOW_INDEX = RADAR_PLAYBACK_FRAMES - 1;
+  const RADAR_FORECAST_LAYER = { layer: 'Radar_1km_RainPrecipRate-Extrapolation', style: 'Radar-Rain_Dis-8colors', opacity: 0.45 };
   const RADAR_PLAYBACK_FRAME_MS = 700; // 1000ms stock speed, 30% faster
-  const RADAR_CYCLE_PAUSE_MS = 5000; // blank pause between the last frame and the loop restarting
+  const RADAR_CYCLE_BLANK_MS = 3000; // map goes blank for this long between the end of a full cycle and the next one starting
   const RADAR_WINDOW_CHECK_MS = 60 * 1000;
   let radarPlaying = false;
   let radarFrameTimes = [];
@@ -597,10 +605,48 @@
     return match ? new Date(match[1]) : new Date(Math.floor(Date.now() / RADAR_PLAYBACK_STEP_MS) * RADAR_PLAYBACK_STEP_MS);
   }
 
-  function buildRadarWindow(latest) {
+  // The forecast layer's own "latest" (its current run's base time) doesn't
+  // line up with the observed radar layer's — they're separate products on
+  // independent publish schedules, verified to differ by as much as a full
+  // 6-minute step. Its time dimension requires an exact match (no
+  // nearest-value snapping), so forecast frames must be built relative to
+  // this, not to fetchLatestRadarTime's value.
+  // Captures the layer's full valid time extent (start/end), not just its
+  // default — needed to clamp forecast frame generation to what's actually
+  // valid, since this layer requires an exact time match with no
+  // nearest-value snapping and its ~1hr window has a hard upper bound.
+  async function fetchForecastTimeExtent() {
+    try {
+      const resp = await fetch('https://geo.weather.gc.ca/geomet?service=WMS&version=1.3.0&request=GetCapabilities&layers=' + RADAR_FORECAST_LAYER.layer);
+      const text = await resp.text();
+      const match = text.match(/<Dimension[^>]*name="time"[^>]*>([^<]+)<\/Dimension>/);
+      if (!match) return null;
+      const [start, end] = match[1].split('/');
+      return { base: new Date(start), upper: new Date(end) };
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // forecastExtent.base is the forecast layer's own valid time grid origin —
+  // may be offset from `latest` by up to one step, so forecast frames are
+  // built relative to it, filtered to strictly after `latest` and clamped to
+  // forecastExtent.upper, keeping the timeline monotonic without duplicating
+  // history or exceeding what the layer actually has data for.
+  function buildRadarWindow(latest, forecastExtent) {
     const frames = [];
     for (let i = RADAR_PLAYBACK_FRAMES - 1; i >= 0; i--) {
       frames.push(new Date(latest.getTime() - i * RADAR_PLAYBACK_STEP_MS).toISOString().replace(/\.\d+Z$/, 'Z'));
+    }
+    if (forecastExtent) {
+      const { base, upper } = forecastExtent;
+      for (let i = 0, count = 0; count < RADAR_FORECAST_FRAMES; i++) {
+        const t = new Date(base.getTime() + i * RADAR_PLAYBACK_STEP_MS);
+        if (t.getTime() <= latest.getTime()) continue;
+        if (t.getTime() > upper.getTime()) break; // don't request past the layer's own valid range
+        frames.push(t.toISOString().replace(/\.\d+Z$/, 'Z'));
+        count++;
+      }
     }
     return frames;
   }
@@ -612,23 +658,30 @@
   // backgrounded and its timers throttled for a while.
   async function refreshRadarWindow() {
     if (!radarPlaying) return;
-    const latest = await fetchLatestRadarTime();
-    const newFrames = buildRadarWindow(latest);
-    if (newFrames[newFrames.length - 1] === radarFrameTimes[radarFrameTimes.length - 1]) return;
+    const [latest, forecastExtent] = await Promise.all([fetchLatestRadarTime(), fetchForecastTimeExtent()]);
+    const newFrames = buildRadarWindow(latest, forecastExtent);
+    if (newFrames[RADAR_NOW_INDEX] === radarFrameTimes[RADAR_NOW_INDEX]) return; // "now" hasn't advanced yet
 
     radarLatestObservedAt = Date.now();
     const currentTime = radarFrameTimes[radarFrameIndex];
     radarFrameTimes = newFrames;
     const preservedIndex = radarFrameTimes.indexOf(currentTime);
-    radarFrameIndex = preservedIndex !== -1 ? preservedIndex : radarFrameTimes.length - 1;
+    radarFrameIndex = preservedIndex !== -1 ? preservedIndex : RADAR_NOW_INDEX;
 
-    // Quietly warm just the newest frame in the background — this routine
-    // rolling-window update isn't one of the events (first load, pan/zoom)
-    // that warrants the full-screen refresh treatment.
+    // Quietly warm the newest historical frame plus the whole forecast
+    // portion in the background — this routine rolling-window update isn't
+    // one of the events (first load, pan/zoom) that warrants the
+    // full-screen refresh treatment. The forecast frames all need
+    // re-warming every time (not just the newest one), since they're a
+    // rolling nowcast that regenerates entirely each time "now" advances,
+    // rather than stable history with one new frame appended.
     const zoom = Math.round(map.getZoom());
     const coords = getVisibleTileCoords(zoom);
-    const newestTime = radarFrameTimes[radarFrameTimes.length - 1];
-    coords.forEach(coord => prefetchRadarTile(newestTime, coord, zoom));
+    for (let idx = RADAR_NOW_INDEX; idx < radarFrameTimes.length; idx++) {
+      const time = radarFrameTimes[idx];
+      const isForecast = idx > RADAR_NOW_INDEX;
+      coords.forEach(coord => prefetchRadarTile(time, coord, zoom, isForecast));
+    }
   }
 
   function removeAllRadarOverlays() {
@@ -642,16 +695,16 @@
   // is now showing, regardless of how it got swapped in.
   function updateRadarUI(index) {
     const stepMinutes = RADAR_PLAYBACK_STEP_MS / 60000;
-    const ageMinutes = (radarFrameTimes.length - 1 - index) * stepMinutes;
-    const elapsedMinutes = index * stepMinutes; // rises left-to-right so "live" lands on the right
+    const offsetMinutes = (index - RADAR_NOW_INDEX) * stepMinutes; // negative = past, 0 = now, positive = forecast
+    const elapsedMinutes = index * stepMinutes; // rises left-to-right so "now" lands partway across, forecast after it
     const slider = document.getElementById('radarAgeSlider');
     slider.max = (radarFrameTimes.length - 1) * stepMinutes;
     slider.value = elapsedMinutes;
 
     const label = document.getElementById('radarFrameLabel');
-    label.classList.toggle('live', ageMinutes === 0);
+    label.classList.toggle('live', offsetMinutes === 0);
     clearInterval(radarCountdownTimerId);
-    if (ageMinutes === 0) {
+    if (offsetMinutes === 0) {
       const nextFrameAt = radarLatestObservedAt + RADAR_PLAYBACK_STEP_MS;
       const tickCountdown = () => { label.textContent = formatCountdown(nextFrameAt - Date.now()); };
       tickCountdown();
@@ -659,7 +712,8 @@
     } else {
       const frameTime = new Date(radarFrameTimes[index]);
       const clockText = frameTime.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
-      label.innerHTML = `${clockText}<br>${ageMinutes} min ago`;
+      const relText = offsetMinutes < 0 ? `${-offsetMinutes} min ago` : `${offsetMinutes} min from now`;
+      label.innerHTML = `${clockText}<br>${relText}`;
     }
   }
 
@@ -674,10 +728,11 @@
 
   function scrubToFrame(index) {
     const time = radarFrameTimes[index];
+    const isForecast = index > RADAR_NOW_INDEX;
     const state = overlayState.radar;
     const previousMapType = state.mapType;
 
-    state.mapType = createOverlay('radar', time);
+    state.mapType = createOverlay('radar', time, isForecast);
     map.overlayMapTypes.push(state.mapType);
     if (previousMapType) {
       // Give the new overlay's tiles a brief head start before removing the
@@ -713,9 +768,9 @@
 
     showRadarRefreshOverlay();
 
-    const latest = await fetchLatestRadarTime();
+    const [latest, forecastExtent] = await Promise.all([fetchLatestRadarTime(), fetchForecastTimeExtent()]);
     if (refreshId !== radarRefreshId) return; // superseded by a newer pan/zoom
-    radarFrameTimes = buildRadarWindow(latest);
+    radarFrameTimes = buildRadarWindow(latest, forecastExtent);
     radarLatestObservedAt = Date.now();
 
     const zoom = Math.round(map.getZoom());
@@ -724,8 +779,8 @@
     let completed = 0;
     updateRadarRefreshProgress(0, total);
 
-    await Promise.all(radarFrameTimes.map(time => Promise.all(coords.map(coord =>
-      prefetchRadarTile(time, coord, zoom).then(() => {
+    await Promise.all(radarFrameTimes.map((time, idx) => Promise.all(coords.map(coord =>
+      prefetchRadarTile(time, coord, zoom, idx > RADAR_NOW_INDEX).then(() => {
         if (refreshId !== radarRefreshId) return;
         completed++;
         updateRadarRefreshProgress(completed, total);
@@ -749,19 +804,33 @@
     scheduleNextRadarFrame();
   }
 
-  // Advances to the next frame after RADAR_PLAYBACK_FRAME_MS, except once the
-  // last (live) frame in the window has been shown: then playback holds on
-  // that live frame for RADAR_CYCLE_PAUSE_MS before looping back to frame 0,
-  // so each pass through the hour reads as a distinct loop rather than
-  // blurring straight into the next one, without ever blanking the map.
+  // Blanks the map rather than leaving the last-shown frame's overlay up —
+  // used only at the end of a full cycle (see scheduleNextRadarFrame), as a
+  // clear "resetting" cue before the next pass starts from the beginning.
+  function clearRadarDisplay() {
+    removeAllRadarOverlays();
+    overlayState.radar.mapType = null;
+    const label = document.getElementById('radarFrameLabel');
+    label.textContent = '';
+    label.classList.remove('live');
+    clearInterval(radarCountdownTimerId);
+  }
+
+  // Advances straight through past → now → forecast every
+  // RADAR_PLAYBACK_FRAME_MS with no pause in the middle (there's nothing
+  // special about "now" pacing-wise now that forecast frames continue past
+  // it) — only once the very last (furthest-forecast) frame has been shown
+  // does it blank the map for RADAR_CYCLE_BLANK_MS before looping back to
+  // frame 0, so each full pass reads as a distinct cycle.
   function scheduleNextRadarFrame() {
     radarPlayTimerId = setTimeout(() => {
       if (radarFrameIndex >= radarFrameTimes.length - 1) {
+        clearRadarDisplay();
         radarPlayTimerId = setTimeout(() => {
           radarFrameIndex = 0;
           scrubToFrame(radarFrameIndex);
           scheduleNextRadarFrame();
-        }, RADAR_CYCLE_PAUSE_MS);
+        }, RADAR_CYCLE_BLANK_MS);
       } else {
         radarFrameIndex++;
         scrubToFrame(radarFrameIndex);
