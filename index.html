@@ -57,6 +57,8 @@
   #radarRefreshPercent { margin-top: 8px; font-size: 13px; opacity: 0.8; }
 
   #radarAgeSlider { width: 90px; accent-color: #ffb454; opacity: 1; }
+  #radarAgeSlider.forecast { accent-color: #4dd0ff; }
+  #radarNextUpdateLabel { opacity: 0.7; min-width: 40px; font-size: 13px; }
   #radarFrameLabel { opacity: 0.7; min-width: 60px; font-size: 13px; }
   #radarFrameLabel.live {
     opacity: 1; color: #4dff88; font-weight: 700; letter-spacing: 0.04em;
@@ -177,6 +179,7 @@
 </div>
 
 <div id="radarBar">
+  <span id="radarNextUpdateLabel"></span>
   <input type="range" id="radarAgeSlider" min="0" max="180" step="6" value="0">
   <span id="radarFrameLabel"></span>
 </div>
@@ -571,8 +574,24 @@
   let radarFrameIndex = 0;
   let radarPlayTimerId = null;
   let radarWindowTimerId = null;
-  let radarCountdownTimerId = null;
+  let radarNextUpdateTimerId = null;
   let radarLatestObservedAt = 0; // wall-clock time we last saw a new newest frame, not the server's own timestamp
+
+  // Ticks continuously regardless of which frame is currently displayed or
+  // scrubbed to (unlike the old behavior, where this only showed up while
+  // viewing the live frame) — always reflects real time remaining until the
+  // next actual radar update, reading radarLatestObservedAt fresh each tick
+  // rather than capturing it once, so it stays correct across window
+  // refreshes without needing to be restarted.
+  function startNextUpdateCountdown() {
+    clearInterval(radarNextUpdateTimerId);
+    const el = document.getElementById('radarNextUpdateLabel');
+    const tick = () => {
+      el.textContent = formatCountdown((radarLatestObservedAt + RADAR_PLAYBACK_STEP_MS) - Date.now());
+    };
+    tick();
+    radarNextUpdateTimerId = setInterval(tick, 1000);
+  }
 
   function showRadarRefreshOverlay() {
     document.getElementById('radarBar').classList.add('hidden');
@@ -696,25 +715,22 @@
   function updateRadarUI(index) {
     const stepMinutes = RADAR_PLAYBACK_STEP_MS / 60000;
     const offsetMinutes = (index - RADAR_NOW_INDEX) * stepMinutes; // negative = past, 0 = now, positive = forecast
+    const isForecastFrame = index > RADAR_NOW_INDEX;
     const elapsedMinutes = index * stepMinutes; // rises left-to-right so "now" lands partway across, forecast after it
     const slider = document.getElementById('radarAgeSlider');
     slider.max = (radarFrameTimes.length - 1) * stepMinutes;
     slider.value = elapsedMinutes;
+    slider.classList.toggle('forecast', isForecastFrame);
 
     const label = document.getElementById('radarFrameLabel');
     label.classList.toggle('live', offsetMinutes === 0);
-    clearInterval(radarCountdownTimerId);
-    if (offsetMinutes === 0) {
-      const nextFrameAt = radarLatestObservedAt + RADAR_PLAYBACK_STEP_MS;
-      const tickCountdown = () => { label.textContent = formatCountdown(nextFrameAt - Date.now()); };
-      tickCountdown();
-      radarCountdownTimerId = setInterval(tickCountdown, 1000);
-    } else {
-      const frameTime = new Date(radarFrameTimes[index]);
-      const clockText = frameTime.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
-      const relText = offsetMinutes < 0 ? `${-offsetMinutes} min ago` : `${offsetMinutes} min from now`;
-      label.innerHTML = `${clockText}<br>${relText}`;
-    }
+    const frameTime = new Date(radarFrameTimes[index]);
+    const clockText = frameTime.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+    let relText;
+    if (offsetMinutes === 0) relText = 'now';
+    else if (offsetMinutes < 0) relText = `${-offsetMinutes} min ago`;
+    else relText = `${offsetMinutes} min from now`;
+    label.innerHTML = `${clockText}<br>${relText}`;
   }
 
   // Swaps the overlay immediately rather than waiting for tiles to preload —
@@ -761,7 +777,6 @@
 
     clearTimeout(radarPlayTimerId);
     clearInterval(radarWindowTimerId);
-    clearInterval(radarCountdownTimerId);
     radarPlaying = false;
     removeAllRadarOverlays();
     overlayState.radar.mapType = null;
@@ -802,6 +817,7 @@
 
     radarWindowTimerId = setInterval(refreshRadarWindow, RADAR_WINDOW_CHECK_MS);
     scheduleNextRadarFrame();
+    startNextUpdateCountdown();
   }
 
   // Blanks the map rather than leaving the last-shown frame's overlay up —
@@ -813,7 +829,6 @@
     const label = document.getElementById('radarFrameLabel');
     label.textContent = '';
     label.classList.remove('live');
-    clearInterval(radarCountdownTimerId);
   }
 
   // Advances straight through past → now → forecast every
