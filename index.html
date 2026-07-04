@@ -237,9 +237,22 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-  // ---- Fixed watch location ----
+  // ---- Watch location — defaults to Rock Lake, overridable via a
+  // ?coords=lat,lng URL param (e.g. &coords=44.4736,-77.7579) so the same
+  // app can be pointed at a different spot without a code change.
   const HOME = { lat: 44.80996960818295, lng: -76.25362035830996 };
-  const HOME_NAME = 'Rock Lake';
+  let HOME_NAME = 'Rock Lake';
+  (function applyCoordsOverride() {
+    const coordsParam = new URLSearchParams(window.location.search).get('coords');
+    if (!coordsParam) return;
+    const parts = coordsParam.split(',').map(s => parseFloat(s.trim()));
+    if (parts.length !== 2 || parts.some(Number.isNaN)) return;
+    const [lat, lng] = parts;
+    if (lat < -90 || lat > 90 || lng < -180 || lng > 180) return;
+    HOME.lat = lat;
+    HOME.lng = lng;
+    HOME_NAME = 'Watch Location';
+  })();
   const DEVICE_DISTANCE_MIN_KM = 1; // don't bother showing a device distance when it's basically at HOME already
 
   // Where HOME should sit on screen for every preset view: vertically
