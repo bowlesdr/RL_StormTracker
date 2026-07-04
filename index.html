@@ -1218,10 +1218,22 @@
       title
     });
 
+    // Invisible copy of the arrow's exact icon geometry (same path, scale,
+    // rotation) purely so labelOrigin positions the number identically to
+    // where it sat on the combined marker before — a differently-shaped
+    // invisible icon shifts the label since labelOrigin is relative to the
+    // icon's own coordinate space, not a fixed pixel offset.
     const label = new google.maps.Marker({
       position,
       map,
-      icon: { path: google.maps.SymbolPath.CIRCLE, scale: 0, fillOpacity: 0, strokeOpacity: 0 },
+      icon: {
+        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+        scale: 9.6,
+        rotation: (obs.dirDeg + 180) % 360,
+        fillOpacity: 0,
+        strokeOpacity: 0,
+        labelOrigin: new google.maps.Point(0, 2)
+      },
       label: { text: `${Math.round(obs.speedKmh)}`, color: '#ffffff', fontSize: '11px', fontWeight: 'bold' },
       zIndex: WIND_LABEL_Z_INDEX,
       clickable: false,
