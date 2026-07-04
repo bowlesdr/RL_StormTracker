@@ -1098,6 +1098,7 @@
   const TORNADO_IMAGE_SIZE = { width: 1126, height: 588 };
   const TORNADO_IMAGE_START_PX = { x: 179, y: 330 };
   const TORNADO_IMAGE_END_PX = { x: 912, y: 281 };
+  const TORNADO_SURVEY_URL = 'https://ntpopendata-westernu.opendata.arcgis.com/apps/ba10a746d15f4231a1fb08591e08833a/explore';
 
   // google.maps.GroundOverlay can't rotate, so this needs a custom
   // OverlayView instead: an absolutely-positioned <img> whose CSS
@@ -1122,9 +1123,12 @@
           img.style.position = 'absolute';
           img.style.width = `${TORNADO_IMAGE_SIZE.width}px`;
           img.style.height = `${TORNADO_IMAGE_SIZE.height}px`;
-          img.style.opacity = '0.7';
-          img.style.pointerEvents = 'none';
+          img.style.cursor = 'pointer';
           img.style.transformOrigin = `${TORNADO_IMAGE_START_PX.x}px ${TORNADO_IMAGE_START_PX.y}px`;
+          img.addEventListener('click', () => {
+            window.open(TORNADO_SURVEY_URL, '_blank', 'noopener');
+            toggleTornadoImage(); // dismiss the image and restore the line
+          });
           this.img = img;
           this.getPanes().overlayLayer.appendChild(img);
         }
@@ -1169,10 +1173,12 @@
     if (tornadoImageOverlay) {
       tornadoImageOverlay.setMap(null);
       tornadoImageOverlay = null;
+      tornadoPolyline.setMap(map); // restore the line now that the image is gone
     } else {
       const OverlayClass = getTornadoImageOverlayClass();
       tornadoImageOverlay = new OverlayClass();
       tornadoImageOverlay.setMap(map);
+      tornadoPolyline.setMap(null); // the image replaces the line while showing
     }
   }
 
@@ -1197,9 +1203,7 @@
       tornadoPolyline.addListener('mouseover', (e) => {
         tornadoInfoWindow.setContent(
           '<div style="color:#1a1a1a;font:13px -apple-system,Segoe UI,Roboto,Arial,sans-serif;">' +
-          'Tornado track<br>Christie Lake to Jasper, ON<br>July 24, 2024<br>' +
-          '<a href="https://ntpopendata-westernu.opendata.arcgis.com/apps/ba10a746d15f4231a1fb08591e08833a/explore" ' +
-          'target="_blank" rel="noopener">Survey details (Western University NTP)</a></div>'
+          'Tornado track<br>Christie Lake to Jasper, ON<br>July 24, 2024</div>'
         );
         tornadoInfoWindow.setPosition(e.latLng);
         tornadoInfoWindow.open(map);
