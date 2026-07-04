@@ -192,7 +192,7 @@
   <label class="control" id="tornadoOption" title="Documented tornado track: Christie Lake to Jasper, ON — July 24, 2024. Click the line on the map for details.">
     <input type="checkbox" id="tornadoToggle"> Tornado(s)
   </label>
-  <label class="control" title="Rock Lake property boundary, surveyed corners.">
+  <label class="control" id="propertyBoundaryOption" title="Rock Lake property boundary, surveyed corners.">
     <input type="checkbox" id="propertyBoundaryToggle" checked> Property Boundary
   </label>
   <label class="control" title="Municipal/administrative boundary lines and place labels (Esri).">
@@ -1616,13 +1616,15 @@
   }
 
   function initControls() {
-    // Tornado track and wind station data are specific to the Rock Lake
-    // area — not meaningful (and in the tornado track's case, not even
+    // Tornado track, wind station comparison, and the surveyed property
+    // boundary are all specific to the Rock Lake area — not meaningful (and
+    // in the tornado track's and property boundary's case, not even
     // physically nearby) when the app is pointed at a different location
     // via ?coords=.
     if (!isDefaultLocation) {
       document.getElementById('tornadoOption').style.display = 'none';
       document.getElementById('windOption').style.display = 'none';
+      document.getElementById('propertyBoundaryOption').style.display = 'none';
     }
 
     const toggleIds = { satellite: 'satelliteToggle', stormIntensity: 'stormIntensityToggle' };
@@ -1648,7 +1650,7 @@
 
     const propertyBoundaryToggleEl = document.getElementById('propertyBoundaryToggle');
     propertyBoundaryToggleEl.addEventListener('change', (e) => togglePropertyBoundary(e.target.checked));
-    togglePropertyBoundary(propertyBoundaryToggleEl.checked); // on by default
+    togglePropertyBoundary(isDefaultLocation && propertyBoundaryToggleEl.checked); // on by default at Rock Lake only
 
     document.getElementById('boundariesToggle').addEventListener('change', (e) => toggleBoundariesLayer(e.target.checked));
 
