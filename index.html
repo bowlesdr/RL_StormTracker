@@ -211,8 +211,10 @@
     <input type="checkbox" id="stormIntensityToggle"> Storm Intensity (next 1h)
   </label>
 
-  <div class="sectionLabel" title="Nearest personal weather station reporting live wind (Weather Underground's crowd-sourced network) — much denser near Rock Lake than official government stations, though uncalibrated compared to them.">Wind</div>
-  <div id="windInfo">Loading&hellip;</div>
+  <label class="control" title="Live wind from every nearby station within 50km — both ECCC's official network and Weather Underground's crowd-sourced personal weather stations, which are much denser near Rock Lake but uncalibrated compared to ECCC's.">
+    <input type="checkbox" id="windToggle"> Wind
+  </label>
+  <div id="windInfo"></div>
 
   <div class="sectionLabel">Lightning</div>
   <div class="buttonRow">
@@ -1077,17 +1079,21 @@
     );
   }
 
-  // ---- Wind (Weather Underground's crowd-sourced personal-weather-station
-  // network). ECCC's official network has nothing within ~50km of HOME; WU's
-  // PWS density here is much better (verified stations as close as 5.7km),
-  // at the cost of being uncalibrated hobbyist hardware rather than an
-  // official-grade station. Uses a key embedded in WU's own public web map
-  // widget — not a private/secret credential, same category as our
-  // referrer-restricted Google Maps key.
+  // ---- Wind: merges two sources within 50km of HOME.
+  // - ECCC's official SWOB-realtime network (same MSC GeoMet OGC API as the
+  //   radar/satellite/alerts), sparse near Rock Lake but calibrated.
+  // - Weather Underground's crowd-sourced PWS network, much denser here
+  //   (verified stations as close as 5.7km vs ECCC's ~53km), at the cost of
+  //   being uncalibrated hobbyist hardware. Uses a key embedded in WU's own
+  //   public web map widget — not a private/secret credential, same
+  //   category as our referrer-restricted Google Maps key.
   const WU_API_KEY = 'e1f10a1e78da46f5b10a1e78da96f525';
   const WIND_REFRESH_MS = 3 * 60 * 1000;
   const WIND_STALE_MS = 30 * 60 * 1000; // ignore a station if its last observation is older than this
-  let windMarker = null;
+  const WIND_RADIUS_KM = 50;
+  let windMarkers = [];
+  let windLayerVisible = false;
+  let windRefreshTimerId = null;
 
   async function fetchNearbyWuStations() {
     const url = `https://api.weather.com/v3/location/near?geocode=${HOME.lat},${HOME.lng}&product=pws&format=json&apiKey=${WU_API_KEY}`;
@@ -1113,23 +1119,66 @@
     const obsTimeMs = new Date(obs.obsTimeUtc).getTime();
     if (Date.now() - obsTimeMs > WIND_STALE_MS) return null; // station offline/stale
     return {
-      name: obs.neighborhood || stationId,
+      name: `${obs.neighborhood || stationId} (WU)`,
       speedKmh: metric.windSpeed,
       gustKmh: metric.windGust,
       dirDeg: obs.winddir
     };
   }
 
-  // Tries stations nearest-first and uses the first one that's both
-  // reporting wind and recent — PWS hardware goes offline/stale far more
-  // often than an official station would, so distance alone isn't enough.
-  async function fetchNearestValidWuWind() {
+  // Every nearby WU station with valid, fresh wind data — not just the
+  // closest one — fetched concurrently since each is a separate request.
+  async function fetchAllValidWuWind() {
     const stations = await fetchNearbyWuStations();
-    for (const station of stations) {
+    const observations = await Promise.all(stations.map(async station => {
+      if (station.distanceKm > WIND_RADIUS_KM) return null;
       const obs = await fetchWuCurrentObservation(station.id);
-      if (obs) return { ...obs, lat: station.lat, lng: station.lng, distanceKm: station.distanceKm };
+      return obs ? { ...obs, lat: station.lat, lng: station.lng, distanceKm: station.distanceKm, source: 'WU' } : null;
+    }));
+    return observations.filter(Boolean);
+  }
+
+  // ECCC stations within WIND_RADIUS_KM — the bbox query only narrows
+  // candidates down to a box around HOME, so real haversine distance still
+  // needs checking afterward. Same schema/dedup approach as the wind version
+  // that used to live on this app's now-deleted wind-speed branch: sorted
+  // newest-first, so the first hit per station name is its latest reading.
+  async function fetchNearbyEccWindStations() {
+    const marginDeg = 0.6; // generous vs. WIND_RADIUS_KM=50, trimmed by the real distance check below
+    const bbox = [
+      HOME.lng - marginDeg, HOME.lat - marginDeg,
+      HOME.lng + marginDeg, HOME.lat + marginDeg
+    ].join(',');
+    const url = `https://api.weather.gc.ca/collections/swob-realtime/items?bbox=${bbox}&limit=100&sortby=-date_tm-value&f=json`;
+    const resp = await fetch(url);
+    const data = await resp.json();
+
+    const seen = new Set();
+    const stations = [];
+    for (const feature of data.features || []) {
+      const p = feature.properties;
+      const name = p['stn_nam-value'];
+      if (!name || seen.has(name)) continue;
+      const speedKmh = p['avg_wnd_spd_10m_pst10mts'] ?? p['avg_wnd_spd_10m_pst1mt'] ?? p['avg_wnd_spd_10m_pst2mts'];
+      const dirDeg = p['avg_wnd_dir_10m_pst10mts'] ?? p['avg_wnd_dir_10m_pst1mt'] ?? p['avg_wnd_dir_10m_pst2mts'];
+      if (speedKmh == null || dirDeg == null) continue;
+      seen.add(name);
+
+      const [lng, lat] = feature.geometry.coordinates;
+      const distanceKm = haversineKm(HOME.lat, HOME.lng, lat, lng);
+      if (distanceKm > WIND_RADIUS_KM) continue;
+      stations.push({
+        name: `${name} (ECCC)`, lat, lng, distanceKm, speedKmh, dirDeg,
+        gustKmh: p['max_wnd_gst_spd_10m_pst10mts'] ?? null,
+        source: 'ECCC'
+      });
     }
-    return null;
+    return stations;
+  }
+
+  async function fetchAllValidWindStations() {
+    const [wuStations, eccStations] = await Promise.all([fetchAllValidWuWind(), fetchNearbyEccWindStations()]);
+    return [...wuStations, ...eccStations].sort((a, b) => a.distanceKm - b.distanceKm);
   }
 
   function degreesToCompass(deg) {
@@ -1137,36 +1186,65 @@
     return dirs[Math.round(deg / 22.5) % 16];
   }
 
-  function updateWindMarker(obs) {
-    if (!windMarker) windMarker = new google.maps.Marker({ map, zIndex: 998 });
-    windMarker.setPosition({ lat: obs.lat, lng: obs.lng });
-    windMarker.setIcon({
-      path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-      scale: 5,
-      rotation: (obs.dirDeg + 180) % 360, // points where the wind is blowing toward, not from
-      fillColor: '#4dd0ff',
-      fillOpacity: 0.9,
-      strokeColor: '#ffffff',
-      strokeWeight: 1
-    });
+  // The speed number is shown directly on the marker via Maps' built-in
+  // label (offset below the arrow via labelOrigin so it doesn't sit right on
+  // top of the icon) — the title/hover tooltip still has the full detail,
+  // but the headline number no longer requires a hover to see at all.
+  function createWindMarker(obs) {
     const gustText = obs.gustKmh != null ? `, gusting ${obs.gustKmh.toFixed(0)} km/h` : '';
-    windMarker.setTitle(`${obs.name}: ${obs.speedKmh.toFixed(0)} km/h from ${degreesToCompass(obs.dirDeg)}${gustText}`);
+    return new google.maps.Marker({
+      position: { lat: obs.lat, lng: obs.lng },
+      map,
+      icon: {
+        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+        scale: 6,
+        rotation: (obs.dirDeg + 180) % 360, // points where the wind is blowing toward, not from
+        fillColor: '#4dd0ff',
+        fillOpacity: 0.9,
+        strokeColor: '#ffffff',
+        strokeWeight: 1,
+        labelOrigin: new google.maps.Point(0, 4)
+      },
+      label: { text: `${Math.round(obs.speedKmh)}`, color: '#ffffff', fontSize: '11px', fontWeight: 'bold' },
+      zIndex: 998,
+      title: `${obs.name}: ${obs.speedKmh.toFixed(0)} km/h from ${degreesToCompass(obs.dirDeg)}${gustText}`
+    });
   }
 
   async function refreshWindDisplay() {
+    if (!windLayerVisible) return;
     const el = document.getElementById('windInfo');
     try {
-      const obs = await fetchNearestValidWuWind();
-      if (!obs) {
+      const validStations = await fetchAllValidWindStations();
+      if (!windLayerVisible) return; // toggled off while the fetch was in flight
+
+      windMarkers.forEach(m => m.setMap(null));
+      windMarkers = validStations.map(createWindMarker);
+
+      if (validStations.length === 0) {
         el.textContent = 'No wind data available nearby';
         return;
       }
-      updateWindMarker(obs);
-      const gustText = obs.gustKmh != null ? `, gusting ${obs.gustKmh.toFixed(0)} km/h` : '';
-      el.innerHTML = `${obs.speedKmh.toFixed(0)} km/h from ${degreesToCompass(obs.dirDeg)}${gustText}<br>` +
-        `<span class="windSubtext">${obs.name}, ${obs.distanceKm.toFixed(1)} km away</span>`;
+      const nearest = validStations[0];
+      const gustText = nearest.gustKmh != null ? `, gusting ${nearest.gustKmh.toFixed(0)} km/h` : '';
+      el.innerHTML = `${nearest.speedKmh.toFixed(0)} km/h from ${degreesToCompass(nearest.dirDeg)}${gustText}<br>` +
+        `<span class="windSubtext">${nearest.name}, ${nearest.distanceKm.toFixed(1)} km away — ` +
+        `${validStations.length} station${validStations.length === 1 ? '' : 's'} within ${WIND_RADIUS_KM}km reporting</span>`;
     } catch (e) {
       el.textContent = 'Wind data unavailable';
+    }
+  }
+
+  function toggleWindLayer(visible) {
+    windLayerVisible = visible;
+    clearInterval(windRefreshTimerId);
+    if (visible) {
+      refreshWindDisplay();
+      windRefreshTimerId = setInterval(refreshWindDisplay, WIND_REFRESH_MS);
+    } else {
+      windMarkers.forEach(m => m.setMap(null));
+      windMarkers = [];
+      document.getElementById('windInfo').textContent = '';
     }
   }
 
@@ -1417,6 +1495,8 @@
       }
     }
 
+    document.getElementById('windToggle').addEventListener('change', (e) => toggleWindLayer(e.target.checked));
+
     initRadarScrubbing();
     initYouTubeAudio();
     initZoomPresets();
@@ -1516,8 +1596,6 @@
     initGeolocation();
     refreshAlerts();
     setInterval(refreshAlerts, ALERT_REFRESH_MS);
-    refreshWindDisplay();
-    setInterval(refreshWindDisplay, WIND_REFRESH_MS);
   }
 
   window.gm_authFailure = function () {
