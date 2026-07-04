@@ -939,7 +939,7 @@
     }
 
     const marker = L.circleMarker([lat, lng], {
-      radius: 6,
+      radius: 3.9,
       color: '#ffffff',
       weight: 1,
       fillColor: distanceKm <= NEAR_ALERT_KM ? '#ff4d4d' : '#ffb454',
@@ -975,17 +975,23 @@
   }
 
   // Grows each active strike's thunder ring at the speed of sound, capped
-  // at THUNDER_MAX_AUDIBLE_KM — beyond that distance the ring simply stops
-  // (thunder wouldn't realistically be heard any farther out, so there's
-  // nothing meaningful left to show). Runs on its own fast interval rather
-  // than piggybacking on the slower SWEEP_INTERVAL_MS strike-expiry sweep,
-  // since ~58 seconds to reach the cap needs smoother steps than that to
-  // read as an expanding wave rather than a jump-cut.
+  // at THUNDER_MAX_AUDIBLE_KM — beyond that distance thunder wouldn't
+  // realistically be heard, so once the ring reaches the cap it's removed
+  // outright rather than left sitting at max radius. Runs on its own fast
+  // interval rather than piggybacking on the slower SWEEP_INTERVAL_MS
+  // strike-expiry sweep, since ~58 seconds to reach the cap needs smoother
+  // steps than that to read as an expanding wave rather than a jump-cut.
   function updateThunderCircles() {
     const now = Date.now();
     for (const s of activeStrikes) {
-      const radiusKm = Math.min((now - s.timestampMs) * SOUND_SPEED_KM_PER_MS, THUNDER_MAX_AUDIBLE_KM);
-      s.soundCircle.setRadius(radiusKm * 1000);
+      if (!s.soundCircle) continue; // already reached the cap and been removed
+      const radiusKm = (now - s.timestampMs) * SOUND_SPEED_KM_PER_MS;
+      if (radiusKm >= THUNDER_MAX_AUDIBLE_KM) {
+        map.removeLayer(s.soundCircle);
+        s.soundCircle = null;
+      } else {
+        s.soundCircle.setRadius(radiusKm * 1000);
+      }
     }
   }
 
@@ -1001,7 +1007,7 @@
   // two aren't confused.
   function createAllStrikeMarker(s) {
     return L.circleMarker([s.lat, s.lng], {
-      radius: 3,
+      radius: 1.95,
       color: '#ffffff',
       weight: 0.5,
       fillColor: '#4dd0ff',
@@ -1036,11 +1042,11 @@
       const age = now - s.timestampMs;
       if (age > STRIKE_TTL_MS) {
         map.removeLayer(s.marker);
-        map.removeLayer(s.soundCircle);
+        if (s.soundCircle) map.removeLayer(s.soundCircle);
         activeStrikes.splice(i, 1);
       } else {
         s.marker.setStyle({ fillOpacity: ageOpacity(age) * 0.9, opacity: ageOpacity(age) });
-        s.soundCircle.setStyle({ opacity: ageOpacity(age) * 0.5 });
+        if (s.soundCircle) s.soundCircle.setStyle({ opacity: ageOpacity(age) * 0.5 });
       }
     }
   }
