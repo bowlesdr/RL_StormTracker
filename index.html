@@ -8,17 +8,15 @@
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="theme-color" content="#10131a">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
   html, body {
     height: 100%; height: 100dvh; margin: 0; overflow: hidden; overscroll-behavior: none;
     font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: #10131a; color: #e8ebf0;
   }
-  /* Google Maps sets an inline position:relative on whatever container it's
-     given, overriding any position we set directly on #map. So the viewport-
-     filling is done by this wrapper instead, and #map just fills it via
-     ordinary width/height, which Maps' inline styles don't touch. */
   #mapWrap { position: fixed; inset: 0; }
-  #map { width: 100%; height: 100%; }
+  #map { width: 100%; height: 100%; background: #10131a; }
+  .leaflet-control-attribution { font-size: 10px; }
 
   .control {
     display: flex; align-items: center; gap: 6px; font-size: 13px;
@@ -67,12 +65,6 @@
   @keyframes liveBlink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.5; }
-  }
-
-  #placeholderNotice {
-    position: fixed; top: 40px; left: 50%; transform: translateX(-50%);
-    max-width: 480px; padding: 16px; background: #3a2c12; border: 1px solid #6b4e1f;
-    border-radius: 8px; font-size: 13px; line-height: 1.5; z-index: 30;
   }
 
   /* Active severe weather alerts covering HOME — deliberately the most
@@ -164,7 +156,6 @@
       padding: 6px 10px; gap: 6px;
     }
     #radarAgeSlider { flex: 1; width: auto; min-width: 0; }
-    #placeholderNotice { top: 16px; max-width: calc(100% - 32px); }
     #settingsPanel { width: calc(100% - 24px); right: 12px; }
     #ytPlayer, #ytControls { display: none !important; }
   }
@@ -174,17 +165,6 @@
 <div id="mapWrap"><div id="map"></div></div>
 
 <div id="alertBanner" class="hidden"></div>
-
-<div id="placeholderNotice">
-  <strong>Google Maps API key needed.</strong> Edit <code>index.html</code>, find the
-  <code>YOUR_API_KEY_HERE</code> placeholder in the script tag near the bottom of the file, and
-  replace it with a key from the
-  <a href="https://console.cloud.google.com/google/maps-apis" target="_blank" rel="noopener">Google Cloud Console</a>
-  that has the <strong>Maps JavaScript API</strong> enabled. Restrict it by HTTP referrer to the
-  origin you'll serve this page from (e.g. <code>http://localhost:*/*</code> if you run it via a
-  local dev server &mdash; the <code>file://</code> origin cannot be referrer-restricted, so an
-  unrestricted key or a local HTTP server is required).
-</div>
 
 <div id="radarBar">
   <span id="radarNextUpdateLabel"></span>
@@ -209,8 +189,11 @@
   <label class="control" title="Raw radar reflectivity (dBZ), not converted to a rain rate like the main radar forecast. Both come from the same 1-hour motion-extrapolated nowcast, but this skips the rain-rate conversion. Very high values (roughly 55+ dBZ) signal an unusually intense cell — often hail — even when the rain forecast alongside it just looks like heavy rain, since that conversion assumes what's being detected is rain.">
     <input type="checkbox" id="stormIntensityToggle"> Storm Intensity (next 1h)
   </label>
-  <label class="control" title="Documented tornado track: Christie Lake to Jasper, ON — July 24, 2024. Hover the line on the map for details.">
+  <label class="control" title="Documented tornado track: Christie Lake to Jasper, ON — July 24, 2024. Click the line on the map for details.">
     <input type="checkbox" id="tornadoToggle"> Tornado(s)
+  </label>
+  <label class="control" title="Rock Lake property boundary, surveyed corners.">
+    <input type="checkbox" id="propertyBoundaryToggle"> Property Boundary
   </label>
 
   <label class="control" title="Live wind from every nearby station within 50km — both ECCC's official network and Weather Underground's crowd-sourced personal weather stations, which are much denser near Rock Lake but uncalibrated compared to ECCC's.">
@@ -249,6 +232,7 @@
 </div>
 <div id="ytPlayer"><div id="ytPlayerInner"></div></div>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
   // ---- Fixed watch location ----
   const HOME = { lat: 44.80996960818295, lng: -76.25362035830996 };
@@ -336,9 +320,9 @@
       Math.abs(b - RADAR_HIDE_COLOR.b) <= RADAR_HIDE_TOLERANCE;
   }
 
-  let map, homeMarker, userLocationMarker, strikeInfoWindow;
+  let map, homeMarker, userLocationMarker;
   let userPosition = null;
-  const overlayState = {}; // key -> { visible, mapType, bucket }
+  const overlayState = {}; // key -> { visible, layer, bucket }
   const activeStrikes = []; // { marker, timestampMs }
 
   // Every strike seen since the page loaded, anywhere in Ontario, regardless
@@ -388,8 +372,9 @@
     return Math.max(0, 1 - ageMs / STRIKE_TTL_MS);
   }
 
-  // Converts a Google Maps tile coordinate to its EPSG:3857 bounding box,
-  // so the WMS radar image lines up exactly with the map's own tiles.
+  // Converts a tile coordinate to its EPSG:3857 bounding box, so the WMS
+  // radar image lines up exactly with the map's own tiles. Pure Web Mercator
+  // math — identical regardless of which mapping library is drawing tiles.
   function tileToMercatorBBox(x, y, zoom) {
     const tileSize = 256;
     const resolution = (2 * Math.PI * MERCATOR_RADIUS / tileSize) / Math.pow(2, zoom);
@@ -425,8 +410,8 @@
   // Applies the noise-filter + blur pipeline to a loaded tile image and
   // draws the result onto ctx (whether that's a tile actually on-screen, or
   // an offscreen canvas used purely for background prefetching). Shared by
-  // both the live getTile path and the refreshRadarDataAndPlay prefetch loop
-  // so the two don't drift.
+  // both the live createTile path and the refreshRadarDataAndPlay prefetch
+  // loop so the two don't drift.
   function processRadarTileImage(ctx, img, cacheKey) {
     ctx.drawImage(img, 0, 0, TILE_PX, TILE_PX);
     try {
@@ -457,68 +442,68 @@
   }
 
   // Renders radar tiles onto a canvas so the noise-band pixels can be made
-  // transparent client-side (see isRadarNoisePixel above). Requires drawing
-  // through an actual <canvas> rather than google.maps.ImageMapType, since
-  // ImageMapType only accepts a tile URL and can't post-process pixels.
-  // Purely a renderer — draws whatever's cached, or fetches+processes+caches
-  // what isn't. Loading *progress* is tracked separately by refreshRadarData,
-  // which fetches everything up front before this ever needs to run for real
-  // (so in normal use this is almost always a cache hit).
-  function createRadarMapType(time, isForecast) {
-    const def = isForecast ? RADAR_FORECAST_LAYER : OVERLAYS.radar;
-    const bucket = time ? null : Date.now();
-    overlayState.radar.bucket = bucket;
+  // transparent client-side (see isRadarNoisePixel above) — a custom
+  // L.GridLayer, since Leaflet's stock TileLayer.WMS just requests plain
+  // image tiles and can't post-process pixels either. Purely a renderer —
+  // draws whatever's cached, or fetches+processes+caches what isn't. Loading
+  // *progress* is tracked separately by refreshRadarDataAndPlay, which
+  // fetches everything up front before this ever needs to run for real (so
+  // in normal use this is almost always a cache hit).
+  const RadarGridLayer = L.GridLayer.extend({
+    initialize(time, isForecast, options) {
+      L.GridLayer.prototype.initialize.call(this, options);
+      this._time = time;
+      this._isForecast = isForecast;
+      this._bucket = time ? null : Date.now();
+    },
+    createTile(coord, done) {
+      const def = this._isForecast ? RADAR_FORECAST_LAYER : OVERLAYS.radar;
+      const canvas = document.createElement('canvas');
+      canvas.width = TILE_PX;
+      canvas.height = TILE_PX;
+      canvas.style.width = '256px';
+      canvas.style.height = '256px';
+      canvas.style.opacity = def.opacity;
+      const ctx = canvas.getContext('2d');
+      const time = this._time;
 
-    return {
-      tileSize: new google.maps.Size(256, 256),
-      name: 'radar',
-      getTile(coord, zoom, ownerDocument) {
-        const canvas = ownerDocument.createElement('canvas');
-        canvas.width = TILE_PX;
-        canvas.height = TILE_PX;
-        canvas.style.width = '256px';
-        canvas.style.height = '256px';
-        canvas.style.opacity = def.opacity;
-        const ctx = canvas.getContext('2d');
-
-        const cacheKey = time ? `${time}|${coord.x}|${coord.y}|${zoom}` : null;
-        const cached = cacheKey && radarTileCache.get(cacheKey);
-        if (cached) {
-          ctx.drawImage(cached, 0, 0);
-          return canvas;
-        }
-
-        const url = wmsTileUrl(def, bucket, time, coord, zoom);
-        if (url) {
-          const img = new Image();
-          img.crossOrigin = 'anonymous';
-          img.onload = () => processRadarTileImage(ctx, img, cacheKey);
-          img.src = url;
-        }
+      const cacheKey = time ? `${time}|${coord.x}|${coord.y}|${coord.z}` : null;
+      const cached = cacheKey && radarTileCache.get(cacheKey);
+      if (cached) {
+        ctx.drawImage(cached, 0, 0);
+        setTimeout(() => done(null, canvas), 0);
         return canvas;
-      },
-      releaseTile() {}
-    };
+      }
+
+      const url = wmsTileUrl(def, this._bucket, time, coord, coord.z);
+      if (url) {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => { processRadarTileImage(ctx, img, cacheKey); done(null, canvas); };
+        img.onerror = () => done(null, canvas);
+        img.src = url;
+      } else {
+        done(null, canvas);
+      }
+      return canvas;
+    }
+  });
+
+  function createRadarLayer(time, isForecast) {
+    return new RadarGridLayer(time, isForecast, { tileSize: 256, opacity: 1 });
   }
 
-  function latLngToTile(lat, lng, zoom) {
-    const n = Math.pow(2, zoom);
-    const x = Math.floor((lng + 180) / 360 * n);
-    const latRad = lat * Math.PI / 180;
-    const y = Math.floor((1 - Math.log(Math.tan(latRad) + 1 / Math.cos(latRad)) / Math.PI) / 2 * n);
-    return { x, y };
-  }
-
+  // Every tile coordinate visible in the current viewport at a given zoom —
+  // used both for prefetching and for the exact-tile-count progress bar.
+  // Leaflet's own map.project() does the Web Mercator pixel math for us.
   function getVisibleTileCoords(zoom) {
     const bounds = map.getBounds();
     if (!bounds) return [];
-    const ne = bounds.getNorthEast();
-    const sw = bounds.getSouthWest();
-    const topLeft = latLngToTile(ne.lat(), sw.lng(), zoom);
-    const bottomRight = latLngToTile(sw.lat(), ne.lng(), zoom);
+    const nw = map.project(bounds.getNorthWest(), zoom).divideBy(256).floor();
+    const se = map.project(bounds.getSouthEast(), zoom).divideBy(256).floor();
     const coords = [];
-    for (let x = topLeft.x; x <= bottomRight.x; x++) {
-      for (let y = topLeft.y; y <= bottomRight.y; y++) {
+    for (let x = nw.x; x <= se.x; x++) {
+      for (let y = nw.y; y <= se.y; y++) {
         coords.push({ x, y });
       }
     }
@@ -543,36 +528,46 @@
     });
   }
 
-  function createOverlay(key, time, isForecast) {
-    if (key === 'radar') return createRadarMapType(time, isForecast);
-
+  // Simple pass-through WMS overlays (Clouds, Storm Intensity) — Leaflet's
+  // built-in WMS tile layer handles bbox/tile-URL construction itself, and
+  // setParams() lets the periodic cache-busting refresh update in place
+  // rather than needing to remove/recreate the whole layer.
+  function createOverlayLayer(key) {
     const def = OVERLAYS[key];
-    const bucket = time ? null : Date.now();
+    const bucket = Date.now();
     overlayState[key].bucket = bucket;
-    return new google.maps.ImageMapType({
-      getTileUrl: (coord, zoom) => wmsTileUrl(def, bucket, time, coord, zoom),
-      tileSize: new google.maps.Size(256, 256),
+    return L.tileLayer.wms('https://geo.weather.gc.ca/geomet', {
+      layers: def.layer,
+      styles: def.style,
+      format: 'image/png',
+      transparent: true,
+      version: '1.3.0',
       opacity: def.opacity,
-      name: key
+      uppercase: true,
+      _bucket: bucket
     });
   }
 
   function setOverlayVisible(key, visible) {
     const state = overlayState[key];
     state.visible = visible;
-    if (state.mapType) {
-      map.overlayMapTypes.removeAt(map.overlayMapTypes.getArray().indexOf(state.mapType));
-      state.mapType = null;
+    if (state.layer) {
+      map.removeLayer(state.layer);
+      state.layer = null;
     }
     if (visible) {
-      state.mapType = createOverlay(key);
-      map.overlayMapTypes.push(state.mapType);
+      state.layer = createOverlayLayer(key);
+      state.layer.addTo(map);
     }
   }
 
   function refreshOverlay(key) {
     if (!overlayState[key].visible) return;
-    setOverlayVisible(key, true); // rebuilds with a fresh cache-busting bucket
+    // Update params in place (new cache-busting bucket) instead of
+    // removing/recreating the layer, avoiding a visible flash.
+    const bucket = Date.now();
+    overlayState[key].bucket = bucket;
+    overlayState[key].layer.setParams({ _bucket: bucket });
   }
 
   // Radar playback: animates 2 hours of past/current composites plus a
@@ -722,10 +717,10 @@
     }
   }
 
-  function removeAllRadarOverlays() {
-    const arr = map.overlayMapTypes.getArray();
-    for (let i = arr.length - 1; i >= 0; i--) {
-      if (arr[i] && arr[i].name === 'radar') map.overlayMapTypes.removeAt(i);
+  function removeRadarLayer() {
+    if (overlayState.radar.layer) {
+      map.removeLayer(overlayState.radar.layer);
+      overlayState.radar.layer = null;
     }
   }
 
@@ -765,17 +760,16 @@
     const time = radarFrameTimes[index];
     const isForecast = index > RADAR_NOW_INDEX;
     const state = overlayState.radar;
-    const previousMapType = state.mapType;
+    const previousLayer = state.layer;
 
-    state.mapType = createOverlay('radar', time, isForecast);
-    map.overlayMapTypes.push(state.mapType);
-    if (previousMapType) {
+    state.layer = createRadarLayer(time, isForecast);
+    state.layer.addTo(map);
+    if (previousLayer) {
       // Give the new overlay's tiles a brief head start before removing the
       // old one, so the map doesn't flash blank while cache-miss tiles are
       // still loading. Short enough not to reintroduce a perceptible delay.
       setTimeout(() => {
-        const idx = map.overlayMapTypes.getArray().indexOf(previousMapType);
-        if (idx !== -1) map.overlayMapTypes.removeAt(idx);
+        if (map.hasLayer(previousLayer)) map.removeLayer(previousLayer);
       }, RADAR_OVERLAY_SWAP_DELAY_MS);
     }
 
@@ -783,7 +777,7 @@
   }
 
   // The one entry point for "we need radar data now": first page load, and
-  // every pan/zoom (via the map's 'idle' listener in initMap). Unlike the
+  // every pan/zoom (via the map's 'moveend' listener in initMap). Unlike the
   // background warm-up used for the routine rolling-window update, this
   // knows the *exact* total tile count up front (frames × currently-visible
   // tiles), so it can show real 0-100% progress — and while it runs, all the
@@ -797,8 +791,7 @@
     clearTimeout(radarPlayTimerId);
     clearInterval(radarWindowTimerId);
     radarPlaying = false;
-    removeAllRadarOverlays();
-    overlayState.radar.mapType = null;
+    removeRadarLayer();
 
     showRadarRefreshOverlay();
 
@@ -827,8 +820,7 @@
   }
 
   function beginRadarPlayback() {
-    removeAllRadarOverlays();
-    overlayState.radar.mapType = null;
+    removeRadarLayer();
     radarPlaying = true;
     radarFrameIndex = 0;
     overlayState.radar.visible = true;
@@ -846,8 +838,7 @@
   function pauseRadarForStormIntensity() {
     if (!radarPlaying) return;
     clearTimeout(radarPlayTimerId);
-    removeAllRadarOverlays();
-    overlayState.radar.mapType = null;
+    removeRadarLayer();
     document.getElementById('radarBar').classList.add('hidden');
   }
 
@@ -862,8 +853,7 @@
   // used only at the end of a full cycle (see scheduleNextRadarFrame), as a
   // clear "resetting" cue before the next pass starts from the beginning.
   function clearRadarDisplay() {
-    removeAllRadarOverlays();
-    overlayState.radar.mapType = null;
+    removeRadarLayer();
     const label = document.getElementById('radarFrameLabel');
     label.textContent = '';
     label.classList.remove('live');
@@ -920,52 +910,47 @@
       lines.push(`${deviceDistanceKm.toFixed(0)} km from device`);
     }
 
-    const marker = new google.maps.Marker({
-      position: { lat, lng },
-      map,
-      opacity: 1,
-      icon: {
-        path: google.maps.SymbolPath.CIRCLE,
-        scale: 6,
-        fillColor: distanceKm <= NEAR_ALERT_KM ? '#ff4d4d' : '#ffb454',
-        fillOpacity: 0.9,
-        strokeColor: '#ffffff',
-        strokeWeight: 1
-      },
-      title: lines.join('\n') // hover tooltip on desktop; tap uses the InfoWindow below instead, since touch has no hover
-    });
+    const marker = L.circleMarker([lat, lng], {
+      radius: 6,
+      color: '#ffffff',
+      weight: 1,
+      fillColor: distanceKm <= NEAR_ALERT_KM ? '#ff4d4d' : '#ffb454',
+      fillOpacity: 0.9
+    }).addTo(map);
 
-    marker.addListener('click', () => {
-      // Explicit dark text color, since InfoWindow content otherwise inherits
-      // the page's light body color (#e8ebf0) onto Maps' white bubble —
-      // that's what made it barely readable.
-      strikeInfoWindow.setContent(
-        `<div style="color:#1a1a1a;font:13px -apple-system,Segoe UI,Roboto,Arial,sans-serif;">${lines.join('<br>')}</div>`
-      );
-      strikeInfoWindow.open(map, marker);
-    });
+    // Elapsed time is computed fresh on each click rather than baked into
+    // the static `lines` array above, since that's built once when the
+    // strike arrives and would otherwise show a stale age by the time it's
+    // actually tapped. Explicit dark text color, since the popup otherwise
+    // inherits the page's light body color (#e8ebf0) — that's what made it
+    // barely readable.
+    marker.bindTooltip(lines.join('<br>')); // hover on desktop
+    marker.bindPopup(() => // tap on mobile — Leaflet opens a marker's bound popup on click automatically
+      `<div style="color:#1a1a1a;font:13px -apple-system,Segoe UI,Roboto,Arial,sans-serif;">` +
+      `${formatElapsedSince(timestampMs)} ago<br>${lines.join('<br>')}</div>`
+    );
 
     activeStrikes.push({ marker, timestampMs });
+  }
+
+  function formatElapsedSince(timestampMs) {
+    const totalSeconds = Math.max(0, Math.floor((Date.now() - timestampMs) / 1000));
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes}:${String(seconds).padStart(2, '0')}`;
   }
 
   // Small, permanent (non-fading) marker style for allSessionStrikes entries
   // — visually distinct from the live view's near-real-time markers so the
   // two aren't confused.
   function createAllStrikeMarker(s) {
-    return new google.maps.Marker({
-      position: { lat: s.lat, lng: s.lng },
-      map,
-      icon: {
-        path: google.maps.SymbolPath.CIRCLE,
-        scale: 3,
-        fillColor: '#4dd0ff',
-        fillOpacity: 0.5,
-        strokeColor: '#ffffff',
-        strokeWeight: 0.5
-      },
-      zIndex: 1,
-      title: `${s.distanceKm.toFixed(0)} km from ${HOME_NAME}, ${new Date(s.timestampMs).toLocaleTimeString()}`
-    });
+    return L.circleMarker([s.lat, s.lng], {
+      radius: 3,
+      color: '#ffffff',
+      weight: 0.5,
+      fillColor: '#4dd0ff',
+      fillOpacity: 0.5
+    }).bindTooltip(`${s.distanceKm.toFixed(0)} km from ${HOME_NAME}, ${new Date(s.timestampMs).toLocaleTimeString()}`);
   }
 
   // Shows/hides every recorded strike from allSessionStrikes depending on
@@ -978,9 +963,9 @@
     if (wantAll === showingAllStrikes) return; // already in the requested mode
     showingAllStrikes = wantAll;
     if (showingAllStrikes) {
-      allStrikeMarkers = allSessionStrikes.map(createAllStrikeMarker);
+      allStrikeMarkers = allSessionStrikes.map(s => createAllStrikeMarker(s).addTo(map));
     } else {
-      allStrikeMarkers.forEach(m => m.setMap(null));
+      allStrikeMarkers.forEach(m => map.removeLayer(m));
       allStrikeMarkers = [];
     }
     document.querySelectorAll('.strikeViewBtn').forEach(btn => {
@@ -994,10 +979,10 @@
       const s = activeStrikes[i];
       const age = now - s.timestampMs;
       if (age > STRIKE_TTL_MS) {
-        s.marker.setMap(null);
+        map.removeLayer(s.marker);
         activeStrikes.splice(i, 1);
       } else {
-        s.marker.setOpacity(ageOpacity(age));
+        s.marker.setStyle({ fillOpacity: ageOpacity(age) * 0.9, opacity: ageOpacity(age) });
       }
     }
   }
@@ -1028,14 +1013,14 @@
       if (isWithinOntario(strike.lat, strike.lon)) {
         const record = { lat: strike.lat, lng: strike.lon, timestampMs, distanceKm };
         allSessionStrikes.push(record);
-        if (showingAllStrikes) allStrikeMarkers.push(createAllStrikeMarker(record));
+        if (showingAllStrikes) allStrikeMarkers.push(createAllStrikeMarker(record).addTo(map));
       }
 
       // The live, fading view is still shown/filtered by whatever's
       // currently on-screen — panning/zooming the map controls which recent
       // strikes appear there.
       const bounds = map.getBounds();
-      if (!bounds || !bounds.contains({ lat: strike.lat, lng: strike.lon })) return;
+      if (!bounds || !bounds.contains([strike.lat, strike.lon])) return;
       addStrike(strike.lat, strike.lon, timestampMs, distanceKm);
     };
 
@@ -1057,22 +1042,15 @@
         const position = { lat: pos.coords.latitude, lng: pos.coords.longitude };
         userPosition = position;
         if (!userLocationMarker) {
-          userLocationMarker = new google.maps.Marker({
-            position,
-            map,
-            icon: {
-              path: google.maps.SymbolPath.CIRCLE,
-              scale: 6,
-              fillColor: '#4285f4',
-              fillOpacity: 1,
-              strokeColor: '#ffffff',
-              strokeWeight: 2
-            },
-            zIndex: 999,
-            title: 'Your location'
-          });
+          userLocationMarker = L.circleMarker(position, {
+            radius: 6,
+            color: '#ffffff',
+            weight: 2,
+            fillColor: '#4285f4',
+            fillOpacity: 1
+          }).addTo(map).bindTooltip('Your location');
         } else {
-          userLocationMarker.setPosition(position);
+          userLocationMarker.setLatLng(position);
         }
       },
       () => {},
@@ -1083,8 +1061,8 @@
   // ---- Historical tornado track (Christie Lake to Jasper, ON — July 24,
   // 2024) — a straight line between the surveyed start/end coordinates.
   const TORNADO_TRACK_PATH = [
-    { lat: 44.8110, lng: -76.4319 },
-    { lat: 44.8350, lng: -75.9386 }
+    [44.8110, -76.4319],
+    [44.8350, -75.9386]
   ];
   let tornadoPolyline = null;
 
@@ -1100,133 +1078,104 @@
   const TORNADO_IMAGE_END_PX = { x: 912, y: 281 };
   const TORNADO_SURVEY_URL = 'https://ntpopendata-westernu.opendata.arcgis.com/apps/ba10a746d15f4231a1fb08591e08833a/explore';
 
-  // google.maps.GroundOverlay can't rotate, so this needs a custom
-  // OverlayView instead: an absolutely-positioned <img> whose CSS
-  // transform-origin is pinned to the image's own start pixel, then
-  // rotated/scaled (recomputed on every draw(), since pan/zoom changes the
-  // projection) so its end pixel lands exactly on the map's projection of
-  // the real-world end coordinate.
-  //
-  // The class body references google.maps.OverlayView, which doesn't exist
-  // yet when this script first runs — the Maps API script tag loads async,
-  // after this one, and calls initMap() once ready. Defining the class at
-  // the top level would evaluate that reference immediately and throw,
-  // aborting the whole script before initMap could even be defined. Built
-  // lazily on first use instead, by which point Maps has long since loaded.
-  let TornadoImageOverlayClass = null;
-  function getTornadoImageOverlayClass() {
-    if (!TornadoImageOverlayClass) {
-      TornadoImageOverlayClass = class extends google.maps.OverlayView {
-        onAdd() {
-          const img = document.createElement('img');
-          img.src = TORNADO_IMAGE_URL;
-          img.style.position = 'absolute';
-          img.style.width = `${TORNADO_IMAGE_SIZE.width}px`;
-          img.style.height = `${TORNADO_IMAGE_SIZE.height}px`;
-          img.style.cursor = 'pointer';
-          img.style.transformOrigin = `${TORNADO_IMAGE_START_PX.x}px ${TORNADO_IMAGE_START_PX.y}px`;
-          img.addEventListener('click', () => {
-            window.open(TORNADO_SURVEY_URL, '_blank', 'noopener');
-            toggleTornadoImage(); // dismiss the image and restore the line
-          });
-          this.img = img;
-          // overlayLayer (used for polylines/ground overlays) doesn't route
-          // pointer events to its children — overlayMouseTarget is the pane
-          // Maps actually uses for interactive custom overlays. Without
-          // this, the click listener above would never fire.
-          this.getPanes().overlayMouseTarget.appendChild(img);
-        }
+  // Leaflet's L.imageOverlay can't rotate either, so this is a custom
+  // L.Layer: an absolutely-positioned <img> whose CSS transform-origin is
+  // pinned to the image's own start pixel, then rotated/scaled (recomputed
+  // on every _reset(), which Leaflet calls on pan/zoom) so its end pixel
+  // lands exactly on the map's projection of the real-world end coordinate.
+  const TornadoImageOverlay = L.Layer.extend({
+    onAdd(map) {
+      const img = document.createElement('img');
+      img.src = TORNADO_IMAGE_URL;
+      img.style.position = 'absolute';
+      img.style.width = `${TORNADO_IMAGE_SIZE.width}px`;
+      img.style.height = `${TORNADO_IMAGE_SIZE.height}px`;
+      img.style.cursor = 'pointer';
+      img.style.transformOrigin = `${TORNADO_IMAGE_START_PX.x}px ${TORNADO_IMAGE_START_PX.y}px`;
+      img.addEventListener('click', () => {
+        window.open(TORNADO_SURVEY_URL, '_blank', 'noopener');
+        toggleTornadoImage(); // dismiss the image and restore the line
+      });
+      this._img = img;
+      this._map = map;
+      map.getPanes().overlayPane.appendChild(img);
+      map.on('viewreset zoom move', this._reset, this);
+      this._reset();
+    },
+    onRemove(map) {
+      if (this._img) {
+        this._img.remove();
+        this._img = null;
+      }
+      map.off('viewreset zoom move', this._reset, this);
+    },
+    _reset() {
+      const map = this._map;
+      const startPx = map.latLngToLayerPoint(TORNADO_TRACK_PATH[0]);
+      const endPx = map.latLngToLayerPoint(TORNADO_TRACK_PATH[1]);
 
-        draw() {
-          const projection = this.getProjection();
-          const startPx = projection.fromLatLngToDivPixel(new google.maps.LatLng(TORNADO_TRACK_PATH[0]));
-          const endPx = projection.fromLatLngToDivPixel(new google.maps.LatLng(TORNADO_TRACK_PATH[1]));
+      const imgDx = TORNADO_IMAGE_END_PX.x - TORNADO_IMAGE_START_PX.x;
+      const imgDy = TORNADO_IMAGE_END_PX.y - TORNADO_IMAGE_START_PX.y;
+      const imgLen = Math.hypot(imgDx, imgDy);
+      const imgAngle = Math.atan2(imgDy, imgDx);
 
-          const imgDx = TORNADO_IMAGE_END_PX.x - TORNADO_IMAGE_START_PX.x;
-          const imgDy = TORNADO_IMAGE_END_PX.y - TORNADO_IMAGE_START_PX.y;
-          const imgLen = Math.hypot(imgDx, imgDy);
-          const imgAngle = Math.atan2(imgDy, imgDx);
+      const mapDx = endPx.x - startPx.x;
+      const mapDy = endPx.y - startPx.y;
+      const mapLen = Math.hypot(mapDx, mapDy);
+      const mapAngle = Math.atan2(mapDy, mapDx);
 
-          const mapDx = endPx.x - startPx.x;
-          const mapDy = endPx.y - startPx.y;
-          const mapLen = Math.hypot(mapDx, mapDy);
-          const mapAngle = Math.atan2(mapDy, mapDx);
+      const scale = mapLen / imgLen;
+      const rotationDeg = (mapAngle - imgAngle) * 180 / Math.PI;
 
-          const scale = mapLen / imgLen;
-          const rotationDeg = (mapAngle - imgAngle) * 180 / Math.PI;
-
-          this.img.style.left = `${startPx.x - TORNADO_IMAGE_START_PX.x}px`;
-          this.img.style.top = `${startPx.y - TORNADO_IMAGE_START_PX.y}px`;
-          this.img.style.transform = `rotate(${rotationDeg}deg) scale(${scale})`;
-        }
-
-        onRemove() {
-          if (this.img) {
-            this.img.remove();
-            this.img = null;
-          }
-        }
-      };
+      this._img.style.left = `${startPx.x - TORNADO_IMAGE_START_PX.x}px`;
+      this._img.style.top = `${startPx.y - TORNADO_IMAGE_START_PX.y}px`;
+      this._img.style.transform = `rotate(${rotationDeg}deg) scale(${scale})`;
     }
-    return TornadoImageOverlayClass;
-  }
+  });
 
   let tornadoImageOverlay = null;
   let tornadoHitLine = null;
-  let tornadoInfoWindow = null;
+  let tornadoPopup = null;
 
   function toggleTornadoImage() {
     if (tornadoImageOverlay) {
-      tornadoImageOverlay.setMap(null);
+      map.removeLayer(tornadoImageOverlay);
       tornadoImageOverlay = null;
-      tornadoPolyline.setMap(map); // restore the line now that the image is gone
-      tornadoHitLine.setMap(map);
-      tornadoInfoWindow.close();
+      tornadoPolyline.addTo(map); // restore the line now that the image is gone
+      tornadoHitLine.addTo(map);
+      if (tornadoPopup) map.closePopup(tornadoPopup);
     } else {
-      const OverlayClass = getTornadoImageOverlayClass();
-      tornadoImageOverlay = new OverlayClass();
-      tornadoImageOverlay.setMap(map);
-      tornadoPolyline.setMap(null); // the image replaces the line while showing
-      tornadoHitLine.setMap(null);
+      tornadoImageOverlay = new TornadoImageOverlay();
+      tornadoImageOverlay.addTo(map);
+      map.removeLayer(tornadoPolyline); // the image replaces the line while showing
+      map.removeLayer(tornadoHitLine);
     }
   }
 
   function getTornadoPolyline() {
     if (!tornadoPolyline) {
-      tornadoPolyline = new google.maps.Polyline({
-        path: TORNADO_TRACK_PATH,
-        strokeColor: '#ff4d4d',
-        strokeOpacity: 0.9,
-        strokeWeight: 3,
-        zIndex: 500,
-        clickable: false // the wider invisible line below carries all interaction
+      tornadoPolyline = L.polyline(TORNADO_TRACK_PATH, {
+        color: '#ff4d4d', opacity: 0.9, weight: 3, interactive: false
+        // interactive: false — the wider invisible line below carries all interaction
       });
 
       // Invisible, much wider line layered on top purely so the track is
       // easy to tap — the visible 3px line is a fine width for a mouse
       // cursor but a poor touch target on a phone.
-      tornadoHitLine = new google.maps.Polyline({
-        path: TORNADO_TRACK_PATH,
-        strokeOpacity: 0,
-        strokeWeight: 24,
-        zIndex: 501
-      });
+      tornadoHitLine = L.polyline(TORNADO_TRACK_PATH, { opacity: 0, weight: 24 });
 
       // Triggered by click/tap rather than hover — hover doesn't exist on
       // touch devices at all, so this way the text details are reachable
       // the same way on desktop and mobile, right alongside showing the
-      // image. pixelOffset shifts the window's body away from the tap
-      // point since a second tap right after (e.g. to dismiss) would
-      // otherwise land on the InfoWindow's own DOM instead of whatever's
-      // underneath it.
-      tornadoInfoWindow = new google.maps.InfoWindow({ pixelOffset: new google.maps.Size(0, -12) });
-      tornadoHitLine.addListener('click', (e) => {
-        tornadoInfoWindow.setContent(
-          '<div style="color:#1a1a1a;font:13px -apple-system,Segoe UI,Roboto,Arial,sans-serif;">' +
-          'Tornado track<br>Christie Lake to Jasper, ON<br>July 24, 2024</div>'
-        );
-        tornadoInfoWindow.setPosition(e.latLng);
-        tornadoInfoWindow.open(map);
+      // image.
+      tornadoHitLine.on('click', (e) => {
+        tornadoPopup = L.popup({ offset: [0, -12] })
+          .setLatLng(e.latlng)
+          .setContent(
+            '<div style="color:#1a1a1a;font:13px -apple-system,Segoe UI,Roboto,Arial,sans-serif;">' +
+            'Tornado track<br>Christie Lake to Jasper, ON<br>July 24, 2024</div>'
+          )
+          .openOn(map);
         toggleTornadoImage();
       });
     }
@@ -1234,14 +1183,40 @@
   }
 
   function toggleTornadoTrack(visible) {
-    getTornadoPolyline().setMap(visible ? map : null);
-    tornadoHitLine.setMap(visible ? map : null);
-    if (!visible) {
-      tornadoInfoWindow.close();
+    const line = getTornadoPolyline();
+    if (visible) {
+      line.addTo(map);
+      tornadoHitLine.addTo(map);
+    } else {
+      map.removeLayer(line);
+      map.removeLayer(tornadoHitLine);
+      if (tornadoPopup) map.closePopup(tornadoPopup);
       if (tornadoImageOverlay) {
-        tornadoImageOverlay.setMap(null);
+        map.removeLayer(tornadoImageOverlay);
         tornadoImageOverlay = null;
       }
+    }
+  }
+
+  // ---- Rock Lake property boundary — surveyed corners, from boundary.kml.
+  const PROPERTY_BOUNDARY_PATH = [
+    [44.813842, -76.262328],
+    [44.816955, -76.247883],
+    [44.812281, -76.24197],
+    [44.805723, -76.252053]
+  ];
+  let propertyBoundaryLayer = null;
+
+  function togglePropertyBoundary(visible) {
+    if (visible) {
+      if (!propertyBoundaryLayer) {
+        propertyBoundaryLayer = L.polygon(PROPERTY_BOUNDARY_PATH, {
+          color: '#3355ff', weight: 3, fillColor: '#3355ff', fillOpacity: 0.1
+        }).bindTooltip('Property Boundary');
+      }
+      propertyBoundaryLayer.addTo(map);
+    } else if (propertyBoundaryLayer) {
+      map.removeLayer(propertyBoundaryLayer);
     }
   }
 
@@ -1252,7 +1227,7 @@
   //   (verified stations as close as 5.7km vs ECCC's ~53km), at the cost of
   //   being uncalibrated hobbyist hardware. Uses a key embedded in WU's own
   //   public web map widget — not a private/secret credential, same
-  //   category as our referrer-restricted Google Maps key.
+  //   category as our old referrer-restricted Google Maps key.
   const WU_API_KEY = 'e1f10a1e78da46f5b10a1e78da96f525';
   const WIND_REFRESH_MS = 3 * 60 * 1000;
   const WIND_STALE_MS = 30 * 60 * 1000; // ignore a station if its last observation is older than this
@@ -1306,9 +1281,8 @@
 
   // ECCC stations within WIND_RADIUS_KM — the bbox query only narrows
   // candidates down to a box around HOME, so real haversine distance still
-  // needs checking afterward. Same schema/dedup approach as the wind version
-  // that used to live on this app's now-deleted wind-speed branch: sorted
-  // newest-first, so the first hit per station name is its latest reading.
+  // needs checking afterward. Sorted newest-first, so the first hit per
+  // station name is its latest reading.
   async function fetchNearbyEccWindStations() {
     const marginDeg = 0.6; // generous vs. WIND_RADIUS_KM=50, trimmed by the real distance check below
     const bbox = [
@@ -1352,22 +1326,23 @@
     return dirs[Math.round(deg / 22.5) % 16];
   }
 
-  // The speed number is shown directly on the marker via Maps' built-in
-  // label, centered on the arrow (a bigger icon than a plain direction
-  // marker would need, so the number has room to sit on top and stay
-  // legible) — the title/hover tooltip still has the full detail, but the
-  // headline number no longer requires a hover to see at all.
-  // A marker's built-in icon+label only stack as one combined unit, which
-  // isn't enough once multiple wind markers are close together — a
-  // neighboring station's arrow can still render on top of *this* station's
-  // number. Splitting each station into a separate arrow marker and
-  // label-only marker, with every label on a uniformly higher z-index than
-  // every arrow, guarantees no arrow can ever cover any number.
-  const WIND_ARROW_Z_INDEX = 998;
-  const WIND_LABEL_Z_INDEX = 1000;
+  // A rotated arrow built from an inline SVG in a divIcon — Leaflet has no
+  // built-in rotatable arrow symbol the way Google's SymbolPath did. The
+  // speed number sits right below it as a permanent (non-hover) label,
+  // shown directly on the marker rather than requiring a hover to see it.
+  function buildWindArrowIcon(dirDeg, gustOrSpeedKmh) {
+    const rotation = (dirDeg + 180) % 360; // points where the wind is blowing toward, not from
+    const html = `
+      <div style="position:relative; width:0; height:0;">
+        <svg width="34" height="34" viewBox="-17 -17 34 34" style="position:absolute; left:-17px; top:-17px; transform: rotate(${rotation}deg);">
+          <path d="M0,-11 L8,7 L0,3 L-8,7 Z" fill="#4dd0ff" fill-opacity="0.9" stroke="#ffffff" stroke-width="1"/>
+        </svg>
+        <div style="position:absolute; left:-20px; top:6px; width:40px; text-align:center; color:#fff; font-size:11px; font-weight:bold; text-shadow:0 0 3px rgba(0,0,0,0.8);">${Math.round(gustOrSpeedKmh)}</div>
+      </div>`;
+    return L.divIcon({ html, className: '', iconSize: [0, 0] });
+  }
 
-  function createWindMarkerPair(obs) {
-    const position = { lat: obs.lat, lng: obs.lng };
+  function createWindMarker(obs) {
     // Gust is the more meaningful figure for storm impact, so it's the
     // headline number everywhere — falls back to sustained speed for
     // stations that don't report a gust at all.
@@ -1375,45 +1350,10 @@
     const sustainedText = obs.gustKmh != null ? ` (sustained ${obs.speedKmh.toFixed(0)} km/h)` : '';
     const title = `${obs.name}: ${gustOrSpeedKmh.toFixed(0)} km/h gust from ${degreesToCompass(obs.dirDeg)}${sustainedText}`;
 
-    const arrow = new google.maps.Marker({
-      position,
-      map,
-      icon: {
-        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-        scale: 9.6,
-        rotation: (obs.dirDeg + 180) % 360, // points where the wind is blowing toward, not from
-        fillColor: '#4dd0ff',
-        fillOpacity: 0.9,
-        strokeColor: '#ffffff',
-        strokeWeight: 1
-      },
-      zIndex: WIND_ARROW_Z_INDEX,
-      title
-    });
-
-    // Invisible copy of the arrow's exact icon geometry (same path, scale,
-    // rotation) purely so labelOrigin positions the number identically to
-    // where it sat on the combined marker before — a differently-shaped
-    // invisible icon shifts the label since labelOrigin is relative to the
-    // icon's own coordinate space, not a fixed pixel offset.
-    const label = new google.maps.Marker({
-      position,
-      map,
-      icon: {
-        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-        scale: 9.6,
-        rotation: (obs.dirDeg + 180) % 360,
-        fillOpacity: 0,
-        strokeOpacity: 0,
-        labelOrigin: new google.maps.Point(0, 2)
-      },
-      label: { text: `${Math.round(gustOrSpeedKmh)}`, color: '#ffffff', fontSize: '11px', fontWeight: 'bold' },
-      zIndex: WIND_LABEL_Z_INDEX,
-      clickable: false,
-      title
-    });
-
-    return [arrow, label];
+    return L.marker([obs.lat, obs.lng], {
+      icon: buildWindArrowIcon(obs.dirDeg, gustOrSpeedKmh),
+      zIndexOffset: 1000
+    }).bindTooltip(title);
   }
 
   async function refreshWindDisplay() {
@@ -1422,8 +1362,8 @@
       const validStations = await fetchAllValidWindStations();
       if (!windLayerVisible) return; // toggled off while the fetch was in flight
 
-      windMarkers.forEach(m => m.setMap(null));
-      windMarkers = validStations.flatMap(createWindMarkerPair);
+      windMarkers.forEach(m => map.removeLayer(m));
+      windMarkers = validStations.map(obs => createWindMarker(obs).addTo(map));
     } catch (e) { /* leave whatever markers are currently shown on a transient fetch failure */ }
   }
 
@@ -1434,7 +1374,7 @@
       refreshWindDisplay();
       windRefreshTimerId = setInterval(refreshWindDisplay, WIND_REFRESH_MS);
     } else {
-      windMarkers.forEach(m => m.setMap(null));
+      windMarkers.forEach(m => map.removeLayer(m));
       windMarkers = [];
     }
   }
@@ -1477,13 +1417,6 @@
     return false;
   }
 
-  function geometryToPaths(geometry) {
-    const toLatLng = ([lng, lat]) => ({ lat, lng });
-    if (geometry.type === 'Polygon') return geometry.coordinates.map(ring => ring.map(toLatLng));
-    if (geometry.type === 'MultiPolygon') return geometry.coordinates.flatMap(poly => poly.map(ring => ring.map(toLatLng)));
-    return [];
-  }
-
   async function fetchActiveAlertsAtHome() {
     const bbox = [
       HOME.lng - ALERT_SEARCH_MARGIN_DEG, HOME.lat - ALERT_SEARCH_MARGIN_DEG,
@@ -1507,13 +1440,13 @@
         text: p.alert_text_en || p.alert_text_fr || '',
         areaName: p.feature_name_en,
         expirationMs: new Date(p.expiration_datetime).getTime(),
-        geometry: feature.geometry
+        geoJson: feature.geometry
       });
     }
     return active;
   }
 
-  let alertPolygons = [];
+  let alertLayers = [];
 
   function updateAlertBanner(active) {
     const el = document.getElementById('alertBanner');
@@ -1540,41 +1473,29 @@
       return; // leave whatever's currently displayed on a transient fetch failure
     }
 
-    alertPolygons.forEach(poly => poly.setMap(null));
-    alertPolygons = active.map(a => new google.maps.Polygon({
-      paths: geometryToPaths(a.geometry),
-      map,
-      strokeColor: a.color,
-      strokeOpacity: 0.7,
-      strokeWeight: 2,
-      fillColor: a.color,
-      fillOpacity: 0.12,
-      zIndex: 5
-    }));
+    alertLayers.forEach(layer => map.removeLayer(layer));
+    // L.geoJSON understands Polygon/MultiPolygon (including holes) directly
+    // from the raw GeoJSON geometry, no manual coordinate conversion needed.
+    alertLayers = active.map(a => L.geoJSON(a.geoJson, {
+      style: { color: a.color, weight: 2, opacity: 0.7, fillColor: a.color, fillOpacity: 0.12 }
+    }).addTo(map));
 
     updateAlertBanner(active);
   }
 
-  // Google Maps only knows how to center a LatLng dead in the middle of the
+  // Leaflet only knows how to center a LatLng dead in the middle of the
   // viewport — putting HOME at a specific fractional screen position instead
   // means computing a different "center" coordinate ourselves: the point
-  // that, when centered normally, places HOME at the desired spot. Requires
-  // the map's projection, which isn't available until shortly after creation
-  // (see the 'projection_changed' listener in initMap).
+  // that, when centered normally, places HOME at the desired spot. Unlike
+  // Google Maps, Leaflet's pixel<->latlng conversion is available
+  // immediately (no need to wait for a projection-ready event).
   function applyZoomPreset(zoom) {
-    const projection = map.getProjection();
-    if (!projection) return;
     const mapDiv = document.getElementById('map');
-    const scale = Math.pow(2, zoom);
-    const homeWorldPoint = projection.fromLatLngToPoint(HOME);
+    const homePoint = map.project(HOME, zoom);
     const dx = (HOME_SCREEN_FRACTION.x - 0.5) * mapDiv.clientWidth;
     const dy = (HOME_SCREEN_FRACTION.y - 0.5) * mapDiv.clientHeight;
-    const centerWorldPoint = new google.maps.Point(
-      homeWorldPoint.x - dx / scale,
-      homeWorldPoint.y - dy / scale
-    );
-    map.setCenter(projection.fromPointToLatLng(centerWorldPoint));
-    map.setZoom(zoom);
+    const centerPoint = L.point(homePoint.x - dx, homePoint.y - dy);
+    map.setView(map.unproject(centerPoint, zoom), zoom);
 
     document.querySelectorAll('.zoomPresetBtn').forEach(btn => {
       btn.classList.toggle('active', parseInt(btn.dataset.zoom, 10) === zoom);
@@ -1688,6 +1609,7 @@
 
     document.getElementById('windToggle').addEventListener('change', (e) => toggleWindLayer(e.target.checked));
     document.getElementById('tornadoToggle').addEventListener('change', (e) => toggleTornadoTrack(e.target.checked));
+    document.getElementById('propertyBoundaryToggle').addEventListener('change', (e) => togglePropertyBoundary(e.target.checked));
 
     initRadarScrubbing();
     initYouTubeAudio();
@@ -1726,81 +1648,72 @@
     });
   }
 
-  // Called by the Google Maps script tag once the API has loaded.
   function initMap() {
     for (const key of Object.keys(OVERLAYS)) {
-      overlayState[key] = { visible: false, mapType: null, bucket: null };
+      overlayState[key] = { visible: false, layer: null, bucket: null };
     }
 
-    map = new google.maps.Map(document.getElementById('map'), {
+    map = L.map('map', {
       center: HOME,
       zoom: 7,
-      mapTypeId: 'hybrid',
-      mapTypeControl: false,
-      streetViewControl: false,
-      rotateControl: false,
-      cameraControl: false,
-      fullscreenControl: false,
-      styles: [
-        { elementType: 'labels', stylers: [{ visibility: 'off' }] },
-        { featureType: 'administrative.locality', elementType: 'labels', stylers: [{ visibility: 'on' }] },
-        { featureType: 'road', stylers: [{ visibility: 'off' }] },
-        { featureType: 'transit', stylers: [{ visibility: 'off' }] },
-        { featureType: 'poi', stylers: [{ visibility: 'off' }] }
-      ]
+      zoomControl: true,
+      attributionControl: true
     });
 
-    // 'idle' fires once after the viewport settles from *any* change — the
+    // Satellite imagery (Esri World Imagery — free, keyless) plus a thin
+    // place-labels overlay, matching the original Google "hybrid" look.
+    // Esri's tiles top out at zoom 19 in most areas, same ceiling as before.
+    // Labels get their own pane, stacked above the base imagery (z-index
+    // 200) but below all our own weather overlays in the default
+    // overlayPane (z-index 400) — otherwise labels would render on top of
+    // the radar/alerts/tornado/etc. layers instead of underneath them.
+    map.createPane('labelsPane');
+    map.getPane('labelsPane').style.zIndex = 250;
+    map.getPane('labelsPane').style.pointerEvents = 'none';
+
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles &copy; Esri',
+      maxZoom: 19
+    }).addTo(map);
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
+      attribution: '',
+      maxZoom: 19,
+      pane: 'labelsPane'
+    }).addTo(map);
+
+    // 'moveend' fires once after the viewport settles from *any* change — the
     // initial load, a pan, or a zoom — so it's the single trigger covering
     // all three "we need a full radar refresh" cases in one place.
-    map.addListener('idle', () => {
+    map.on('moveend', () => {
       refreshRadarDataAndPlay();
     });
 
-    // The projection needed to compute an offset center isn't available
-    // immediately at construction; 'projection_changed' fires as soon as it
-    // is, letting the initial view be positioned correctly (HOME at the
-    // preset screen fraction) before anything is shown, rather than briefly
-    // flashing the constructor's plain center: HOME first.
-    google.maps.event.addListenerOnce(map, 'projection_changed', () => {
-      applyZoomPreset(11); // "Local" — tightly focused on the watch location
-    });
+    homeMarker = L.circleMarker(HOME, {
+      radius: 7,
+      color: '#ffffff',
+      weight: 2,
+      fillColor: '#4dd0ff',
+      fillOpacity: 1
+    }).addTo(map).bindTooltip('Watch location');
 
-    homeMarker = new google.maps.Marker({
-      position: HOME,
-      map,
-      icon: {
-        path: google.maps.SymbolPath.CIRCLE,
-        scale: 7,
-        fillColor: '#4dd0ff',
-        fillOpacity: 1,
-        strokeColor: '#ffffff',
-        strokeWeight: 2
-      },
-      title: 'Watch location'
-    });
-
-    strikeInfoWindow = new google.maps.InfoWindow();
-
-    document.getElementById('placeholderNotice').style.display = 'none';
     initControls();
     connectBlitzortung();
     initGeolocation();
     refreshAlerts();
     setInterval(refreshAlerts, ALERT_REFRESH_MS);
-  }
 
-  window.gm_authFailure = function () {
-    document.getElementById('placeholderNotice').style.display = 'block';
-  };
+    // Positions the initial view (HOME at the preset screen fraction)
+    // immediately, since Leaflet's pixel math is ready right away — no need
+    // to wait for an async projection-ready event the way Google Maps
+    // required. This also fires the first 'moveend' above.
+    applyZoomPreset(11); // "Local" — tightly focused on the watch location
+  }
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js').catch(() => {});
   }
-</script>
 
-<script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDk0lWAqeSq5Jle4G7803Es7ZgdOi8AQUI&callback=initMap">
+  initMap();
 </script>
 </body>
 </html>
