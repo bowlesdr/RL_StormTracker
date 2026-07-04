@@ -1187,9 +1187,10 @@
   }
 
   // The speed number is shown directly on the marker via Maps' built-in
-  // label (offset below the arrow via labelOrigin so it doesn't sit right on
-  // top of the icon) — the title/hover tooltip still has the full detail,
-  // but the headline number no longer requires a hover to see at all.
+  // label, centered on the arrow (a bigger icon than a plain direction
+  // marker would need, so the number has room to sit on top and stay
+  // legible) — the title/hover tooltip still has the full detail, but the
+  // headline number no longer requires a hover to see at all.
   function createWindMarker(obs) {
     const gustText = obs.gustKmh != null ? `, gusting ${obs.gustKmh.toFixed(0)} km/h` : '';
     return new google.maps.Marker({
@@ -1197,13 +1198,13 @@
       map,
       icon: {
         path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-        scale: 6,
+        scale: 12,
         rotation: (obs.dirDeg + 180) % 360, // points where the wind is blowing toward, not from
         fillColor: '#4dd0ff',
         fillOpacity: 0.9,
         strokeColor: '#ffffff',
         strokeWeight: 1,
-        labelOrigin: new google.maps.Point(0, 4)
+        labelOrigin: new google.maps.Point(0, 0)
       },
       label: { text: `${Math.round(obs.speedKmh)}`, color: '#ffffff', fontSize: '11px', fontWeight: 'bold' },
       zIndex: 998,
