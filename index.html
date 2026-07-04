@@ -1682,8 +1682,12 @@
     // since the browser's HTTP cache is keyed on the exact URL and this one
     // has never been requested before — bypassing max-age entirely rather
     // than relying on a normal reload, which can still be served from cache.
+    // Existing params (e.g. ?coords=) are preserved so reloading doesn't
+    // silently drop back to the Rock Lake default.
     document.getElementById('forceReloadBtn').addEventListener('click', () => {
-      location.href = location.pathname + '?r=' + Date.now();
+      const params = new URLSearchParams(window.location.search);
+      params.set('r', Date.now());
+      location.href = location.pathname + '?' + params.toString();
     });
 
     document.querySelectorAll('.strikeViewBtn').forEach(btn => {
