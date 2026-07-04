@@ -831,6 +831,25 @@
     startNextUpdateCountdown();
   }
 
+  // Suspends the radar animation and hides its bar while Storm Intensity is
+  // on, rather than showing both radar-derived overlays at once. The
+  // rolling-window background refresh (radarWindowTimerId) deliberately
+  // keeps running so the data is current whenever playback resumes.
+  function pauseRadarForStormIntensity() {
+    if (!radarPlaying) return;
+    clearTimeout(radarPlayTimerId);
+    removeAllRadarOverlays();
+    overlayState.radar.mapType = null;
+    document.getElementById('radarBar').classList.add('hidden');
+  }
+
+  function resumeRadarFromStormIntensity() {
+    if (!radarPlaying) return;
+    document.getElementById('radarBar').classList.remove('hidden');
+    scrubToFrame(radarFrameIndex);
+    scheduleNextRadarFrame();
+  }
+
   // Blanks the map rather than leaving the last-shown frame's overlay up —
   // used only at the end of a full cycle (see scheduleNextRadarFrame), as a
   // clear "resetting" cue before the next pass starts from the beginning.
@@ -1285,8 +1304,19 @@
     const toggleIds = { satellite: 'satelliteToggle', stormIntensity: 'stormIntensityToggle' };
     for (const [key, elId] of Object.entries(toggleIds)) {
       const el = document.getElementById(elId);
-      el.addEventListener('change', () => setOverlayVisible(key, el.checked));
       setInterval(() => refreshOverlay(key), OVERLAYS[key].refreshMs);
+
+      if (key === 'stormIntensity') {
+        // The two overlays occupy the same screen space and would otherwise
+        // fight for attention, so showing one suspends the other rather than
+        // layering them.
+        el.addEventListener('change', () => {
+          setOverlayVisible(key, el.checked);
+          if (el.checked) pauseRadarForStormIntensity(); else resumeRadarFromStormIntensity();
+        });
+      } else {
+        el.addEventListener('change', () => setOverlayVisible(key, el.checked));
+      }
     }
 
     initRadarScrubbing();
