@@ -1172,17 +1172,22 @@
   }
 
   let tornadoImageOverlay = null;
+  let tornadoHitLine = null;
+  let tornadoInfoWindow = null;
 
   function toggleTornadoImage() {
     if (tornadoImageOverlay) {
       tornadoImageOverlay.setMap(null);
       tornadoImageOverlay = null;
       tornadoPolyline.setMap(map); // restore the line now that the image is gone
+      tornadoHitLine.setMap(map);
+      tornadoInfoWindow.close();
     } else {
       const OverlayClass = getTornadoImageOverlayClass();
       tornadoImageOverlay = new OverlayClass();
       tornadoImageOverlay.setMap(map);
       tornadoPolyline.setMap(null); // the image replaces the line while showing
+      tornadoHitLine.setMap(null);
     }
   }
 
@@ -1193,36 +1198,50 @@
         strokeColor: '#ff4d4d',
         strokeOpacity: 0.9,
         strokeWeight: 3,
-        zIndex: 500
+        zIndex: 500,
+        clickable: false // the wider invisible line below carries all interaction
       });
 
-      // Polylines have no built-in hover tooltip like Markers do, so this
-      // opens/closes an InfoWindow manually, positioned at whichever point
-      // on the line is nearest the cursor. pixelOffset shifts the window's
-      // body up and away from the exact cursor position — without it, the
-      // InfoWindow's own DOM sits directly on top of the line right where
-      // you'd click next, silently swallowing the click before it ever
-      // reaches the polyline's click listener.
-      const tornadoInfoWindow = new google.maps.InfoWindow({ pixelOffset: new google.maps.Size(0, -12) });
-      tornadoPolyline.addListener('mouseover', (e) => {
+      // Invisible, much wider line layered on top purely so the track is
+      // easy to tap — the visible 3px line is a fine width for a mouse
+      // cursor but a poor touch target on a phone.
+      tornadoHitLine = new google.maps.Polyline({
+        path: TORNADO_TRACK_PATH,
+        strokeOpacity: 0,
+        strokeWeight: 24,
+        zIndex: 501
+      });
+
+      // Triggered by click/tap rather than hover — hover doesn't exist on
+      // touch devices at all, so this way the text details are reachable
+      // the same way on desktop and mobile, right alongside showing the
+      // image. pixelOffset shifts the window's body away from the tap
+      // point since a second tap right after (e.g. to dismiss) would
+      // otherwise land on the InfoWindow's own DOM instead of whatever's
+      // underneath it.
+      tornadoInfoWindow = new google.maps.InfoWindow({ pixelOffset: new google.maps.Size(0, -12) });
+      tornadoHitLine.addListener('click', (e) => {
         tornadoInfoWindow.setContent(
           '<div style="color:#1a1a1a;font:13px -apple-system,Segoe UI,Roboto,Arial,sans-serif;">' +
           'Tornado track<br>Christie Lake to Jasper, ON<br>July 24, 2024</div>'
         );
         tornadoInfoWindow.setPosition(e.latLng);
         tornadoInfoWindow.open(map);
+        toggleTornadoImage();
       });
-      tornadoPolyline.addListener('mouseout', () => tornadoInfoWindow.close());
-      tornadoPolyline.addListener('click', toggleTornadoImage);
     }
     return tornadoPolyline;
   }
 
   function toggleTornadoTrack(visible) {
     getTornadoPolyline().setMap(visible ? map : null);
-    if (!visible && tornadoImageOverlay) {
-      tornadoImageOverlay.setMap(null);
-      tornadoImageOverlay = null;
+    tornadoHitLine.setMap(visible ? map : null);
+    if (!visible) {
+      tornadoInfoWindow.close();
+      if (tornadoImageOverlay) {
+        tornadoImageOverlay.setMap(null);
+        tornadoImageOverlay = null;
+      }
     }
   }
 
