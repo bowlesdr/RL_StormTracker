@@ -133,6 +133,13 @@
   #ytPlayerInner { width: 100%; height: 100%; display: block; }
   #ytControls { display: flex; flex-direction: column; gap: 12px; }
   .sectionLabel { font-size: 12px; opacity: 0.6; margin-top: 4px; }
+  .streamLinks { display: flex; flex-direction: column; gap: 6px; }
+  .streamLinks a {
+    color: #4dd0ff; text-decoration: none; font-size: 13px; text-align: center;
+    background: #182028; border: 1px solid #2a3040; border-radius: 4px; padding: 6px 10px;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
+  .streamLinks a:hover { background: #223040; border-color: #3a4256; }
   #ytUrlInput {
     width: 100%; box-sizing: border-box; background: #0e1117; color: #e8ebf0;
     border: 1px solid #2a3040; border-radius: 4px; padding: 6px; font-size: 13px;
@@ -217,7 +224,11 @@
   </div>
 
   <div id="ytControls">
-    <a href="https://www.youtube.com/@InstantWeather/streams" target="_blank" rel="noopener">Find current stream</a>
+    <div class="sectionLabel">Find current stream</div>
+    <div class="streamLinks">
+      <a href="https://www.youtube.com/@InstantWeather/streams" target="_blank" rel="noopener">InstantWeather</a>
+      <a href="https://www.youtube.com/@CanadianWeatherLive/streams" target="_blank" rel="noopener">Canadian Weather Live</a>
+    </div>
     <input type="text" id="ytUrlInput" placeholder="Paste YouTube URL">
     <div class="buttonRow">
       <button id="ytPlayBtn" type="button">&#9654; Play</button>
