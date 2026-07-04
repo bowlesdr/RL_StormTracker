@@ -155,6 +155,8 @@
     background: #ffb454; color: #10131a; border-color: #ffb454; font-weight: 700;
   }
   #ytStatus { font-size: 12px; opacity: 0.7; }
+  #windInfo { font-size: 13px; line-height: 1.4; }
+  .windSubtext { opacity: 0.7; }
 
   @media (max-width: 640px) {
     #radarBar {
@@ -208,6 +210,9 @@
   <label class="control" title="Raw radar reflectivity (dBZ), not converted to a rain rate like the main radar forecast. Both come from the same 1-hour motion-extrapolated nowcast, but this skips the rain-rate conversion. Very high values (roughly 55+ dBZ) signal an unusually intense cell — often hail — even when the rain forecast alongside it just looks like heavy rain, since that conversion assumes what's being detected is rain.">
     <input type="checkbox" id="stormIntensityToggle"> Storm Intensity (next 1h)
   </label>
+
+  <div class="sectionLabel" title="Nearest personal weather station reporting live wind (Weather Underground's crowd-sourced network) — much denser near Rock Lake than official government stations, though uncalibrated compared to them.">Wind</div>
+  <div id="windInfo">Loading&hellip;</div>
 
   <div class="sectionLabel">Lightning</div>
   <div class="buttonRow">
@@ -1072,6 +1077,99 @@
     );
   }
 
+  // ---- Wind (Weather Underground's crowd-sourced personal-weather-station
+  // network). ECCC's official network has nothing within ~50km of HOME; WU's
+  // PWS density here is much better (verified stations as close as 5.7km),
+  // at the cost of being uncalibrated hobbyist hardware rather than an
+  // official-grade station. Uses a key embedded in WU's own public web map
+  // widget — not a private/secret credential, same category as our
+  // referrer-restricted Google Maps key.
+  const WU_API_KEY = 'e1f10a1e78da46f5b10a1e78da96f525';
+  const WIND_REFRESH_MS = 3 * 60 * 1000;
+  const WIND_STALE_MS = 30 * 60 * 1000; // ignore a station if its last observation is older than this
+  let windMarker = null;
+
+  async function fetchNearbyWuStations() {
+    const url = `https://api.weather.com/v3/location/near?geocode=${HOME.lat},${HOME.lng}&product=pws&format=json&apiKey=${WU_API_KEY}`;
+    const resp = await fetch(url);
+    const data = await resp.json();
+    const loc = data.location;
+    const stations = loc.stationId.map((id, i) => ({
+      id, name: loc.stationName[i], lat: loc.latitude[i], lng: loc.longitude[i], distanceKm: loc.distanceKm[i]
+    }));
+    stations.sort((a, b) => a.distanceKm - b.distanceKm);
+    return stations;
+  }
+
+  async function fetchWuCurrentObservation(stationId) {
+    const url = `https://api.weather.com/v2/pws/observations/current?stationId=${stationId}&format=json&units=m&apiKey=${WU_API_KEY}`;
+    const resp = await fetch(url);
+    if (!resp.ok) return null;
+    const data = await resp.json();
+    const obs = data.observations && data.observations[0];
+    if (!obs) return null;
+    const metric = obs.metric || {};
+    if (metric.windSpeed == null || obs.winddir == null) return null; // some PWS ticks omit wind entirely
+    const obsTimeMs = new Date(obs.obsTimeUtc).getTime();
+    if (Date.now() - obsTimeMs > WIND_STALE_MS) return null; // station offline/stale
+    return {
+      name: obs.neighborhood || stationId,
+      speedKmh: metric.windSpeed,
+      gustKmh: metric.windGust,
+      dirDeg: obs.winddir
+    };
+  }
+
+  // Tries stations nearest-first and uses the first one that's both
+  // reporting wind and recent — PWS hardware goes offline/stale far more
+  // often than an official station would, so distance alone isn't enough.
+  async function fetchNearestValidWuWind() {
+    const stations = await fetchNearbyWuStations();
+    for (const station of stations) {
+      const obs = await fetchWuCurrentObservation(station.id);
+      if (obs) return { ...obs, lat: station.lat, lng: station.lng, distanceKm: station.distanceKm };
+    }
+    return null;
+  }
+
+  function degreesToCompass(deg) {
+    const dirs = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+    return dirs[Math.round(deg / 22.5) % 16];
+  }
+
+  function updateWindMarker(obs) {
+    if (!windMarker) windMarker = new google.maps.Marker({ map, zIndex: 998 });
+    windMarker.setPosition({ lat: obs.lat, lng: obs.lng });
+    windMarker.setIcon({
+      path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+      scale: 5,
+      rotation: (obs.dirDeg + 180) % 360, // points where the wind is blowing toward, not from
+      fillColor: '#4dd0ff',
+      fillOpacity: 0.9,
+      strokeColor: '#ffffff',
+      strokeWeight: 1
+    });
+    const gustText = obs.gustKmh != null ? `, gusting ${obs.gustKmh.toFixed(0)} km/h` : '';
+    windMarker.setTitle(`${obs.name}: ${obs.speedKmh.toFixed(0)} km/h from ${degreesToCompass(obs.dirDeg)}${gustText}`);
+  }
+
+  async function refreshWindDisplay() {
+    const el = document.getElementById('windInfo');
+    try {
+      const obs = await fetchNearestValidWuWind();
+      if (!obs) {
+        el.textContent = 'No wind data available nearby';
+        return;
+      }
+      updateWindMarker(obs);
+      const gustText = obs.gustKmh != null ? `, gusting ${obs.gustKmh.toFixed(0)} km/h` : '';
+      el.innerHTML = `${obs.speedKmh.toFixed(0)} km/h from ${degreesToCompass(obs.dirDeg)}${gustText}<br>` +
+        `<span class="windSubtext">${obs.name}, ${obs.distanceKm.toFixed(1)} km away</span>`;
+    } catch (e) {
+      el.textContent = 'Wind data unavailable';
+    }
+  }
+
   // ---- Severe weather alerts (ECCC, via MSC GeoMet's OGC API Features —
   // same public infrastructure as the radar/satellite WMS layers, a
   // different collection: weather-alerts). The bbox query only narrows
@@ -1418,6 +1516,8 @@
     initGeolocation();
     refreshAlerts();
     setInterval(refreshAlerts, ALERT_REFRESH_MS);
+    refreshWindDisplay();
+    setInterval(refreshWindDisplay, WIND_REFRESH_MS);
   }
 
   window.gm_authFailure = function () {
