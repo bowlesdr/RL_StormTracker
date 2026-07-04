@@ -97,7 +97,7 @@
     display: none; position: fixed; top: 12px; right: 12px; z-index: 25;
     width: 220px; background: #171b24; border: 1px solid #3a4256; border-radius: 8px;
     padding: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-    flex-direction: column; gap: 12px;
+    flex-direction: column; gap: 6px;
     max-height: calc(100dvh - 24px); overflow-y: auto;
   }
   #settingsPanel.open { display: flex; }
@@ -125,7 +125,7 @@
   }
   #ytPlayerInner { width: 100%; height: 100%; display: block; }
   #ytControls { display: flex; flex-direction: column; gap: 12px; }
-  .sectionLabel { font-size: 12px; opacity: 0.6; margin-top: 4px; }
+  .sectionLabel { font-size: 12px; opacity: 0.6; margin-top: 10px; }
   .streamLinks { display: flex; flex-direction: column; gap: 6px; }
   .streamLinks a {
     color: #4dd0ff; text-decoration: none; font-size: 13px; text-align: center;
@@ -193,7 +193,10 @@
     <input type="checkbox" id="tornadoToggle"> Tornado(s)
   </label>
   <label class="control" title="Rock Lake property boundary, surveyed corners.">
-    <input type="checkbox" id="propertyBoundaryToggle"> Property Boundary
+    <input type="checkbox" id="propertyBoundaryToggle" checked> Property Boundary
+  </label>
+  <label class="control" title="Municipal/administrative boundary lines and place labels (Esri).">
+    <input type="checkbox" id="boundariesToggle" checked> Municipal Boundaries
   </label>
 
   <label class="control" title="Live wind from every nearby station within 50km — both ECCC's official network and Weather Underground's crowd-sourced personal weather stations, which are much denser near Rock Lake but uncalibrated compared to ECCC's.">
@@ -1198,6 +1201,15 @@
     }
   }
 
+  // Esri's place-labels overlay (see initMap) also carries administrative/
+  // municipal boundary lines — togglable as one combined layer since Esri
+  // serves them as a single reference tile set, not separate products.
+  let boundariesLayer = null;
+  function toggleBoundariesLayer(visible) {
+    if (visible) boundariesLayer.addTo(map);
+    else map.removeLayer(boundariesLayer);
+  }
+
   // ---- Rock Lake property boundary — surveyed corners, from boundary.kml.
   const PROPERTY_BOUNDARY_PATH = [
     [44.813842, -76.262328],
@@ -1609,7 +1621,12 @@
 
     document.getElementById('windToggle').addEventListener('change', (e) => toggleWindLayer(e.target.checked));
     document.getElementById('tornadoToggle').addEventListener('change', (e) => toggleTornadoTrack(e.target.checked));
-    document.getElementById('propertyBoundaryToggle').addEventListener('change', (e) => togglePropertyBoundary(e.target.checked));
+
+    const propertyBoundaryToggleEl = document.getElementById('propertyBoundaryToggle');
+    propertyBoundaryToggleEl.addEventListener('change', (e) => togglePropertyBoundary(e.target.checked));
+    togglePropertyBoundary(propertyBoundaryToggleEl.checked); // on by default
+
+    document.getElementById('boundariesToggle').addEventListener('change', (e) => toggleBoundariesLayer(e.target.checked));
 
     initRadarScrubbing();
     initYouTubeAudio();
@@ -1675,11 +1692,12 @@
       attribution: 'Tiles &copy; Esri',
       maxZoom: 19
     }).addTo(map);
-    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
+    boundariesLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
       attribution: '',
       maxZoom: 19,
       pane: 'labelsPane'
-    }).addTo(map);
+    });
+    toggleBoundariesLayer(document.getElementById('boundariesToggle').checked);
 
     // 'moveend' fires once after the viewport settles from *any* change — the
     // initial load, a pan, or a zoom — so it's the single trigger covering
