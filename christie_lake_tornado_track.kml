@@ -1,0 +1,2079 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Schema name="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos" id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+	<SimpleField name="OBJECTID" type="int"></SimpleField>
+	<SimpleField name="Path" type="string"></SimpleField>
+	<SimpleField name="DateTime" type="string"></SimpleField>
+	<SimpleField name="Direction" type="string"></SimpleField>
+	<SimpleField name="X" type="float"></SimpleField>
+	<SimpleField name="Y" type="float"></SimpleField>
+	<SimpleField name="Z" type="float"></SimpleField>
+</Schema>
+<Folder><name>Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos</name>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.1">
+	<name>DJI_0801.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">1</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0801.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:37:42+00</SimpleData>
+		<SimpleData name="X">-76.3797989166667</SimpleData>
+		<SimpleData name="Y">44.8190958611111</SimpleData>
+		<SimpleData name="Z">193.166</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.379798917,44.8190958610001,193.165999999997</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.2">
+	<name>DJI_0802.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">2</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0802.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:38:31+00</SimpleData>
+		<SimpleData name="X">-76.3801078611111</SimpleData>
+		<SimpleData name="Y">44.8189561111111</SimpleData>
+		<SimpleData name="Z">138.666</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3801078609999,44.818956111,138.665999999997</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.3">
+	<name>DJI_0803.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">3</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0803.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:38:42+00</SimpleData>
+		<SimpleData name="X">-76.3799336666667</SimpleData>
+		<SimpleData name="Y">44.8190754166667</SimpleData>
+		<SimpleData name="Z">143.266</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.379933667,44.8190754170001,143.266000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.4">
+	<name>DJI_0804.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">4</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0804.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:38:51+00</SimpleData>
+		<SimpleData name="X">-76.3795661666667</SimpleData>
+		<SimpleData name="Y">44.8191505277778</SimpleData>
+		<SimpleData name="Z">143.166</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.379566167,44.8191505280001,143.165999999997</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.5">
+	<name>DJI_0805.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">5</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0805.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:39:14+00</SimpleData>
+		<SimpleData name="X">-76.3799438888889</SimpleData>
+		<SimpleData name="Y">44.8191623888889</SimpleData>
+		<SimpleData name="Z">122.566</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3799438889999,44.819162389,122.566000000006</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.6">
+	<name>DJI_0806.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">6</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0806.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:39:25+00</SimpleData>
+		<SimpleData name="X">-76.3795468611111</SimpleData>
+		<SimpleData name="Y">44.8191646111111</SimpleData>
+		<SimpleData name="Z">122.766</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3795468609999,44.8191646110001,122.766000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.7">
+	<name>DJI_0807.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">7</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0807.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:40:21+00</SimpleData>
+		<SimpleData name="X">-76.3808138333333</SimpleData>
+		<SimpleData name="Y">44.819629</SimpleData>
+		<SimpleData name="Z">138.666</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3808138329999,44.8196290000001,138.665999999997</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.8">
+	<name>DJI_0808.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">8</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0808.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:40:59+00</SimpleData>
+		<SimpleData name="X">-76.3806138611111</SimpleData>
+		<SimpleData name="Y">44.8191785</SimpleData>
+		<SimpleData name="Z">136.466</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.380613861,44.8191785000001,136.466</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.9">
+	<name>DJI_0809.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">9</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0809.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:41:17+00</SimpleData>
+		<SimpleData name="X">-76.3803419166667</SimpleData>
+		<SimpleData name="Y">44.8194716111111</SimpleData>
+		<SimpleData name="Z">168.166</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.380341917,44.819471611,168.165999999997</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.10">
+	<name>DJI_0810.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">10</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0810.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:41:53+00</SimpleData>
+		<SimpleData name="X">-76.3783814722222</SimpleData>
+		<SimpleData name="Y">44.8184003055556</SimpleData>
+		<SimpleData name="Z">213.266</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3783814719999,44.8184003060001,213.266000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.11">
+	<name>DJI_0811.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">11</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0811.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:42:38+00</SimpleData>
+		<SimpleData name="X">-76.37742375</SimpleData>
+		<SimpleData name="Y">44.81760575</SimpleData>
+		<SimpleData name="Z">217.966</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3774237499999,44.81760575,217.966</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.12">
+	<name>DJI_0812.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">12</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0812.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:42:47+00</SimpleData>
+		<SimpleData name="X">-76.3765877777778</SimpleData>
+		<SimpleData name="Y">44.8173871388889</SimpleData>
+		<SimpleData name="Z">218.466</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.376587778,44.8173871390001,218.466</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.13">
+	<name>DJI_0813.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">13</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0813.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:44:28+00</SimpleData>
+		<SimpleData name="X">-76.3796183611111</SimpleData>
+		<SimpleData name="Y">44.8165445833333</SimpleData>
+		<SimpleData name="Z">216.766</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.379618361,44.8165445830001,216.766000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.14">
+	<name>DJI_0814.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">14</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0814.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:44:36+00</SimpleData>
+		<SimpleData name="X">-76.3801125277778</SimpleData>
+		<SimpleData name="Y">44.81716</SimpleData>
+		<SimpleData name="Z">216.566</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.380112528,44.8171600000001,216.566000000006</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.15">
+	<name>DJI_0815.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">15</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0815.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:44:42+00</SimpleData>
+		<SimpleData name="X">-76.3807620833333</SimpleData>
+		<SimpleData name="Y">44.8177618611111</SimpleData>
+		<SimpleData name="Z">216.166</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.380762083,44.8177618610001,216.165999999997</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.16">
+	<name>DJI_0816.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">16</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0816.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:44:55+00</SimpleData>
+		<SimpleData name="X">-76.3817111666667</SimpleData>
+		<SimpleData name="Y">44.8183546111111</SimpleData>
+		<SimpleData name="Z">216.766</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3817111669999,44.8183546110001,216.766000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.17">
+	<name>DJI_0817.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">17</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0817.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:46:19+00</SimpleData>
+		<SimpleData name="X">-76.3826541944444</SimpleData>
+		<SimpleData name="Y">44.8174859166667</SimpleData>
+		<SimpleData name="Z">202.966</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3826541939999,44.8174859170001,202.966</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.18">
+	<name>DJI_0818.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">18</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0818.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:46:41+00</SimpleData>
+		<SimpleData name="X">-76.3835814166667</SimpleData>
+		<SimpleData name="Y">44.8174988333333</SimpleData>
+		<SimpleData name="Z">208.166</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.383581417,44.8174988330001,208.165999999997</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.19">
+	<name>DJI_0819.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">19</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0819.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:47:07+00</SimpleData>
+		<SimpleData name="X">-76.3832896388889</SimpleData>
+		<SimpleData name="Y">44.8184932222222</SimpleData>
+		<SimpleData name="Z">205.066</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3832896389999,44.818493222,205.066000000006</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.20">
+	<name>DJI_0820.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">20</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0820.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:47:34+00</SimpleData>
+		<SimpleData name="X">-76.3852171111111</SimpleData>
+		<SimpleData name="Y">44.8186173611111</SimpleData>
+		<SimpleData name="Z">210.766</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.385217111,44.8186173610001,210.766000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.21">
+	<name>DJI_0821.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">21</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0821.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:47:58+00</SimpleData>
+		<SimpleData name="X">-76.3863232222222</SimpleData>
+		<SimpleData name="Y">44.8178268888889</SimpleData>
+		<SimpleData name="Z">214.566</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.386323222,44.8178268890001,214.566000000006</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.22">
+	<name>DJI_0822.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">22</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0822.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:48:07+00</SimpleData>
+		<SimpleData name="X">-76.3854713055556</SimpleData>
+		<SimpleData name="Y">44.8172181111111</SimpleData>
+		<SimpleData name="Z">216.766</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3854713059999,44.817218111,216.766000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.23">
+	<name>DJI_0823.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">23</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0823.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:50:11+00</SimpleData>
+		<SimpleData name="X">-76.3907551666667</SimpleData>
+		<SimpleData name="Y">44.8172594722222</SimpleData>
+		<SimpleData name="Z">207.966</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.390755167,44.817259472,207.966</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.24">
+	<name>DJI_0824.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">24</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0824.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:50:17+00</SimpleData>
+		<SimpleData name="X">-76.39114425</SimpleData>
+		<SimpleData name="Y">44.8176036666667</SimpleData>
+		<SimpleData name="Z">208.266</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.39114425,44.8176036670001,208.266000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.25">
+	<name>DJI_0825.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">25</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0825.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:50:29+00</SimpleData>
+		<SimpleData name="X">-76.3917415555556</SimpleData>
+		<SimpleData name="Y">44.8182812777778</SimpleData>
+		<SimpleData name="Z">207.866</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3917415559999,44.818281278,207.865999999995</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.26">
+	<name>DJI_0826.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">26</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0826.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:50:36+00</SimpleData>
+		<SimpleData name="X">-76.39125975</SimpleData>
+		<SimpleData name="Y">44.8185844166667</SimpleData>
+		<SimpleData name="Z">208.066</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.39125975,44.8185844170001,208.066000000006</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.27">
+	<name>DJI_0827.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">27</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0827.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:51:22+00</SimpleData>
+		<SimpleData name="X">-76.3913241666667</SimpleData>
+		<SimpleData name="Y">44.8168909166667</SimpleData>
+		<SimpleData name="Z">216.566</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3913241669999,44.8168909170001,216.566000000006</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.28">
+	<name>DJI_0828.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">28</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0828.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:51:30+00</SimpleData>
+		<SimpleData name="X">-76.3920176388889</SimpleData>
+		<SimpleData name="Y">44.8164855555556</SimpleData>
+		<SimpleData name="Z">216.766</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.392017639,44.816485556,216.766000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.29">
+	<name>DJI_0829.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">29</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0829.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:53:41+00</SimpleData>
+		<SimpleData name="X">-76.3942056666667</SimpleData>
+		<SimpleData name="Y">44.8144168333333</SimpleData>
+		<SimpleData name="Z">207.466</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3942056669999,44.8144168330001,207.466</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.30">
+	<name>DJI_0830.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">30</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0830.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:54:29+00</SimpleData>
+		<SimpleData name="X">-76.3978152777778</SimpleData>
+		<SimpleData name="Y">44.8146819166667</SimpleData>
+		<SimpleData name="Z">217.766</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3978152779999,44.814681917,217.766000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.31">
+	<name>DJI_0831.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">31</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0831.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:54:52+00</SimpleData>
+		<SimpleData name="X">-76.3979041666667</SimpleData>
+		<SimpleData name="Y">44.8160650555556</SimpleData>
+		<SimpleData name="Z">215.466</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.397904167,44.8160650560001,215.466</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.32">
+	<name>DJI_0832.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">32</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0832.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:55:18+00</SimpleData>
+		<SimpleData name="X">-76.3990698333333</SimpleData>
+		<SimpleData name="Y">44.8163693055556</SimpleData>
+		<SimpleData name="Z">212.266</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3990698329999,44.8163693060001,212.266000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.33">
+	<name>DJI_0833.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">33</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0833.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:55:42+00</SimpleData>
+		<SimpleData name="X">-76.3995528888889</SimpleData>
+		<SimpleData name="Y">44.8157391944444</SimpleData>
+		<SimpleData name="Z">215.766</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3995528889999,44.8157391940001,215.766000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.34">
+	<name>DJI_0834.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">34</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0834.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:56:00+00</SimpleData>
+		<SimpleData name="X">-76.4011523611111</SimpleData>
+		<SimpleData name="Y">44.8156651944444</SimpleData>
+		<SimpleData name="Z">217.966</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.401152361,44.8156651940001,217.966</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.35">
+	<name>DJI_0835.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">35</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0835.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:56:18+00</SimpleData>
+		<SimpleData name="X">-76.4016826666667</SimpleData>
+		<SimpleData name="Y">44.8163210555556</SimpleData>
+		<SimpleData name="Z">214.566</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.401682667,44.816321056,214.566000000006</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.36">
+	<name>DJI_0836.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">36</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0836.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:56:31+00</SimpleData>
+		<SimpleData name="X">-76.40261425</SimpleData>
+		<SimpleData name="Y">44.8159491388889</SimpleData>
+		<SimpleData name="Z">211.266</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.4026142499999,44.8159491390001,211.266000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.37">
+	<name>DJI_0837.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">37</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0837.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:57:01+00</SimpleData>
+		<SimpleData name="X">-76.4040720555556</SimpleData>
+		<SimpleData name="Y">44.8155564166667</SimpleData>
+		<SimpleData name="Z">209.066</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.404072056,44.815556417,209.066000000006</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.38">
+	<name>DJI_0838.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">38</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0838.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:57:36+00</SimpleData>
+		<SimpleData name="X">-76.4053355555556</SimpleData>
+		<SimpleData name="Y">44.8151310277778</SimpleData>
+		<SimpleData name="Z">220.266</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.405335556,44.8151310280001,220.266000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.39">
+	<name>DJI_0839.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">39</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0839.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:57:52+00</SimpleData>
+		<SimpleData name="X">-76.4058123333333</SimpleData>
+		<SimpleData name="Y">44.8145484166667</SimpleData>
+		<SimpleData name="Z">219.366</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.405812333,44.814548417,219.365999999995</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.40">
+	<name>DJI_0840.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">40</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0840.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 17:58:05+00</SimpleData>
+		<SimpleData name="X">-76.4065753333333</SimpleData>
+		<SimpleData name="Y">44.8149969166667</SimpleData>
+		<SimpleData name="Z">218.766</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.406575333,44.814996917,218.766000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.41">
+	<name>DJI_0841.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">41</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0841.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:01:04+00</SimpleData>
+		<SimpleData name="X">-76.3777241388889</SimpleData>
+		<SimpleData name="Y">44.8190786111111</SimpleData>
+		<SimpleData name="Z">217.666</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.377724139,44.8190786110001,217.665999999997</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.42">
+	<name>DJI_0842.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">42</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0842.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:01:18+00</SimpleData>
+		<SimpleData name="X">-76.3772943888889</SimpleData>
+		<SimpleData name="Y">44.8194998611111</SimpleData>
+		<SimpleData name="Z">216.866</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.377294389,44.8194998610001,216.865999999995</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.43">
+	<name>DJI_0843.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">43</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0843.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:01:54+00</SimpleData>
+		<SimpleData name="X">-76.3770261944444</SimpleData>
+		<SimpleData name="Y">44.8187753333333</SimpleData>
+		<SimpleData name="Z">209.266</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3770261939999,44.8187753330001,209.266000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.44">
+	<name>DJI_0844.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">44</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0844.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:21:19+00</SimpleData>
+		<SimpleData name="X">-76.3396175</SimpleData>
+		<SimpleData name="Y">44.8212816111111</SimpleData>
+		<SimpleData name="Z">219.846</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3396175,44.8212816110001,219.846000000005</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.45">
+	<name>DJI_0845.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">45</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0845.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:21:52+00</SimpleData>
+		<SimpleData name="X">-76.3406475555555</SimpleData>
+		<SimpleData name="Y">44.8200461944445</SimpleData>
+		<SimpleData name="Z">215.746</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.340647556,44.820046194,215.745999999999</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.46">
+	<name>DJI_0846.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">46</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0846.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:22:15+00</SimpleData>
+		<SimpleData name="X">-76.34195325</SimpleData>
+		<SimpleData name="Y">44.8207829722222</SimpleData>
+		<SimpleData name="Z">214.946</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.34195325,44.8207829720001,214.945999999996</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.47">
+	<name>DJI_0847.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">47</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0847.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:22:23+00</SimpleData>
+		<SimpleData name="X">-76.3426537222222</SimpleData>
+		<SimpleData name="Y">44.8207676944444</SimpleData>
+		<SimpleData name="Z">215.446</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.342653722,44.820767694,215.445999999996</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.48">
+	<name>DJI_0848.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">48</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0848.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:22:31+00</SimpleData>
+		<SimpleData name="X">-76.3429403333333</SimpleData>
+		<SimpleData name="Y">44.8211990277778</SimpleData>
+		<SimpleData name="Z">214.346</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3429403329999,44.8211990280001,214.346000000005</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.49">
+	<name>DJI_0849.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">49</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0849.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:22:50+00</SimpleData>
+		<SimpleData name="X">-76.3437494444444</SimpleData>
+		<SimpleData name="Y">44.8204793888889</SimpleData>
+		<SimpleData name="Z">211.946</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.343749444,44.8204793890001,211.945999999996</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.50">
+	<name>DJI_0850.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">50</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0850.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:23:13+00</SimpleData>
+		<SimpleData name="X">-76.3447888333333</SimpleData>
+		<SimpleData name="Y">44.8204269444444</SimpleData>
+		<SimpleData name="Z">218.446</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3447888329999,44.8204269440001,218.445999999996</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.51">
+	<name>DJI_0851.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">51</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0851.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:23:25+00</SimpleData>
+		<SimpleData name="X">-76.3451596666667</SimpleData>
+		<SimpleData name="Y">44.8209171111111</SimpleData>
+		<SimpleData name="Z">217.746</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.345159667,44.820917111,217.745999999999</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.52">
+	<name>DJI_0852.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">52</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0852.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:23:50+00</SimpleData>
+		<SimpleData name="X">-76.3463558888889</SimpleData>
+		<SimpleData name="Y">44.82039575</SimpleData>
+		<SimpleData name="Z">215.046</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3463558889999,44.82039575,215.046000000002</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.53">
+	<name>DJI_0853.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">53</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0853.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:24:30+00</SimpleData>
+		<SimpleData name="X">-76.3482652777778</SimpleData>
+		<SimpleData name="Y">44.8202525833333</SimpleData>
+		<SimpleData name="Z">211.146</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.348265278,44.8202525830001,211.145999999993</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.54">
+	<name>DJI_0854.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">54</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0854.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:24:54+00</SimpleData>
+		<SimpleData name="X">-76.350024</SimpleData>
+		<SimpleData name="Y">44.8202133333333</SimpleData>
+		<SimpleData name="Z">209.746</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.350024,44.820213333,209.745999999999</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.55">
+	<name>DJI_0855.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">55</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0855.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:25:05+00</SimpleData>
+		<SimpleData name="X">-76.3511437777778</SimpleData>
+		<SimpleData name="Y">44.8201748055556</SimpleData>
+		<SimpleData name="Z">210.046</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3511437779999,44.8201748060001,210.046000000002</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.56">
+	<name>DJI_0856.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">56</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0856.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:25:15+00</SimpleData>
+		<SimpleData name="X">-76.3509243611111</SimpleData>
+		<SimpleData name="Y">44.8208512222222</SimpleData>
+		<SimpleData name="Z">209.346</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.350924361,44.820851222,209.346000000005</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.57">
+	<name>DJI_0857.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">57</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0857.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:25:51+00</SimpleData>
+		<SimpleData name="X">-76.3514054166667</SimpleData>
+		<SimpleData name="Y">44.8214500277778</SimpleData>
+		<SimpleData name="Z">207.046</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.351405417,44.8214500280001,207.046000000002</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.58">
+	<name>DJI_0858.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">58</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0858.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:26:00+00</SimpleData>
+		<SimpleData name="X">-76.3520601944444</SimpleData>
+		<SimpleData name="Y">44.8217681388889</SimpleData>
+		<SimpleData name="Z">207.146</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.352060194,44.821768139,207.145999999993</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.59">
+	<name>DJI_0859.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">59</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0859.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:26:07+00</SimpleData>
+		<SimpleData name="X">-76.3526044166667</SimpleData>
+		<SimpleData name="Y">44.8219397222222</SimpleData>
+		<SimpleData name="Z">207.846</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.352604417,44.821939722,207.846000000005</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.60">
+	<name>DJI_0860.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">60</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0860.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:26:20+00</SimpleData>
+		<SimpleData name="X">-76.35346775</SimpleData>
+		<SimpleData name="Y">44.8217953611111</SimpleData>
+		<SimpleData name="Z">204.246</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3534677499999,44.8217953610001,204.245999999999</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.61">
+	<name>DJI_0861.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">61</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0861.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:27:45+00</SimpleData>
+		<SimpleData name="X">-76.3533409444444</SimpleData>
+		<SimpleData name="Y">44.8208133611111</SimpleData>
+		<SimpleData name="Z">202.646</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.353340944,44.820813361,202.645999999993</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.62">
+	<name>DJI_0862.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">62</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0862.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:28:05+00</SimpleData>
+		<SimpleData name="X">-76.3543356666667</SimpleData>
+		<SimpleData name="Y">44.8209828333333</SimpleData>
+		<SimpleData name="Z">200.946</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.354335667,44.8209828330001,200.945999999996</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.63">
+	<name>DJI_0863.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">63</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0863.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:28:12+00</SimpleData>
+		<SimpleData name="X">-76.3544175555556</SimpleData>
+		<SimpleData name="Y">44.8209608055556</SimpleData>
+		<SimpleData name="Z">200.946</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.354417556,44.8209608060001,200.945999999996</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.64">
+	<name>DJI_0864.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">64</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0864.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:28:54+00</SimpleData>
+		<SimpleData name="X">-76.3547831388889</SimpleData>
+		<SimpleData name="Y">44.8199326111111</SimpleData>
+		<SimpleData name="Z">217.646</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3547831389999,44.8199326110001,217.645999999993</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.65">
+	<name>DJI_0865.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">65</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0865.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:29:00+00</SimpleData>
+		<SimpleData name="X">-76.3553468055556</SimpleData>
+		<SimpleData name="Y">44.8200068333333</SimpleData>
+		<SimpleData name="Z">222.646</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3553468059999,44.820006833,222.645999999993</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.66">
+	<name>DJI_0866.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">66</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0866.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:29:46+00</SimpleData>
+		<SimpleData name="X">-76.3568000555556</SimpleData>
+		<SimpleData name="Y">44.8201306944445</SimpleData>
+		<SimpleData name="Z">219.746</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3568000559999,44.8201306940001,219.745999999999</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.67">
+	<name>DJI_0867.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">67</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0867.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:29:54+00</SimpleData>
+		<SimpleData name="X">-76.3569955833333</SimpleData>
+		<SimpleData name="Y">44.8195594722222</SimpleData>
+		<SimpleData name="Z">219.946</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.356995583,44.819559472,219.945999999996</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.68">
+	<name>DJI_0868.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">68</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0868.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:30:10+00</SimpleData>
+		<SimpleData name="X">-76.3580291944444</SimpleData>
+		<SimpleData name="Y">44.820175</SimpleData>
+		<SimpleData name="Z">218.446</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.358029194,44.8201750000001,218.445999999996</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.69">
+	<name>DJI_0869.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">69</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0869.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:30:26+00</SimpleData>
+		<SimpleData name="X">-76.3592354722222</SimpleData>
+		<SimpleData name="Y">44.8200612777778</SimpleData>
+		<SimpleData name="Z">216.346</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.359235472,44.820061278,216.346000000005</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.70">
+	<name>DJI_0870.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">70</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0870.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:30:43+00</SimpleData>
+		<SimpleData name="X">-76.3605115</SimpleData>
+		<SimpleData name="Y">44.8200220277778</SimpleData>
+		<SimpleData name="Z">214.646</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3605115,44.820022028,214.645999999993</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.71">
+	<name>DJI_0871.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">71</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0871.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:31:18+00</SimpleData>
+		<SimpleData name="X">-76.3618392222222</SimpleData>
+		<SimpleData name="Y">44.8196716388889</SimpleData>
+		<SimpleData name="Z">222.946</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.361839222,44.819671639,222.945999999996</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.72">
+	<name>DJI_0872.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">72</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0872.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:32:46+00</SimpleData>
+		<SimpleData name="X">-76.3605298888889</SimpleData>
+		<SimpleData name="Y">44.8196488888889</SimpleData>
+		<SimpleData name="Z">242.146</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.360529889,44.8196488890001,242.145999999993</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.73">
+	<name>DJI_0873.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">73</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0873.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:34:12+00</SimpleData>
+		<SimpleData name="X">-76.3500001388889</SimpleData>
+		<SimpleData name="Y">44.8197187222222</SimpleData>
+		<SimpleData name="Z">237.846</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.350000139,44.8197187220001,237.846000000005</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.74">
+	<name>DJI_0874.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">74</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0874.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:35:49+00</SimpleData>
+		<SimpleData name="X">-76.3388349166667</SimpleData>
+		<SimpleData name="Y">44.8212143333333</SimpleData>
+		<SimpleData name="Z">233.846</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.338834917,44.8212143330001,233.846000000005</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.75">
+	<name>DJI_0875.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">75</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0875.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:36:14+00</SimpleData>
+		<SimpleData name="X">-76.3363450277778</SimpleData>
+		<SimpleData name="Y">44.8215998611111</SimpleData>
+		<SimpleData name="Z">232.546</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.336345028,44.821599861,232.546000000002</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.76">
+	<name>DJI_0876.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">76</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0876.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:36:22+00</SimpleData>
+		<SimpleData name="X">-76.3354903888889</SimpleData>
+		<SimpleData name="Y">44.82186975</SimpleData>
+		<SimpleData name="Z">232.846</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.335490389,44.8218697500001,232.846000000005</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.77">
+	<name>DJI_0877.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">77</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0877.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:36:55+00</SimpleData>
+		<SimpleData name="X">-76.3335394722222</SimpleData>
+		<SimpleData name="Y">44.8215471388889</SimpleData>
+		<SimpleData name="Z">231.846</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.333539472,44.8215471390001,231.846000000005</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.78">
+	<name>DJI_0878.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">78</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0878.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:37:39+00</SimpleData>
+		<SimpleData name="X">-76.3335146666667</SimpleData>
+		<SimpleData name="Y">44.8218672777778</SimpleData>
+		<SimpleData name="Z">231.746</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.333514667,44.8218672780001,231.745999999999</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.79">
+	<name>DJI_0879.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">79</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0879.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:37:51+00</SimpleData>
+		<SimpleData name="X">-76.3330919166667</SimpleData>
+		<SimpleData name="Y">44.82234325</SimpleData>
+		<SimpleData name="Z">231.746</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3330919169999,44.8223432500001,231.745999999999</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.80">
+	<name>DJI_0880.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">80</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0880.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:38:23+00</SimpleData>
+		<SimpleData name="X">-76.3304202222222</SimpleData>
+		<SimpleData name="Y">44.8218879722222</SimpleData>
+		<SimpleData name="Z">229.146</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.330420222,44.8218879720001,229.145999999993</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.81">
+	<name>DJI_0881.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">81</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0881.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:38:48+00</SimpleData>
+		<SimpleData name="X">-76.32882625</SimpleData>
+		<SimpleData name="Y">44.8213168055556</SimpleData>
+		<SimpleData name="Z">226.646</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.32882625,44.821316806,226.645999999993</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.82">
+	<name>DJI_0882.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">82</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0882.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:38:58+00</SimpleData>
+		<SimpleData name="X">-76.32754475</SimpleData>
+		<SimpleData name="Y">44.82138575</SimpleData>
+		<SimpleData name="Z">227.146</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.32754475,44.82138575,227.145999999993</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.83">
+	<name>DJI_0883.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">83</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0883.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:39:25+00</SimpleData>
+		<SimpleData name="X">-76.3249865277778</SimpleData>
+		<SimpleData name="Y">44.8215025277778</SimpleData>
+		<SimpleData name="Z">226.446</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.324986528,44.8215025280001,226.445999999996</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.84">
+	<name>DJI_0884.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">84</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0884.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:39:45+00</SimpleData>
+		<SimpleData name="X">-76.3236161944444</SimpleData>
+		<SimpleData name="Y">44.8215533611111</SimpleData>
+		<SimpleData name="Z">225.946</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.323616194,44.821553361,225.945999999996</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.85">
+	<name>DJI_0885.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">85</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0885.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:40:06+00</SimpleData>
+		<SimpleData name="X">-76.3224657777778</SimpleData>
+		<SimpleData name="Y">44.8213996944444</SimpleData>
+		<SimpleData name="Z">224.546</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.322465778,44.821399694,224.546000000002</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.86">
+	<name>DJI_0886.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">86</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0886.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:40:10+00</SimpleData>
+		<SimpleData name="X">-76.3224659166667</SimpleData>
+		<SimpleData name="Y">44.8213969166667</SimpleData>
+		<SimpleData name="Z">224.546</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.322465917,44.8213969170001,224.546000000002</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.87">
+	<name>DJI_0887.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">87</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0887.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:40:50+00</SimpleData>
+		<SimpleData name="X">-76.3224666944444</SimpleData>
+		<SimpleData name="Y">44.8213995</SimpleData>
+		<SimpleData name="Z">222.446</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.322466694,44.8213995,222.445999999996</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.88">
+	<name>DJI_0888.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">88</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0888.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 18:41:08+00</SimpleData>
+		<SimpleData name="X">-76.3224669722222</SimpleData>
+		<SimpleData name="Y">44.8213943055556</SimpleData>
+		<SimpleData name="Z">222.246</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.322466972,44.8213943060001,222.245999999999</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.89">
+	<name>DJI_0889.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">89</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0889.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:07:54+00</SimpleData>
+		<SimpleData name="X">-76.3100494166667</SimpleData>
+		<SimpleData name="Y">44.8218158333333</SimpleData>
+		<SimpleData name="Z">222.8</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.310049417,44.8218158330001,222.800000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.90">
+	<name>DJI_0890.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">90</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0890.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:08:09+00</SimpleData>
+		<SimpleData name="X">-76.3101231388889</SimpleData>
+		<SimpleData name="Y">44.8222185</SimpleData>
+		<SimpleData name="Z">222.6</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.310123139,44.8222185000001,222.600000000006</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.91">
+	<name>DJI_0891.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">91</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0891.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:08:24+00</SimpleData>
+		<SimpleData name="X">-76.3106836388889</SimpleData>
+		<SimpleData name="Y">44.8225715833333</SimpleData>
+		<SimpleData name="Z">222.6</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3106836389999,44.8225715830001,222.600000000006</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.92">
+	<name>DJI_0892.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">92</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0892.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:10:34+00</SimpleData>
+		<SimpleData name="X">-76.3049244722222</SimpleData>
+		<SimpleData name="Y">44.82130025</SimpleData>
+		<SimpleData name="Z">218.4</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.304924472,44.82130025,218.399999999994</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.93">
+	<name>DJI_0893.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">93</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0893.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:10:43+00</SimpleData>
+		<SimpleData name="X">-76.3041156666667</SimpleData>
+		<SimpleData name="Y">44.8219179166667</SimpleData>
+		<SimpleData name="Z">218.3</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.304115667,44.8219179170001,218.300000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.94">
+	<name>DJI_0894.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">94</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0894.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:11:31+00</SimpleData>
+		<SimpleData name="X">-76.3019975277778</SimpleData>
+		<SimpleData name="Y">44.8214435</SimpleData>
+		<SimpleData name="Z">216.9</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.301997528,44.8214435,216.899999999994</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.95">
+	<name>DJI_0895.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">95</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0895.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:12:31+00</SimpleData>
+		<SimpleData name="X">-76.3005111111111</SimpleData>
+		<SimpleData name="Y">44.8197945833333</SimpleData>
+		<SimpleData name="Z">204.8</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3005111109999,44.819794583,204.800000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.96">
+	<name>DJI_0896.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">96</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0896.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:13:01+00</SimpleData>
+		<SimpleData name="X">-76.3025781666667</SimpleData>
+		<SimpleData name="Y">44.8222281666667</SimpleData>
+		<SimpleData name="Z">204.7</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.302578167,44.822228167,204.699999999997</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.97">
+	<name>DJI_0897.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">97</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0897.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:13:09+00</SimpleData>
+		<SimpleData name="X">-76.3024667222222</SimpleData>
+		<SimpleData name="Y">44.8228816111111</SimpleData>
+		<SimpleData name="Z">204.2</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.302466722,44.8228816110001,204.199999999997</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.98">
+	<name>DJI_0898.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">98</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0898.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:13:52+00</SimpleData>
+		<SimpleData name="X">-76.30299875</SimpleData>
+		<SimpleData name="Y">44.8236098888889</SimpleData>
+		<SimpleData name="Z">199.5</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.30299875,44.8236098890001,199.5</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.99">
+	<name>DJI_0899.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">99</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0899.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:14:18+00</SimpleData>
+		<SimpleData name="X">-76.3024923333333</SimpleData>
+		<SimpleData name="Y">44.8231976944444</SimpleData>
+		<SimpleData name="Z">199.5</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.302492333,44.823197694,199.5</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.100">
+	<name>DJI_0900.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">100</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0900.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:14:59+00</SimpleData>
+		<SimpleData name="X">-76.2991876944444</SimpleData>
+		<SimpleData name="Y">44.8214524166667</SimpleData>
+		<SimpleData name="Z">195.8</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.299187694,44.821452417,195.800000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.101">
+	<name>DJI_0901.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">101</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0901.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:15:24+00</SimpleData>
+		<SimpleData name="X">-76.2982065555556</SimpleData>
+		<SimpleData name="Y">44.8217846944444</SimpleData>
+		<SimpleData name="Z">194.3</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.298206556,44.821784694,194.300000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.102">
+	<name>DJI_0902.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">102</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0902.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:16:46+00</SimpleData>
+		<SimpleData name="X">-76.2947884444444</SimpleData>
+		<SimpleData name="Y">44.8222770555556</SimpleData>
+		<SimpleData name="Z">192.3</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.2947884439999,44.8222770560001,192.300000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.103">
+	<name>DJI_0903.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">103</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0903.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:17:01+00</SimpleData>
+		<SimpleData name="X">-76.2939974722222</SimpleData>
+		<SimpleData name="Y">44.8221701111111</SimpleData>
+		<SimpleData name="Z">190.6</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.2939974719999,44.822170111,190.600000000006</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.104">
+	<name>DJI_0904.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">104</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0904.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:18:05+00</SimpleData>
+		<SimpleData name="X">-76.2900271388889</SimpleData>
+		<SimpleData name="Y">44.8227671666667</SimpleData>
+		<SimpleData name="Z">189.1</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.290027139,44.8227671670001,189.100000000006</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.105">
+	<name>DJI_0905.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">105</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0905.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:19:01+00</SimpleData>
+		<SimpleData name="X">-76.2858201944444</SimpleData>
+		<SimpleData name="Y">44.820594</SimpleData>
+		<SimpleData name="Z">184.2</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.2858201939999,44.820594,184.199999999997</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.106">
+	<name>DJI_0906.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">106</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0906.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:20:20+00</SimpleData>
+		<SimpleData name="X">-76.2828505277778</SimpleData>
+		<SimpleData name="Y">44.8215706944444</SimpleData>
+		<SimpleData name="Z">222</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.282850528,44.8215706940001,222</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.107">
+	<name>DJI_0907.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">107</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0907.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:21:49+00</SimpleData>
+		<SimpleData name="X">-76.2791344166667</SimpleData>
+		<SimpleData name="Y">44.8194514444444</SimpleData>
+		<SimpleData name="Z">218.9</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.279134417,44.819451444,218.899999999994</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.108">
+	<name>DJI_0908.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">108</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0908.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:27:50+00</SimpleData>
+		<SimpleData name="X">-76.3116414166667</SimpleData>
+		<SimpleData name="Y">44.8219262222222</SimpleData>
+		<SimpleData name="Z">217.5</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.311641417,44.8219262220001,217.5</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.109">
+	<name>DJI_0909.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">109</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0909.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:28:50+00</SimpleData>
+		<SimpleData name="X">-76.3164285833333</SimpleData>
+		<SimpleData name="Y">44.8227414722222</SimpleData>
+		<SimpleData name="Z">209.2</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3164285829999,44.8227414720001,209.199999999997</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.110">
+	<name>DJI_0910.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">110</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0910.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:29:11+00</SimpleData>
+		<SimpleData name="X">-76.317193</SimpleData>
+		<SimpleData name="Y">44.8218098888889</SimpleData>
+		<SimpleData name="Z">206.9</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.317193,44.8218098890001,206.899999999994</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.111">
+	<name>DJI_0911.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">111</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0911.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:29:46+00</SimpleData>
+		<SimpleData name="X">-76.3182790277778</SimpleData>
+		<SimpleData name="Y">44.8215066388889</SimpleData>
+		<SimpleData name="Z">203.2</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3182790279999,44.8215066390001,203.199999999997</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.112">
+	<name>DJI_0912.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">112</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0912.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:30:03+00</SimpleData>
+		<SimpleData name="X">-76.3196578888889</SimpleData>
+		<SimpleData name="Y">44.8219480277778</SimpleData>
+		<SimpleData name="Z">202.1</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.319657889,44.8219480280001,202.100000000006</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.113">
+	<name>DJI_0913.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">113</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0913.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 19:30:18+00</SimpleData>
+		<SimpleData name="X">-76.3204716666667</SimpleData>
+		<SimpleData name="Y">44.8216030833333</SimpleData>
+		<SimpleData name="Z">200.3</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.3204716669999,44.8216030830001,200.300000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.114">
+	<name>DJI_0914.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">114</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0914.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 20:02:02+00</SimpleData>
+		<SimpleData name="X">-76.2389096388889</SimpleData>
+		<SimpleData name="Y">44.8232751388889</SimpleData>
+		<SimpleData name="Z">202.557</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.238909639,44.823275139,202.557000000001</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.115">
+	<name>DJI_0915.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">115</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0915.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 20:02:59+00</SimpleData>
+		<SimpleData name="X">-76.2397763888889</SimpleData>
+		<SimpleData name="Y">44.8270969444444</SimpleData>
+		<SimpleData name="Z">200.157</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.239776389,44.8270969440001,200.157000000007</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.116">
+	<name>DJI_0916.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">116</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0916.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 20:08:04+00</SimpleData>
+		<SimpleData name="X">-76.2421819444444</SimpleData>
+		<SimpleData name="Y">44.8275123333333</SimpleData>
+		<SimpleData name="Z">197.257</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.242181944,44.8275123330001,197.256999999998</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.117">
+	<name>DJI_0917.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">117</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0917.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 20:08:26+00</SimpleData>
+		<SimpleData name="X">-76.2408442222222</SimpleData>
+		<SimpleData name="Y">44.8280790555556</SimpleData>
+		<SimpleData name="Z">196.957</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.240844222,44.828079056,196.956999999995</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.118">
+	<name>DJI_0918.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">118</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0918.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 20:11:09+00</SimpleData>
+		<SimpleData name="X">-76.2266041944444</SimpleData>
+		<SimpleData name="Y">44.8236715833333</SimpleData>
+		<SimpleData name="Z">202.757</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.2266041939999,44.8236715830001,202.756999999998</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.119">
+	<name>DJI_0919.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">119</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0919.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 20:15:00+00</SimpleData>
+		<SimpleData name="X">-76.2272051388889</SimpleData>
+		<SimpleData name="Y">44.8257421666667</SimpleData>
+		<SimpleData name="Z">195.257</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.227205139,44.825742167,195.256999999998</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.120">
+	<name>DJI_0920.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">120</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0920.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 20:16:42+00</SimpleData>
+		<SimpleData name="X">-76.2373998888889</SimpleData>
+		<SimpleData name="Y">44.8230900833333</SimpleData>
+		<SimpleData name="Z">193.857</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.237399889,44.8230900830001,193.857000000004</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.121">
+	<name>DJI_0921.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">121</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0921.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/27 20:18:05+00</SimpleData>
+		<SimpleData name="X">-76.2406128333333</SimpleData>
+		<SimpleData name="Y">44.8237403055556</SimpleData>
+		<SimpleData name="Z">189.157</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.2406128329999,44.823740306,189.157000000007</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.122">
+	<name>DJI_0922.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">122</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0922.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 08:44:05+00</SimpleData>
+		<SimpleData name="X">-76.1311771944444</SimpleData>
+		<SimpleData name="Y">44.8355331111111</SimpleData>
+		<SimpleData name="Z">180.961</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.131177194,44.8355331110001,180.960999999996</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.123">
+	<name>DJI_0923.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">123</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0923.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 08:47:42+00</SimpleData>
+		<SimpleData name="X">-76.1375838055556</SimpleData>
+		<SimpleData name="Y">44.8339706111111</SimpleData>
+		<SimpleData name="Z">173.461</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.137583806,44.833970611,173.460999999996</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.124">
+	<name>DJI_0924.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">124</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0924.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 08:52:00+00</SimpleData>
+		<SimpleData name="X">-76.1506570555556</SimpleData>
+		<SimpleData name="Y">44.8314081944444</SimpleData>
+		<SimpleData name="Z">204.661</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.1506570559999,44.8314081940001,204.660999999993</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.125">
+	<name>DJI_0925.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">125</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0925.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 08:55:51+00</SimpleData>
+		<SimpleData name="X">-76.1288079722222</SimpleData>
+		<SimpleData name="Y">44.8341804166667</SimpleData>
+		<SimpleData name="Z">188.761</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.1288079719999,44.834180417,188.760999999999</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.126">
+	<name>DJI_0926.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">126</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0926.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 08:56:28+00</SimpleData>
+		<SimpleData name="X">-76.1277635277778</SimpleData>
+		<SimpleData name="Y">44.8334473888889</SimpleData>
+		<SimpleData name="Z">187.561</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.1277635279999,44.8334473890001,187.561000000002</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.127">
+	<name>DJI_0927.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">127</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0927.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 08:57:48+00</SimpleData>
+		<SimpleData name="X">-76.1272342777778</SimpleData>
+		<SimpleData name="Y">44.8341293055556</SimpleData>
+		<SimpleData name="Z">188.161</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.1272342779999,44.8341293060001,188.160999999993</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.128">
+	<name>DJI_0928.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">128</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0928.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 08:58:46+00</SimpleData>
+		<SimpleData name="X">-76.1242286666667</SimpleData>
+		<SimpleData name="Y">44.8337598055556</SimpleData>
+		<SimpleData name="Z">185.961</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.124228667,44.833759806,185.960999999996</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.129">
+	<name>DJI_0929.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">129</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0929.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 09:01:51+00</SimpleData>
+		<SimpleData name="X">-76.1020198055556</SimpleData>
+		<SimpleData name="Y">44.8336969722222</SimpleData>
+		<SimpleData name="Z">192.861</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.102019806,44.833696972,192.861000000004</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.130">
+	<name>DJI_0930.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">130</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0930.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 09:02:19+00</SimpleData>
+		<SimpleData name="X">-76.1020166944444</SimpleData>
+		<SimpleData name="Y">44.83369425</SimpleData>
+		<SimpleData name="Z">213.661</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.102016694,44.8336942500001,213.660999999993</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.131">
+	<name>DJI_0931.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">131</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0931.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 09:46:02+00</SimpleData>
+		<SimpleData name="X">-76.0708673888889</SimpleData>
+		<SimpleData name="Y">44.8308668611111</SimpleData>
+		<SimpleData name="Z">174.429</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.0708673889999,44.8308668610001,174.429000000004</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.132">
+	<name>DJI_0932.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">132</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0932.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 09:47:59+00</SimpleData>
+		<SimpleData name="X">-76.0708621388889</SimpleData>
+		<SimpleData name="Y">44.8308539444444</SimpleData>
+		<SimpleData name="Z">139.029</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.070862139,44.8308539440001,139.028999999995</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.133">
+	<name>DJI_0933.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">133</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0933.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 09:49:22+00</SimpleData>
+		<SimpleData name="X">-76.0758590277778</SimpleData>
+		<SimpleData name="Y">44.8309713888889</SimpleData>
+		<SimpleData name="Z">141.229</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.075859028,44.8309713890001,141.229000000007</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.134">
+	<name>DJI_0934.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">134</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0934.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 09:50:53+00</SimpleData>
+		<SimpleData name="X">-76.0810385555556</SimpleData>
+		<SimpleData name="Y">44.8308826111111</SimpleData>
+		<SimpleData name="Z">148.229</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.081038556,44.830882611,148.229000000007</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.135">
+	<name>DJI_0935.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">135</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0935.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 09:52:14+00</SimpleData>
+		<SimpleData name="X">-76.0877282777778</SimpleData>
+		<SimpleData name="Y">44.8313066111111</SimpleData>
+		<SimpleData name="Z">149.229</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.087728278,44.8313066110001,149.229000000007</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.136">
+	<name>DJI_0936.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">136</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0936.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 09:52:55+00</SimpleData>
+		<SimpleData name="X">-76.0897349444444</SimpleData>
+		<SimpleData name="Y">44.8309699722222</SimpleData>
+		<SimpleData name="Z">151.929</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.089734944,44.830969972,151.929000000004</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.137">
+	<name>DJI_0937.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">137</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0937.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 10:40:09+00</SimpleData>
+		<SimpleData name="X">-75.9683346111111</SimpleData>
+		<SimpleData name="Y">44.8348380555556</SimpleData>
+		<SimpleData name="Z">170.349</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-75.968334611,44.8348380560001,170.349000000002</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.138">
+	<name>DJI_0938.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">138</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0938.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 10:41:18+00</SimpleData>
+		<SimpleData name="X">-75.9688761388889</SimpleData>
+		<SimpleData name="Y">44.8333139444444</SimpleData>
+		<SimpleData name="Z">172.449</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-75.968876139,44.8333139440001,172.448999999993</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.139">
+	<name>DJI_0939.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">139</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0939.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 10:43:25+00</SimpleData>
+		<SimpleData name="X">-75.9664974166667</SimpleData>
+		<SimpleData name="Y">44.8332679444445</SimpleData>
+		<SimpleData name="Z">171.849</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-75.966497417,44.8332679440001,171.849000000002</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.140">
+	<name>DJI_0940.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">140</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0940.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 10:44:30+00</SimpleData>
+		<SimpleData name="X">-75.9614223611111</SimpleData>
+		<SimpleData name="Y">44.8342836111111</SimpleData>
+		<SimpleData name="Z">164.149</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-75.961422361,44.834283611,164.149000000005</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.141">
+	<name>DJI_0941.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">141</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0941.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 10:48:31+00</SimpleData>
+		<SimpleData name="X">-75.9385826388889</SimpleData>
+		<SimpleData name="Y">44.83495575</SimpleData>
+		<SimpleData name="Z">150.249</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-75.9385826389999,44.8349557500001,150.248999999996</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.142">
+	<name>DJI_0942.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">142</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0942.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 10:48:48+00</SimpleData>
+		<SimpleData name="X">-75.9379764166667</SimpleData>
+		<SimpleData name="Y">44.8350817777778</SimpleData>
+		<SimpleData name="Z">150.249</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-75.937976417,44.8350817780001,150.248999999996</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.143">
+	<name>DJI_0943.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">143</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0943.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 10:57:01+00</SimpleData>
+		<SimpleData name="X">-75.9848732777778</SimpleData>
+		<SimpleData name="Y">44.8336489722222</SimpleData>
+		<SimpleData name="Z">170.949</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-75.984873278,44.833648972,170.948999999993</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.144">
+	<name>DJI_0944.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">144</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0944.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 10:57:57+00</SimpleData>
+		<SimpleData name="X">-75.9878240555556</SimpleData>
+		<SimpleData name="Y">44.8336776388889</SimpleData>
+		<SimpleData name="Z">169.749</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-75.987824056,44.833677639,169.748999999996</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.145">
+	<name>DJI_0945.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">145</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0945.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 11:02:20+00</SimpleData>
+		<SimpleData name="X">-75.97942825</SimpleData>
+		<SimpleData name="Y">44.8338791944444</SimpleData>
+		<SimpleData name="Z">167.149</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-75.97942825,44.8338791940001,167.149000000005</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.146">
+	<name>DJI_0946.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">146</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0946.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 11:52:14+00</SimpleData>
+		<SimpleData name="X">-76.2800210277778</SimpleData>
+		<SimpleData name="Y">44.8272347777778</SimpleData>
+		<SimpleData name="Z">207.36</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.280021028,44.827234778,207.360000000001</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.147">
+	<name>DJI_0947.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">147</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0947.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 11:56:09+00</SimpleData>
+		<SimpleData name="X">-76.2668132777778</SimpleData>
+		<SimpleData name="Y">44.8198198888889</SimpleData>
+		<SimpleData name="Z">214.26</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.266813278,44.819819889,214.259999999995</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.148">
+	<name>DJI_0948.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">148</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0948.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 11:57:34+00</SimpleData>
+		<SimpleData name="X">-76.2670497222222</SimpleData>
+		<SimpleData name="Y">44.8210041388889</SimpleData>
+		<SimpleData name="Z">205.46</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.267049722,44.8210041390001,205.460000000006</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.149">
+	<name>DJI_0949.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">149</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0949.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 11:58:31+00</SimpleData>
+		<SimpleData name="X">-76.2638289722222</SimpleData>
+		<SimpleData name="Y">44.8231188611111</SimpleData>
+		<SimpleData name="Z">211.16</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.2638289719999,44.8231188610001,211.160000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.150">
+	<name>DJI_0950.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">150</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0950.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 11:58:38+00</SimpleData>
+		<SimpleData name="X">-76.2631515833333</SimpleData>
+		<SimpleData name="Y">44.8231440277778</SimpleData>
+		<SimpleData name="Z">211.46</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.263151583,44.8231440280001,211.460000000006</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.151">
+	<name>DJI_0951.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">151</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0951.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 12:03:06+00</SimpleData>
+		<SimpleData name="X">-76.255387</SimpleData>
+		<SimpleData name="Y">44.8191945277778</SimpleData>
+		<SimpleData name="Z">210.66</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.255387,44.819194528,210.660000000003</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.152">
+	<name>DJI_0952.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">152</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0952.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 12:03:34+00</SimpleData>
+		<SimpleData name="X">-76.2569281111111</SimpleData>
+		<SimpleData name="Y">44.8197930833333</SimpleData>
+		<SimpleData name="Z">209.76</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.256928111,44.819793083,209.759999999995</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.153">
+	<name>DJI_0953.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">153</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0953.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 12:05:10+00</SimpleData>
+		<SimpleData name="X">-76.259587</SimpleData>
+		<SimpleData name="Y">44.8199055555556</SimpleData>
+		<SimpleData name="Z">205.76</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.259587,44.819905556,205.759999999995</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.154">
+	<name>DJI_0954.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">154</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0954.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 12:06:31+00</SimpleData>
+		<SimpleData name="X">-76.265232</SimpleData>
+		<SimpleData name="Y">44.8243484166667</SimpleData>
+		<SimpleData name="Z">202.96</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.265232,44.8243484170001,202.960000000006</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.155">
+	<name>DJI_0955.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">155</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0955.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 12:07:19+00</SimpleData>
+		<SimpleData name="X">-76.2681953888889</SimpleData>
+		<SimpleData name="Y">44.8259765</SimpleData>
+		<SimpleData name="Z">198.86</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.268195389,44.8259765000001,198.860000000001</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.156">
+	<name>DJI_0956.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">156</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0956.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 12:36:30+00</SimpleData>
+		<SimpleData name="X">-76.4073521666667</SimpleData>
+		<SimpleData name="Y">44.8146939166667</SimpleData>
+		<SimpleData name="Z">219.505</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.4073521669999,44.8146939170001,219.505000000005</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.157">
+	<name>DJI_0957.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">157</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0957.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 12:36:39+00</SimpleData>
+		<SimpleData name="X">-76.4063858333333</SimpleData>
+		<SimpleData name="Y">44.8149218888889</SimpleData>
+		<SimpleData name="Z">220.105</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.4063858329999,44.8149218890001,220.104999999996</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.158">
+	<name>DJI_0958.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">158</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0958.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 12:36:44+00</SimpleData>
+		<SimpleData name="X">-76.4054206944444</SimpleData>
+		<SimpleData name="Y">44.815141</SimpleData>
+		<SimpleData name="Z">219.905</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.405420694,44.815141,219.904999999999</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.159">
+	<name>DJI_0959.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">159</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0959.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 12:36:51+00</SimpleData>
+		<SimpleData name="X">-76.4041605277778</SimpleData>
+		<SimpleData name="Y">44.81519325</SimpleData>
+		<SimpleData name="Z">220.105</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.404160528,44.81519325,220.104999999996</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.160">
+	<name>DJI_0960.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">160</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0960.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 12:37:35+00</SimpleData>
+		<SimpleData name="X">-76.4042234166667</SimpleData>
+		<SimpleData name="Y">44.8155533333333</SimpleData>
+		<SimpleData name="Z">217.905</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.404223417,44.815553333,217.904999999999</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.161">
+	<name>DJI_0961.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">161</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0961.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 12:38:01+00</SimpleData>
+		<SimpleData name="X">-76.4025175277778</SimpleData>
+		<SimpleData name="Y">44.8152468055556</SimpleData>
+		<SimpleData name="Z">216.805</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.402517528,44.8152468060001,216.804999999993</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.162">
+	<name>DJI_0962.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">162</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0962.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 12:38:08+00</SimpleData>
+		<SimpleData name="X">-76.4017853611111</SimpleData>
+		<SimpleData name="Y">44.8153056666667</SimpleData>
+		<SimpleData name="Z">217.305</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.401785361,44.8153056670001,217.304999999993</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.163">
+	<name>DJI_0963.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">163</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0963.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 12:38:14+00</SimpleData>
+		<SimpleData name="X">-76.4011257777778</SimpleData>
+		<SimpleData name="Y">44.8157289444444</SimpleData>
+		<SimpleData name="Z">216.505</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.4011257779999,44.8157289440001,216.505000000005</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.164">
+	<name>DJI_0964.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">164</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0964.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 12:39:19+00</SimpleData>
+		<SimpleData name="X">-76.4086510555556</SimpleData>
+		<SimpleData name="Y">44.81461775</SimpleData>
+		<SimpleData name="Z">215.705</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.4086510559999,44.81461775,215.705000000002</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.165">
+	<name>DJI_0965.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">165</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0965.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 12:39:28+00</SimpleData>
+		<SimpleData name="X">-76.4097494722222</SimpleData>
+		<SimpleData name="Y">44.81459975</SimpleData>
+		<SimpleData name="Z">216.405</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.409749472,44.8145997500001,216.404999999999</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.166">
+	<name>DJI_0966.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">166</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0966.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 12:40:36+00</SimpleData>
+		<SimpleData name="X">-76.41540975</SimpleData>
+		<SimpleData name="Y">44.8137038611111</SimpleData>
+		<SimpleData name="Z">216.205</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.41540975,44.8137038610001,216.205000000002</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.167">
+	<name>DJI_0967.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">167</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0967.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 12:41:35+00</SimpleData>
+		<SimpleData name="X">-76.4175846388889</SimpleData>
+		<SimpleData name="Y">44.8150699722222</SimpleData>
+		<SimpleData name="Z">213.505</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.417584639,44.8150699720001,213.505000000005</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.168">
+	<name>DJI_0968.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">168</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0968.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 12:43:40+00</SimpleData>
+		<SimpleData name="X">-76.4261810277778</SimpleData>
+		<SimpleData name="Y">44.8132555</SimpleData>
+		<SimpleData name="Z">217.105</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.426181028,44.8132555,217.104999999996</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.169">
+	<name>DJI_0969.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">169</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0969.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 12:44:18+00</SimpleData>
+		<SimpleData name="X">-76.4273907222222</SimpleData>
+		<SimpleData name="Y">44.8135830277778</SimpleData>
+		<SimpleData name="Z">217.005</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.427390722,44.813583028,217.005000000005</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.170">
+	<name>DJI_0970.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">170</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0970.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 12:44:53+00</SimpleData>
+		<SimpleData name="X">-76.4280713333333</SimpleData>
+		<SimpleData name="Y">44.8130181944444</SimpleData>
+		<SimpleData name="Z">215.805</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.4280713329999,44.8130181940001,215.804999999993</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.171">
+	<name>DJI_0971.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">171</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0971.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 12:45:28+00</SimpleData>
+		<SimpleData name="X">-76.4282348055556</SimpleData>
+		<SimpleData name="Y">44.8119970555556</SimpleData>
+		<SimpleData name="Z">215.105</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.428234806,44.8119970560001,215.104999999996</coordinates></Point>
+  </Placemark>
+  <Placemark id="Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos.172">
+	<name>DJI_0972.JPG</name>
+	<ExtendedData><SchemaData schemaUrl="#Christie_Lake___Jasper_2C_ON___July_24_2C_2024___Drone_Photos">
+		<SimpleData name="OBJECTID">172</SimpleData>
+		<SimpleData name="Path">C:\Users\julia\Documents\Work\NTP\Survey Data\Christie Lake to Jasper (Perth), ON - July 24, 2024\DJI_0972.JPG</SimpleData>
+		<SimpleData name="DateTime">2024/07/28 12:46:47+00</SimpleData>
+		<SimpleData name="X">-76.4319484166667</SimpleData>
+		<SimpleData name="Y">44.8109903888889</SimpleData>
+		<SimpleData name="Z">211.705</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-76.4319484169999,44.810990389,211.705000000002</coordinates></Point>
+  </Placemark>
+</Folder>
+</Document></kml>
