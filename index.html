@@ -209,8 +209,8 @@
   <label class="control" title="Raw radar reflectivity (dBZ), not converted to a rain rate like the main radar forecast. Both come from the same 1-hour motion-extrapolated nowcast, but this skips the rain-rate conversion. Very high values (roughly 55+ dBZ) signal an unusually intense cell — often hail — even when the rain forecast alongside it just looks like heavy rain, since that conversion assumes what's being detected is rain.">
     <input type="checkbox" id="stormIntensityToggle"> Storm Intensity (next 1h)
   </label>
-  <label class="control" title="Documented tornado track from a drone photo survey (Christie Lake to Jasper, ON — July 24, 2024), connecting each photo's GPS location in sequence.">
-    <input type="checkbox" id="tornadoToggle"> Tornado (Jul 24, 2024)
+  <label class="control" title="Documented tornado track: Christie Lake to Jasper, ON — July 24, 2024. Hover the line on the map for details.">
+    <input type="checkbox" id="tornadoToggle"> Tornado
   </label>
 
   <label class="control" title="Live wind from every nearby station within 50km — both ECCC's official network and Weather Underground's crowd-sourced personal weather stations, which are much denser near Rock Lake but uncalibrated compared to ECCC's.">
@@ -1097,6 +1097,20 @@
         strokeWeight: 3,
         zIndex: 500
       });
+
+      // Polylines have no built-in hover tooltip like Markers do, so this
+      // opens/closes an InfoWindow manually, positioned at whichever point
+      // on the line is nearest the cursor.
+      const tornadoInfoWindow = new google.maps.InfoWindow();
+      tornadoPolyline.addListener('mouseover', (e) => {
+        tornadoInfoWindow.setContent(
+          '<div style="color:#1a1a1a;font:13px -apple-system,Segoe UI,Roboto,Arial,sans-serif;">' +
+          'Tornado track<br>Christie Lake to Jasper, ON<br>July 24, 2024</div>'
+        );
+        tornadoInfoWindow.setPosition(e.latLng);
+        tornadoInfoWindow.open(map);
+      });
+      tornadoPolyline.addListener('mouseout', () => tornadoInfoWindow.close());
     }
     return tornadoPolyline;
   }
