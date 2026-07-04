@@ -1130,7 +1130,11 @@
             toggleTornadoImage(); // dismiss the image and restore the line
           });
           this.img = img;
-          this.getPanes().overlayLayer.appendChild(img);
+          // overlayLayer (used for polylines/ground overlays) doesn't route
+          // pointer events to its children — overlayMouseTarget is the pane
+          // Maps actually uses for interactive custom overlays. Without
+          // this, the click listener above would never fire.
+          this.getPanes().overlayMouseTarget.appendChild(img);
         }
 
         draw() {
