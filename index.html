@@ -189,7 +189,7 @@
   <label class="control" title="Raw radar reflectivity (dBZ), not converted to a rain rate like the main radar forecast. Both come from the same 1-hour motion-extrapolated nowcast, but this skips the rain-rate conversion. Very high values (roughly 55+ dBZ) signal an unusually intense cell — often hail — even when the rain forecast alongside it just looks like heavy rain, since that conversion assumes what's being detected is rain.">
     <input type="checkbox" id="stormIntensityToggle"> Storm Intensity (next 1h)
   </label>
-  <label class="control" title="Documented tornado track: Christie Lake to Jasper, ON — July 24, 2024. Click the line on the map for details.">
+  <label class="control" id="tornadoOption" title="Documented tornado track: Christie Lake to Jasper, ON — July 24, 2024. Click the line on the map for details.">
     <input type="checkbox" id="tornadoToggle"> Tornado(s)
   </label>
   <label class="control" title="Rock Lake property boundary, surveyed corners.">
@@ -199,7 +199,7 @@
     <input type="checkbox" id="boundariesToggle" checked> Municipal Boundaries
   </label>
 
-  <label class="control" title="Live wind from every nearby station within 50km — both ECCC's official network and Weather Underground's crowd-sourced personal weather stations, which are much denser near Rock Lake but uncalibrated compared to ECCC's.">
+  <label class="control" id="windOption" title="Live wind from every nearby station within 50km — both ECCC's official network and Weather Underground's crowd-sourced personal weather stations, which are much denser near Rock Lake but uncalibrated compared to ECCC's.">
     <input type="checkbox" id="windToggle"> Wind
   </label>
 
@@ -242,6 +242,7 @@
   // app can be pointed at a different spot without a code change.
   const HOME = { lat: 44.80996960818295, lng: -76.25362035830996 };
   let HOME_NAME = 'Rock Lake';
+  let isDefaultLocation = true;
   (function applyCoordsOverride() {
     const coordsParam = new URLSearchParams(window.location.search).get('coords');
     if (!coordsParam) return;
@@ -252,6 +253,7 @@
     HOME.lat = lat;
     HOME.lng = lng;
     HOME_NAME = 'Watch Location';
+    isDefaultLocation = false;
   })();
   const DEVICE_DISTANCE_MIN_KM = 1; // don't bother showing a device distance when it's basically at HOME already
 
@@ -1614,6 +1616,15 @@
   }
 
   function initControls() {
+    // Tornado track and wind station data are specific to the Rock Lake
+    // area — not meaningful (and in the tornado track's case, not even
+    // physically nearby) when the app is pointed at a different location
+    // via ?coords=.
+    if (!isDefaultLocation) {
+      document.getElementById('tornadoOption').style.display = 'none';
+      document.getElementById('windOption').style.display = 'none';
+    }
+
     const toggleIds = { satellite: 'satelliteToggle', stormIntensity: 'stormIntensityToggle' };
     for (const [key, elId] of Object.entries(toggleIds)) {
       const el = document.getElementById(elId);
