@@ -1088,6 +1088,94 @@
   ];
   let tornadoPolyline = null;
 
+  // A map screenshot (1126x588) with the actual surveyed track drawn on it
+  // as a black arrow. These are the exact pixel coordinates of the arrow's
+  // tail (start) and tip (end) within that image, located programmatically
+  // by scanning for the darkest pixels' leftmost/rightmost extent — used to
+  // scale/rotate the image so those two points land exactly on
+  // TORNADO_TRACK_PATH's real-world coordinates.
+  const TORNADO_IMAGE_URL = 'christie_lake_tornado_track.png';
+  const TORNADO_IMAGE_SIZE = { width: 1126, height: 588 };
+  const TORNADO_IMAGE_START_PX = { x: 179, y: 330 };
+  const TORNADO_IMAGE_END_PX = { x: 912, y: 281 };
+
+  // google.maps.GroundOverlay can't rotate, so this needs a custom
+  // OverlayView instead: an absolutely-positioned <img> whose CSS
+  // transform-origin is pinned to the image's own start pixel, then
+  // rotated/scaled (recomputed on every draw(), since pan/zoom changes the
+  // projection) so its end pixel lands exactly on the map's projection of
+  // the real-world end coordinate.
+  //
+  // The class body references google.maps.OverlayView, which doesn't exist
+  // yet when this script first runs — the Maps API script tag loads async,
+  // after this one, and calls initMap() once ready. Defining the class at
+  // the top level would evaluate that reference immediately and throw,
+  // aborting the whole script before initMap could even be defined. Built
+  // lazily on first use instead, by which point Maps has long since loaded.
+  let TornadoImageOverlayClass = null;
+  function getTornadoImageOverlayClass() {
+    if (!TornadoImageOverlayClass) {
+      TornadoImageOverlayClass = class extends google.maps.OverlayView {
+        onAdd() {
+          const img = document.createElement('img');
+          img.src = TORNADO_IMAGE_URL;
+          img.style.position = 'absolute';
+          img.style.width = `${TORNADO_IMAGE_SIZE.width}px`;
+          img.style.height = `${TORNADO_IMAGE_SIZE.height}px`;
+          img.style.opacity = '0.7';
+          img.style.pointerEvents = 'none';
+          img.style.transformOrigin = `${TORNADO_IMAGE_START_PX.x}px ${TORNADO_IMAGE_START_PX.y}px`;
+          this.img = img;
+          this.getPanes().overlayLayer.appendChild(img);
+        }
+
+        draw() {
+          const projection = this.getProjection();
+          const startPx = projection.fromLatLngToDivPixel(new google.maps.LatLng(TORNADO_TRACK_PATH[0]));
+          const endPx = projection.fromLatLngToDivPixel(new google.maps.LatLng(TORNADO_TRACK_PATH[1]));
+
+          const imgDx = TORNADO_IMAGE_END_PX.x - TORNADO_IMAGE_START_PX.x;
+          const imgDy = TORNADO_IMAGE_END_PX.y - TORNADO_IMAGE_START_PX.y;
+          const imgLen = Math.hypot(imgDx, imgDy);
+          const imgAngle = Math.atan2(imgDy, imgDx);
+
+          const mapDx = endPx.x - startPx.x;
+          const mapDy = endPx.y - startPx.y;
+          const mapLen = Math.hypot(mapDx, mapDy);
+          const mapAngle = Math.atan2(mapDy, mapDx);
+
+          const scale = mapLen / imgLen;
+          const rotationDeg = (mapAngle - imgAngle) * 180 / Math.PI;
+
+          this.img.style.left = `${startPx.x - TORNADO_IMAGE_START_PX.x}px`;
+          this.img.style.top = `${startPx.y - TORNADO_IMAGE_START_PX.y}px`;
+          this.img.style.transform = `rotate(${rotationDeg}deg) scale(${scale})`;
+        }
+
+        onRemove() {
+          if (this.img) {
+            this.img.remove();
+            this.img = null;
+          }
+        }
+      };
+    }
+    return TornadoImageOverlayClass;
+  }
+
+  let tornadoImageOverlay = null;
+
+  function toggleTornadoImage() {
+    if (tornadoImageOverlay) {
+      tornadoImageOverlay.setMap(null);
+      tornadoImageOverlay = null;
+    } else {
+      const OverlayClass = getTornadoImageOverlayClass();
+      tornadoImageOverlay = new OverlayClass();
+      tornadoImageOverlay.setMap(map);
+    }
+  }
+
   function getTornadoPolyline() {
     if (!tornadoPolyline) {
       tornadoPolyline = new google.maps.Polyline({
@@ -1111,12 +1199,17 @@
         tornadoInfoWindow.open(map);
       });
       tornadoPolyline.addListener('mouseout', () => tornadoInfoWindow.close());
+      tornadoPolyline.addListener('click', toggleTornadoImage);
     }
     return tornadoPolyline;
   }
 
   function toggleTornadoTrack(visible) {
     getTornadoPolyline().setMap(visible ? map : null);
+    if (!visible && tornadoImageOverlay) {
+      tornadoImageOverlay.setMap(null);
+      tornadoImageOverlay = null;
+    }
   }
 
   // ---- Wind: merges two sources within 50km of HOME.
