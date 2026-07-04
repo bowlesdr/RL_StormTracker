@@ -1188,10 +1188,22 @@
   // marker would need, so the number has room to sit on top and stay
   // legible) — the title/hover tooltip still has the full detail, but the
   // headline number no longer requires a hover to see at all.
-  function createWindMarker(obs) {
+  // A marker's built-in icon+label only stack as one combined unit, which
+  // isn't enough once multiple wind markers are close together — a
+  // neighboring station's arrow can still render on top of *this* station's
+  // number. Splitting each station into a separate arrow marker and
+  // label-only marker, with every label on a uniformly higher z-index than
+  // every arrow, guarantees no arrow can ever cover any number.
+  const WIND_ARROW_Z_INDEX = 998;
+  const WIND_LABEL_Z_INDEX = 1000;
+
+  function createWindMarkerPair(obs) {
+    const position = { lat: obs.lat, lng: obs.lng };
     const gustText = obs.gustKmh != null ? `, gusting ${obs.gustKmh.toFixed(0)} km/h` : '';
-    return new google.maps.Marker({
-      position: { lat: obs.lat, lng: obs.lng },
+    const title = `${obs.name}: ${obs.speedKmh.toFixed(0)} km/h from ${degreesToCompass(obs.dirDeg)}${gustText}`;
+
+    const arrow = new google.maps.Marker({
+      position,
       map,
       icon: {
         path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
@@ -1200,13 +1212,23 @@
         fillColor: '#4dd0ff',
         fillOpacity: 0.9,
         strokeColor: '#ffffff',
-        strokeWeight: 1,
-        labelOrigin: new google.maps.Point(0, 2)
+        strokeWeight: 1
       },
-      label: { text: `${Math.round(obs.speedKmh)}`, color: '#ffffff', fontSize: '11px', fontWeight: 'bold' },
-      zIndex: 998,
-      title: `${obs.name}: ${obs.speedKmh.toFixed(0)} km/h from ${degreesToCompass(obs.dirDeg)}${gustText}`
+      zIndex: WIND_ARROW_Z_INDEX,
+      title
     });
+
+    const label = new google.maps.Marker({
+      position,
+      map,
+      icon: { path: google.maps.SymbolPath.CIRCLE, scale: 0, fillOpacity: 0, strokeOpacity: 0 },
+      label: { text: `${Math.round(obs.speedKmh)}`, color: '#ffffff', fontSize: '11px', fontWeight: 'bold' },
+      zIndex: WIND_LABEL_Z_INDEX,
+      clickable: false,
+      title
+    });
+
+    return [arrow, label];
   }
 
   async function refreshWindDisplay() {
@@ -1216,7 +1238,7 @@
       if (!windLayerVisible) return; // toggled off while the fetch was in flight
 
       windMarkers.forEach(m => m.setMap(null));
-      windMarkers = validStations.map(createWindMarker);
+      windMarkers = validStations.flatMap(createWindMarkerPair);
     } catch (e) { /* leave whatever markers are currently shown on a transient fetch failure */ }
   }
 
