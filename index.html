@@ -275,6 +275,16 @@
   const STRIKE_TTL_MS = 5 * 60 * 1000;    // how long a strike stays on the map / list, fading to nothing
   const SWEEP_INTERVAL_MS = 2000;         // how often expired strikes are pruned / faded
   const NEAR_ALERT_KM = 8;                // "very close" marker color threshold
+
+  // Thunder "sound wave" ring — expands outward from each strike at the
+  // speed of sound (343 m/s at sea level / room temperature) and stops
+  // growing once it reaches the distance beyond which thunder is
+  // essentially never audible (commonly cited as ~20km, even in ideal
+  // still, quiet conditions — turbulence/wind/terrain usually cut this
+  // shorter in practice).
+  const SOUND_SPEED_KM_PER_MS = 343 / 1e6;
+  const THUNDER_MAX_AUDIBLE_KM = 20;
+  const THUNDER_ANIMATION_MS = 200;
   const BLITZORTUNG_SERVERS = ['ws1', 'ws3', 'ws7', 'ws8'];
   const RECONNECT_DELAY_MS = 3000;
   const MERCATOR_RADIUS = 6378137;
@@ -936,6 +946,19 @@
       fillOpacity: 0.9
     }).addTo(map);
 
+    // Thunder sound-wave ring, starting at radius 0 and grown each tick by
+    // updateThunderCircles() below — a real (if simplified) physical
+    // simulation of how far the sound from this specific strike has
+    // traveled since it happened, not just a decorative animation.
+    const soundCircle = L.circle([lat, lng], {
+      radius: 0,
+      color: '#ffffff',
+      weight: 1,
+      fill: false,
+      opacity: 0.5,
+      interactive: false
+    }).addTo(map);
+
     // Elapsed time is computed fresh on each click rather than baked into
     // the static `lines` array above, since that's built once when the
     // strike arrives and would otherwise show a stale age by the time it's
@@ -948,7 +971,22 @@
       `${formatElapsedSince(timestampMs)} ago<br>${lines.join('<br>')}</div>`
     );
 
-    activeStrikes.push({ marker, timestampMs });
+    activeStrikes.push({ marker, soundCircle, timestampMs });
+  }
+
+  // Grows each active strike's thunder ring at the speed of sound, capped
+  // at THUNDER_MAX_AUDIBLE_KM — beyond that distance the ring simply stops
+  // (thunder wouldn't realistically be heard any farther out, so there's
+  // nothing meaningful left to show). Runs on its own fast interval rather
+  // than piggybacking on the slower SWEEP_INTERVAL_MS strike-expiry sweep,
+  // since ~58 seconds to reach the cap needs smoother steps than that to
+  // read as an expanding wave rather than a jump-cut.
+  function updateThunderCircles() {
+    const now = Date.now();
+    for (const s of activeStrikes) {
+      const radiusKm = Math.min((now - s.timestampMs) * SOUND_SPEED_KM_PER_MS, THUNDER_MAX_AUDIBLE_KM);
+      s.soundCircle.setRadius(radiusKm * 1000);
+    }
   }
 
   function formatElapsedSince(timestampMs) {
@@ -998,9 +1036,11 @@
       const age = now - s.timestampMs;
       if (age > STRIKE_TTL_MS) {
         map.removeLayer(s.marker);
+        map.removeLayer(s.soundCircle);
         activeStrikes.splice(i, 1);
       } else {
         s.marker.setStyle({ fillOpacity: ageOpacity(age) * 0.9, opacity: ageOpacity(age) });
+        s.soundCircle.setStyle({ opacity: ageOpacity(age) * 0.5 });
       }
     }
   }
@@ -1660,6 +1700,7 @@
     initSettingsPanel();
 
     setInterval(sweepExpiredStrikes, SWEEP_INTERVAL_MS);
+    setInterval(updateThunderCircles, THUNDER_ANIMATION_MS);
   }
 
   // The map always fills the whole screen now — everything except the
