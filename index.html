@@ -1081,39 +1081,28 @@
   }
 
   // ---- Historical tornado track (Christie Lake to Jasper, ON — July 24,
-  // 2024), sourced from a drone photo survey KML — each Placemark is one
-  // photo's GPS location, connected in document order into a route. Loaded
-  // once on first use, not repeatedly, since this is static historical data.
-  const TORNADO_KML_URL = 'christie_lake_tornado_track.kml';
+  // 2024) — a straight line between the surveyed start/end coordinates.
+  const TORNADO_TRACK_PATH = [
+    { lat: 44.8110, lng: -76.4319 },
+    { lat: 44.8350, lng: -75.9386 }
+  ];
   let tornadoPolyline = null;
-  let tornadoLoadPromise = null;
 
-  function loadTornadoTrack() {
-    if (!tornadoLoadPromise) {
-      tornadoLoadPromise = (async () => {
-        const resp = await fetch(TORNADO_KML_URL);
-        const text = await resp.text();
-        const doc = new DOMParser().parseFromString(text, 'text/xml');
-        const path = Array.from(doc.getElementsByTagName('Point')).map(point => {
-          const coordText = point.getElementsByTagName('coordinates')[0].textContent.trim();
-          const [lng, lat] = coordText.split(',').map(Number);
-          return { lat, lng };
-        });
-        tornadoPolyline = new google.maps.Polyline({
-          path,
-          strokeColor: '#ff4d4d',
-          strokeOpacity: 0.9,
-          strokeWeight: 3,
-          zIndex: 500
-        });
-      })();
+  function getTornadoPolyline() {
+    if (!tornadoPolyline) {
+      tornadoPolyline = new google.maps.Polyline({
+        path: TORNADO_TRACK_PATH,
+        strokeColor: '#ff4d4d',
+        strokeOpacity: 0.9,
+        strokeWeight: 3,
+        zIndex: 500
+      });
     }
-    return tornadoLoadPromise;
+    return tornadoPolyline;
   }
 
-  async function toggleTornadoTrack(visible) {
-    await loadTornadoTrack();
-    tornadoPolyline.setMap(visible ? map : null);
+  function toggleTornadoTrack(visible) {
+    getTornadoPolyline().setMap(visible ? map : null);
   }
 
   // ---- Wind: merges two sources within 50km of HOME.
