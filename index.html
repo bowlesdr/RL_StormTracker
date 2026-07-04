@@ -155,8 +155,6 @@
     background: #ffb454; color: #10131a; border-color: #ffb454; font-weight: 700;
   }
   #ytStatus { font-size: 12px; opacity: 0.7; }
-  #windInfo { font-size: 13px; line-height: 1.4; }
-  .windSubtext { opacity: 0.7; }
 
   @media (max-width: 640px) {
     #radarBar {
@@ -214,7 +212,6 @@
   <label class="control" title="Live wind from every nearby station within 50km — both ECCC's official network and Weather Underground's crowd-sourced personal weather stations, which are much denser near Rock Lake but uncalibrated compared to ECCC's.">
     <input type="checkbox" id="windToggle"> Wind
   </label>
-  <div id="windInfo"></div>
 
   <div class="sectionLabel">Lightning</div>
   <div class="buttonRow">
@@ -1204,7 +1201,7 @@
         fillOpacity: 0.9,
         strokeColor: '#ffffff',
         strokeWeight: 1,
-        labelOrigin: new google.maps.Point(0, 0)
+        labelOrigin: new google.maps.Point(0, 2)
       },
       label: { text: `${Math.round(obs.speedKmh)}`, color: '#ffffff', fontSize: '11px', fontWeight: 'bold' },
       zIndex: 998,
@@ -1214,26 +1211,13 @@
 
   async function refreshWindDisplay() {
     if (!windLayerVisible) return;
-    const el = document.getElementById('windInfo');
     try {
       const validStations = await fetchAllValidWindStations();
       if (!windLayerVisible) return; // toggled off while the fetch was in flight
 
       windMarkers.forEach(m => m.setMap(null));
       windMarkers = validStations.map(createWindMarker);
-
-      if (validStations.length === 0) {
-        el.textContent = 'No wind data available nearby';
-        return;
-      }
-      const nearest = validStations[0];
-      const gustText = nearest.gustKmh != null ? `, gusting ${nearest.gustKmh.toFixed(0)} km/h` : '';
-      el.innerHTML = `${nearest.speedKmh.toFixed(0)} km/h from ${degreesToCompass(nearest.dirDeg)}${gustText}<br>` +
-        `<span class="windSubtext">${nearest.name}, ${nearest.distanceKm.toFixed(1)} km away — ` +
-        `${validStations.length} station${validStations.length === 1 ? '' : 's'} within ${WIND_RADIUS_KM}km reporting</span>`;
-    } catch (e) {
-      el.textContent = 'Wind data unavailable';
-    }
+    } catch (e) { /* leave whatever markers are currently shown on a transient fetch failure */ }
   }
 
   function toggleWindLayer(visible) {
@@ -1245,7 +1229,6 @@
     } else {
       windMarkers.forEach(m => m.setMap(null));
       windMarkers = [];
-      document.getElementById('windInfo').textContent = '';
     }
   }
 
