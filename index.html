@@ -1188,12 +1188,18 @@
 
       // Polylines have no built-in hover tooltip like Markers do, so this
       // opens/closes an InfoWindow manually, positioned at whichever point
-      // on the line is nearest the cursor.
-      const tornadoInfoWindow = new google.maps.InfoWindow();
+      // on the line is nearest the cursor. pixelOffset shifts the window's
+      // body up and away from the exact cursor position — without it, the
+      // InfoWindow's own DOM sits directly on top of the line right where
+      // you'd click next, silently swallowing the click before it ever
+      // reaches the polyline's click listener.
+      const tornadoInfoWindow = new google.maps.InfoWindow({ pixelOffset: new google.maps.Size(0, -12) });
       tornadoPolyline.addListener('mouseover', (e) => {
         tornadoInfoWindow.setContent(
           '<div style="color:#1a1a1a;font:13px -apple-system,Segoe UI,Roboto,Arial,sans-serif;">' +
-          'Tornado track<br>Christie Lake to Jasper, ON<br>July 24, 2024</div>'
+          'Tornado track<br>Christie Lake to Jasper, ON<br>July 24, 2024<br>' +
+          '<a href="https://ntpopendata-westernu.opendata.arcgis.com/apps/ba10a746d15f4231a1fb08591e08833a/explore" ' +
+          'target="_blank" rel="noopener">Survey details (Western University NTP)</a></div>'
         );
         tornadoInfoWindow.setPosition(e.latLng);
         tornadoInfoWindow.open(map);
