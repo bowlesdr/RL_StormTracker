@@ -1611,7 +1611,14 @@
     if (!weatherExpanded) {
       el.className = 'collapsed';
       el.innerHTML = `<button id="weatherCollapsedBtn" title="Show forecast">${weatherIconFor(cur.condition) || '\u{1F321}️'}</button>`;
-      document.getElementById('weatherCollapsedBtn').addEventListener('click', () => {
+      document.getElementById('weatherCollapsedBtn').addEventListener('click', (e) => {
+        // Without this, the click bubbles up to the document-level
+        // outside-click handler (initWeatherOutsideClick) — which, by the
+        // time it runs, sees e.target as this now-detached button (this
+        // handler already replaced it via el.innerHTML above), so
+        // el.contains(e.target) is false and it immediately re-collapses
+        // what this handler just expanded.
+        e.stopPropagation();
         weatherExpanded = true;
         renderWeatherWidget(data);
       });
@@ -1694,7 +1701,8 @@
       </div>` : ''}
       <div id="weatherUpdated">${data.location || 'Rock Lake'} &middot; updated ${formatWeatherAge(new Date(data.generated_at).getTime())}</div>
     `;
-    document.getElementById('weatherNow').addEventListener('click', () => {
+    document.getElementById('weatherNow').addEventListener('click', (e) => {
+      e.stopPropagation(); // see the matching note on #weatherCollapsedBtn's click handler
       weatherExpanded = false;
       renderWeatherWidget(data);
     });
