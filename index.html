@@ -1615,6 +1615,7 @@
           applyZoomPreset(parseInt(btn.dataset.zoom, 10));
         }
         document.querySelectorAll('.zoomPresetBtn').forEach(b => b.classList.toggle('active', b === btn));
+        document.getElementById('settingsPanel').classList.remove('open');
       });
     });
   }
