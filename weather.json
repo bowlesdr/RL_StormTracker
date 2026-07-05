@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-07-05T12:26:07.253114+00:00",
+  "generated_at": "2026-07-05T14:46:49.813683+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 20.4,
+    "temperature": 24.3,
     "condition": "Partly Cloudy",
     "high_temp": 26,
     "low_temp": 19,
-    "humidity": 75,
-    "wind_speed": 13,
-    "wind_dir": "NNE",
+    "humidity": 60,
+    "wind_speed": 9,
+    "wind_dir": "ENE",
     "text_summary": "Today. Sunny. Fog patches dissipating this morning. High 26. Humidex 29. UV index 9 or very high."
   },
   "daily": [
@@ -85,18 +85,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-07-05T13:00:00+00:00",
-      "condition": "Sunny",
-      "temperature": 20,
-      "precip_probability": 0
-    },
-    {
-      "period": "2026-07-05T14:00:00+00:00",
-      "condition": "Sunny",
-      "temperature": 21,
-      "precip_probability": 0
-    },
     {
       "period": "2026-07-05T15:00:00+00:00",
       "condition": "Sunny",
@@ -227,6 +215,18 @@
       "period": "2026-07-06T12:00:00+00:00",
       "condition": "Sunny",
       "temperature": 20,
+      "precip_probability": 10
+    },
+    {
+      "period": "2026-07-06T13:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 21,
+      "precip_probability": 10
+    },
+    {
+      "period": "2026-07-06T14:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 22,
       "precip_probability": 10
     }
   ]
