@@ -85,6 +85,24 @@
     opacity: 0.9; max-height: 200px; overflow-y: auto;
   }
 
+  /* Environment Canada forecast for Rock Lake, pulled from a weather.json
+     committed hourly by a GitHub Actions workflow (see fetch_weather.py) —
+     EC's API doesn't reliably send CORS headers, so a static page can't call
+     it directly from the browser. */
+  #weatherWidget {
+    position: fixed; top: 12px; left: 12px; z-index: 20;
+    background: rgba(23, 27, 36, 0.9); border: 1px solid #3a4256; border-radius: 8px;
+    padding: 10px 14px; font-size: 13px; max-width: 220px;
+  }
+  #weatherWidget.hidden { display: none; }
+  #weatherNow { display: flex; align-items: baseline; gap: 8px; }
+  #weatherTemp { font-size: 22px; font-weight: 700; }
+  #weatherCondition { opacity: 0.85; }
+  #weatherHiLo { font-size: 12px; opacity: 0.7; margin-top: 2px; }
+  #weatherDaily { margin-top: 8px; display: flex; flex-direction: column; gap: 3px; }
+  .weatherDailyRow { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; opacity: 0.85; }
+  #weatherUpdated { margin-top: 8px; font-size: 11px; opacity: 0.5; }
+
   /* Single button that opens the "everything else" settings panel */
   #settingsBtn {
     position: fixed; top: 12px; right: 12px; z-index: 20;
@@ -158,6 +176,7 @@
     #radarAgeSlider { flex: 1; width: auto; min-width: 0; }
     #settingsPanel { width: calc(100% - 24px); right: 12px; }
     #ytPlayer, #ytControls { display: none !important; }
+    #weatherWidget { max-width: calc(100vw - 24px); }
   }
 </style>
 </head>
@@ -165,6 +184,8 @@
 <div id="mapWrap"><div id="map"></div></div>
 
 <div id="alertBanner" class="hidden"></div>
+
+<div id="weatherWidget" class="hidden"></div>
 
 <div id="radarBar">
   <span id="radarNextUpdateLabel"></span>
@@ -1463,6 +1484,52 @@
   const ALERT_SEARCH_MARGIN_DEG = 0.5;
   const ALERT_RISK_COLORS = { red: '#e63946', orange: '#ff8c3c', yellow: '#ffd83c' };
 
+  // ---- Environment Canada forecast — weather.json is committed hourly by a
+  // GitHub Actions workflow (fetch_weather.py), rather than being fetched
+  // live from EC's API in the browser: that API doesn't reliably send CORS
+  // headers, so a direct fetch() from a static page can't be counted on.
+  // Refreshing this on a short client-side interval just picks up whatever
+  // the last successful workflow run committed, in case the page is left
+  // open across an hourly update.
+  const WEATHER_REFRESH_MS = 15 * 60 * 1000;
+  const WEATHER_STALE_MS = 6 * 60 * 60 * 1000; // workflow runs hourly; this generous a gap means it's actually broken
+
+  async function refreshWeather() {
+    const el = document.getElementById('weatherWidget');
+    let data;
+    try {
+      const resp = await fetch('weather.json', { cache: 'no-store' });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      data = await resp.json();
+    } catch (e) {
+      return; // leave whatever's currently displayed on a transient fetch failure
+    }
+
+    const ageMs = Date.now() - new Date(data.generated_at).getTime();
+    if (ageMs > WEATHER_STALE_MS) {
+      el.classList.add('hidden');
+      return;
+    }
+
+    const cur = data.current || {};
+    const daily = (data.daily || []).slice(0, 4);
+    el.innerHTML = `
+      <div id="weatherNow">
+        <span id="weatherTemp">${Math.round(cur.temperature)}&deg;</span>
+        <span id="weatherCondition">${cur.condition || ''}</span>
+      </div>
+      <div id="weatherHiLo">High ${Math.round(cur.high_temp)}&deg; &middot; Low ${Math.round(cur.low_temp)}&deg;</div>
+      <div id="weatherDaily">${daily.map(d => `
+        <div class="weatherDailyRow">
+          <span>${d.period}</span>
+          <span>${Math.round(d.temperature)}&deg;${d.precip_probability ? ` &middot; ${d.precip_probability}%` : ''}</span>
+        </div>
+      `).join('')}</div>
+      <div id="weatherUpdated">${data.location || 'Rock Lake'} &middot; updated ${formatElapsedSince(new Date(data.generated_at).getTime())} ago</div>
+    `;
+    el.classList.remove('hidden');
+  }
+
   function isPointInRing(lat, lng, ring) {
     let inside = false;
     for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
@@ -1833,6 +1900,8 @@
     initGeolocation();
     refreshAlerts();
     setInterval(refreshAlerts, ALERT_REFRESH_MS);
+    refreshWeather();
+    setInterval(refreshWeather, WEATHER_REFRESH_MS);
 
     // Positions the initial view (HOME at the preset screen fraction)
     // immediately, since Leaflet's pixel math is ready right away — no need

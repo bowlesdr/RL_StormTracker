@@ -1,0 +1,31 @@
+name: Update weather forecast
+
+on:
+  schedule:
+    - cron: '0 * * * *' # hourly
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update-weather:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install env_canada
+
+      - name: Fetch weather
+        run: python fetch_weather.py
+
+      - name: Commit and push if changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'Update weather.json'
+          file_pattern: weather.json

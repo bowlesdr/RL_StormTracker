@@ -1,0 +1,87 @@
+{
+  "generated_at": "2026-07-05T12:06:55.351707+00:00",
+  "location": "Westport",
+  "station": "Kingston Airport",
+  "current": {
+    "temperature": 20.4,
+    "condition": "Partly Cloudy",
+    "high_temp": 26,
+    "low_temp": 19,
+    "humidity": 75,
+    "wind_speed": 13,
+    "wind_dir": "NNE",
+    "text_summary": "Today. Sunny. Fog patches dissipating this morning. High 26. Humidex 29. UV index 9 or very high."
+  },
+  "daily": [
+    {
+      "period": "Sunday",
+      "text_summary": "Sunny. Fog patches dissipating this morning. High 26. Humidex 29. UV index 9 or very high.",
+      "temperature": 26,
+      "temperature_class": "high",
+      "precip_probability": 0
+    },
+    {
+      "period": "Sunday night",
+      "text_summary": "Clear. Low 19.",
+      "temperature": 19,
+      "temperature_class": "low",
+      "precip_probability": 0
+    },
+    {
+      "period": "Monday",
+      "text_summary": "Sunny. Becoming a mix of sun and cloud in the afternoon. Wind becoming northeast 20 km/h in the morning. High 27. Humidex 32. UV index 9 or very high.",
+      "temperature": 27,
+      "temperature_class": "high",
+      "precip_probability": 0
+    },
+    {
+      "period": "Monday night",
+      "text_summary": "Clear. Low 16.",
+      "temperature": 16,
+      "temperature_class": "low",
+      "precip_probability": 0
+    },
+    {
+      "period": "Tuesday",
+      "text_summary": "Sunny. High 29.",
+      "temperature": 29,
+      "temperature_class": "high",
+      "precip_probability": 0
+    },
+    {
+      "period": "Tuesday night",
+      "text_summary": "Clear. Low 17.",
+      "temperature": 17,
+      "temperature_class": "low",
+      "precip_probability": 0
+    },
+    {
+      "period": "Wednesday",
+      "text_summary": "A mix of sun and cloud with 30 percent chance of showers. High 29.",
+      "temperature": 29,
+      "temperature_class": "high",
+      "precip_probability": 30
+    },
+    {
+      "period": "Wednesday night",
+      "text_summary": "Clear. Low 19.",
+      "temperature": 19,
+      "temperature_class": "low",
+      "precip_probability": 0
+    },
+    {
+      "period": "Thursday",
+      "text_summary": "Cloudy with 40 percent chance of showers. High 29.",
+      "temperature": 29,
+      "temperature_class": "high",
+      "precip_probability": 40
+    },
+    {
+      "period": "Thursday night",
+      "text_summary": "Cloudy with 40 percent chance of showers. Low 17.",
+      "temperature": 17,
+      "temperature_class": "low",
+      "precip_probability": 40
+    }
+  ]
+}
