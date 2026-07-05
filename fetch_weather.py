@@ -89,7 +89,8 @@ def fetch_daily_precip_total_mm(local_date, is_night: bool) -> float | None:
 
 
 def value_of(entry):
-    return entry.get("value") if isinstance(entry, dict) else entry
+    v = entry.get("value") if isinstance(entry, dict) else entry
+    return v.isoformat() if isinstance(v, datetime) else v
 
 
 async def fetch():
@@ -106,6 +107,19 @@ async def fetch():
         "wind_speed": value_of(c.get("wind_speed")),
         "wind_dir": value_of(c.get("wind_dir")),
         "text_summary": value_of(c.get("text_summary")),
+    }
+
+    # Every field EC's citypage feed publishes for current conditions, not
+    # just the handful pulled out above for the compact header — each entry
+    # keeps its own EC-provided label/unit so the widget can render them
+    # generically rather than hardcoding a label per field.
+    current_details = {
+        key: {
+            "label": entry.get("label") if isinstance(entry, dict) else None,
+            "unit": entry.get("unit") if isinstance(entry, dict) else None,
+            "value": value_of(entry),
+        }
+        for key, entry in c.items()
     }
 
     daily = []
@@ -141,6 +155,7 @@ async def fetch():
         "location": weather.metadata.location,
         "station": weather.metadata.station,
         "current": current,
+        "current_details": current_details,
         "daily": daily,
         "hourly": hourly,
     }

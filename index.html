@@ -130,7 +130,14 @@
   #weatherTemp { font-size: 22px; font-weight: 700; }
   #weatherCondition { opacity: 0.85; }
   #weatherHiLo { font-size: 12px; opacity: 0.7; margin-top: 2px; width: max-content; }
-  #weatherDaily { margin-top: 8px; width: max-content; }
+  /* Current-conditions detail panel sits to the left of the daily table,
+     side by side rather than stacked — both are width:max-content so
+     neither one stretches to fill the row, and align-items:start keeps
+     them pinned to the top if one column ends up taller than the other. */
+  #weatherMiddleRow { margin-top: 8px; display: flex; align-items: flex-start; gap: 16px; width: max-content; }
+  #weatherCurrentDetails { font-size: 12px; }
+  .weatherDetailRow { display: flex; justify-content: space-between; gap: 10px; opacity: 0.85; white-space: nowrap; }
+  #weatherDaily { width: max-content; }
   #weatherHourly {
     margin-top: 8px; padding-top: 8px; border-top: 1px solid #3a4256; width: max-content;
   }
@@ -1572,6 +1579,44 @@
     return '';
   }
 
+  // Every field EC's citypage feed publishes for current conditions
+  // (current_details, from fetch_weather.py — see conditions_meta in the
+  // env_canada package), minus text_summary and icon_code: the former just
+  // repeats the "Today"/"Tonight" text already shown in the daily table,
+  // and the latter is EC's own internal numeric code with no meaning to a
+  // reader (weatherIconFor's emoji already stands in for it everywhere).
+  function renderCurrentDetailRows(details) {
+    if (!details) return '';
+    const val = (key) => details[key] && details[key].value;
+    const rows = [];
+
+    if (val('dewpoint') != null) rows.push(['Dew Point', `${val('dewpoint')}&deg;C`]);
+    if (val('humidex') != null) rows.push(['Humidex', val('humidex')]);
+    if (val('wind_chill') != null) rows.push(['Wind Chill', val('wind_chill')]);
+    if (val('pressure') != null) {
+      rows.push(['Pressure', `${val('pressure')} kPa${val('tendency') ? `, ${val('tendency')}` : ''}`]);
+    }
+    if (val('humidity') != null) rows.push(['Humidity', `${val('humidity')}%`]);
+    if (val('visibility') != null) rows.push(['Visibility', `${val('visibility')} km`]);
+    if (val('wind_speed') != null) {
+      const gust = val('wind_gust') != null ? ` (gust ${val('wind_gust')})` : '';
+      rows.push(['Wind', `${val('wind_dir') || ''} ${val('wind_speed')} km/h${gust}`.trim()]);
+    }
+    if (val('uv_index') != null) rows.push(['UV Index', val('uv_index')]);
+    if (val('pop') != null) rows.push(['Chance of Precip.', `${val('pop')}%`]);
+    if (val('normal_high') != null || val('normal_low') != null) {
+      rows.push(['Normal High/Low', `${val('normal_high')}&deg; / ${val('normal_low')}&deg;`]);
+    }
+    const fmtTime = (iso) => iso
+      ? new Date(iso).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', timeZone: 'America/Toronto' })
+      : null;
+    if (val('sunrise')) rows.push(['Sunrise', fmtTime(val('sunrise'))]);
+    if (val('sunset')) rows.push(['Sunset', fmtTime(val('sunset'))]);
+    if (val('observationTime')) rows.push(['Observed', fmtTime(val('observationTime'))]);
+
+    return rows.map(([label, value]) => `<div class="weatherDetailRow"><span>${label}</span><span>${value}</span></div>`).join('');
+  }
+
   function isNightPeriod(period) {
     return /night/i.test(period);
   }
@@ -1665,6 +1710,11 @@
         <span id="weatherCondition">${weatherIconFor(cur.condition)} ${cur.condition || ''}</span>
       </div>
       <div id="weatherHiLo">High ${Math.round(cur.high_temp)}&deg; &middot; Low ${Math.round(cur.low_temp)}&deg;</div>
+      <div id="weatherMiddleRow">
+      ${(() => {
+        const rows = renderCurrentDetailRows(data.current_details);
+        return rows ? `<div id="weatherCurrentDetails">${rows}</div>` : '';
+      })()}
       ${daily.length ? `
       <div id="weatherDaily">
         <table class="weatherForecastTable">
@@ -1689,6 +1739,7 @@
           <tr><th>Amount</th>${daily.map(d => `<td class="${dailyColClass(d.period)}">${d.precip_mm ? `${d.precip_mm}mm` : '&mdash;'}</td>`).join('')}</tr>
         </table>
       </div>` : ''}
+      </div>
       ${hourly.length ? `
       <div id="weatherHourly">
         <table class="weatherForecastTable">
