@@ -214,7 +214,7 @@
     <button type="button" class="zoomPresetBtn" data-zoom="14">Neighborhood</button>
     <button type="button" class="zoomPresetBtn" data-zoom="11">Local</button>
     <button type="button" class="zoomPresetBtn" data-zoom="8">Regional</button>
-    <button type="button" class="zoomPresetBtn" data-zoom="6">Ontario</button>
+    <button type="button" class="zoomPresetBtn" data-bounds="ontario">Ontario</button>
   </div>
 
   <div id="ytControls">
@@ -348,7 +348,7 @@
       Math.abs(b - RADAR_HIDE_COLOR.b) <= RADAR_HIDE_TOLERANCE;
   }
 
-  let map, homeMarker, userLocationMarker;
+  let map, userLocationMarker;
   let userPosition = null;
   const overlayState = {}; // key -> { visible, layer, bucket }
   const activeStrikes = []; // { marker, timestampMs }
@@ -939,7 +939,7 @@
     }
 
     const marker = L.circleMarker([lat, lng], {
-      radius: 3.9,
+      radius: 1.95,
       color: '#ffffff',
       weight: 1,
       fillColor: distanceKm <= NEAR_ALERT_KM ? '#ff4d4d' : '#ffb454',
@@ -1007,7 +1007,7 @@
   // two aren't confused.
   function createAllStrikeMarker(s) {
     return L.circleMarker([s.lat, s.lng], {
-      radius: 1.95,
+      radius: 0.975,
       color: '#ffffff',
       weight: 0.5,
       fillColor: '#4dd0ff',
@@ -1569,15 +1569,53 @@
     const dy = (HOME_SCREEN_FRACTION.y - 0.5) * mapDiv.clientHeight;
     const centerPoint = L.point(homePoint.x - dx, homePoint.y - dy);
     map.setView(map.unproject(centerPoint, zoom), zoom);
+  }
 
-    document.querySelectorAll('.zoomPresetBtn').forEach(btn => {
-      btn.classList.toggle('active', parseInt(btn.dataset.zoom, 10) === zoom);
-    });
+  // Unlike the other presets, "Ontario" needs to fit the whole province on
+  // screen on every device — a fixed zoom level shows very different
+  // real-world extents depending on the viewport's pixel dimensions (e.g. a
+  // phone in landscape vs. a large desktop monitor), so this fits an actual
+  // east-west span instead. Ontario's box is roughly as tall as it is wide,
+  // so on a wide desktop monitor Leaflet's normal fitBounds (which
+  // considers both width and height) would be height-constrained, leaving
+  // huge empty margins on the sides that end up showing most of Canada.
+  // Binding on width alone instead means wide screens zoom in until this
+  // span fills the screen, cropping north/south rather than overshooting
+  // east and west into neighboring provinces.
+  //
+  // The west/east edges are pinned to specific landmarks (rather than
+  // ONTARIO_BOUNDS' rougher min/max) after iterating by eye: the Ontario/
+  // Manitoba border, and Salaberry-de-Valleyfield, QC — just across the
+  // Ontario border on the St. Lawrence.
+  const ONTARIO_WEST_EDGE_LNG = -95.15; // Ontario/Manitoba border
+  const ONTARIO_EAST_EDGE_LNG = -74.13; // Salaberry-de-Valleyfield, QC
+
+  function applyOntarioBoundsPreset() {
+    // A zero-height box spanning the edge-to-edge span above, at Rock
+    // Lake's latitude (vertical centering is anchored on the watch location
+    // rather than Ontario's own north-south midpoint). Leaflet's fitBounds
+    // always picks the zoom that's more restrictive between width and
+    // height; giving it zero height makes the height constraint infinitely
+    // loose, so width is guaranteed to be the sole, exact deciding factor
+    // for zoom — reusing Leaflet's own tested fit/center math rather than
+    // reimplementing it by hand.
+    const bounds = L.latLngBounds(
+      [HOME.lat, ONTARIO_WEST_EDGE_LNG],
+      [HOME.lat, ONTARIO_EAST_EDGE_LNG]
+    );
+    map.fitBounds(bounds, { padding: [0, 0] });
   }
 
   function initZoomPresets() {
     document.querySelectorAll('.zoomPresetBtn').forEach(btn => {
-      btn.addEventListener('click', () => applyZoomPreset(parseInt(btn.dataset.zoom, 10)));
+      btn.addEventListener('click', () => {
+        if (btn.dataset.bounds === 'ontario') {
+          applyOntarioBoundsPreset();
+        } else {
+          applyZoomPreset(parseInt(btn.dataset.zoom, 10));
+        }
+        document.querySelectorAll('.zoomPresetBtn').forEach(b => b.classList.toggle('active', b === btn));
+      });
     });
   }
 
@@ -1751,7 +1789,13 @@
       center: HOME,
       zoom: 7,
       zoomControl: true,
-      attributionControl: true
+      attributionControl: true,
+      // Without this, Leaflet rounds every zoom to the nearest whole
+      // number (its default zoomSnap: 1) — fine for scroll/pinch zoom, but
+      // it meant the Ontario preset's fitBounds couldn't land its fractional
+      // ideal zoom exactly, so the fitted edges (ONTARIO_WEST_EDGE_LNG /
+      // ONTARIO_EAST_EDGE_LNG) wouldn't line up precisely with the screen.
+      zoomSnap: 0
     });
 
     // Satellite imagery (Esri World Imagery — free, keyless) plus a thin
@@ -1782,14 +1826,6 @@
     map.on('moveend', () => {
       refreshRadarDataAndPlay();
     });
-
-    homeMarker = L.circleMarker(HOME, {
-      radius: 7,
-      color: '#ffffff',
-      weight: 2,
-      fillColor: '#4dd0ff',
-      fillOpacity: 1
-    }).addTo(map).bindTooltip('Watch location');
 
     initControls();
     connectBlitzortung();
