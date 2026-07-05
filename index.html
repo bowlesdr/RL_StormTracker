@@ -1546,6 +1546,10 @@
   // expanded card (especially the hourly table) can be wider than the
   // screen, and there needs to be a way to get it out of the way entirely.
   let weatherExpanded = true;
+  // Cached so the outside-click handler (see initWeatherOutsideClick) can
+  // collapse and re-render on demand, without needing to wait for the next
+  // WEATHER_REFRESH_MS fetch.
+  let lastWeatherData = null;
 
   // Maps EC's free-text condition strings to a standard weather emoji.
   // Only the first clause is considered — daily text_summary is a multi-
@@ -1713,8 +1717,21 @@
       return;
     }
 
+    lastWeatherData = data;
     el.classList.remove('hidden');
     renderWeatherWidget(data);
+  }
+
+  // Collapses the widget on any click/tap outside it while expanded —
+  // mirrors the settings panel's own click-outside-to-close behavior.
+  function initWeatherOutsideClick() {
+    document.addEventListener('click', (e) => {
+      const el = document.getElementById('weatherWidget');
+      if (weatherExpanded && lastWeatherData && !el.contains(e.target)) {
+        weatherExpanded = false;
+        renderWeatherWidget(lastWeatherData);
+      }
+    });
   }
 
   function isPointInRing(lat, lng, ring) {
@@ -2089,6 +2106,7 @@
     setInterval(refreshAlerts, ALERT_REFRESH_MS);
     refreshWeather();
     setInterval(refreshWeather, WEATHER_REFRESH_MS);
+    initWeatherOutsideClick();
 
     // Positions the initial view (HOME at the preset screen fraction)
     // immediately, since Leaflet's pixel math is ready right away — no need
