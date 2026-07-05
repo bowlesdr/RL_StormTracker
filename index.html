@@ -92,28 +92,43 @@
   #weatherWidget {
     position: fixed; top: 12px; left: 12px; z-index: 20;
     background: rgba(23, 27, 36, 0.9); border: 1px solid #3a4256; border-radius: 8px;
-    padding: 10px 14px; font-size: 13px; max-width: 220px;
+    font-size: 13px;
   }
-  /* Widened while the hourly table is open — a 24-column table doesn't fit
-     the normal narrow widget, and the point of a table is to show every
-     column at once rather than force a horizontal scrollbar. */
-  #weatherWidget.wide { max-width: calc(100vw - 24px); width: max-content; }
   #weatherWidget.hidden { display: none; }
+
+  /* Collapsed: a small icon-only button, same footprint as #settingsBtn on
+     the opposite corner — the point of this state is to give mobile a way
+     to get the widget out of the way entirely, since the expanded card
+     (especially with the hourly table) can be wider than a phone screen. */
+  #weatherWidget.collapsed { width: 40px; height: 40px; }
+  #weatherCollapsedBtn {
+    width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+    background: none; border: none; color: #e8ebf0; font-size: 18px; cursor: pointer; padding: 0;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
+
+  /* Expanded: the full card. No explicit width — a fixed-position box with
+     only `left` set shrink-wraps to its content by default, so this grows
+     to fit the hourly table on a roomy desktop screen without any extra
+     rule needed. max-width caps that at the viewport on narrow (mobile)
+     screens instead, where #weatherHourly's own overflow-x:auto below takes
+     over so the table scrolls in place rather than pushing the widget (or
+     the page) past the screen edge. */
+  #weatherWidget.expanded { padding: 10px 14px; max-width: calc(100vw - 24px); }
   #weatherNow {
     display: flex; align-items: baseline; gap: 8px; cursor: pointer;
     -webkit-tap-highlight-color: transparent; touch-action: manipulation;
   }
   #weatherTemp { font-size: 22px; font-weight: 700; }
   #weatherCondition { opacity: 0.85; }
-  #weatherHourlyHint { margin-left: auto; font-size: 11px; opacity: 0.5; }
+  #weatherCollapseHint { margin-left: auto; font-size: 11px; opacity: 0.5; }
   #weatherHiLo { font-size: 12px; opacity: 0.7; margin-top: 2px; }
   #weatherDaily { margin-top: 8px; display: flex; flex-direction: column; gap: 3px; }
   .weatherDailyRow { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; opacity: 0.85; }
   #weatherHourly {
-    display: none; margin-top: 8px; padding-top: 8px; border-top: 1px solid #3a4256;
-    overflow-x: auto; /* fallback only — .wide normally makes this unnecessary */
+    margin-top: 8px; padding-top: 8px; border-top: 1px solid #3a4256;
+    max-width: 100%; overflow-x: auto;
   }
-  #weatherHourly.open { display: block; }
   #weatherHourlyTable { border-collapse: collapse; font-size: 12px; }
   #weatherHourlyTable th {
     text-align: left; font-weight: 400; opacity: 0.6; padding: 2px 10px 2px 0; white-space: nowrap;
@@ -195,7 +210,6 @@
     #radarAgeSlider { flex: 1; width: auto; min-width: 0; }
     #settingsPanel { width: calc(100% - 24px); right: 12px; }
     #ytPlayer, #ytControls { display: none !important; }
-    #weatherWidget { max-width: calc(100vw - 24px); }
   }
 </style>
 </head>
@@ -1513,10 +1527,13 @@
   const WEATHER_REFRESH_MS = 15 * 60 * 1000;
   const WEATHER_STALE_MS = 6 * 60 * 60 * 1000; // workflow runs hourly; this generous a gap means it's actually broken
 
-  // Persists across refreshWeather() re-renders (every WEATHER_REFRESH_MS)
-  // so the hourly panel's open/closed state doesn't snap back from under
-  // the user. Starts open since the hourly table is the more useful default.
-  let weatherHourlyOpen = true;
+  // Persists across renders (both the WEATHER_REFRESH_MS re-fetch and the
+  // collapse/expand toggle) so neither one stomps on the other. Starts
+  // expanded per the default requested; collapsing shrinks the whole widget
+  // down to a small icon-only button — mainly for mobile, where the
+  // expanded card (especially the hourly table) can be wider than the
+  // screen, and there needs to be a way to get it out of the way entirely.
+  let weatherExpanded = true;
 
   // Maps EC's free-text condition strings to a standard weather emoji.
   // Only the first clause is considered — daily text_summary is a multi-
@@ -1539,6 +1556,61 @@
     return '';
   }
 
+  function renderWeatherWidget(data) {
+    const el = document.getElementById('weatherWidget');
+    const cur = data.current || {};
+
+    if (!weatherExpanded) {
+      el.className = 'collapsed';
+      el.innerHTML = `<button id="weatherCollapsedBtn" title="Show forecast">${weatherIconFor(cur.condition) || '\u{1F321}️'}</button>`;
+      document.getElementById('weatherCollapsedBtn').addEventListener('click', () => {
+        weatherExpanded = true;
+        renderWeatherWidget(data);
+      });
+      return;
+    }
+
+    const daily = (data.daily || []).slice(0, 4);
+    // EC only gives an hourly breakdown for roughly the next 24h, not per
+    // day for the whole forecast above — so it's one rolling table, not
+    // something attached to an individual daily row. Laid out as a table
+    // transposed (hours as columns) rather than one row per hour, so it
+    // reads like a normal hourly-forecast strip. #weatherHourly's own
+    // overflow-x:auto (see CSS) keeps this contained and scrollable in
+    // place on a screen too narrow to show every column at once, rather
+    // than pushing the widget — or the page — past the screen edge.
+    const hourly = data.hourly || [];
+    el.className = 'expanded';
+    el.innerHTML = `
+      <div id="weatherNow" title="Click to collapse">
+        <span id="weatherTemp">${Math.round(cur.temperature)}&deg;</span>
+        <span id="weatherCondition">${weatherIconFor(cur.condition)} ${cur.condition || ''}</span>
+        <span id="weatherCollapseHint">&#9650;</span>
+      </div>
+      <div id="weatherHiLo">High ${Math.round(cur.high_temp)}&deg; &middot; Low ${Math.round(cur.low_temp)}&deg;</div>
+      <div id="weatherDaily">${daily.map(d => `
+        <div class="weatherDailyRow">
+          <span>${weatherIconFor(d.text_summary)} ${d.period}</span>
+          <span>${Math.round(d.temperature)}&deg;${d.precip_probability ? ` &middot; ${d.precip_probability}%` : ''}</span>
+        </div>
+      `).join('')}</div>
+      ${hourly.length ? `
+      <div id="weatherHourly">
+        <table id="weatherHourlyTable">
+          <tr><th>Time</th>${hourly.map(h => `<td>${new Date(h.period).toLocaleTimeString([], { hour: 'numeric' })}</td>`).join('')}</tr>
+          <tr><th>&nbsp;</th>${hourly.map(h => `<td class="weatherHourlyIcon">${weatherIconFor(h.condition)}</td>`).join('')}</tr>
+          <tr><th>Temp</th>${hourly.map(h => `<td>${Math.round(h.temperature)}&deg;</td>`).join('')}</tr>
+          <tr><th>Precip</th>${hourly.map(h => `<td>${h.precip_probability ? `${h.precip_probability}%` : '&mdash;'}</td>`).join('')}</tr>
+        </table>
+      </div>` : ''}
+      <div id="weatherUpdated">${data.location || 'Rock Lake'} &middot; updated ${formatElapsedSince(new Date(data.generated_at).getTime())} ago</div>
+    `;
+    document.getElementById('weatherNow').addEventListener('click', () => {
+      weatherExpanded = false;
+      renderWeatherWidget(data);
+    });
+  }
+
   async function refreshWeather() {
     const el = document.getElementById('weatherWidget');
     let data;
@@ -1556,48 +1628,8 @@
       return;
     }
 
-    const cur = data.current || {};
-    const daily = (data.daily || []).slice(0, 4);
-    // EC only gives an hourly breakdown for roughly the next 24h, not per
-    // day for the whole forecast above — so it's one rolling table, not
-    // something attached to an individual daily row. Laid out as a table
-    // transposed (hours as columns) rather than one row per hour, so it
-    // reads like a normal hourly-forecast strip.
-    const hourly = data.hourly || [];
-    el.innerHTML = `
-      <div id="weatherNow" title="Click for hourly detail">
-        <span id="weatherTemp">${Math.round(cur.temperature)}&deg;</span>
-        <span id="weatherCondition">${weatherIconFor(cur.condition)} ${cur.condition || ''}</span>
-        <span id="weatherHourlyHint">${hourly.length ? (weatherHourlyOpen ? '&#9650;' : '&#9660;') : ''}</span>
-      </div>
-      <div id="weatherHiLo">High ${Math.round(cur.high_temp)}&deg; &middot; Low ${Math.round(cur.low_temp)}&deg;</div>
-      <div id="weatherDaily">${daily.map(d => `
-        <div class="weatherDailyRow">
-          <span>${weatherIconFor(d.text_summary)} ${d.period}</span>
-          <span>${Math.round(d.temperature)}&deg;${d.precip_probability ? ` &middot; ${d.precip_probability}%` : ''}</span>
-        </div>
-      `).join('')}</div>
-      <div id="weatherHourly" class="${weatherHourlyOpen ? 'open' : ''}">
-        <table id="weatherHourlyTable">
-          <tr><th>Time</th>${hourly.map(h => `<td>${new Date(h.period).toLocaleTimeString([], { hour: 'numeric' })}</td>`).join('')}</tr>
-          <tr><th>&nbsp;</th>${hourly.map(h => `<td class="weatherHourlyIcon">${weatherIconFor(h.condition)}</td>`).join('')}</tr>
-          <tr><th>Temp</th>${hourly.map(h => `<td>${Math.round(h.temperature)}&deg;</td>`).join('')}</tr>
-          <tr><th>Precip</th>${hourly.map(h => `<td>${h.precip_probability ? `${h.precip_probability}%` : '&mdash;'}</td>`).join('')}</tr>
-        </table>
-      </div>
-      <div id="weatherUpdated">${data.location || 'Rock Lake'} &middot; updated ${formatElapsedSince(new Date(data.generated_at).getTime())} ago</div>
-    `;
     el.classList.remove('hidden');
-    el.classList.toggle('wide', hourly.length > 0 && weatherHourlyOpen);
-
-    if (hourly.length) {
-      document.getElementById('weatherNow').addEventListener('click', () => {
-        weatherHourlyOpen = !weatherHourlyOpen;
-        document.getElementById('weatherHourly').classList.toggle('open', weatherHourlyOpen);
-        document.getElementById('weatherHourlyHint').innerHTML = weatherHourlyOpen ? '&#9650;' : '&#9660;';
-        el.classList.toggle('wide', weatherHourlyOpen);
-      });
-    }
+    renderWeatherWidget(data);
   }
 
   function isPointInRing(lat, lng, ring) {
