@@ -130,17 +130,16 @@
   #weatherTemp { font-size: 22px; font-weight: 700; }
   #weatherCondition { opacity: 0.85; }
   #weatherHiLo { font-size: 12px; opacity: 0.7; margin-top: 2px; width: max-content; }
-  #weatherDaily { margin-top: 8px; display: flex; flex-direction: column; gap: 3px; width: max-content; }
-  .weatherDailyRow { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; opacity: 0.85; }
+  #weatherDaily { margin-top: 8px; width: max-content; }
   #weatherHourly {
     margin-top: 8px; padding-top: 8px; border-top: 1px solid #3a4256; width: max-content;
   }
-  #weatherHourlyTable { border-collapse: collapse; font-size: 12px; }
-  #weatherHourlyTable th {
+  .weatherForecastTable { border-collapse: collapse; font-size: 12px; }
+  .weatherForecastTable th {
     text-align: left; font-weight: 400; opacity: 0.6; padding: 2px 10px 2px 0; white-space: nowrap;
   }
-  #weatherHourlyTable td { text-align: center; padding: 2px 8px; white-space: nowrap; }
-  #weatherHourlyTable .weatherHourlyIcon { font-size: 16px; }
+  .weatherForecastTable td { text-align: center; padding: 2px 8px; white-space: nowrap; }
+  .weatherForecastTable .weatherHourlyIcon { font-size: 16px; }
   #weatherUpdated { margin-top: 8px; font-size: 11px; opacity: 0.5; }
 
   /* Single button that opens the "everything else" settings panel */
@@ -1562,6 +1561,14 @@
     return '';
   }
 
+  // "Sunday night" -> "Sun PM", "Sunday" -> "Sun" — short column headers for
+  // the daily table, mirroring the hourly table's compact "9 AM" style.
+  function shortDailyPeriodLabel(period) {
+    const isNight = /night/i.test(period);
+    const dayName = period.replace(/\s*night$/i, '');
+    return `${dayName.slice(0, 3)}${isNight ? ' PM' : ''}`;
+  }
+
   // formatElapsedSince (used for lightning strikes, always under an hour)
   // renders bare "mm:ss" — ambiguous once the elapsed time can run to hours,
   // as it routinely does here since the forecast only refreshes hourly.
@@ -1587,12 +1594,14 @@
       return;
     }
 
-    const daily = (data.daily || []).slice(0, 4);
+    // Shows every daily period EC provides, not just the ones RDPS's ~84h
+    // precip horizon covers — periods beyond that just show "—" for
+    // Amount, same as the hourly table does for a missing/zero value.
+    const daily = data.daily || [];
     // Each daily period's precip_mm (fetch_weather.py) is a sum of 12
     // hourly RDPS values over an assumed 6am-6pm/6pm-6am local window, not
     // an exact match to whatever day/night boundary EC's own forecasters
-    // used — and it's null beyond RDPS's ~84h horizon (in practice, always
-    // present for the 4 periods actually shown here).
+    // used — and it's null beyond RDPS's ~84h horizon.
     //
     // EC only gives an hourly breakdown for roughly the next 24h, not per
     // day for the whole forecast above — so it's one rolling table, not
@@ -1625,15 +1634,19 @@
         <span id="weatherCondition">${weatherIconFor(cur.condition)} ${cur.condition || ''}</span>
       </div>
       <div id="weatherHiLo">High ${Math.round(cur.high_temp)}&deg; &middot; Low ${Math.round(cur.low_temp)}&deg;</div>
-      <div id="weatherDaily">${daily.map(d => `
-        <div class="weatherDailyRow">
-          <span>${weatherIconFor(d.text_summary)} ${d.period}</span>
-          <span>${Math.round(d.temperature)}&deg;${d.precip_probability ? ` &middot; ${d.precip_probability}%` : ''}${d.precip_mm ? ` &middot; ${d.precip_mm}mm` : ''}</span>
-        </div>
-      `).join('')}</div>
+      ${daily.length ? `
+      <div id="weatherDaily">
+        <table class="weatherForecastTable">
+          <tr><th>Day</th>${daily.map(d => `<td>${shortDailyPeriodLabel(d.period)}</td>`).join('')}</tr>
+          <tr><th>&nbsp;</th>${daily.map(d => `<td class="weatherHourlyIcon">${weatherIconFor(d.text_summary)}</td>`).join('')}</tr>
+          <tr><th>Temp</th>${daily.map(d => `<td>${Math.round(d.temperature)}&deg;</td>`).join('')}</tr>
+          <tr><th>Precip</th>${daily.map(d => `<td>${d.precip_probability ? `${d.precip_probability}%` : '&mdash;'}</td>`).join('')}</tr>
+          <tr><th>Amount</th>${daily.map(d => `<td>${d.precip_mm ? `${d.precip_mm}mm` : '&mdash;'}</td>`).join('')}</tr>
+        </table>
+      </div>` : ''}
       ${hourly.length ? `
       <div id="weatherHourly">
-        <table id="weatherHourlyTable">
+        <table class="weatherForecastTable">
           <tr><th>Time</th>${hourly.map(h => `<td>${new Date(h.period).toLocaleTimeString([], { hour: 'numeric', timeZone: 'America/Toronto' })}</td>`).join('')}</tr>
           <tr><th>&nbsp;</th>${hourly.map(h => `<td class="weatherHourlyIcon">${weatherIconFor(h.condition)}</td>`).join('')}</tr>
           <tr><th>Temp</th>${hourly.map(h => `<td>${Math.round(h.temperature)}&deg;</td>`).join('')}</tr>
