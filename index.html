@@ -1474,8 +1474,14 @@
 
   // A rotated arrow built from an inline SVG in a divIcon — Leaflet has no
   // built-in rotatable arrow symbol the way Google's SymbolPath did. The
-  // speed number sits right below it as a permanent (non-hover) label,
-  // shown directly on the marker rather than requiring a hover to see it.
+  // speed number sits inside the arrow itself as a permanent (non-hover)
+  // label, shown directly on the marker rather than requiring a hover to
+  // see it. Deliberately anchored at the div's (0,0) origin — the same
+  // point the SVG rotates around — with a translate(-50%,-50%) centering
+  // trick, rather than a fixed left/top offset: that's what keeps the
+  // number sitting inside the arrowhead at every rotation angle instead of
+  // only looking right at one specific direction. Keep it here, centered
+  // in the arrow — don't move it back to sitting below/outside the arrow.
   function buildWindArrowIcon(dirDeg, gustOrSpeedKmh) {
     const rotation = (dirDeg + 180) % 360; // points where the wind is blowing toward, not from
     const html = `
@@ -1483,7 +1489,7 @@
         <svg width="34" height="34" viewBox="-17 -17 34 34" style="position:absolute; left:-17px; top:-17px; transform: rotate(${rotation}deg);">
           <path d="M0,-11 L8,7 L0,3 L-8,7 Z" fill="#4dd0ff" fill-opacity="0.9" stroke="#ffffff" stroke-width="1"/>
         </svg>
-        <div style="position:absolute; left:-20px; top:6px; width:40px; text-align:center; color:#fff; font-size:11px; font-weight:bold; text-shadow:0 0 3px rgba(0,0,0,0.8);">${Math.round(gustOrSpeedKmh)}</div>
+        <div style="position:absolute; left:0; top:0; transform: translate(-50%, -50%); text-align:center; color:#fff; font-size:11px; font-weight:bold; text-shadow:0 0 3px rgba(0,0,0,0.8); white-space:nowrap;">${Math.round(gustOrSpeedKmh)}</div>
       </div>`;
     return L.divIcon({ html, className: '', iconSize: [0, 0] });
   }
