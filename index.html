@@ -94,6 +94,10 @@
     background: rgba(23, 27, 36, 0.9); border: 1px solid #3a4256; border-radius: 8px;
     padding: 10px 14px; font-size: 13px; max-width: 220px;
   }
+  /* Widened while the hourly table is open — a 24-column table doesn't fit
+     the normal narrow widget, and the point of a table is to show every
+     column at once rather than force a horizontal scrollbar. */
+  #weatherWidget.wide { max-width: calc(100vw - 24px); width: max-content; }
   #weatherWidget.hidden { display: none; }
   #weatherNow {
     display: flex; align-items: baseline; gap: 8px; cursor: pointer;
@@ -107,10 +111,15 @@
   .weatherDailyRow { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; opacity: 0.85; }
   #weatherHourly {
     display: none; margin-top: 8px; padding-top: 8px; border-top: 1px solid #3a4256;
-    max-height: 160px; overflow-y: auto;
+    overflow-x: auto; /* fallback only — .wide normally makes this unnecessary */
   }
-  #weatherHourly.open { display: flex; flex-direction: column; gap: 3px; }
-  .weatherHourlyRow { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; opacity: 0.85; }
+  #weatherHourly.open { display: block; }
+  #weatherHourlyTable { border-collapse: collapse; font-size: 12px; }
+  #weatherHourlyTable th {
+    text-align: left; font-weight: 400; opacity: 0.6; padding: 2px 10px 2px 0; white-space: nowrap;
+  }
+  #weatherHourlyTable td { text-align: center; padding: 2px 8px; white-space: nowrap; }
+  #weatherHourlyTable .weatherHourlyIcon { font-size: 16px; }
   #weatherUpdated { margin-top: 8px; font-size: 11px; opacity: 0.5; }
 
   /* Single button that opens the "everything else" settings panel */
@@ -1505,8 +1514,30 @@
   const WEATHER_STALE_MS = 6 * 60 * 60 * 1000; // workflow runs hourly; this generous a gap means it's actually broken
 
   // Persists across refreshWeather() re-renders (every WEATHER_REFRESH_MS)
-  // so an open hourly panel doesn't snap shut from under the user.
-  let weatherHourlyOpen = false;
+  // so the hourly panel's open/closed state doesn't snap back from under
+  // the user. Starts open since the hourly table is the more useful default.
+  let weatherHourlyOpen = true;
+
+  // Maps EC's free-text condition strings to a standard weather emoji.
+  // Only the first clause is considered — daily text_summary is a multi-
+  // sentence forecast ("Sunny. Fog patches dissipating this morning...")
+  // where only the headline clause describes the day's dominant condition;
+  // matching the whole string would let an incidental later mention (like
+  // "fog") win over the actual headline.
+  function weatherIconFor(condition) {
+    const t = (condition || '').toLowerCase().split('.')[0];
+    if (/thunderstorm/.test(t)) return '⛈️'; // ⛈️
+    if (/freezing rain|ice pellet|hail/.test(t)) return '\u{1F9CA}'; // 🧊
+    if (/flurr|snow/.test(t)) return '\u{1F328}️'; // 🌨️
+    if (/rain|shower|drizzle/.test(t)) return '\u{1F327}️'; // 🌧️
+    if (/fog|mist|haze|smoke/.test(t)) return '\u{1F32B}️'; // 🌫️
+    if (/windy/.test(t)) return '\u{1F4A8}'; // 💨
+    if (/mix of sun and cloud|partly cloudy|mostly cloudy/.test(t)) return '⛅'; // ⛅
+    if (/cloudy|overcast/.test(t)) return '☁️'; // ☁️
+    if (/clear/.test(t)) return '\u{1F319}'; // 🌙 (EC uses "Clear" for night, "Sunny" for day)
+    if (/sunny/.test(t)) return '☀️'; // ☀️
+    return '';
+  }
 
   async function refreshWeather() {
     const el = document.getElementById('weatherWidget');
@@ -1528,38 +1559,43 @@
     const cur = data.current || {};
     const daily = (data.daily || []).slice(0, 4);
     // EC only gives an hourly breakdown for roughly the next 24h, not per
-    // day for the whole forecast above — so it's one rolling list, not
-    // something attached to an individual daily row.
+    // day for the whole forecast above — so it's one rolling table, not
+    // something attached to an individual daily row. Laid out as a table
+    // transposed (hours as columns) rather than one row per hour, so it
+    // reads like a normal hourly-forecast strip.
     const hourly = data.hourly || [];
     el.innerHTML = `
       <div id="weatherNow" title="Click for hourly detail">
         <span id="weatherTemp">${Math.round(cur.temperature)}&deg;</span>
-        <span id="weatherCondition">${cur.condition || ''}</span>
+        <span id="weatherCondition">${weatherIconFor(cur.condition)} ${cur.condition || ''}</span>
         <span id="weatherHourlyHint">${hourly.length ? (weatherHourlyOpen ? '&#9650;' : '&#9660;') : ''}</span>
       </div>
       <div id="weatherHiLo">High ${Math.round(cur.high_temp)}&deg; &middot; Low ${Math.round(cur.low_temp)}&deg;</div>
       <div id="weatherDaily">${daily.map(d => `
         <div class="weatherDailyRow">
-          <span>${d.period}</span>
+          <span>${weatherIconFor(d.text_summary)} ${d.period}</span>
           <span>${Math.round(d.temperature)}&deg;${d.precip_probability ? ` &middot; ${d.precip_probability}%` : ''}</span>
         </div>
       `).join('')}</div>
-      <div id="weatherHourly" class="${weatherHourlyOpen ? 'open' : ''}">${hourly.map(h => `
-        <div class="weatherHourlyRow">
-          <span>${new Date(h.period).toLocaleTimeString([], { hour: 'numeric' })}</span>
-          <span>${h.condition || ''}</span>
-          <span>${Math.round(h.temperature)}&deg;${h.precip_probability ? ` &middot; ${h.precip_probability}%` : ''}</span>
-        </div>
-      `).join('')}</div>
+      <div id="weatherHourly" class="${weatherHourlyOpen ? 'open' : ''}">
+        <table id="weatherHourlyTable">
+          <tr><th>Time</th>${hourly.map(h => `<td>${new Date(h.period).toLocaleTimeString([], { hour: 'numeric' })}</td>`).join('')}</tr>
+          <tr><th>&nbsp;</th>${hourly.map(h => `<td class="weatherHourlyIcon">${weatherIconFor(h.condition)}</td>`).join('')}</tr>
+          <tr><th>Temp</th>${hourly.map(h => `<td>${Math.round(h.temperature)}&deg;</td>`).join('')}</tr>
+          <tr><th>Precip</th>${hourly.map(h => `<td>${h.precip_probability ? `${h.precip_probability}%` : '&mdash;'}</td>`).join('')}</tr>
+        </table>
+      </div>
       <div id="weatherUpdated">${data.location || 'Rock Lake'} &middot; updated ${formatElapsedSince(new Date(data.generated_at).getTime())} ago</div>
     `;
     el.classList.remove('hidden');
+    el.classList.toggle('wide', hourly.length > 0 && weatherHourlyOpen);
 
     if (hourly.length) {
       document.getElementById('weatherNow').addEventListener('click', () => {
         weatherHourlyOpen = !weatherHourlyOpen;
         document.getElementById('weatherHourly').classList.toggle('open', weatherHourlyOpen);
         document.getElementById('weatherHourlyHint').innerHTML = weatherHourlyOpen ? '&#9650;' : '&#9660;';
+        el.classList.toggle('wide', weatherHourlyOpen);
       });
     }
   }
