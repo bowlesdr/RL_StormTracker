@@ -1484,8 +1484,9 @@
   // in the arrow — don't move it back to sitting below/outside the arrow.
   // Needs a full outline (not just a soft drop-shadow blur) now that it
   // sits on top of the arrow's own light cyan fill instead of open space
-  // over the (usually dark) map below it — a blur alone read fine against
-  // the map but nearly vanished against the lighter fill color.
+  // over the (usually dark) map below it. Black text reads fine against
+  // that light fill; the white outline is what keeps it legible on the
+  // darker map beyond the arrow's edges.
   function buildWindArrowIcon(dirDeg, gustOrSpeedKmh) {
     const rotation = (dirDeg + 180) % 360; // points where the wind is blowing toward, not from
     const html = `
@@ -1493,7 +1494,7 @@
         <svg width="34" height="34" viewBox="-17 -17 34 34" style="position:absolute; left:-17px; top:-17px; transform: rotate(${rotation}deg);">
           <path d="M0,-11 L8,7 L0,3 L-8,7 Z" fill="#4dd0ff" fill-opacity="0.9" stroke="#ffffff" stroke-width="1"/>
         </svg>
-        <div style="position:absolute; left:0; top:0; transform: translate(-50%, -50%); text-align:center; color:#fff; font-size:11px; font-weight:bold; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 3px rgba(0,0,0,0.9); white-space:nowrap;">${Math.round(gustOrSpeedKmh)}</div>
+        <div style="position:absolute; left:0; top:0; transform: translate(-50%, -50%); text-align:center; color:#000; font-size:11px; font-weight:bold; text-shadow:-1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff, 0 0 3px rgba(255,255,255,0.9); white-space:nowrap;">${Math.round(gustOrSpeedKmh)}</div>
       </div>`;
     return L.divIcon({ html, className: '', iconSize: [0, 0] });
   }
