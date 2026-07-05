@@ -1472,29 +1472,18 @@
     return dirs[Math.round(deg / 22.5) % 16];
   }
 
-  // A rotated arrow built from an inline SVG in a divIcon — Leaflet has no
-  // built-in rotatable arrow symbol the way Google's SymbolPath did. The
-  // speed number sits inside the arrow itself as a permanent (non-hover)
-  // label, shown directly on the marker rather than requiring a hover to
-  // see it. Deliberately anchored at the div's (0,0) origin — the same
-  // point the SVG rotates around — with a translate(-50%,-50%) centering
-  // trick, rather than a fixed left/top offset: that's what keeps the
-  // number sitting inside the arrowhead at every rotation angle instead of
-  // only looking right at one specific direction. Keep it here, centered
-  // in the arrow — don't move it back to sitting below/outside the arrow.
-  // Needs a full outline (not just a soft drop-shadow blur) now that it
-  // sits on top of the arrow's own light cyan fill instead of open space
-  // over the (usually dark) map below it. Black text reads fine against
-  // that light fill; the white outline is what keeps it legible on the
-  // darker map beyond the arrow's edges.
+  // No more SVG kite shape — the marker is just the speed number with a
+  // "→" suffix, the whole thing rotated so the arrow itself points where
+  // the wind is blowing toward. A bare "→" glyph points East (compass 90°)
+  // at 0deg CSS rotation, which is 90° off from "toward" bearing 0 (due
+  // north) — so the needed rotation is (towardBearing - 90), which reduces
+  // to dirDeg + 90 once the "wind FROM" -> "blowing toward" +180 is folded
+  // in: (dirDeg + 180) - 90 = dirDeg + 90.
   function buildWindArrowIcon(dirDeg, gustOrSpeedKmh) {
-    const rotation = (dirDeg + 180) % 360; // points where the wind is blowing toward, not from
+    const rotation = (dirDeg + 90) % 360;
     const html = `
       <div style="position:relative; width:0; height:0;">
-        <svg width="34" height="34" viewBox="-17 -17 34 34" style="position:absolute; left:-17px; top:-17px; transform: rotate(${rotation}deg);">
-          <path d="M0,-11 L8,7 L0,3 L-8,7 Z" fill="#4dd0ff" fill-opacity="0.9" stroke="#ffffff" stroke-width="1"/>
-        </svg>
-        <div style="position:absolute; left:0; top:0; transform: translate(-50%, -50%); text-align:center; color:#000; font-size:11px; font-weight:bold; text-shadow:-1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff, 0 0 3px rgba(255,255,255,0.9); white-space:nowrap;">${Math.round(gustOrSpeedKmh)}</div>
+        <div style="position:absolute; left:0; top:0; transform: translate(-50%, -50%) rotate(${rotation}deg); color:#ffea00; font-size:13px; font-weight:800; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; white-space:nowrap;">${Math.round(gustOrSpeedKmh)}&rarr;</div>
       </div>`;
     return L.divIcon({ html, className: '', iconSize: [0, 0] });
   }
