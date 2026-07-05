@@ -1492,11 +1492,15 @@
     let rotation = (dirDeg + 90) % 360;
     const speed = Math.round(gustOrSpeedKmh);
     const upsideDown = rotation > 90 && rotation < 270;
-    const label = upsideDown ? `&larr;${speed}` : `${speed}&rarr;`;
+    // The arrowhead is its own larger span (rather than just inheriting the
+    // number's font-size) so it reads as the prominent directional pointer
+    // it's meant to be, not an afterthought tacked onto the number.
+    const arrowSpan = `<span style="font-size:20px;">${upsideDown ? '&larr;' : '&rarr;'}</span>`;
+    const label = upsideDown ? `${arrowSpan}${speed}` : `${speed}${arrowSpan}`;
     if (upsideDown) rotation = (rotation + 180) % 360;
     const html = `
       <div style="position:relative; width:0; height:0;">
-        <div style="position:absolute; left:0; top:0; transform: translate(-50%, -50%) rotate(${rotation}deg); color:#ffea00; font-size:13px; font-weight:800; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; white-space:nowrap;">${label}</div>
+        <div style="position:absolute; left:0; top:0; transform: translate(-50%, -50%) rotate(${rotation}deg); color:#ffea00; font-size:13px; font-weight:800; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; white-space:nowrap; line-height:1;">${label}</div>
       </div>`;
     return L.divIcon({ html, className: '', iconSize: [0, 0] });
   }
