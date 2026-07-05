@@ -140,6 +140,12 @@
   }
   .weatherForecastTable td { text-align: center; padding: 2px 8px; white-space: nowrap; }
   .weatherForecastTable .weatherHourlyIcon { font-size: 16px; }
+  /* Daily table only: groups each day's Day/Night column pair visually,
+     since the day-name header row alone (one cell spanning both columns)
+     wasn't enough on its own to tell adjacent days apart at a glance. */
+  .weatherDayGroupLabel { text-align: center; font-weight: 700; opacity: 0.7; }
+  .weatherDayGroupStart { border-left: 1px solid #3a4256; }
+  .weatherNightCol { background: rgba(255, 255, 255, 0.05); }
   #weatherUpdated { margin-top: 8px; font-size: 11px; opacity: 0.5; }
 
   /* Single button that opens the "everything else" settings panel */
@@ -1561,12 +1567,24 @@
     return '';
   }
 
+  function isNightPeriod(period) {
+    return /night/i.test(period);
+  }
+
   // "Sunday night" -> "Sun PM", "Sunday" -> "Sun" — short column headers for
   // the daily table, mirroring the hourly table's compact "9 AM" style.
   function shortDailyPeriodLabel(period) {
-    const isNight = /night/i.test(period);
     const dayName = period.replace(/\s*night$/i, '');
-    return `${dayName.slice(0, 3)}${isNight ? ' PM' : ''}`;
+    return `${dayName.slice(0, 3)}${isNightPeriod(period) ? ' PM' : ''}`;
+  }
+
+  // Applied to every cell in a daily-table column: a left border on each
+  // day's first column (so the day/night pair reads as one visual group,
+  // not six identical-looking columns), and a subtle tint on night columns
+  // specifically — the day-name header row alone wasn't enough to tell at a
+  // glance which columns paired up, or which were day vs. night.
+  function dailyColClass(period) {
+    return `${isNightPeriod(period) ? 'weatherNightCol' : 'weatherDayGroupStart'}`;
   }
 
   // formatElapsedSince (used for lightning strikes, always under an hour)
@@ -1637,11 +1655,25 @@
       ${daily.length ? `
       <div id="weatherDaily">
         <table class="weatherForecastTable">
-          <tr><th>Day</th>${daily.map(d => `<td>${shortDailyPeriodLabel(d.period)}</td>`).join('')}</tr>
-          <tr><th>&nbsp;</th>${daily.map(d => `<td class="weatherHourlyIcon">${weatherIconFor(d.text_summary)}</td>`).join('')}</tr>
-          <tr><th>Temp</th>${daily.map(d => `<td>${Math.round(d.temperature)}&deg;</td>`).join('')}</tr>
-          <tr><th>Precip</th>${daily.map(d => `<td>${d.precip_probability ? `${d.precip_probability}%` : '&mdash;'}</td>`).join('')}</tr>
-          <tr><th>Amount</th>${daily.map(d => `<td>${d.precip_mm ? `${d.precip_mm}mm` : '&mdash;'}</td>`).join('')}</tr>
+          <tr><th></th>${(() => {
+            // One spanning header cell per day, covering its day+night pair
+            // (or just 1 column, for a trailing unpaired entry) — this is
+            // what actually groups e.g. "Sun"/"Sun PM" as one calendar day
+            // rather than six same-looking columns in a row.
+            const cells = [];
+            for (let i = 0; i < daily.length; ) {
+              const pairedNight = i + 1 < daily.length && isNightPeriod(daily[i + 1].period);
+              const span = pairedNight ? 2 : 1;
+              cells.push(`<th colspan="${span}" class="weatherDayGroupLabel weatherDayGroupStart">${shortDailyPeriodLabel(daily[i].period).replace(/ PM$/, '')}</th>`);
+              i += span;
+            }
+            return cells.join('');
+          })()}</tr>
+          <tr><th>Day</th>${daily.map(d => `<td class="${dailyColClass(d.period)}">${isNightPeriod(d.period) ? 'Night' : 'Day'}</td>`).join('')}</tr>
+          <tr><th>&nbsp;</th>${daily.map(d => `<td class="weatherHourlyIcon ${dailyColClass(d.period)}">${weatherIconFor(d.text_summary)}</td>`).join('')}</tr>
+          <tr><th>Temp</th>${daily.map(d => `<td class="${dailyColClass(d.period)}">${Math.round(d.temperature)}&deg;</td>`).join('')}</tr>
+          <tr><th>Precip</th>${daily.map(d => `<td class="${dailyColClass(d.period)}">${d.precip_probability ? `${d.precip_probability}%` : '&mdash;'}</td>`).join('')}</tr>
+          <tr><th>Amount</th>${daily.map(d => `<td class="${dailyColClass(d.period)}">${d.precip_mm ? `${d.precip_mm}mm` : '&mdash;'}</td>`).join('')}</tr>
         </table>
       </div>` : ''}
       ${hourly.length ? `
