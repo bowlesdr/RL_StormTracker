@@ -145,7 +145,8 @@
      wasn't enough on its own to tell adjacent days apart at a glance. */
   .weatherForecastTable th.weatherDayGroupLabel { text-align: center; font-weight: 700; opacity: 0.7; }
   .weatherDayGroupStart { border-left: 1px solid #3a4256; }
-  .weatherNightCol { background: rgba(255, 255, 255, 0.05); }
+  .weatherDayCol { background: #e8ebf0; color: #10131a; }
+  .weatherNightCol { background: #05070c; }
   #weatherUpdated { margin-top: 8px; font-size: 11px; opacity: 0.5; }
 
   /* Single button that opens the "everything else" settings panel */
@@ -1580,11 +1581,12 @@
 
   // Applied to every cell in a daily-table column: a left border on each
   // day's first column (so the day/night pair reads as one visual group,
-  // not six identical-looking columns), and a subtle tint on night columns
-  // specifically — the day-name header row alone wasn't enough to tell at a
-  // glance which columns paired up, or which were day vs. night.
+  // not six identical-looking columns), plus a light background for day
+  // columns and a dark one for night columns — deliberately stark, rather
+  // than a subtle tint, so day vs. night is unmistakable at a glance.
   function dailyColClass(period) {
-    return `${isNightPeriod(period) ? 'weatherNightCol' : 'weatherDayGroupStart'}`;
+    const night = isNightPeriod(period);
+    return `${night ? 'weatherNightCol' : 'weatherDayCol weatherDayGroupStart'}`;
   }
 
   // formatElapsedSince (used for lightning strikes, always under an hour)
