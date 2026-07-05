@@ -111,23 +111,29 @@
      only `left` set shrink-wraps to its content by default, so this grows
      to fit the hourly table on a roomy desktop screen without any extra
      rule needed. max-width caps that at the viewport on narrow (mobile)
-     screens instead, where #weatherHourly's own overflow-x:auto below takes
-     over so the table scrolls in place rather than pushing the widget (or
-     the page) past the screen edge. */
-  #weatherWidget.expanded { padding: 10px 14px; max-width: calc(100vw - 24px); }
+     screens instead; overflow-x:auto on the widget itself (rather than just
+     the hourly table) means that if the table still doesn't fit, the whole
+     card scrolls as one unit rather than the header and table scrolling
+     independently. The collapse control lives at the far left of that
+     scrollable content (see #weatherCollapseHint below) specifically so
+     it's still reachable at the default, unscrolled position — anchoring
+     it to the right instead would put it out of reach until the user
+     scrolled all the way over. */
+  #weatherWidget.expanded {
+    padding: 10px 14px; max-width: calc(100vw - 24px); overflow-x: auto;
+  }
   #weatherNow {
-    display: flex; align-items: baseline; gap: 8px; cursor: pointer;
+    display: flex; align-items: baseline; gap: 8px; cursor: pointer; width: max-content;
     -webkit-tap-highlight-color: transparent; touch-action: manipulation;
   }
+  #weatherCollapseHint { font-size: 11px; opacity: 0.5; }
   #weatherTemp { font-size: 22px; font-weight: 700; }
   #weatherCondition { opacity: 0.85; }
-  #weatherCollapseHint { margin-left: auto; font-size: 11px; opacity: 0.5; }
-  #weatherHiLo { font-size: 12px; opacity: 0.7; margin-top: 2px; }
-  #weatherDaily { margin-top: 8px; display: flex; flex-direction: column; gap: 3px; }
+  #weatherHiLo { font-size: 12px; opacity: 0.7; margin-top: 2px; width: max-content; }
+  #weatherDaily { margin-top: 8px; display: flex; flex-direction: column; gap: 3px; width: max-content; }
   .weatherDailyRow { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; opacity: 0.85; }
   #weatherHourly {
-    margin-top: 8px; padding-top: 8px; border-top: 1px solid #3a4256;
-    max-width: 100%; overflow-x: auto;
+    margin-top: 8px; padding-top: 8px; border-top: 1px solid #3a4256; width: max-content;
   }
   #weatherHourlyTable { border-collapse: collapse; font-size: 12px; }
   #weatherHourlyTable th {
@@ -1594,9 +1600,9 @@
     el.className = 'expanded';
     el.innerHTML = `
       <div id="weatherNow" title="Click to collapse">
+        <span id="weatherCollapseHint">&#9650;</span>
         <span id="weatherTemp">${Math.round(cur.temperature)}&deg;</span>
         <span id="weatherCondition">${weatherIconFor(cur.condition)} ${cur.condition || ''}</span>
-        <span id="weatherCollapseHint">&#9650;</span>
       </div>
       <div id="weatherHiLo">High ${Math.round(cur.high_temp)}&deg; &middot; Low ${Math.round(cur.low_temp)}&deg;</div>
       <div id="weatherDaily">${daily.map(d => `
