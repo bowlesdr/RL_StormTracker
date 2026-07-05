@@ -1958,7 +1958,7 @@
     map = L.map('map', {
       center: HOME,
       zoom: 7,
-      zoomControl: true,
+      zoomControl: false, // was top-left, same corner as the weather widget
       attributionControl: true,
       // Without this, Leaflet rounds every zoom to the nearest whole
       // number (its default zoomSnap: 1) — fine for scroll/pinch zoom, but
