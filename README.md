@@ -39,6 +39,12 @@ the [`env_canada`](https://pypi.org/project/env_canada/) package) and writes
 `weather.json` into the repo root. `.github/workflows/update-weather.yml`
 runs that script hourly and commits the result if it changed.
 
+EC's own feed only has a precipitation *probability*, never an amount, so
+the hourly forecast's precip amount (mm) comes from a second source: MSC
+GeoMet's WCS, querying the Regional Deterministic Prediction System's raw
+model output for a tiny area around Rock Lake (a few hundred bytes per
+request, not the full ~2.3MB continental grid) and decoding it with Pillow.
+
 `index.html` fetches `weather.json` same-origin on load — no API key or
 backend needed, and no CORS problem since it's just a static file in the
 same repo. The widget hides itself if that file goes missing or more than 6
@@ -47,7 +53,7 @@ hours stale (i.e. the workflow is broken, not just between runs).
 To refresh it locally:
 
 ```
-pip install env_canada
+pip install env_canada Pillow numpy
 python fetch_weather.py
 ```
 

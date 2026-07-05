@@ -1603,6 +1603,13 @@
     // is a forecast for one fixed place, not wherever the viewer happens to
     // be, so showing it in the viewer's local time would be misleading (and
     // silently wrong if that device's clock/timezone is simply misconfigured).
+    //
+    // precip_mm (the "Amount" row) comes from a second, independent source
+    // (MSC GeoMet's RDPS model output, fetched in fetch_weather.py) rather
+    // than EC's own citypage feed above — that feed only has a probability
+    // %, never an actual amount. The two can legitimately disagree (e.g. a
+    // nonzero % alongside a 0mm amount) since they're different products,
+    // not a bug.
     const hourly = data.hourly || [];
     el.className = 'expanded';
     el.innerHTML = `
@@ -1625,6 +1632,7 @@
           <tr><th>&nbsp;</th>${hourly.map(h => `<td class="weatherHourlyIcon">${weatherIconFor(h.condition)}</td>`).join('')}</tr>
           <tr><th>Temp</th>${hourly.map(h => `<td>${Math.round(h.temperature)}&deg;</td>`).join('')}</tr>
           <tr><th>Precip</th>${hourly.map(h => `<td>${h.precip_probability ? `${h.precip_probability}%` : '&mdash;'}</td>`).join('')}</tr>
+          <tr><th>Amount</th>${hourly.map(h => `<td>${h.precip_mm ? `${h.precip_mm}mm` : '&mdash;'}</td>`).join('')}</tr>
         </table>
       </div>` : ''}
       <div id="weatherUpdated">${data.location || 'Rock Lake'} &middot; updated ${formatWeatherAge(new Date(data.generated_at).getTime())}</div>
