@@ -1592,10 +1592,17 @@
     // day for the whole forecast above — so it's one rolling table, not
     // something attached to an individual daily row. Laid out as a table
     // transposed (hours as columns) rather than one row per hour, so it
-    // reads like a normal hourly-forecast strip. #weatherHourly's own
-    // overflow-x:auto (see CSS) keeps this contained and scrollable in
-    // place on a screen too narrow to show every column at once, rather
-    // than pushing the widget — or the page — past the screen edge.
+    // reads like a normal hourly-forecast strip. The widget's own
+    // overflow-x:auto (see #weatherWidget.expanded in CSS) keeps this
+    // contained and scrollable in place on a screen too narrow to show
+    // every column at once, rather than pushing the widget — or the page —
+    // past the screen edge.
+    //
+    // Hour labels are pinned to Rock Lake's own timezone (America/Toronto)
+    // rather than left to default to the viewing device's timezone — this
+    // is a forecast for one fixed place, not wherever the viewer happens to
+    // be, so showing it in the viewer's local time would be misleading (and
+    // silently wrong if that device's clock/timezone is simply misconfigured).
     const hourly = data.hourly || [];
     el.className = 'expanded';
     el.innerHTML = `
@@ -1614,7 +1621,7 @@
       ${hourly.length ? `
       <div id="weatherHourly">
         <table id="weatherHourlyTable">
-          <tr><th>Time</th>${hourly.map(h => `<td>${new Date(h.period).toLocaleTimeString([], { hour: 'numeric' })}</td>`).join('')}</tr>
+          <tr><th>Time</th>${hourly.map(h => `<td>${new Date(h.period).toLocaleTimeString([], { hour: 'numeric', timeZone: 'America/Toronto' })}</td>`).join('')}</tr>
           <tr><th>&nbsp;</th>${hourly.map(h => `<td class="weatherHourlyIcon">${weatherIconFor(h.condition)}</td>`).join('')}</tr>
           <tr><th>Temp</th>${hourly.map(h => `<td>${Math.round(h.temperature)}&deg;</td>`).join('')}</tr>
           <tr><th>Precip</th>${hourly.map(h => `<td>${h.precip_probability ? `${h.precip_probability}%` : '&mdash;'}</td>`).join('')}</tr>
