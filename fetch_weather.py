@@ -10,12 +10,15 @@ import asyncio
 import io
 import json
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 
 import numpy as np
 from PIL import Image
 
 from env_canada import ECWeather
+
+ROCK_LAKE_TZ = ZoneInfo("America/Toronto")
 
 # Matches HOME in index.html.
 LAT = 44.80996960818295
@@ -61,6 +64,30 @@ def fetch_precip_mm(time_iso: str) -> float | None:
         return None
 
 
+def fetch_daily_precip_total_mm(local_date, is_night: bool) -> float | None:
+    """Sums 12 hourly RDPS fetches (fetch_precip_mm) rather than requesting
+    EC/GeoMet's own 12h-accumulation coverage directly, since that layer
+    only has values at synoptic hours (00/06/12/18 UTC) — it can't be
+    queried at an arbitrary 6am/6pm local boundary the way the 1h layer
+    can. "Day" and "night" aren't given explicit start/end times anywhere
+    in EC's feed, so this assumes the common 06:00-18:00 / 18:00-06:00
+    local-time convention; treat it as an approximation, not an exact
+    match to whatever boundary EC's own forecasters actually used.
+    Returns None only if every single hour in the window failed/was out of
+    RDPS's ~84h range — a partial run of failures still sums what's there,
+    since a transient blip on one of twelve calls shouldn't blank the whole
+    total."""
+    start_local = datetime(
+        local_date.year, local_date.month, local_date.day,
+        18 if is_night else 6, 0, tzinfo=ROCK_LAKE_TZ,
+    )
+    hour_ends = [start_local + timedelta(hours=i) for i in range(1, 13)]
+    values = [fetch_precip_mm(h.astimezone(timezone.utc).isoformat()) for h in hour_ends]
+    if all(v is None for v in values):
+        return None
+    return round(sum(v or 0 for v in values), 1)
+
+
 def value_of(entry):
     return entry.get("value") if isinstance(entry, dict) else entry
 
@@ -81,16 +108,19 @@ async def fetch():
         "text_summary": value_of(c.get("text_summary")),
     }
 
-    daily = [
-        {
-            "period": f.get("period"),
+    daily = []
+    for f in weather.daily_forecasts[:DAILY_FORECAST_COUNT]:
+        period = f.get("period") or ""
+        is_night = "night" in period.lower()
+        local_date = f["timestamp"].astimezone(ROCK_LAKE_TZ).date() if f.get("timestamp") else None
+        daily.append({
+            "period": period,
             "text_summary": f.get("text_summary"),
             "temperature": f.get("temperature"),
             "temperature_class": f.get("temperature_class"),
             "precip_probability": f.get("precip_probability"),
-        }
-        for f in weather.daily_forecasts[:DAILY_FORECAST_COUNT]
-    ]
+            "precip_mm": fetch_daily_precip_total_mm(local_date, is_night) if local_date else None,
+        })
 
     # EC only provides an hourly breakdown for roughly the next 24h (not per
     # day for the full daily_forecasts range above), so this is exposed as

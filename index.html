@@ -1344,7 +1344,7 @@
     if (visible) {
       if (!propertyBoundaryLayer) {
         propertyBoundaryLayer = L.polygon(PROPERTY_BOUNDARY_PATH, {
-          color: '#3355ff', weight: 3, fillColor: '#3355ff', fillOpacity: 0.1
+          color: '#ff8c00', weight: 3, fillColor: '#ff8c00', fillOpacity: 0.1
         }).bindTooltip('Property Boundary');
       }
       propertyBoundaryLayer.addTo(map);
@@ -1588,6 +1588,12 @@
     }
 
     const daily = (data.daily || []).slice(0, 4);
+    // Each daily period's precip_mm (fetch_weather.py) is a sum of 12
+    // hourly RDPS values over an assumed 6am-6pm/6pm-6am local window, not
+    // an exact match to whatever day/night boundary EC's own forecasters
+    // used — and it's null beyond RDPS's ~84h horizon (in practice, always
+    // present for the 4 periods actually shown here).
+    //
     // EC only gives an hourly breakdown for roughly the next 24h, not per
     // day for the whole forecast above — so it's one rolling table, not
     // something attached to an individual daily row. Laid out as a table
@@ -1622,7 +1628,7 @@
       <div id="weatherDaily">${daily.map(d => `
         <div class="weatherDailyRow">
           <span>${weatherIconFor(d.text_summary)} ${d.period}</span>
-          <span>${Math.round(d.temperature)}&deg;${d.precip_probability ? ` &middot; ${d.precip_probability}%` : ''}</span>
+          <span>${Math.round(d.temperature)}&deg;${d.precip_probability ? ` &middot; ${d.precip_probability}%` : ''}${d.precip_mm ? ` &middot; ${d.precip_mm}mm` : ''}</span>
         </div>
       `).join('')}</div>
       ${hourly.length ? `
