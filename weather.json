@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-05T16:29:23.255784+00:00",
+  "generated_at": "2026-07-05T16:36:38.876855+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
@@ -223,7 +223,7 @@
       "condition": "Mainly cloudy",
       "temperature": 20,
       "precip_probability": 10,
-      "precip_mm": 0.0
+      "precip_mm": null
     },
     {
       "period": "2026-07-06T13:00:00+00:00",
