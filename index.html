@@ -1479,11 +1479,24 @@
   // north) — so the needed rotation is (towardBearing - 90), which reduces
   // to dirDeg + 90 once the "wind FROM" -> "blowing toward" +180 is folded
   // in: (dirDeg + 180) - 90 = dirDeg + 90.
+  //
+  // Between 90° and 270°, that rotation would leave the number more than
+  // a quarter-turn off upright — increasingly upside-down and hard to
+  // read. Rather than let the arrow direction dictate a hard-to-read
+  // number, this flips the whole label 180° in that range (keeping it
+  // within ±90° of upright) and swaps to a mirrored "←" prefix in place of
+  // the "→" suffix — that's what keeps the arrow pointing the same real
+  // ("blowing toward") direction despite the 180° flip, rather than
+  // pointing backward.
   function buildWindArrowIcon(dirDeg, gustOrSpeedKmh) {
-    const rotation = (dirDeg + 90) % 360;
+    let rotation = (dirDeg + 90) % 360;
+    const speed = Math.round(gustOrSpeedKmh);
+    const upsideDown = rotation > 90 && rotation < 270;
+    const label = upsideDown ? `&larr;${speed}` : `${speed}&rarr;`;
+    if (upsideDown) rotation = (rotation + 180) % 360;
     const html = `
       <div style="position:relative; width:0; height:0;">
-        <div style="position:absolute; left:0; top:0; transform: translate(-50%, -50%) rotate(${rotation}deg); color:#ffea00; font-size:13px; font-weight:800; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; white-space:nowrap;">${Math.round(gustOrSpeedKmh)}&rarr;</div>
+        <div style="position:absolute; left:0; top:0; transform: translate(-50%, -50%) rotate(${rotation}deg); color:#ffea00; font-size:13px; font-weight:800; text-shadow:-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; white-space:nowrap;">${label}</div>
       </div>`;
     return L.divIcon({ html, className: '', iconSize: [0, 0] });
   }
