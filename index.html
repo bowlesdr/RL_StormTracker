@@ -95,12 +95,22 @@
     padding: 10px 14px; font-size: 13px; max-width: 220px;
   }
   #weatherWidget.hidden { display: none; }
-  #weatherNow { display: flex; align-items: baseline; gap: 8px; }
+  #weatherNow {
+    display: flex; align-items: baseline; gap: 8px; cursor: pointer;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
   #weatherTemp { font-size: 22px; font-weight: 700; }
   #weatherCondition { opacity: 0.85; }
+  #weatherHourlyHint { margin-left: auto; font-size: 11px; opacity: 0.5; }
   #weatherHiLo { font-size: 12px; opacity: 0.7; margin-top: 2px; }
   #weatherDaily { margin-top: 8px; display: flex; flex-direction: column; gap: 3px; }
   .weatherDailyRow { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; opacity: 0.85; }
+  #weatherHourly {
+    display: none; margin-top: 8px; padding-top: 8px; border-top: 1px solid #3a4256;
+    max-height: 160px; overflow-y: auto;
+  }
+  #weatherHourly.open { display: flex; flex-direction: column; gap: 3px; }
+  .weatherHourlyRow { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; opacity: 0.85; }
   #weatherUpdated { margin-top: 8px; font-size: 11px; opacity: 0.5; }
 
   /* Single button that opens the "everything else" settings panel */
@@ -1494,6 +1504,10 @@
   const WEATHER_REFRESH_MS = 15 * 60 * 1000;
   const WEATHER_STALE_MS = 6 * 60 * 60 * 1000; // workflow runs hourly; this generous a gap means it's actually broken
 
+  // Persists across refreshWeather() re-renders (every WEATHER_REFRESH_MS)
+  // so an open hourly panel doesn't snap shut from under the user.
+  let weatherHourlyOpen = false;
+
   async function refreshWeather() {
     const el = document.getElementById('weatherWidget');
     let data;
@@ -1513,10 +1527,15 @@
 
     const cur = data.current || {};
     const daily = (data.daily || []).slice(0, 4);
+    // EC only gives an hourly breakdown for roughly the next 24h, not per
+    // day for the whole forecast above — so it's one rolling list, not
+    // something attached to an individual daily row.
+    const hourly = data.hourly || [];
     el.innerHTML = `
-      <div id="weatherNow">
+      <div id="weatherNow" title="Click for hourly detail">
         <span id="weatherTemp">${Math.round(cur.temperature)}&deg;</span>
         <span id="weatherCondition">${cur.condition || ''}</span>
+        <span id="weatherHourlyHint">${hourly.length ? (weatherHourlyOpen ? '&#9650;' : '&#9660;') : ''}</span>
       </div>
       <div id="weatherHiLo">High ${Math.round(cur.high_temp)}&deg; &middot; Low ${Math.round(cur.low_temp)}&deg;</div>
       <div id="weatherDaily">${daily.map(d => `
@@ -1525,9 +1544,24 @@
           <span>${Math.round(d.temperature)}&deg;${d.precip_probability ? ` &middot; ${d.precip_probability}%` : ''}</span>
         </div>
       `).join('')}</div>
+      <div id="weatherHourly" class="${weatherHourlyOpen ? 'open' : ''}">${hourly.map(h => `
+        <div class="weatherHourlyRow">
+          <span>${new Date(h.period).toLocaleTimeString([], { hour: 'numeric' })}</span>
+          <span>${h.condition || ''}</span>
+          <span>${Math.round(h.temperature)}&deg;${h.precip_probability ? ` &middot; ${h.precip_probability}%` : ''}</span>
+        </div>
+      `).join('')}</div>
       <div id="weatherUpdated">${data.location || 'Rock Lake'} &middot; updated ${formatElapsedSince(new Date(data.generated_at).getTime())} ago</div>
     `;
     el.classList.remove('hidden');
+
+    if (hourly.length) {
+      document.getElementById('weatherNow').addEventListener('click', () => {
+        weatherHourlyOpen = !weatherHourlyOpen;
+        document.getElementById('weatherHourly').classList.toggle('open', weatherHourlyOpen);
+        document.getElementById('weatherHourlyHint').innerHTML = weatherHourlyOpen ? '&#9650;' : '&#9660;';
+      });
+    }
   }
 
   function isPointInRing(lat, lng, ring) {

@@ -51,12 +51,26 @@ async def fetch():
         for f in weather.daily_forecasts[:DAILY_FORECAST_COUNT]
     ]
 
+    # EC only provides an hourly breakdown for roughly the next 24h (not per
+    # day for the full daily_forecasts range above), so this is exposed as
+    # one rolling window rather than attached to individual daily periods.
+    hourly = [
+        {
+            "period": h.get("period").isoformat() if h.get("period") else None,
+            "condition": h.get("condition"),
+            "temperature": h.get("temperature"),
+            "precip_probability": h.get("precip_probability"),
+        }
+        for h in weather.hourly_forecasts
+    ]
+
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "location": weather.metadata.location,
         "station": weather.metadata.station,
         "current": current,
         "daily": daily,
+        "hourly": hourly,
     }
 
 
