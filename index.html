@@ -1556,6 +1556,17 @@
     return '';
   }
 
+  // formatElapsedSince (used for lightning strikes, always under an hour)
+  // renders bare "mm:ss" — ambiguous once the elapsed time can run to hours,
+  // as it routinely does here since the forecast only refreshes hourly.
+  function formatWeatherAge(timestampMs) {
+    const totalMinutes = Math.max(0, Math.floor((Date.now() - timestampMs) / 60000));
+    if (totalMinutes < 60) return `${totalMinutes} min ago`;
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    return `${hours}h ${minutes}m ago`;
+  }
+
   function renderWeatherWidget(data) {
     const el = document.getElementById('weatherWidget');
     const cur = data.current || {};
@@ -1603,7 +1614,7 @@
           <tr><th>Precip</th>${hourly.map(h => `<td>${h.precip_probability ? `${h.precip_probability}%` : '&mdash;'}</td>`).join('')}</tr>
         </table>
       </div>` : ''}
-      <div id="weatherUpdated">${data.location || 'Rock Lake'} &middot; updated ${formatElapsedSince(new Date(data.generated_at).getTime())} ago</div>
+      <div id="weatherUpdated">${data.location || 'Rock Lake'} &middot; updated ${formatWeatherAge(new Date(data.generated_at).getTime())}</div>
     `;
     document.getElementById('weatherNow').addEventListener('click', () => {
       weatherExpanded = false;
