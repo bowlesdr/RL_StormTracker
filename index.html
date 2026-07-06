@@ -198,11 +198,13 @@
   #ytControls { display: flex; flex-direction: column; gap: 12px; }
   .sectionLabel { font-size: 12px; opacity: 0.6; margin-top: 10px; }
   .streamLinks { display: flex; flex-direction: column; gap: 6px; }
+  .streamLinks.streamLinksRow { flex-direction: row; }
   .streamLinks a {
     color: #4dd0ff; text-decoration: none; font-size: 13px; text-align: center;
     background: #182028; border: 1px solid #2a3040; border-radius: 4px; padding: 6px 10px;
     -webkit-tap-highlight-color: transparent; touch-action: manipulation;
   }
+  .streamLinksRow a { flex: 1; }
   .streamLinks a:hover { background: #223040; border-color: #3a4256; }
   #ytUrlInput {
     width: 100%; box-sizing: border-box; background: #0e1117; color: #e8ebf0;
@@ -291,9 +293,9 @@
   </div>
 
   <div class="sectionLabel">The Weather Network</div>
-  <div class="streamLinks">
-    <a href="https://www.theweathernetwork.com/en/city/ca/ontario/stanleyville/7-days" target="_blank" rel="noopener">Stanleyville</a>
-    <a href="https://www.theweathernetwork.com/en/city/ca/ontario/perth/7-days" target="_blank" rel="noopener">Perth</a>
+  <div class="streamLinks streamLinksRow">
+    <a href="https://www.theweathernetwork.com/en/city/ca/ontario/stanleyville/hourly" target="_blank" rel="noopener">Stanleyville</a>
+    <a href="https://www.theweathernetwork.com/en/city/ca/ontario/perth/hourly" target="_blank" rel="noopener">Perth</a>
   </div>
 
   <div id="ytControls">
