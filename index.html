@@ -2189,6 +2189,10 @@
     // to wait for an async projection-ready event the way Google Maps
     // required. This also fires the first 'moveend' above.
     applyZoomPreset(11); // "Local" — tightly focused on the watch location
+    // Marks that preset's button as active to match — otherwise none of
+    // the zoom buttons show as selected until the user clicks one, even
+    // though the map is already sitting at this exact preset on load.
+    document.querySelector('.zoomPresetBtn[data-zoom="11"]').classList.add('active');
   }
 
   if ('serviceWorker' in navigator) {
