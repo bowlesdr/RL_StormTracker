@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-07-08T21:13:38.595328+00:00",
+  "generated_at": "2026-07-08T23:13:13.783756+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 25.2,
+    "temperature": 24.8,
     "condition": "Partly Cloudy",
     "high_temp": 28,
     "low_temp": 21,
-    "humidity": 70,
-    "wind_speed": 15,
+    "humidity": 77,
+    "wind_speed": 13,
     "wind_dir": "S",
     "text_summary": "Tonight. Clear. Becoming partly cloudy near midnight. Low 21."
   },
@@ -16,12 +16,12 @@
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 25.2
+      "value": 24.8
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 19.4
+      "value": 20.5
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -31,12 +31,12 @@
     "humidex": {
       "label": "Humidex",
       "unit": null,
-      "value": 32
+      "value": 33
     },
     "pressure": {
       "label": "Pressure",
       "unit": "kPa",
-      "value": 101.4
+      "value": 101.3
     },
     "tendency": {
       "label": "Tendency",
@@ -46,7 +46,7 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 70
+      "value": 77
     },
     "visibility": {
       "label": "Visibility",
@@ -61,7 +61,7 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 15
+      "value": 13
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -76,7 +76,7 @@
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 175
+      "value": 183
     },
     "high_temp": {
       "label": "High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-07-08T21:00:00+00:00"
+      "value": "2026-07-08T23:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -149,7 +149,7 @@
       "temperature": 28,
       "temperature_class": "high",
       "precip_probability": 60,
-      "precip_mm": 13.4
+      "precip_mm": 1.2
     },
     {
       "period": "Thursday night",
@@ -157,7 +157,7 @@
       "temperature": 19,
       "temperature_class": "low",
       "precip_probability": 60,
-      "precip_mm": 15.8
+      "precip_mm": 9.8
     },
     {
       "period": "Friday",
@@ -165,7 +165,7 @@
       "temperature": 26,
       "temperature_class": "high",
       "precip_probability": 30,
-      "precip_mm": 0.1
+      "precip_mm": 0
     },
     {
       "period": "Friday night",
@@ -217,20 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-07-08T22:00:00+00:00",
-      "condition": "Mainly sunny",
-      "temperature": 28,
-      "precip_probability": 10,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-07-08T23:00:00+00:00",
-      "condition": "Mainly sunny",
-      "temperature": 27,
-      "precip_probability": 10,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-07-09T00:00:00+00:00",
       "condition": "Sunny",
@@ -369,21 +355,35 @@
       "condition": "Chance of showers. Risk of thunderstorms",
       "temperature": 26,
       "precip_probability": 40,
-      "precip_mm": 1.2
+      "precip_mm": 0.0
     },
     {
       "period": "2026-07-09T20:00:00+00:00",
       "condition": "Chance of showers. Risk of thunderstorms",
       "temperature": 24,
       "precip_probability": 60,
-      "precip_mm": 11.4
+      "precip_mm": 0.1
     },
     {
       "period": "2026-07-09T21:00:00+00:00",
       "condition": "Chance of showers. Risk of thunderstorms",
       "temperature": 22,
       "precip_probability": 60,
-      "precip_mm": 1.8
+      "precip_mm": 0.1
+    },
+    {
+      "period": "2026-07-09T22:00:00+00:00",
+      "condition": "Chance of showers. Risk of thunderstorms",
+      "temperature": 22,
+      "precip_probability": 60,
+      "precip_mm": 1.0
+    },
+    {
+      "period": "2026-07-09T23:00:00+00:00",
+      "condition": "Chance of showers. Risk of thunderstorms",
+      "temperature": 21,
+      "precip_probability": 60,
+      "precip_mm": 0.5
     }
   ]
 }
