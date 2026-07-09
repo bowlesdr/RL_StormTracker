@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-07-09T20:00:58.267358+00:00",
+  "generated_at": "2026-07-09T21:39:30.388502+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 27.4,
-    "condition": "Mostly Cloudy",
+    "temperature": 23.9,
+    "condition": "Light Rainshower",
     "high_temp": 28,
     "low_temp": 18,
-    "humidity": 67,
-    "wind_speed": 19,
-    "wind_dir": "SW",
+    "humidity": 81,
+    "wind_speed": 17,
+    "wind_dir": "WSW",
     "text_summary": "Tonight. Showers ending early this evening then cloudy with 40 percent chance of showers. Becoming partly cloudy after midnight. Risk of a thunderstorm this evening. Low 18."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 27.4
+      "value": 23.9
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 20.8
+      "value": 20.5
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -31,22 +31,22 @@
     "humidex": {
       "label": "Humidex",
       "unit": null,
-      "value": 36
+      "value": 32
     },
     "pressure": {
       "label": "Pressure",
       "unit": "kPa",
-      "value": 100.9
+      "value": 101.0
     },
     "tendency": {
       "label": "Tendency",
       "unit": "kPa",
-      "value": "falling"
+      "value": "rising"
     },
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 67
+      "value": 81
     },
     "visibility": {
       "label": "Visibility",
@@ -56,12 +56,12 @@
     "condition": {
       "label": "Condition",
       "unit": null,
-      "value": "Mostly Cloudy"
+      "value": "Light Rainshower"
     },
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 19
+      "value": 17
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -71,12 +71,12 @@
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "SW"
+      "value": "WSW"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 228
+      "value": 245
     },
     "high_temp": {
       "label": "High Temperature",
@@ -101,7 +101,7 @@
     "icon_code": {
       "label": "Icon Code",
       "unit": null,
-      "value": "03"
+      "value": "06"
     },
     "normal_high": {
       "label": "Normal High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-07-09T19:00:00+00:00"
+      "value": "2026-07-09T21:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -141,7 +141,7 @@
       "temperature": 18,
       "temperature_class": "low",
       "precip_probability": 40,
-      "precip_mm": 0.2
+      "precip_mm": 0
     },
     {
       "period": "Friday",
@@ -218,25 +218,11 @@
   ],
   "hourly": [
     {
-      "period": "2026-07-09T20:00:00+00:00",
-      "condition": "Showers. Risk of thunderstorms",
-      "temperature": 22,
-      "precip_probability": 80,
-      "precip_mm": 6.9
-    },
-    {
-      "period": "2026-07-09T21:00:00+00:00",
-      "condition": "Showers. Risk of thunderstorms",
-      "temperature": 20,
-      "precip_probability": 80,
-      "precip_mm": 5.3
-    },
-    {
       "period": "2026-07-09T22:00:00+00:00",
       "condition": "Showers. Risk of thunderstorms",
       "temperature": 21,
       "precip_probability": 80,
-      "precip_mm": 0.2
+      "precip_mm": 0.4
     },
     {
       "period": "2026-07-09T23:00:00+00:00",
@@ -264,7 +250,7 @@
       "condition": "Chance of showers. Risk of thunderstorms",
       "temperature": 21,
       "precip_probability": 40,
-      "precip_mm": 0.2
+      "precip_mm": 0.0
     },
     {
       "period": "2026-07-10T03:00:00+00:00",
@@ -382,6 +368,20 @@
       "period": "2026-07-10T19:00:00+00:00",
       "condition": "Chance of showers. Risk of thunderstorms",
       "temperature": 27,
+      "precip_probability": 30,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-10T20:00:00+00:00",
+      "condition": "Chance of showers. Risk of thunderstorms",
+      "temperature": 27,
+      "precip_probability": 30,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-10T21:00:00+00:00",
+      "condition": "Chance of showers. Risk of thunderstorms",
+      "temperature": 26,
       "precip_probability": 30,
       "precip_mm": 0.0
     }
