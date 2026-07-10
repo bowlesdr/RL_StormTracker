@@ -121,7 +121,7 @@
      of reach until the user scrolled all the way over. */
   #weatherWidget.expanded {
     padding: 10px 14px; max-width: calc(100vw - 24px); max-height: calc(100dvh - 24px);
-    overflow-x: auto; overflow-y: auto;
+    overflow-x: auto; overflow-y: auto; -webkit-overflow-scrolling: touch;
   }
   #weatherNow {
     display: flex; align-items: baseline; gap: 8px; cursor: pointer; width: max-content;
