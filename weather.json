@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-07-10T11:08:53.791403+00:00",
+  "generated_at": "2026-07-10T14:37:34.235399+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 19.0,
-    "condition": "Mostly Cloudy",
+    "temperature": 23.8,
+    "condition": "Partly Cloudy",
     "high_temp": 28,
     "low_temp": 16,
-    "humidity": 95,
-    "wind_speed": 12,
+    "humidity": 68,
+    "wind_speed": 13,
     "wind_dir": "N",
     "text_summary": "Today. A mix of sun and cloud. 40 percent chance of showers this afternoon with risk of a thunderstorm. Fog patches dissipating early this morning. High 28. Humidex 33. UV index 8 or very high."
   },
@@ -16,12 +16,12 @@
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 19.0
+      "value": 23.8
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 18.2
+      "value": 17.6
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -31,12 +31,12 @@
     "humidex": {
       "label": "Humidex",
       "unit": null,
-      "value": null
+      "value": 30
     },
     "pressure": {
       "label": "Pressure",
       "unit": "kPa",
-      "value": 101.1
+      "value": 101.2
     },
     "tendency": {
       "label": "Tendency",
@@ -46,7 +46,7 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 95
+      "value": 68
     },
     "visibility": {
       "label": "Visibility",
@@ -56,12 +56,12 @@
     "condition": {
       "label": "Condition",
       "unit": null,
-      "value": "Mostly Cloudy"
+      "value": "Partly Cloudy"
     },
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 12
+      "value": 13
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -76,7 +76,7 @@
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 353
+      "value": 9
     },
     "high_temp": {
       "label": "High Temperature",
@@ -101,7 +101,7 @@
     "icon_code": {
       "label": "Icon Code",
       "unit": null,
-      "value": "03"
+      "value": "02"
     },
     "normal_high": {
       "label": "Normal High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-07-10T11:00:00+00:00"
+      "value": "2026-07-10T14:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -218,27 +218,6 @@
   ],
   "hourly": [
     {
-      "period": "2026-07-10T12:00:00+00:00",
-      "condition": "A mix of sun and cloud",
-      "temperature": 19,
-      "precip_probability": 10,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-07-10T13:00:00+00:00",
-      "condition": "A mix of sun and cloud",
-      "temperature": 20,
-      "precip_probability": 10,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-07-10T14:00:00+00:00",
-      "condition": "A mix of sun and cloud",
-      "temperature": 21,
-      "precip_probability": 10,
-      "precip_mm": 0.0
-    },
-    {
       "period": "2026-07-10T15:00:00+00:00",
       "condition": "A mix of sun and cloud",
       "temperature": 22,
@@ -327,7 +306,7 @@
       "condition": "Chance of showers. Risk of thunderstorms",
       "temperature": 21,
       "precip_probability": 40,
-      "precip_mm": 0.0
+      "precip_mm": null
     },
     {
       "period": "2026-07-11T04:00:00+00:00",
@@ -382,6 +361,27 @@
       "period": "2026-07-11T11:00:00+00:00",
       "condition": "Sunny",
       "temperature": 17,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-11T12:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 17,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-11T13:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 19,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-11T14:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 20,
       "precip_probability": 0,
       "precip_mm": 0.0
     }
