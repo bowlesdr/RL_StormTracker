@@ -110,17 +110,18 @@
   /* Expanded: the full card. No explicit width — a fixed-position box with
      only `left` set shrink-wraps to its content by default, so this grows
      to fit the hourly table on a roomy desktop screen without any extra
-     rule needed. max-width caps that at the viewport on narrow (mobile)
-     screens instead; overflow-x:auto on the widget itself (rather than just
-     the hourly table) means that if the table still doesn't fit, the whole
-     card scrolls as one unit rather than the header and table scrolling
-     independently. The collapse control lives at the far left of that
-     scrollable content (see #weatherCollapseHint below) specifically so
-     it's still reachable at the default, unscrolled position — anchoring
-     it to the right instead would put it out of reach until the user
-     scrolled all the way over. */
+     rule needed. max-width/max-height cap that at the viewport on narrow
+     (mobile) or short (landscape) screens instead; overflow-x/y:auto on the
+     widget itself (rather than just the hourly table) means that if the
+     content still doesn't fit, the whole card scrolls as one unit rather
+     than individual pieces scrolling independently. The collapse control
+     lives at the far left/top of that scrollable content (see
+     #weatherCollapseHint below) specifically so it's still reachable at the
+     default, unscrolled position — anchoring it elsewhere would put it out
+     of reach until the user scrolled all the way over. */
   #weatherWidget.expanded {
-    padding: 10px 14px; max-width: calc(100vw - 24px); overflow-x: auto;
+    padding: 10px 14px; max-width: calc(100vw - 24px); max-height: calc(100dvh - 24px);
+    overflow-x: auto; overflow-y: auto;
   }
   #weatherNow {
     display: flex; align-items: baseline; gap: 8px; cursor: pointer; width: max-content;
@@ -156,16 +157,19 @@
   .weatherNightCol { background: #05070c; }
   #weatherUpdated { margin-top: 8px; font-size: 11px; opacity: 0.5; }
 
-  /* Single button that opens the "everything else" settings panel */
+  /* Single button that opens the "everything else" settings panel. Kept
+     above every other fixed-position element (alert banner, radar refresh
+     overlay, etc.) via z-index so it's never covered and stays clickable
+     regardless of what else is on screen. */
   #settingsBtn {
-    position: fixed; top: 12px; right: 12px; z-index: 20;
+    position: fixed; top: 12px; right: 12px; z-index: 50;
     background: rgba(23, 27, 36, 0.85); color: #e8ebf0; border: 1px solid #3a4256;
     border-radius: 6px; width: 40px; height: 40px; font-size: 18px; cursor: pointer;
     -webkit-tap-highlight-color: transparent; touch-action: manipulation;
   }
 
   #settingsPanel {
-    display: none; position: fixed; top: 12px; right: 12px; z-index: 25;
+    display: none; position: fixed; top: 12px; right: 12px; z-index: 45;
     width: 220px; background: #171b24; border: 1px solid #3a4256; border-radius: 8px;
     padding: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.4);
     flex-direction: column; gap: 6px;
