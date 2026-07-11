@@ -306,15 +306,20 @@
     <a href="https://www.theweathernetwork.com/en/city/ca/ontario/perth/hourly" target="_blank" rel="noopener">Perth</a>
   </div>
 
-  <!-- Android-only "open the app" links via Chrome's intent:// scheme —
-       launches the app directly if installed (action MAIN/LAUNCHER on its
-       package, no deep-link data needed), falling back to the Play Store
-       listing (S.browser_fallback_url) if it isn't. No-ops on iOS/desktop
-       browsers, which don't understand intent://. -->
+  <!-- Plain https links to each app's own site, relying on Android App
+       Links (verified domain -> installed app handoff) to open the app
+       directly rather than the browser. This is the same mechanism the
+       Stanleyville/Perth links above already lean on — unlike Chrome's
+       intent:// scheme, it doesn't require the target activity to be
+       BROWSABLE, which a plain app-icon launch activity never is (that's
+       why an earlier intent://-based version of these buttons always fell
+       through to the Play Store even with the app installed). Falls back
+       to opening the site in-browser if the app isn't installed or isn't
+       App-Links-verified for that URL. -->
   <div class="sectionLabel">Apps</div>
   <div class="streamLinks streamLinksRow">
-    <a href="intent://#Intent;package=com.pelmorex.WeatherEyeAndroid;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.pelmorex.WeatherEyeAndroid;end">Weather Network</a>
-    <a href="intent://#Intent;package=ca.instantweather.instantweather;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dca.instantweather.instantweather;end">Instant Weather</a>
+    <a href="https://www.theweathernetwork.com/" target="_blank" rel="noopener">Weather Network</a>
+    <a href="https://instantweatherinc.com/" target="_blank" rel="noopener">Instant Weather</a>
   </div>
 
   <div id="ytControls">
