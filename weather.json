@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-07-11T17:57:36.879502+00:00",
+  "generated_at": "2026-07-11T19:17:54.177681+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 25.8,
+    "temperature": 27.0,
     "condition": "Partly Cloudy",
     "high_temp": 27,
     "low_temp": 12,
-    "humidity": 40,
-    "wind_speed": 8,
+    "humidity": 35,
+    "wind_speed": 19,
     "wind_dir": "NNE",
     "text_summary": "Today. Sunny. High 27. Humidex 29. UV index 8 or very high."
   },
@@ -16,12 +16,12 @@
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 25.8
+      "value": 27.0
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 11.1
+      "value": 10.3
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -36,17 +36,17 @@
     "pressure": {
       "label": "Pressure",
       "unit": "kPa",
-      "value": 101.9
+      "value": 101.8
     },
     "tendency": {
       "label": "Tendency",
       "unit": "kPa",
-      "value": "rising"
+      "value": "falling"
     },
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 40
+      "value": 35
     },
     "visibility": {
       "label": "Visibility",
@@ -61,12 +61,12 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 8
+      "value": 19
     },
     "wind_gust": {
       "label": "Wind Gust",
-      "unit": null,
-      "value": null
+      "unit": "km/h",
+      "value": 29
     },
     "wind_dir": {
       "label": "Wind Direction",
@@ -76,7 +76,7 @@
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 18
+      "value": 25
     },
     "high_temp": {
       "label": "High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-07-11T17:00:00+00:00"
+      "value": "2026-07-11T19:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -217,20 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-07-11T18:00:00+00:00",
-      "condition": "Sunny",
-      "temperature": 26,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-07-11T19:00:00+00:00",
-      "condition": "Sunny",
-      "temperature": 26,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-07-11T20:00:00+00:00",
       "condition": "Sunny",
@@ -382,6 +368,20 @@
       "period": "2026-07-12T17:00:00+00:00",
       "condition": "Sunny",
       "temperature": 27,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-12T18:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 28,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-12T19:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 28,
       "precip_probability": 0,
       "precip_mm": 0.0
     }
