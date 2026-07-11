@@ -304,6 +304,17 @@
     <a href="https://www.theweathernetwork.com/en/city/ca/ontario/perth/hourly" target="_blank" rel="noopener">Perth</a>
   </div>
 
+  <!-- Android-only "open the app" links via Chrome's intent:// scheme —
+       launches the app directly if installed (action MAIN/LAUNCHER on its
+       package, no deep-link data needed), falling back to the Play Store
+       listing (S.browser_fallback_url) if it isn't. No-ops on iOS/desktop
+       browsers, which don't understand intent://. -->
+  <div class="sectionLabel">Apps</div>
+  <div class="streamLinks streamLinksRow">
+    <a href="intent://#Intent;package=com.pelmorex.WeatherEyeAndroid;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.pelmorex.WeatherEyeAndroid;end">Weather Network</a>
+    <a href="intent://#Intent;package=ca.instantweather.instantweather;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dca.instantweather.instantweather;end">Instant Weather</a>
+  </div>
+
   <div id="ytControls">
     <div class="sectionLabel">Find current analysis stream</div>
     <div class="streamLinks">
