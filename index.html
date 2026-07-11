@@ -88,9 +88,11 @@
   /* Environment Canada forecast for Rock Lake, pulled from a weather.json
      committed hourly by a GitHub Actions workflow (see fetch_weather.py) —
      EC's API doesn't reliably send CORS headers, so a static page can't call
-     it directly from the browser. */
+     it directly from the browser. Kept above the alert banner (z-index 32)
+     the same way #settingsBtn is, so it's never covered and stays
+     clickable regardless of what else is on screen. */
   #weatherWidget {
-    position: fixed; top: 12px; left: 12px; z-index: 20;
+    position: fixed; top: 12px; left: 12px; z-index: 50;
     background: rgba(23, 27, 36, 0.9); border: 1px solid #3a4256; border-radius: 8px;
     font-size: 13px;
   }
