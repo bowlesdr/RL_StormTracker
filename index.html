@@ -10,6 +10,8 @@
 <meta name="theme-color" content="#10131a">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
+  *, *::before, *::after { box-sizing: border-box; }
+
   html, body {
     height: 100%; height: 100dvh; margin: 0; overflow: hidden; overscroll-behavior: none;
     font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: #10131a; color: #e8ebf0;
@@ -213,7 +215,7 @@
   .streamLinksRow a { flex: 1; }
   .streamLinks a:hover { background: #223040; border-color: #3a4256; }
   #ytUrlInput {
-    width: 100%; box-sizing: border-box; background: #0e1117; color: #e8ebf0;
+    width: 100%; background: #0e1117; color: #e8ebf0;
     border: 1px solid #2a3040; border-radius: 4px; padding: 6px; font-size: 13px;
   }
   .buttonRow { display: flex; gap: 6px; }
