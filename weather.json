@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-07-12T06:38:23.363845+00:00",
+  "generated_at": "2026-07-12T09:06:24.116809+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 13.6,
+    "temperature": 13.2,
     "condition": null,
     "high_temp": 29,
-    "low_temp": 12,
-    "humidity": 99,
-    "wind_speed": 11,
-    "wind_dir": "NNW",
-    "text_summary": "Tonight. Clear. Local smoke overnight. Low 12."
+    "low_temp": 15,
+    "humidity": 100,
+    "wind_speed": 5,
+    "wind_dir": "NNE",
+    "text_summary": "Today. Sunny. Local smoke. High 29. UV index 8 or very high."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 13.6
+      "value": 13.2
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 13.5
+      "value": 13.2
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -46,7 +46,7 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 99
+      "value": 100
     },
     "visibility": {
       "label": "Visibility",
@@ -61,7 +61,7 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 11
+      "value": 5
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -71,12 +71,12 @@
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "NNW"
+      "value": "NNE"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 346
+      "value": 20
     },
     "high_temp": {
       "label": "High Temperature",
@@ -86,7 +86,7 @@
     "low_temp": {
       "label": "Low Temperature",
       "unit": "C",
-      "value": 12
+      "value": 15
     },
     "uv_index": {
       "label": "UV Index",
@@ -126,26 +126,18 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-07-12T06:00:00+00:00"
+      "value": "2026-07-12T09:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
       "unit": null,
-      "value": "Tonight. Clear. Local smoke overnight. Low 12."
+      "value": "Today. Sunny. Local smoke. High 29. UV index 8 or very high."
     }
   },
   "daily": [
     {
-      "period": "Saturday night",
-      "text_summary": "Clear. Local smoke overnight. Low 12.",
-      "temperature": 12,
-      "temperature_class": "low",
-      "precip_probability": 0,
-      "precip_mm": 0
-    },
-    {
       "period": "Sunday",
-      "text_summary": "Sunny. Local smoke in the morning. High 29. Humidex 31. UV index 8 or very high.",
+      "text_summary": "Sunny. Local smoke. High 29. UV index 8 or very high.",
       "temperature": 29,
       "temperature_class": "high",
       "precip_probability": 0,
@@ -153,18 +145,18 @@
     },
     {
       "period": "Sunday night",
-      "text_summary": "Clear. Low 16.",
-      "temperature": 16,
+      "text_summary": "Clear. Low 15.",
+      "temperature": 15,
       "temperature_class": "low",
       "precip_probability": 0,
       "precip_mm": 0
     },
     {
       "period": "Monday",
-      "text_summary": "A mix of sun and cloud with 30 percent chance of showers. High 30.",
-      "temperature": 30,
+      "text_summary": "Sunny. Becoming a mix of sun and cloud in the morning. Wind becoming southwest 20 km/h gusting to 40 in the morning. High 31. Humidex 36. UV index 7 or high.",
+      "temperature": 31,
       "temperature_class": "high",
-      "precip_probability": 30,
+      "precip_probability": 0,
       "precip_mm": 0
     },
     {
@@ -214,30 +206,17 @@
       "temperature_class": "high",
       "precip_probability": 0,
       "precip_mm": null
+    },
+    {
+      "period": "Thursday night",
+      "text_summary": "Cloudy periods. Low 14.",
+      "temperature": 14,
+      "temperature_class": "low",
+      "precip_probability": 0,
+      "precip_mm": null
     }
   ],
   "hourly": [
-    {
-      "period": "2026-07-12T07:00:00+00:00",
-      "condition": "Clear",
-      "temperature": 13,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-07-12T08:00:00+00:00",
-      "condition": "Clear",
-      "temperature": 13,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-07-12T09:00:00+00:00",
-      "condition": "Clear",
-      "temperature": 12,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-07-12T10:00:00+00:00",
       "condition": "Sunny",
@@ -346,28 +325,28 @@
     {
       "period": "2026-07-13T01:00:00+00:00",
       "condition": "Clear",
-      "temperature": 23,
+      "temperature": 24,
       "precip_probability": 0,
       "precip_mm": 0.0
     },
     {
       "period": "2026-07-13T02:00:00+00:00",
       "condition": "Clear",
-      "temperature": 20,
+      "temperature": 22,
       "precip_probability": 0,
       "precip_mm": 0.0
     },
     {
       "period": "2026-07-13T03:00:00+00:00",
       "condition": "Clear",
-      "temperature": 18,
+      "temperature": 21,
       "precip_probability": 0,
       "precip_mm": 0.0
     },
     {
       "period": "2026-07-13T04:00:00+00:00",
       "condition": "Clear",
-      "temperature": 17,
+      "temperature": 19,
       "precip_probability": 0,
       "precip_mm": 0.0
     },
@@ -381,8 +360,29 @@
     {
       "period": "2026-07-13T06:00:00+00:00",
       "condition": "Clear",
-      "temperature": 16,
+      "temperature": 15,
       "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-13T07:00:00+00:00",
+      "condition": "Clear",
+      "temperature": 15,
+      "precip_probability": 20,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-13T08:00:00+00:00",
+      "condition": "Clear",
+      "temperature": 15,
+      "precip_probability": 20,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-13T09:00:00+00:00",
+      "condition": "Clear",
+      "temperature": 15,
+      "precip_probability": 20,
       "precip_mm": 0.0
     }
   ]
