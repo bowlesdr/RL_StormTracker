@@ -69,6 +69,16 @@
     50% { opacity: 0.5; }
   }
 
+  #radarNowToggle {
+    background: #2a3040; color: #e8ebf0; border: 1px solid #3a4256; border-radius: 4px;
+    padding: 4px 10px; font-size: 12px; cursor: pointer;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
+  #radarNowToggle.active {
+    background: #4dff88; color: #10131a; border-color: #4dff88; font-weight: 700;
+  }
+  #radarAgeSlider:disabled { opacity: 0.4; }
+
   /* Active severe weather alerts covering HOME — deliberately the most
      prominent thing on screen, since these are the most actionable of
      everything this app shows. */
@@ -253,6 +263,7 @@
   <span id="radarNextUpdateLabel"></span>
   <input type="range" id="radarAgeSlider" min="0" max="180" step="6" value="0">
   <span id="radarFrameLabel"></span>
+  <button id="radarNowToggle" type="button" title="Freeze on the live frame instead of cycling through past/forecast frames">Now</button>
 </div>
 
 <div id="radarRefreshOverlay" class="hidden">
@@ -284,6 +295,10 @@
 
   <label class="control" id="windOption" title="Live wind from every nearby station within 50km — both ECCC's official network and Weather Underground's crowd-sourced personal weather stations, which are much denser near Rock Lake but uncalibrated compared to ECCC's.">
     <input type="checkbox" id="windToggle"> Wind
+  </label>
+
+  <label class="control" title="Active forest fires across Ontario and Quebec, from the Canadian Wildland Fire Information System (CWFIS) — agency-reported points colored by stage of control, plus satellite-derived burned-area perimeters where available. Updated every few hours.">
+    <input type="checkbox" id="forestFireToggle" checked> Forest Fires
   </label>
 
   <div class="sectionLabel">Lightning</div>
@@ -728,6 +743,7 @@
   let radarWindowTimerId = null;
   let radarNextUpdateTimerId = null;
   let radarLatestObservedAt = 0; // wall-clock time we last saw a new newest frame, not the server's own timestamp
+  let radarNowOnly = false; // "Now" toggle — freeze on the live frame instead of cycling past/now/forecast
 
   // Ticks continuously regardless of which frame is currently displayed or
   // scrubbed to (unlike the old behavior, where this only showed up while
@@ -838,6 +854,15 @@
     radarFrameTimes = newFrames;
     const preservedIndex = radarFrameTimes.indexOf(currentTime);
     radarFrameIndex = preservedIndex !== -1 ? preservedIndex : RADAR_NOW_INDEX;
+
+    // In "Now" mode there's no scheduleNextRadarFrame tick to pick up the
+    // window shift, so the live frame has to be re-pinned and re-drawn here
+    // instead — otherwise the display would just sit on the same frame it
+    // was already showing as it ages out of "now".
+    if (radarNowOnly) {
+      radarFrameIndex = RADAR_NOW_INDEX;
+      scrubToFrame(radarFrameIndex);
+    }
 
     // Quietly warm the newest historical frame plus the whole forecast
     // portion in the background — this routine rolling-window update isn't
@@ -960,13 +985,31 @@
   function beginRadarPlayback() {
     removeRadarLayer();
     radarPlaying = true;
-    radarFrameIndex = 0;
+    radarFrameIndex = radarNowOnly ? RADAR_NOW_INDEX : 0;
     overlayState.radar.visible = true;
     scrubToFrame(radarFrameIndex);
 
     radarWindowTimerId = setInterval(refreshRadarWindow, RADAR_WINDOW_CHECK_MS);
-    scheduleNextRadarFrame();
+    if (!radarNowOnly) scheduleNextRadarFrame();
     startNextUpdateCountdown();
+  }
+
+  // "Now" toggle: freezes playback on the live frame instead of cycling
+  // through past/forecast frames. The slider is disabled while active since
+  // manually scrubbing away from "now" would contradict what the toggle is
+  // for; re-enabled (and cycling resumed from scratch) when turned back off.
+  function toggleRadarNowOnly(active) {
+    radarNowOnly = active;
+    document.getElementById('radarNowToggle').classList.toggle('active', active);
+    document.getElementById('radarAgeSlider').disabled = active;
+    if (!radarPlaying) return; // applies next time playback (re)starts
+    clearTimeout(radarPlayTimerId);
+    if (active) {
+      radarFrameIndex = RADAR_NOW_INDEX;
+      scrubToFrame(radarFrameIndex);
+    } else {
+      scheduleNextRadarFrame();
+    }
   }
 
   // Suspends the radar animation and hides its bar while Storm Intensity is
@@ -983,8 +1026,9 @@
   function resumeRadarFromStormIntensity() {
     if (!radarPlaying) return;
     document.getElementById('radarBar').classList.remove('hidden');
+    if (radarNowOnly) radarFrameIndex = RADAR_NOW_INDEX;
     scrubToFrame(radarFrameIndex);
-    scheduleNextRadarFrame();
+    if (!radarNowOnly) scheduleNextRadarFrame();
   }
 
   // Blanks the map rather than leaving the last-shown frame's overlay up —
@@ -1038,6 +1082,10 @@
     slider.addEventListener('change', () => {
       if (!radarPlaying) return;
       scheduleNextRadarFrame();
+    });
+
+    document.getElementById('radarNowToggle').addEventListener('click', () => {
+      toggleRadarNowOnly(!radarNowOnly);
     });
   }
 
@@ -1579,6 +1627,161 @@
     }
   }
 
+  // ---- Forest fires (CWFIS) — forestfires.json is committed every few
+  // hours by a GitHub Actions workflow (fetch_forestfires.py), the same
+  // pattern as weather.json: CWFIS's active-fires WFS (unlike the rest of
+  // CWFIS, and unlike the radar/satellite WMS this page calls directly)
+  // doesn't send CORS headers, so a static page can't fetch it live.
+  const FOREST_FIRE_REFRESH_MS = 15 * 60 * 1000;
+  const FOREST_FIRE_STAGE_COLORS = { OC: '#ff4d4d', BH: '#ffb454', UC: '#ffe066', OUT: '#888888' };
+  const FOREST_FIRE_STAGE_LABELS = { OC: 'Out of Control', BH: 'Being Held', UC: 'Under Control', OUT: 'Out' };
+  const FOREST_FIRE_RESPONSE_LABELS = { FUL: 'Full Response', MOD: 'Modified Response', MON: 'Monitored', MNA: 'Monitored, No Action' };
+  let forestFireMarkers = [];
+  let forestFireLayerVisible = false;
+  let forestFireRefreshTimerId = null;
+
+  // The satellite burned-area perimeters (m3_polygons_current) carry no
+  // fire ID of their own — they're a purely geometric layer, independent of
+  // the agency-reported active-fires list. All of them are shown as soon as
+  // the dots are (forestFirePerimetersLayer, below) — kept in memory too so
+  // a click can additionally match a specific fire's point against
+  // whichever polygon(s) actually contain it, to highlight just that one
+  // and report its area/detection dates in the popup.
+  let forestFirePerimetersData = { type: 'FeatureCollection', features: [] };
+  let forestFirePerimetersLayer = null;
+  let selectedForestFireMarker = null;
+  let selectedForestFireHighlightLayer = null;
+  let selectedForestFirePopup = null;
+
+  function findMatchingPerimeters(fire) {
+    return forestFirePerimetersData.features.filter(f => isPointInGeometry(fire.lat, fire.lon, f.geometry));
+  }
+
+  function formatForestFireDetails(fire, matches) {
+    const stageLabel = FOREST_FIRE_STAGE_LABELS[fire.stage] || fire.stage || 'Unknown';
+    const responseLabel = FOREST_FIRE_RESPONSE_LABELS[fire.response_type] || fire.response_type || 'Unknown';
+    const fmt = iso => iso ? new Date(iso).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' }) : 'unknown';
+    const lines = [
+      `<b>${fire.id || 'Unknown fire'}</b>`,
+      [fire.agency, fire.region].filter(Boolean).join(' / '),
+      `Status: ${stageLabel}`,
+      `Response: ${responseLabel}`,
+      `Size: ${fire.size_ha != null ? `${fire.size_ha} ha` : 'unknown'}`,
+      `Reported: ${fmt(fire.situation_report_date)}`,
+      `Updated: ${fmt(fire.status_date)}`
+    ];
+    if (matches.length) {
+      const totalArea = matches.reduce((sum, m) => sum + (m.properties.area_ha || 0), 0);
+      const lastDetected = matches.map(m => m.properties.last_detected).filter(Boolean).sort().pop();
+      lines.push(`Satellite footprint: ${totalArea.toFixed(1)} ha`);
+      lines.push(`Last hotspot: ${fmt(lastDetected)}`);
+    } else {
+      lines.push('No satellite-detected footprint available');
+    }
+    return `<div style="color:#1a1a1a;font:13px -apple-system,Segoe UI,Roboto,Arial,sans-serif;">${lines.join('<br>')}</div>`;
+  }
+
+  // Single source of truth for tearing down whatever's currently expanded
+  // (highlight + popup) — called both when a marker is explicitly re-clicked
+  // to collapse it, and via the map's 'popupclose' event when the popup is
+  // dismissed some other way (clicking elsewhere on the map, its own close
+  // button), so the highlight never outlives its popup. The base
+  // forestFirePerimetersLayer (all footprints) is untouched by this — it
+  // stays visible regardless of selection.
+  function clearForestFireSelection() {
+    if (selectedForestFireHighlightLayer) {
+      map.removeLayer(selectedForestFireHighlightLayer);
+      selectedForestFireHighlightLayer = null;
+    }
+    if (selectedForestFirePopup) {
+      map.closePopup(selectedForestFirePopup);
+      selectedForestFirePopup = null;
+    }
+    selectedForestFireMarker = null;
+  }
+
+  function selectForestFire(marker, fire) {
+    const wasSelected = selectedForestFireMarker === marker;
+    clearForestFireSelection();
+    if (wasSelected) return; // clicking the already-expanded dot just collapses it
+
+    const matches = findMatchingPerimeters(fire);
+    if (matches.length) {
+      // Drawn on top of the always-visible base perimeters layer, brighter
+      // and thicker, so the selected fire's own footprint stands out among
+      // every other one already on screen.
+      selectedForestFireHighlightLayer = L.geoJSON({ type: 'FeatureCollection', features: matches }, {
+        style: { color: '#ffffff', weight: 2, fillColor: '#ff4d4d', fillOpacity: 0.55 }
+      }).addTo(map);
+    }
+
+    selectedForestFireMarker = marker;
+    selectedForestFirePopup = L.popup()
+      .setLatLng([fire.lat, fire.lon])
+      .setContent(formatForestFireDetails(fire, matches))
+      .openOn(map);
+  }
+
+  function createForestFireMarker(fire) {
+    const color = FOREST_FIRE_STAGE_COLORS[fire.stage] || '#888888';
+    // Bigger and heavier-stroked than a lightning strike marker on purpose —
+    // these are sparse (hundreds, not thousands) and meant to be individually
+    // tappable, including on a touchscreen, rather than read as a dense
+    // scatter. A 5px/1px-stroke version of this was reported hard to hit
+    // reliably.
+    const marker = L.circleMarker([fire.lat, fire.lon], {
+      radius: 8, color: '#ffffff', weight: 2, fillColor: color, fillOpacity: 0.85
+    });
+    marker.on('click', () => selectForestFire(marker, fire));
+    return marker;
+  }
+
+  async function refreshForestFireDisplay() {
+    if (!forestFireLayerVisible) return;
+    try {
+      const resp = await fetch('forestfires.json', { cache: 'no-store' });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const data = await resp.json();
+      if (!forestFireLayerVisible) return; // toggled off while the fetch was in flight
+
+      // The refreshed markers are new objects, so any currently-expanded
+      // selection would otherwise be left pointing at a marker that's about
+      // to be removed from the map.
+      clearForestFireSelection();
+
+      forestFireMarkers.forEach(m => map.removeLayer(m));
+      if (forestFirePerimetersLayer) map.removeLayer(forestFirePerimetersLayer);
+
+      forestFirePerimetersData = data.perimeters || { type: 'FeatureCollection', features: [] };
+      // Added before the dots below so they always render underneath —
+      // interactive: false means a polygon's fill can never intercept a tap
+      // meant for a marker sitting over/near it.
+      forestFirePerimetersLayer = L.geoJSON(forestFirePerimetersData, {
+        interactive: false,
+        style: { color: '#ff4d4d', weight: 1, fillColor: '#ff4d4d', fillOpacity: 0.25 }
+      }).addTo(map);
+
+      forestFireMarkers = (data.fires || []).map(fire => createForestFireMarker(fire).addTo(map));
+    } catch (e) { /* leave whatever's currently shown on a transient fetch failure */ }
+  }
+
+  function toggleForestFireLayer(visible) {
+    forestFireLayerVisible = visible;
+    clearInterval(forestFireRefreshTimerId);
+    if (visible) {
+      refreshForestFireDisplay();
+      forestFireRefreshTimerId = setInterval(refreshForestFireDisplay, FOREST_FIRE_REFRESH_MS);
+    } else {
+      clearForestFireSelection();
+      forestFireMarkers.forEach(m => map.removeLayer(m));
+      forestFireMarkers = [];
+      if (forestFirePerimetersLayer) {
+        map.removeLayer(forestFirePerimetersLayer);
+        forestFirePerimetersLayer = null;
+      }
+    }
+  }
+
   // ---- Severe weather alerts (ECCC, via MSC GeoMet's OGC API Features —
   // same public infrastructure as the radar/satellite WMS layers, a
   // different collection: weather-alerts). The bbox query only narrows
@@ -2117,6 +2320,10 @@
     document.getElementById('windToggle').addEventListener('change', (e) => toggleWindLayer(e.target.checked));
     document.getElementById('tornadoToggle').addEventListener('change', (e) => toggleTornadoTrack(e.target.checked));
 
+    const forestFireToggleEl = document.getElementById('forestFireToggle');
+    forestFireToggleEl.addEventListener('change', (e) => toggleForestFireLayer(e.target.checked));
+    toggleForestFireLayer(forestFireToggleEl.checked); // on by default
+
     const propertyBoundaryToggleEl = document.getElementById('propertyBoundaryToggle');
     propertyBoundaryToggleEl.addEventListener('change', (e) => togglePropertyBoundary(e.target.checked));
     togglePropertyBoundary(isDefaultLocation && propertyBoundaryToggleEl.checked); // on by default at Rock Lake only
@@ -2212,6 +2419,14 @@
       refreshRadarDataAndPlay();
     });
 
+    // Covers dismissing a forest fire's popup by clicking elsewhere on the
+    // map or its own close button — clearForestFireSelection's own explicit
+    // closePopup() call also routes through here, harmlessly re-entering an
+    // already-cleared state.
+    map.on('popupclose', (e) => {
+      if (e.popup === selectedForestFirePopup) clearForestFireSelection();
+    });
+
     initControls();
     connectBlitzortung();
     initGeolocation();
@@ -2225,11 +2440,31 @@
     // immediately, since Leaflet's pixel math is ready right away — no need
     // to wait for an async projection-ready event the way Google Maps
     // required. This also fires the first 'moveend' above.
-    applyZoomPreset(11); // "Local" — tightly focused on the watch location
-    // Marks that preset's button as active to match — otherwise none of
-    // the zoom buttons show as selected until the user clicks one, even
-    // though the map is already sitting at this exact preset on load.
-    document.querySelector('.zoomPresetBtn[data-zoom="11"]').classList.add('active');
+    //
+    // Defaults to "Local" (11), overridable via a ?zoom= URL param — either
+    // a number (any zoom level, not just the preset buttons' own values) or
+    // the literal "ontario" to fit the whole province, same as that button.
+    const DEFAULT_ZOOM = 11;
+    const zoomParam = new URLSearchParams(window.location.search).get('zoom');
+    const isOntarioZoom = zoomParam && zoomParam.toLowerCase() === 'ontario';
+    const numericZoom = !isOntarioZoom && zoomParam !== null ? parseFloat(zoomParam) : NaN;
+
+    if (isOntarioZoom) {
+      applyOntarioBoundsPreset();
+    } else if (Number.isFinite(numericZoom)) {
+      applyZoomPreset(Math.min(Math.max(numericZoom, 0), 19));
+    } else {
+      applyZoomPreset(DEFAULT_ZOOM);
+    }
+
+    // Marks the matching preset button as active to match, if the resulting
+    // zoom happens to be one of them — otherwise (a custom ?zoom= value)
+    // none of the zoom buttons show as selected, which is correct.
+    const activeSelector = isOntarioZoom
+      ? '.zoomPresetBtn[data-bounds="ontario"]'
+      : `.zoomPresetBtn[data-zoom="${Number.isFinite(numericZoom) ? numericZoom : DEFAULT_ZOOM}"]`;
+    const activeBtn = document.querySelector(activeSelector);
+    if (activeBtn) activeBtn.classList.add('active');
   }
 
   if ('serviceWorker' in navigator) {
