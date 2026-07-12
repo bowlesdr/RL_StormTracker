@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-07-12T15:02:31.657228+00:00",
+  "generated_at": "2026-07-12T17:03:59.617873+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 23.9,
-    "condition": "Mainly Sunny",
+    "temperature": 25.7,
+    "condition": "Partly Cloudy",
     "high_temp": 29,
     "low_temp": 15,
-    "humidity": 48,
-    "wind_speed": 7,
-    "wind_dir": "SSE",
+    "humidity": 40,
+    "wind_speed": 12,
+    "wind_dir": "S",
     "text_summary": "Today. Sunny. Local smoke. High 29. UV index 8 or very high."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 23.9
+      "value": 25.7
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 12.2
+      "value": 11.1
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -31,7 +31,7 @@
     "humidex": {
       "label": "Humidex",
       "unit": null,
-      "value": 26
+      "value": 28
     },
     "pressure": {
       "label": "Pressure",
@@ -46,7 +46,7 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 48
+      "value": 40
     },
     "visibility": {
       "label": "Visibility",
@@ -56,12 +56,12 @@
     "condition": {
       "label": "Condition",
       "unit": null,
-      "value": "Mainly Sunny"
+      "value": "Partly Cloudy"
     },
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 7
+      "value": 12
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -71,12 +71,12 @@
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "SSE"
+      "value": "S"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 154
+      "value": 182
     },
     "high_temp": {
       "label": "High Temperature",
@@ -101,7 +101,7 @@
     "icon_code": {
       "label": "Icon Code",
       "unit": null,
-      "value": "01"
+      "value": "02"
     },
     "normal_high": {
       "label": "Normal High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-07-12T14:00:00+00:00"
+      "value": "2026-07-12T17:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -157,7 +157,7 @@
       "temperature": 31,
       "temperature_class": "high",
       "precip_probability": 0,
-      "precip_mm": 0.3
+      "precip_mm": 0
     },
     {
       "period": "Monday night",
@@ -165,7 +165,7 @@
       "temperature": 21,
       "temperature_class": "low",
       "precip_probability": 0,
-      "precip_mm": 0.3
+      "precip_mm": 0
     },
     {
       "period": "Tuesday",
@@ -181,7 +181,7 @@
       "temperature": 22,
       "temperature_class": "low",
       "precip_probability": 30,
-      "precip_mm": 0.3
+      "precip_mm": 0.2
     },
     {
       "period": "Wednesday",
@@ -197,7 +197,7 @@
       "temperature": 16,
       "temperature_class": "low",
       "precip_probability": 0,
-      "precip_mm": null
+      "precip_mm": 0
     },
     {
       "period": "Thursday",
@@ -217,27 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-07-12T15:00:00+00:00",
-      "condition": "Sunny",
-      "temperature": 24,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-07-12T16:00:00+00:00",
-      "condition": "Sunny",
-      "temperature": 25,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-07-12T17:00:00+00:00",
-      "condition": "Sunny",
-      "temperature": 27,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-07-12T18:00:00+00:00",
       "condition": "Sunny",
@@ -313,7 +292,7 @@
       "condition": "Clear",
       "temperature": 19,
       "precip_probability": 0,
-      "precip_mm": 0.0
+      "precip_mm": null
     },
     {
       "period": "2026-07-13T05:00:00+00:00",
@@ -382,6 +361,27 @@
       "period": "2026-07-13T14:00:00+00:00",
       "condition": "A mix of sun and cloud",
       "temperature": 24,
+      "precip_probability": 20,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-13T15:00:00+00:00",
+      "condition": "Mainly cloudy",
+      "temperature": 26,
+      "precip_probability": 20,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-13T16:00:00+00:00",
+      "condition": "Mainly cloudy",
+      "temperature": 27,
+      "precip_probability": 20,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-13T17:00:00+00:00",
+      "condition": "Mainly cloudy",
+      "temperature": 29,
       "precip_probability": 20,
       "precip_mm": 0.0
     }
