@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-07-13T08:20:16.225301+00:00",
+  "generated_at": "2026-07-13T12:10:59.583174+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 14.3,
-    "condition": null,
+    "temperature": 21.3,
+    "condition": "Partly Cloudy",
     "high_temp": 31,
-    "low_temp": 15,
-    "humidity": 100,
-    "wind_speed": 7,
-    "wind_dir": "NNW",
-    "text_summary": "Tonight. Clear. Local smoke. Low 15."
+    "low_temp": 21,
+    "humidity": 78,
+    "wind_speed": 4,
+    "wind_dir": "S",
+    "text_summary": "Today. Sunny. Local smoke early this morning. Wind becoming southwest 20 km/h gusting to 40 late this morning. High 31. Humidex 36. UV index 8 or very high."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 14.3
+      "value": 21.3
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 14.3
+      "value": 17.4
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -31,12 +31,12 @@
     "humidex": {
       "label": "Humidex",
       "unit": null,
-      "value": null
+      "value": 27
     },
     "pressure": {
       "label": "Pressure",
       "unit": "kPa",
-      "value": 102.4
+      "value": 102.1
     },
     "tendency": {
       "label": "Tendency",
@@ -46,22 +46,22 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 100
+      "value": 78
     },
     "visibility": {
       "label": "Visibility",
-      "unit": null,
-      "value": null
+      "unit": "km",
+      "value": 24.1
     },
     "condition": {
       "label": "Condition",
       "unit": null,
-      "value": null
+      "value": "Partly Cloudy"
     },
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 7
+      "value": 4
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -71,12 +71,12 @@
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "NNW"
+      "value": "S"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 331
+      "value": 190
     },
     "high_temp": {
       "label": "High Temperature",
@@ -86,7 +86,7 @@
     "low_temp": {
       "label": "Low Temperature",
       "unit": "C",
-      "value": 15
+      "value": 21
     },
     "uv_index": {
       "label": "UV Index",
@@ -101,7 +101,7 @@
     "icon_code": {
       "label": "Icon Code",
       "unit": null,
-      "value": null
+      "value": "02"
     },
     "normal_high": {
       "label": "Normal High Temperature",
@@ -126,26 +126,18 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-07-13T08:00:00+00:00"
+      "value": "2026-07-13T12:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
       "unit": null,
-      "value": "Tonight. Clear. Local smoke. Low 15."
+      "value": "Today. Sunny. Local smoke early this morning. Wind becoming southwest 20 km/h gusting to 40 late this morning. High 31. Humidex 36. UV index 8 or very high."
     }
   },
   "daily": [
     {
-      "period": "Sunday night",
-      "text_summary": "Clear. Local smoke. Low 15.",
-      "temperature": 15,
-      "temperature_class": "low",
-      "precip_probability": 0,
-      "precip_mm": 0
-    },
-    {
       "period": "Monday",
-      "text_summary": "Mainly sunny. Local smoke early in the morning. Wind becoming southwest 20 km/h gusting to 40 in the morning. High 31. Humidex 36. UV index 8 or very high.",
+      "text_summary": "Sunny. Local smoke early this morning. Wind becoming southwest 20 km/h gusting to 40 late this morning. High 31. Humidex 36. UV index 8 or very high.",
       "temperature": 31,
       "temperature_class": "high",
       "precip_probability": 0,
@@ -153,16 +145,16 @@
     },
     {
       "period": "Monday night",
-      "text_summary": "Clear. Wind west 20 km/h. Low 22.",
-      "temperature": 22,
+      "text_summary": "Partly cloudy with 30 percent chance of showers late this evening and after midnight. Becoming clear overnight. Risk of thunderstorms late this evening and after midnight. Wind southwest 20 km/h. Low 21.",
+      "temperature": 21,
       "temperature_class": "low",
-      "precip_probability": 0,
-      "precip_mm": 0.4
+      "precip_probability": 30,
+      "precip_mm": 0
     },
     {
       "period": "Tuesday",
-      "text_summary": "Sunny. High 33.",
-      "temperature": 33,
+      "text_summary": "Sunny. Wind west 20 km/h gusting to 40. High 36. Humidex 42. UV index 9 or very high.",
+      "temperature": 36,
       "temperature_class": "high",
       "precip_probability": 0,
       "precip_mm": 0
@@ -173,7 +165,7 @@
       "temperature": 22,
       "temperature_class": "low",
       "precip_probability": 30,
-      "precip_mm": 3.6
+      "precip_mm": 0.2
     },
     {
       "period": "Wednesday",
@@ -189,7 +181,7 @@
       "temperature": 16,
       "temperature_class": "low",
       "precip_probability": 0,
-      "precip_mm": 0
+      "precip_mm": 0.1
     },
     {
       "period": "Thursday",
@@ -197,7 +189,7 @@
       "temperature": 27,
       "temperature_class": "high",
       "precip_probability": 30,
-      "precip_mm": 0
+      "precip_mm": 0.2
     },
     {
       "period": "Thursday night",
@@ -214,37 +206,17 @@
       "temperature_class": "high",
       "precip_probability": 0,
       "precip_mm": null
+    },
+    {
+      "period": "Friday night",
+      "text_summary": "Cloudy periods. Low 15.",
+      "temperature": 15,
+      "temperature_class": "low",
+      "precip_probability": 0,
+      "precip_mm": null
     }
   ],
   "hourly": [
-    {
-      "period": "2026-07-13T09:00:00+00:00",
-      "condition": "Clear",
-      "temperature": 15,
-      "precip_probability": 20,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-07-13T10:00:00+00:00",
-      "condition": "Sunny",
-      "temperature": 16,
-      "precip_probability": 20,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-07-13T11:00:00+00:00",
-      "condition": "Sunny",
-      "temperature": 18,
-      "precip_probability": 20,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-07-13T12:00:00+00:00",
-      "condition": "Sunny",
-      "temperature": 19,
-      "precip_probability": 20,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-07-13T13:00:00+00:00",
       "condition": "Sunny",
@@ -261,28 +233,28 @@
     },
     {
       "period": "2026-07-13T15:00:00+00:00",
-      "condition": "Mainly sunny",
+      "condition": "Sunny",
       "temperature": 26,
       "precip_probability": 20,
       "precip_mm": 0.0
     },
     {
       "period": "2026-07-13T16:00:00+00:00",
-      "condition": "Mainly sunny",
+      "condition": "Sunny",
       "temperature": 27,
       "precip_probability": 20,
       "precip_mm": 0.0
     },
     {
       "period": "2026-07-13T17:00:00+00:00",
-      "condition": "Mainly sunny",
+      "condition": "Sunny",
       "temperature": 29,
       "precip_probability": 20,
       "precip_mm": 0.0
     },
     {
       "period": "2026-07-13T18:00:00+00:00",
-      "condition": "Mainly sunny",
+      "condition": "Sunny",
       "temperature": 30,
       "precip_probability": 20,
       "precip_mm": 0.0
@@ -296,21 +268,21 @@
     },
     {
       "period": "2026-07-13T20:00:00+00:00",
-      "condition": "Mainly sunny",
+      "condition": "Sunny",
       "temperature": 31,
       "precip_probability": 20,
       "precip_mm": 0.0
     },
     {
       "period": "2026-07-13T21:00:00+00:00",
-      "condition": "A mix of sun and cloud",
+      "condition": "Sunny",
       "temperature": 31,
       "precip_probability": 20,
       "precip_mm": 0.0
     },
     {
       "period": "2026-07-13T22:00:00+00:00",
-      "condition": "A mix of sun and cloud",
+      "condition": "Mainly sunny",
       "temperature": 29,
       "precip_probability": 20,
       "precip_mm": 0.0
@@ -320,41 +292,41 @@
       "condition": "Mainly sunny",
       "temperature": 27,
       "precip_probability": 20,
-      "precip_mm": 0.2
+      "precip_mm": 0.0
     },
     {
       "period": "2026-07-14T00:00:00+00:00",
       "condition": "Sunny",
       "temperature": 25,
       "precip_probability": 20,
-      "precip_mm": 0.2
+      "precip_mm": 0.0
     },
     {
       "period": "2026-07-14T01:00:00+00:00",
-      "condition": "Clear",
+      "condition": "Chance of showers. Risk of thunderstorms",
       "temperature": 25,
-      "precip_probability": 0,
+      "precip_probability": 30,
       "precip_mm": 0.0
     },
     {
       "period": "2026-07-14T02:00:00+00:00",
-      "condition": "Clear",
+      "condition": "Chance of showers. Risk of thunderstorms",
       "temperature": 24,
-      "precip_probability": 0,
+      "precip_probability": 30,
       "precip_mm": 0.0
     },
     {
       "period": "2026-07-14T03:00:00+00:00",
-      "condition": "Clear",
+      "condition": "Chance of showers. Risk of thunderstorms",
       "temperature": 24,
-      "precip_probability": 0,
+      "precip_probability": 30,
       "precip_mm": 0.0
     },
     {
       "period": "2026-07-14T04:00:00+00:00",
-      "condition": "Clear",
+      "condition": "Chance of showers. Risk of thunderstorms",
       "temperature": 23,
-      "precip_probability": 0,
+      "precip_probability": 30,
       "precip_mm": 0.0
     },
     {
@@ -381,7 +353,35 @@
     {
       "period": "2026-07-14T08:00:00+00:00",
       "condition": "Clear",
-      "temperature": 22,
+      "temperature": 21,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-14T09:00:00+00:00",
+      "condition": "Clear",
+      "temperature": 21,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-14T10:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 23,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-14T11:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 25,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-14T12:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 27,
       "precip_probability": 0,
       "precip_mm": 0.0
     }
