@@ -277,6 +277,9 @@
 <div id="settingsPanel">
   <button id="settingsCloseBtn" type="button" aria-label="Close">&#10005;</button>
   <h2>Rock Lake Weather</h2>
+  <label class="control" title="Active severe weather alerts covering HOME, and their warning-area outlines on the map. On by default every time the page loads, regardless of whether you've dismissed them in a previous session.">
+    <input type="checkbox" id="alertsToggle" checked> Weather Alerts
+  </label>
   <label class="control" title="Satellite imagery (visible light by day, infrared by night) showing actual cloud cover from space — useful for seeing storm systems and broader cloud patterns that radar, which only detects precipitation, doesn't capture.">
     <input type="checkbox" id="satelliteToggle"> Clouds
   </label>
@@ -298,7 +301,7 @@
   </label>
 
   <label class="control" title="Active forest fires across Ontario and Quebec, from the Canadian Wildland Fire Information System (CWFIS) — agency-reported points colored by stage of control, plus satellite-derived burned-area perimeters where available. Updated every few hours.">
-    <input type="checkbox" id="forestFireToggle" checked> Forest Fires
+    <input type="checkbox" id="forestFireToggle"> Forest Fires
   </label>
 
   <div class="sectionLabel">Lightning</div>
@@ -1681,40 +1684,65 @@
     return `<div style="color:#1a1a1a;font:13px -apple-system,Segoe UI,Roboto,Arial,sans-serif;">${lines.join('<br>')}</div>`;
   }
 
-  // Single source of truth for tearing down whatever's currently expanded
-  // (highlight + popup) — called both when a marker is explicitly re-clicked
-  // to collapse it, and via the map's 'popupclose' event when the popup is
-  // dismissed some other way (clicking elsewhere on the map, its own close
-  // button), so the highlight never outlives its popup. The base
-  // forestFirePerimetersLayer (all footprints) is untouched by this — it
-  // stays visible regardless of selection.
-  function clearForestFireSelection() {
+  // Removes just the highlight layer + resets tracking state, without
+  // touching the actual Leaflet popup on the map — used both when switching
+  // straight from one fire's selection to another (where the new popup's
+  // own openOn(map) call replaces the old one automatically, so explicitly
+  // closing it here first would be redundant) and as the tail end of
+  // actually closing a popup (see the wasSelected branch below and the
+  // map's 'popupclose' listener), after the popup itself is already gone.
+  function clearForestFireHighlight() {
     if (selectedForestFireHighlightLayer) {
       map.removeLayer(selectedForestFireHighlightLayer);
       selectedForestFireHighlightLayer = null;
     }
-    if (selectedForestFirePopup) {
-      map.closePopup(selectedForestFirePopup);
-      selectedForestFirePopup = null;
-    }
     selectedForestFireMarker = null;
+    selectedForestFirePopup = null;
+  }
+
+  // Full teardown, including actually closing any open popup — for callers
+  // that are about to remove the markers/data outright (a data refresh, or
+  // the layer being toggled off entirely), as opposed to selectForestFire's
+  // marker-to-marker switch, which lets openPopup's own replacement handle
+  // the popup side.
+  function clearForestFireSelection() {
+    if (selectedForestFirePopup) map.closePopup(); // only if it's actually one of ours open right now
+    clearForestFireHighlight();
   }
 
   function selectForestFire(marker, fire) {
     const wasSelected = selectedForestFireMarker === marker;
-    clearForestFireSelection();
-    if (wasSelected) return; // clicking the already-expanded dot just collapses it
+    clearForestFireHighlight();
+
+    if (wasSelected) {
+      // Actually closing the popup (map.closePopup, rather than just
+      // clearing our own tracking var above) is what makes it disappear —
+      // this fires 'popupclose', which the map listener below also handles,
+      // redundantly but harmlessly since clearForestFireHighlight() already
+      // left nothing for it to clean up.
+      map.closePopup();
+      return;
+    }
 
     const matches = findMatchingPerimeters(fire);
     if (matches.length) {
       // Drawn on top of the always-visible base perimeters layer, brighter
       // and thicker, so the selected fire's own footprint stands out among
-      // every other one already on screen.
+      // every other one already on screen. interactive: false so this
+      // polygon can never swallow a click meant for a dot sitting over or
+      // near it — without this, tapping a different fire whose dot happened
+      // to fall inside the currently-highlighted footprint did nothing,
+      // since the polygon (added after, and thus on top of, the dots) was
+      // catching the click instead.
       selectedForestFireHighlightLayer = L.geoJSON({ type: 'FeatureCollection', features: matches }, {
+        interactive: false,
         style: { color: '#ffffff', weight: 2, fillColor: '#ff4d4d', fillOpacity: 0.55 }
       }).addTo(map);
     }
 
+    // Leaflet's own openPopup replaces whatever popup is currently shown on
+    // the map as part of opening this new one — no need to explicitly close
+    // the previous fire's popup first.
     selectedForestFireMarker = marker;
     selectedForestFirePopup = L.popup()
       .setLatLng([fire.lat, fire.lon])
@@ -2107,6 +2135,8 @@
   }
 
   let alertLayers = [];
+  let lastActiveAlerts = []; // most recent fetch result, cached so toggling visibility doesn't need a re-fetch
+  let alertsVisible = true; // "Weather Alerts" setting — always starts true on page load regardless of any prior session
 
   function updateAlertBanner(active) {
     const el = document.getElementById('alertBanner');
@@ -2125,22 +2155,37 @@
     }).join('');
   }
 
+  // Draws whatever's in lastActiveAlerts (banner + map area outlines) if the
+  // "Weather Alerts" setting is on, or clears both if it's off — the single
+  // place both refreshAlerts (new data) and toggleAlertsVisible (same data,
+  // different visibility) funnel through, so they can't drift out of sync.
+  function renderAlerts() {
+    alertLayers.forEach(layer => map.removeLayer(layer));
+    if (!alertsVisible) {
+      alertLayers = [];
+      updateAlertBanner([]);
+      return;
+    }
+    // L.geoJSON understands Polygon/MultiPolygon (including holes) directly
+    // from the raw GeoJSON geometry, no manual coordinate conversion needed.
+    alertLayers = lastActiveAlerts.map(a => L.geoJSON(a.geoJson, {
+      style: { color: a.color, weight: 2, opacity: 0.7, fillColor: a.color, fillOpacity: 0.12 }
+    }).addTo(map));
+    updateAlertBanner(lastActiveAlerts);
+  }
+
   async function refreshAlerts() {
-    let active;
     try {
-      active = await fetchActiveAlertsAtHome();
+      lastActiveAlerts = await fetchActiveAlertsAtHome();
     } catch (e) {
       return; // leave whatever's currently displayed on a transient fetch failure
     }
+    renderAlerts();
+  }
 
-    alertLayers.forEach(layer => map.removeLayer(layer));
-    // L.geoJSON understands Polygon/MultiPolygon (including holes) directly
-    // from the raw GeoJSON geometry, no manual coordinate conversion needed.
-    alertLayers = active.map(a => L.geoJSON(a.geoJson, {
-      style: { color: a.color, weight: 2, opacity: 0.7, fillColor: a.color, fillOpacity: 0.12 }
-    }).addTo(map));
-
-    updateAlertBanner(active);
+  function toggleAlertsVisible(visible) {
+    alertsVisible = visible;
+    renderAlerts();
   }
 
   // Leaflet only knows how to center a LatLng dead in the middle of the
@@ -2299,6 +2344,8 @@
       document.getElementById('propertyBoundaryOption').style.display = 'none';
     }
 
+    document.getElementById('alertsToggle').addEventListener('change', (e) => toggleAlertsVisible(e.target.checked));
+
     const toggleIds = { satellite: 'satelliteToggle', stormIntensity: 'stormIntensityToggle' };
     for (const [key, elId] of Object.entries(toggleIds)) {
       const el = document.getElementById(elId);
@@ -2322,7 +2369,7 @@
 
     const forestFireToggleEl = document.getElementById('forestFireToggle');
     forestFireToggleEl.addEventListener('change', (e) => toggleForestFireLayer(e.target.checked));
-    toggleForestFireLayer(forestFireToggleEl.checked); // on by default
+    toggleForestFireLayer(forestFireToggleEl.checked); // off by default
 
     const propertyBoundaryToggleEl = document.getElementById('propertyBoundaryToggle');
     propertyBoundaryToggleEl.addEventListener('change', (e) => togglePropertyBoundary(e.target.checked));
@@ -2420,11 +2467,12 @@
     });
 
     // Covers dismissing a forest fire's popup by clicking elsewhere on the
-    // map or its own close button — clearForestFireSelection's own explicit
-    // closePopup() call also routes through here, harmlessly re-entering an
-    // already-cleared state.
+    // map, its own close button, or Leaflet's own popup replacing it when a
+    // different popup (a lightning strike's, say) opens — clears just the
+    // highlight/tracking state, not the popup itself (already gone by the
+    // time this fires either way).
     map.on('popupclose', (e) => {
-      if (e.popup === selectedForestFirePopup) clearForestFireSelection();
+      if (e.popup === selectedForestFirePopup) clearForestFireHighlight();
     });
 
     initControls();
