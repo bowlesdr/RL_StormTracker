@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-07-16T10:13:50.328861+00:00",
+  "generated_at": "2026-07-16T12:23:35.353326+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 16.9,
+    "temperature": 19.4,
     "condition": "Smoke",
     "high_temp": 26,
     "low_temp": 15,
-    "humidity": 96,
-    "wind_speed": 7,
-    "wind_dir": "WNW",
-    "text_summary": "Today. Sunny this morning then a mix of sun and cloud with 30 percent chance of showers this afternoon. Risk of a thunderstorm this afternoon. Local smoke this morning. Wind becoming northwest 20 km/h gusting to 40 near noon. High 26. Humidex 29. UV index 8 or very high."
+    "humidity": 88,
+    "wind_speed": 11,
+    "wind_dir": "W",
+    "text_summary": "Today. Sunny this morning then a mix of sun and cloud with 30 percent chance of showers this afternoon. Risk of a thunderstorm this afternoon. Widespread smoke this morning and early this afternoon. Wind becoming northwest 20 km/h gusting to 40 near noon. High 26. Humidex 29. UV index 8 or very high."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 16.9
+      "value": 19.4
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 16.3
+      "value": 17.4
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -41,17 +41,17 @@
     "tendency": {
       "label": "Tendency",
       "unit": "kPa",
-      "value": "falling"
+      "value": "rising"
     },
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 96
+      "value": 88
     },
     "visibility": {
       "label": "Visibility",
       "unit": "km",
-      "value": 6.4
+      "value": 3.2
     },
     "condition": {
       "label": "Condition",
@@ -61,7 +61,7 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 7
+      "value": 11
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -71,12 +71,12 @@
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "WNW"
+      "value": "W"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 293
+      "value": 264
     },
     "high_temp": {
       "label": "High Temperature",
@@ -126,18 +126,18 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-07-16T10:00:00+00:00"
+      "value": "2026-07-16T12:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
       "unit": null,
-      "value": "Today. Sunny this morning then a mix of sun and cloud with 30 percent chance of showers this afternoon. Risk of a thunderstorm this afternoon. Local smoke this morning. Wind becoming northwest 20 km/h gusting to 40 near noon. High 26. Humidex 29. UV index 8 or very high."
+      "value": "Today. Sunny this morning then a mix of sun and cloud with 30 percent chance of showers this afternoon. Risk of a thunderstorm this afternoon. Widespread smoke this morning and early this afternoon. Wind becoming northwest 20 km/h gusting to 40 near noon. High 26. Humidex 29. UV index 8 or very high."
     }
   },
   "daily": [
     {
       "period": "Thursday",
-      "text_summary": "Sunny this morning then a mix of sun and cloud with 30 percent chance of showers this afternoon. Risk of a thunderstorm this afternoon. Local smoke this morning. Wind becoming northwest 20 km/h gusting to 40 near noon. High 26. Humidex 29. UV index 8 or very high.",
+      "text_summary": "Sunny this morning then a mix of sun and cloud with 30 percent chance of showers this afternoon. Risk of a thunderstorm this afternoon. Widespread smoke this morning and early this afternoon. Wind becoming northwest 20 km/h gusting to 40 near noon. High 26. Humidex 29. UV index 8 or very high.",
       "temperature": 26,
       "temperature_class": "high",
       "precip_probability": 30,
@@ -218,50 +218,36 @@
   ],
   "hourly": [
     {
-      "period": "2026-07-16T11:00:00+00:00",
-      "condition": "Sunny",
-      "temperature": 18,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-07-16T12:00:00+00:00",
-      "condition": "Sunny",
-      "temperature": 18,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
-    {
       "period": "2026-07-16T13:00:00+00:00",
-      "condition": "Sunny",
+      "condition": "Smoke",
       "temperature": 20,
       "precip_probability": 0,
       "precip_mm": 0.0
     },
     {
       "period": "2026-07-16T14:00:00+00:00",
-      "condition": "Sunny",
+      "condition": "Smoke",
       "temperature": 21,
       "precip_probability": 0,
       "precip_mm": 0.0
     },
     {
       "period": "2026-07-16T15:00:00+00:00",
-      "condition": "Sunny",
+      "condition": "Smoke",
       "temperature": 23,
       "precip_probability": 0,
       "precip_mm": 0.0
     },
     {
       "period": "2026-07-16T16:00:00+00:00",
-      "condition": "A mix of sun and cloud",
+      "condition": "Smoke",
       "temperature": 24,
       "precip_probability": 0,
       "precip_mm": 0.0
     },
     {
       "period": "2026-07-16T17:00:00+00:00",
-      "condition": "A mix of sun and cloud",
+      "condition": "Smoke",
       "temperature": 25,
       "precip_probability": 0,
       "precip_mm": 0.0
@@ -334,7 +320,7 @@
       "condition": "Clear",
       "temperature": 19,
       "precip_probability": 0,
-      "precip_mm": 0.0
+      "precip_mm": null
     },
     {
       "period": "2026-07-17T04:00:00+00:00",
@@ -382,6 +368,20 @@
       "period": "2026-07-17T10:00:00+00:00",
       "condition": "Sunny",
       "temperature": 15,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-17T11:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 16,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-17T12:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 16,
       "precip_probability": 0,
       "precip_mm": 0.0
     }
