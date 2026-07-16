@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-07-16T19:19:30.974657+00:00",
+  "generated_at": "2026-07-16T21:06:45.175149+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 29.3,
+    "temperature": 28.3,
     "condition": "Smoke",
     "high_temp": 26,
     "low_temp": 15,
-    "humidity": 38,
-    "wind_speed": 22,
-    "wind_dir": "WNW",
-    "text_summary": "Today. Widespread smoke dispersing late this afternoon then mainly sunny. Wind northwest 20 km/h gusting to 40. High 26. Humidex 29. UV index 8 or very high."
+    "humidity": 40,
+    "wind_speed": 21,
+    "wind_dir": "NW",
+    "text_summary": "Tonight. Widespread smoke dispersing early this evening then clear. Wind northwest 30 km/h gusting to 60 becoming light this evening. Low 15."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 29.3
+      "value": 28.3
     },
     "dewpoint": {
       "label": "Dew Point",
@@ -31,27 +31,27 @@
     "humidex": {
       "label": "Humidex",
       "unit": null,
-      "value": 32
+      "value": 31
     },
     "pressure": {
       "label": "Pressure",
       "unit": "kPa",
-      "value": 101.0
+      "value": 101.1
     },
     "tendency": {
       "label": "Tendency",
       "unit": "kPa",
-      "value": "falling"
+      "value": "rising"
     },
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 38
+      "value": 40
     },
     "visibility": {
       "label": "Visibility",
       "unit": "km",
-      "value": 6.4
+      "value": 8.1
     },
     "condition": {
       "label": "Condition",
@@ -61,22 +61,22 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 22
+      "value": 21
     },
     "wind_gust": {
       "label": "Wind Gust",
       "unit": "km/h",
-      "value": 53
+      "value": 32
     },
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "WNW"
+      "value": "NW"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 285
+      "value": 310
     },
     "high_temp": {
       "label": "High Temperature",
@@ -126,26 +126,18 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-07-16T19:00:00+00:00"
+      "value": "2026-07-16T21:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
       "unit": null,
-      "value": "Today. Widespread smoke dispersing late this afternoon then mainly sunny. Wind northwest 20 km/h gusting to 40. High 26. Humidex 29. UV index 8 or very high."
+      "value": "Tonight. Widespread smoke dispersing early this evening then clear. Wind northwest 30 km/h gusting to 60 becoming light this evening. Low 15."
     }
   },
   "daily": [
     {
-      "period": "Thursday",
-      "text_summary": "Widespread smoke dispersing late this afternoon then mainly sunny. Wind northwest 20 km/h gusting to 40. High 26. Humidex 29. UV index 8 or very high.",
-      "temperature": 26,
-      "temperature_class": "high",
-      "precip_probability": 0,
-      "precip_mm": 0.9
-    },
-    {
       "period": "Thursday night",
-      "text_summary": "Clear. Low 15.",
+      "text_summary": "Widespread smoke dispersing early this evening then clear. Wind northwest 30 km/h gusting to 60 becoming light this evening. Low 15.",
       "temperature": 15,
       "temperature_class": "low",
       "precip_probability": 0,
@@ -161,10 +153,10 @@
     },
     {
       "period": "Friday night",
-      "text_summary": "Cloudy periods with 40 percent chance of showers. Low 17.",
-      "temperature": 17,
+      "text_summary": "Clear. Increasing cloudiness late in the evening then 60 percent chance of showers before morning. Risk of a thunderstorm before morning. Low 16.",
+      "temperature": 16,
       "temperature_class": "low",
-      "precip_probability": 40,
+      "precip_probability": 60,
       "precip_mm": 0.4
     },
     {
@@ -214,23 +206,17 @@
       "temperature_class": "low",
       "precip_probability": 40,
       "precip_mm": null
+    },
+    {
+      "period": "Tuesday",
+      "text_summary": "Cloudy with 60 percent chance of showers. High 22.",
+      "temperature": 22,
+      "temperature_class": "high",
+      "precip_probability": 60,
+      "precip_mm": null
     }
   ],
   "hourly": [
-    {
-      "period": "2026-07-16T20:00:00+00:00",
-      "condition": "Sunny",
-      "temperature": 25,
-      "precip_probability": 20,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-07-16T21:00:00+00:00",
-      "condition": "Sunny",
-      "temperature": 25,
-      "precip_probability": 20,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-07-16T22:00:00+00:00",
       "condition": "Sunny",
@@ -380,6 +366,20 @@
     },
     {
       "period": "2026-07-17T19:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 26,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-17T20:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 26,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-17T21:00:00+00:00",
       "condition": "Sunny",
       "temperature": 26,
       "precip_probability": 0,
