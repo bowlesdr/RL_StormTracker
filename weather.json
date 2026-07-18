@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-07-18T19:17:43.335235+00:00",
+  "generated_at": "2026-07-18T20:56:00.235947+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 22.5,
+    "temperature": 21.2,
     "condition": "Light Rainshower",
-    "high_temp": 23,
+    "high_temp": 22,
     "low_temp": 15,
-    "humidity": 91,
-    "wind_speed": 19,
-    "wind_dir": "SW",
-    "text_summary": "Today. Showers with thunderstorms ending late this afternoon then cloudy with 30 percent chance of showers. Local smoke. Wind west 20 km/h gusting to 40. High 23. Humidex 31. UV index 3 or moderate."
+    "humidity": 93,
+    "wind_speed": 17,
+    "wind_dir": "WSW",
+    "text_summary": "Tonight. Showers with thunderstorms ending early this evening then mainly cloudy with 30 percent chance of showers. Local smoke. Wind northwest 20 km/h gusting to 40. Low 15."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 22.5
+      "value": 21.2
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 20.9
+      "value": 20.1
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -31,7 +31,7 @@
     "humidex": {
       "label": "Humidex",
       "unit": null,
-      "value": 31
+      "value": 29
     },
     "pressure": {
       "label": "Pressure",
@@ -46,12 +46,12 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 91
+      "value": 93
     },
     "visibility": {
       "label": "Visibility",
       "unit": "km",
-      "value": 4.8
+      "value": 12.9
     },
     "condition": {
       "label": "Condition",
@@ -61,27 +61,27 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 19
+      "value": 17
     },
     "wind_gust": {
       "label": "Wind Gust",
-      "unit": "km/h",
-      "value": 31
+      "unit": null,
+      "value": null
     },
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "SW"
+      "value": "WSW"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 224
+      "value": 255
     },
     "high_temp": {
       "label": "High Temperature",
       "unit": "C",
-      "value": 23
+      "value": 22
     },
     "low_temp": {
       "label": "Low Temperature",
@@ -91,12 +91,12 @@
     "uv_index": {
       "label": "UV Index",
       "unit": null,
-      "value": 3
+      "value": 7
     },
     "pop": {
       "label": "Chance of Precip.",
-      "unit": null,
-      "value": null
+      "unit": "%",
+      "value": 30
     },
     "icon_code": {
       "label": "Icon Code",
@@ -126,26 +126,18 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-07-18T19:00:00+00:00"
+      "value": "2026-07-18T20:21:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
       "unit": null,
-      "value": "Today. Showers with thunderstorms ending late this afternoon then cloudy with 30 percent chance of showers. Local smoke. Wind west 20 km/h gusting to 40. High 23. Humidex 31. UV index 3 or moderate."
+      "value": "Tonight. Showers with thunderstorms ending early this evening then mainly cloudy with 30 percent chance of showers. Local smoke. Wind northwest 20 km/h gusting to 40. Low 15."
     }
   },
   "daily": [
     {
-      "period": "Saturday",
-      "text_summary": "Showers with thunderstorms ending late this afternoon then cloudy with 30 percent chance of showers. Local smoke. Wind west 20 km/h gusting to 40. High 23. Humidex 31. UV index 3 or moderate.",
-      "temperature": 23,
-      "temperature_class": "high",
-      "precip_probability": 0,
-      "precip_mm": 36.6
-    },
-    {
       "period": "Saturday night",
-      "text_summary": "Mainly cloudy. 30 percent chance of showers this evening. Local smoke. Wind northwest 20 km/h gusting to 40. Low 15.",
+      "text_summary": "Showers with thunderstorms ending early this evening then mainly cloudy with 30 percent chance of showers. Local smoke. Wind northwest 20 km/h gusting to 40. Low 15.",
       "temperature": 15,
       "temperature_class": "low",
       "precip_probability": 30,
@@ -214,28 +206,29 @@
       "temperature_class": "low",
       "precip_probability": 0,
       "precip_mm": null
+    },
+    {
+      "period": "Thursday",
+      "text_summary": "A mix of sun and cloud. High 24.",
+      "temperature": 24,
+      "temperature_class": "high",
+      "precip_probability": 0,
+      "precip_mm": null
     }
   ],
   "hourly": [
     {
-      "period": "2026-07-18T20:00:00+00:00",
-      "condition": "Chance of showers",
-      "temperature": 22,
-      "precip_probability": 30,
-      "precip_mm": 0.1
-    },
-    {
       "period": "2026-07-18T21:00:00+00:00",
-      "condition": "Chance of showers",
+      "condition": "Showers or thunderstorms",
       "temperature": 23,
-      "precip_probability": 30,
+      "precip_probability": 100,
       "precip_mm": 0.0
     },
     {
       "period": "2026-07-18T22:00:00+00:00",
-      "condition": "Chance of showers",
+      "condition": "Showers or thunderstorms",
       "temperature": 23,
-      "precip_probability": 30,
+      "precip_probability": 100,
       "precip_mm": 1.4
     },
     {
@@ -278,7 +271,7 @@
       "condition": "Partly cloudy",
       "temperature": 18,
       "precip_probability": 0,
-      "precip_mm": null
+      "precip_mm": 0.0
     },
     {
       "period": "2026-07-19T05:00:00+00:00",
@@ -384,6 +377,13 @@
       "temperature": 21,
       "precip_probability": 0,
       "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-19T20:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 22,
+      "precip_probability": 0,
+      "precip_mm": null
     }
   ]
 }
