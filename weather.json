@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-07-19T11:12:21.086336+00:00",
+  "generated_at": "2026-07-19T13:26:26.415356+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 14.3,
+    "temperature": 17.0,
     "condition": "Mainly Sunny",
     "high_temp": 22,
     "low_temp": 14,
-    "humidity": 86,
-    "wind_speed": 11,
-    "wind_dir": "WNW",
-    "text_summary": "Today. Clearing this morning. Local smoke this morning. Wind becoming northwest 20 km/h gusting to 40 this morning. High 22. UV index 7 or high."
+    "humidity": 73,
+    "wind_speed": 15,
+    "wind_dir": "NW",
+    "text_summary": "Today. Clearing this morning. Wind northwest 20 km/h gusting to 40. High 22. UV index 7 or high."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 14.3
+      "value": 17.0
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 12.0
+      "value": 12.1
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -36,7 +36,7 @@
     "pressure": {
       "label": "Pressure",
       "unit": "kPa",
-      "value": 101.2
+      "value": 101.3
     },
     "tendency": {
       "label": "Tendency",
@@ -46,7 +46,7 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 86
+      "value": 73
     },
     "visibility": {
       "label": "Visibility",
@@ -61,7 +61,7 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 11
+      "value": 15
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -71,12 +71,12 @@
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "WNW"
+      "value": "NW"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 299
+      "value": 320
     },
     "high_temp": {
       "label": "High Temperature",
@@ -126,18 +126,18 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-07-19T11:00:00+00:00"
+      "value": "2026-07-19T13:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
       "unit": null,
-      "value": "Today. Clearing this morning. Local smoke this morning. Wind becoming northwest 20 km/h gusting to 40 this morning. High 22. UV index 7 or high."
+      "value": "Today. Clearing this morning. Wind northwest 20 km/h gusting to 40. High 22. UV index 7 or high."
     }
   },
   "daily": [
     {
       "period": "Sunday",
-      "text_summary": "Clearing this morning. Local smoke this morning. Wind becoming northwest 20 km/h gusting to 40 this morning. High 22. UV index 7 or high.",
+      "text_summary": "Clearing this morning. Wind northwest 20 km/h gusting to 40. High 22. UV index 7 or high.",
       "temperature": 22,
       "temperature_class": "high",
       "precip_probability": 0,
@@ -217,20 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-07-19T12:00:00+00:00",
-      "condition": "Sunny",
-      "temperature": 15,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-07-19T13:00:00+00:00",
-      "condition": "Sunny",
-      "temperature": 16,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-07-19T14:00:00+00:00",
       "condition": "Sunny",
@@ -382,6 +368,20 @@
       "period": "2026-07-20T11:00:00+00:00",
       "condition": "Sunny",
       "temperature": 16,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-20T12:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 17,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-20T13:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 19,
       "precip_probability": 0,
       "precip_mm": 0.0
     }
