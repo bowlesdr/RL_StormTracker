@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-07-24T15:00:13.996316+00:00",
+  "generated_at": "2026-07-24T16:55:59.357291+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
     "temperature": 21.2,
-    "condition": "Mostly Cloudy",
+    "condition": "Partly Cloudy",
     "high_temp": 27,
     "low_temp": 13,
-    "humidity": 74,
-    "wind_speed": 19,
+    "humidity": 78,
+    "wind_speed": 18,
     "wind_dir": "S",
     "text_summary": "Today. A mix of sun and cloud. Clearing late this afternoon. High 27. Humidex 32. UV index 8 or very high."
   },
@@ -21,7 +21,7 @@
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 16.4
+      "value": 17.3
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -31,7 +31,7 @@
     "humidex": {
       "label": "Humidex",
       "unit": null,
-      "value": 26
+      "value": 27
     },
     "pressure": {
       "label": "Pressure",
@@ -46,7 +46,7 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 74
+      "value": 78
     },
     "visibility": {
       "label": "Visibility",
@@ -56,12 +56,12 @@
     "condition": {
       "label": "Condition",
       "unit": null,
-      "value": "Mostly Cloudy"
+      "value": "Partly Cloudy"
     },
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 19
+      "value": 18
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -76,7 +76,7 @@
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 184
+      "value": 182
     },
     "high_temp": {
       "label": "High Temperature",
@@ -101,7 +101,7 @@
     "icon_code": {
       "label": "Icon Code",
       "unit": null,
-      "value": "03"
+      "value": "02"
     },
     "normal_high": {
       "label": "Normal High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-07-24T14:00:00+00:00"
+      "value": "2026-07-24T16:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -173,7 +173,7 @@
       "temperature": 28,
       "temperature_class": "high",
       "precip_probability": 40,
-      "precip_mm": 1.0
+      "precip_mm": 0
     },
     {
       "period": "Sunday night",
@@ -181,7 +181,7 @@
       "temperature": 17,
       "temperature_class": "low",
       "precip_probability": 0,
-      "precip_mm": 0.3
+      "precip_mm": 0.1
     },
     {
       "period": "Monday",
@@ -189,7 +189,7 @@
       "temperature": 28,
       "temperature_class": "high",
       "precip_probability": 60,
-      "precip_mm": 0
+      "precip_mm": 0.2
     },
     {
       "period": "Monday night",
@@ -197,7 +197,7 @@
       "temperature": 17,
       "temperature_class": "low",
       "precip_probability": 40,
-      "precip_mm": null
+      "precip_mm": 0
     },
     {
       "period": "Tuesday",
@@ -218,20 +218,6 @@
   ],
   "hourly": [
     {
-      "period": "2026-07-24T15:00:00+00:00",
-      "condition": "A mix of sun and cloud",
-      "temperature": 21,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-07-24T16:00:00+00:00",
-      "condition": "A mix of sun and cloud",
-      "temperature": 22,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
-    {
       "period": "2026-07-24T17:00:00+00:00",
       "condition": "A mix of sun and cloud",
       "temperature": 24,
@@ -243,7 +229,7 @@
       "condition": "A mix of sun and cloud",
       "temperature": 25,
       "precip_probability": 0,
-      "precip_mm": 0.0
+      "precip_mm": null
     },
     {
       "period": "2026-07-24T19:00:00+00:00",
@@ -383,6 +369,20 @@
       "condition": "Sunny",
       "temperature": 23,
       "precip_probability": 10,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-25T15:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 24,
+      "precip_probability": 10,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-25T16:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 25,
+      "precip_probability": 20,
       "precip_mm": 0.0
     }
   ]
