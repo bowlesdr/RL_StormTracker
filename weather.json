@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-07-27T04:40:40.212919+00:00",
+  "generated_at": "2026-07-27T08:35:54.561402+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 21.0,
+    "temperature": 19.6,
     "condition": null,
     "high_temp": 27,
     "low_temp": 18,
-    "humidity": 91,
-    "wind_speed": 10,
-    "wind_dir": "SSW",
+    "humidity": 100,
+    "wind_speed": 7,
+    "wind_dir": "SW",
     "text_summary": "Tonight. Partly cloudy with 40 percent chance of showers and risk of a thunderstorm. Fog patches developing overnight. Low 18."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 21.0
+      "value": 19.6
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 19.5
+      "value": 19.6
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -31,22 +31,22 @@
     "humidex": {
       "label": "Humidex",
       "unit": null,
-      "value": 28
+      "value": null
     },
     "pressure": {
       "label": "Pressure",
       "unit": "kPa",
-      "value": 101.3
+      "value": 101.2
     },
     "tendency": {
       "label": "Tendency",
       "unit": "kPa",
-      "value": "rising"
+      "value": "falling"
     },
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 91
+      "value": 100
     },
     "visibility": {
       "label": "Visibility",
@@ -61,7 +61,7 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 10
+      "value": 7
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -71,12 +71,12 @@
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "SSW"
+      "value": "SW"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 192
+      "value": 225
     },
     "high_temp": {
       "label": "High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-07-27T04:00:00+00:00"
+      "value": "2026-07-27T08:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -217,34 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-07-27T05:00:00+00:00",
-      "condition": "Chance of showers. Risk of thunderstorms",
-      "temperature": 20,
-      "precip_probability": 40,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-07-27T06:00:00+00:00",
-      "condition": "Chance of showers. Risk of thunderstorms",
-      "temperature": 19,
-      "precip_probability": 40,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-07-27T07:00:00+00:00",
-      "condition": "Chance of showers. Risk of thunderstorms",
-      "temperature": 19,
-      "precip_probability": 40,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-07-27T08:00:00+00:00",
-      "condition": "A few clouds",
-      "temperature": 18,
-      "precip_probability": 20,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-07-27T09:00:00+00:00",
       "condition": "Partly cloudy",
@@ -382,6 +354,34 @@
       "period": "2026-07-28T04:00:00+00:00",
       "condition": "Chance of showers. Risk of thunderstorms",
       "temperature": 20,
+      "precip_probability": 60,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-28T05:00:00+00:00",
+      "condition": "Chance of showers. Risk of thunderstorms",
+      "temperature": 19,
+      "precip_probability": 60,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-28T06:00:00+00:00",
+      "condition": "Chance of showers. Risk of thunderstorms",
+      "temperature": 19,
+      "precip_probability": 60,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-28T07:00:00+00:00",
+      "condition": "Chance of showers. Risk of thunderstorms",
+      "temperature": 19,
+      "precip_probability": 60,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-28T08:00:00+00:00",
+      "condition": "Chance of showers. Risk of thunderstorms",
+      "temperature": 19,
       "precip_probability": 60,
       "precip_mm": 0.0
     }
