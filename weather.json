@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-07-28T16:44:51.654424+00:00",
+  "generated_at": "2026-07-28T18:19:46.524823+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 22.2,
+    "temperature": 23.2,
     "condition": "Mostly Cloudy",
     "high_temp": 21,
     "low_temp": 18,
-    "humidity": 91,
-    "wind_speed": 21,
-    "wind_dir": "SSW",
+    "humidity": 84,
+    "wind_speed": 18,
+    "wind_dir": "S",
     "text_summary": "Today. Showers with risk of a thunderstorm. Local amount 20 to 30 mm. High 21. Humidex 29. UV index 3 or moderate."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 22.2
+      "value": 23.2
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 20.6
+      "value": 20.4
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -31,7 +31,7 @@
     "humidex": {
       "label": "Humidex",
       "unit": null,
-      "value": 30
+      "value": 31
     },
     "pressure": {
       "label": "Pressure",
@@ -46,7 +46,7 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 91
+      "value": 84
     },
     "visibility": {
       "label": "Visibility",
@@ -61,7 +61,7 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 21
+      "value": 18
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -71,12 +71,12 @@
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "SSW"
+      "value": "S"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 197
+      "value": 182
     },
     "high_temp": {
       "label": "High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-07-28T16:00:00+00:00"
+      "value": "2026-07-28T18:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -141,7 +141,7 @@
       "temperature": 21,
       "temperature_class": "high",
       "precip_probability": 0,
-      "precip_mm": 28.0
+      "precip_mm": 24.9
     },
     {
       "period": "Tuesday night",
@@ -149,7 +149,7 @@
       "temperature": 18,
       "temperature_class": "low",
       "precip_probability": 0,
-      "precip_mm": 3.2
+      "precip_mm": 3.4
     },
     {
       "period": "Wednesday",
@@ -217,20 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-07-28T17:00:00+00:00",
-      "condition": "Showers. Risk of thunderstorms",
-      "temperature": 20,
-      "precip_probability": 80,
-      "precip_mm": 6.8
-    },
-    {
-      "period": "2026-07-28T18:00:00+00:00",
-      "condition": "Showers. Risk of thunderstorms",
-      "temperature": 20,
-      "precip_probability": 80,
-      "precip_mm": 6.7
-    },
     {
       "period": "2026-07-28T19:00:00+00:00",
       "condition": "Showers. Risk of thunderstorms",
@@ -327,7 +313,7 @@
       "condition": "Showers. Risk of thunderstorms",
       "temperature": 19,
       "precip_probability": 80,
-      "precip_mm": null
+      "precip_mm": 0.1
     },
     {
       "period": "2026-07-29T09:00:00+00:00",
@@ -384,6 +370,20 @@
       "temperature": 18,
       "precip_probability": 80,
       "precip_mm": 0.0
+    },
+    {
+      "period": "2026-07-29T17:00:00+00:00",
+      "condition": "Showers. Risk of thunderstorms",
+      "temperature": 19,
+      "precip_probability": 80,
+      "precip_mm": 0.1
+    },
+    {
+      "period": "2026-07-29T18:00:00+00:00",
+      "condition": "Showers. Risk of thunderstorms",
+      "temperature": 19,
+      "precip_probability": 80,
+      "precip_mm": 0.4
     }
   ]
 }
