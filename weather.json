@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-08-02T11:19:46.796002+00:00",
+  "generated_at": "2026-08-02T13:37:40.476977+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 21.2,
-    "condition": "Mostly Cloudy",
+    "temperature": 22.1,
+    "condition": "Cloudy",
     "high_temp": 23,
     "low_temp": 17,
-    "humidity": 92,
-    "wind_speed": 7,
-    "wind_dir": "NNE",
+    "humidity": 89,
+    "wind_speed": 12,
+    "wind_dir": "NE",
     "text_summary": "Today. Rain at times heavy with risk of a thunderstorm. Local amount 30 to 40 mm. High 23. Humidex 31. UV index 3 or moderate."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 21.2
+      "value": 22.1
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 19.8
+      "value": 20.2
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -31,7 +31,7 @@
     "humidex": {
       "label": "Humidex",
       "unit": null,
-      "value": 29
+      "value": 30
     },
     "pressure": {
       "label": "Pressure",
@@ -41,12 +41,12 @@
     "tendency": {
       "label": "Tendency",
       "unit": "kPa",
-      "value": "rising"
+      "value": "falling"
     },
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 92
+      "value": 89
     },
     "visibility": {
       "label": "Visibility",
@@ -56,12 +56,12 @@
     "condition": {
       "label": "Condition",
       "unit": null,
-      "value": "Mostly Cloudy"
+      "value": "Cloudy"
     },
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 7
+      "value": 12
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -71,12 +71,12 @@
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "NNE"
+      "value": "NE"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 23
+      "value": 44
     },
     "high_temp": {
       "label": "High Temperature",
@@ -101,7 +101,7 @@
     "icon_code": {
       "label": "Icon Code",
       "unit": null,
-      "value": "03"
+      "value": "10"
     },
     "normal_high": {
       "label": "Normal High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-08-02T11:00:00+00:00"
+      "value": "2026-08-02T13:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -149,7 +149,7 @@
       "temperature": 17,
       "temperature_class": "low",
       "precip_probability": 0,
-      "precip_mm": 15.7
+      "precip_mm": 15.4
     },
     {
       "period": "Monday",
@@ -157,7 +157,7 @@
       "temperature": 25,
       "temperature_class": "high",
       "precip_probability": 0,
-      "precip_mm": 11.8
+      "precip_mm": 12.4
     },
     {
       "period": "Monday night",
@@ -217,20 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-08-02T12:00:00+00:00",
-      "condition": "Periods of rain. Risk of thunderstorms",
-      "temperature": 21,
-      "precip_probability": 80,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-08-02T13:00:00+00:00",
-      "condition": "Periods of rain. Risk of thunderstorms",
-      "temperature": 21,
-      "precip_probability": 80,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-08-02T14:00:00+00:00",
       "condition": "Periods of rain. Risk of thunderstorms",
@@ -299,7 +285,7 @@
       "condition": "Periods of rain. Risk of thunderstorms",
       "temperature": 22,
       "precip_probability": 80,
-      "precip_mm": 0.4
+      "precip_mm": null
     },
     {
       "period": "2026-08-03T00:00:00+00:00",
@@ -327,7 +313,7 @@
       "condition": "Periods of rain. Risk of thunderstorms",
       "temperature": 19,
       "precip_probability": 80,
-      "precip_mm": null
+      "precip_mm": 0.2
     },
     {
       "period": "2026-08-03T04:00:00+00:00",
@@ -384,6 +370,20 @@
       "temperature": 18,
       "precip_probability": 80,
       "precip_mm": 1.8
+    },
+    {
+      "period": "2026-08-03T12:00:00+00:00",
+      "condition": "Periods of rain",
+      "temperature": 19,
+      "precip_probability": 80,
+      "precip_mm": 1.6
+    },
+    {
+      "period": "2026-08-03T13:00:00+00:00",
+      "condition": "Periods of rain",
+      "temperature": 20,
+      "precip_probability": 80,
+      "precip_mm": 0.1
     }
   ]
 }
