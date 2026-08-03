@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-08-03T17:55:36.334458+00:00",
+  "generated_at": "2026-08-03T19:44:00.440366+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 23.4,
-    "condition": "Partly Cloudy",
-    "high_temp": 24,
+    "temperature": 25.0,
+    "condition": "Mostly Cloudy",
+    "high_temp": 27,
     "low_temp": 13,
-    "humidity": 65,
-    "wind_speed": 22,
+    "humidity": 54,
+    "wind_speed": 20,
     "wind_dir": "NNW",
-    "text_summary": "Today. Periods of rain ending early this afternoon then a mix of sun and cloud with 40 percent chance of showers. Wind northwest 30 km/h gusting to 50. High 24. Humidex 30. UV index 7 or high."
+    "text_summary": "Tonight. Partly cloudy with 40 percent chance of showers early this evening. Clearing this evening. Fog patches developing overnight. Wind northwest 30 km/h gusting to 50 becoming light this evening. Low 13."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 23.4
+      "value": 25.0
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 16.4
+      "value": 14.9
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -31,12 +31,12 @@
     "humidex": {
       "label": "Humidex",
       "unit": null,
-      "value": 28
+      "value": 29
     },
     "pressure": {
       "label": "Pressure",
       "unit": "kPa",
-      "value": 100.8
+      "value": 100.9
     },
     "tendency": {
       "label": "Tendency",
@@ -46,7 +46,7 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 65
+      "value": 54
     },
     "visibility": {
       "label": "Visibility",
@@ -56,17 +56,17 @@
     "condition": {
       "label": "Condition",
       "unit": null,
-      "value": "Partly Cloudy"
+      "value": "Mostly Cloudy"
     },
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 22
+      "value": 20
     },
     "wind_gust": {
       "label": "Wind Gust",
-      "unit": "km/h",
-      "value": 37
+      "unit": null,
+      "value": null
     },
     "wind_dir": {
       "label": "Wind Direction",
@@ -76,12 +76,12 @@
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 346
+      "value": 337
     },
     "high_temp": {
       "label": "High Temperature",
       "unit": "C",
-      "value": 24
+      "value": 27
     },
     "low_temp": {
       "label": "Low Temperature",
@@ -91,7 +91,7 @@
     "uv_index": {
       "label": "UV Index",
       "unit": null,
-      "value": 7
+      "value": 8
     },
     "pop": {
       "label": "Chance of Precip.",
@@ -101,7 +101,7 @@
     "icon_code": {
       "label": "Icon Code",
       "unit": null,
-      "value": "02"
+      "value": "03"
     },
     "normal_high": {
       "label": "Normal High Temperature",
@@ -126,29 +126,21 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-08-03T17:00:00+00:00"
+      "value": "2026-08-03T19:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
       "unit": null,
-      "value": "Today. Periods of rain ending early this afternoon then a mix of sun and cloud with 40 percent chance of showers. Wind northwest 30 km/h gusting to 50. High 24. Humidex 30. UV index 7 or high."
+      "value": "Tonight. Partly cloudy with 40 percent chance of showers early this evening. Clearing this evening. Fog patches developing overnight. Wind northwest 30 km/h gusting to 50 becoming light this evening. Low 13."
     }
   },
   "daily": [
     {
-      "period": "Monday",
-      "text_summary": "Periods of rain ending early this afternoon then a mix of sun and cloud with 40 percent chance of showers. Wind northwest 30 km/h gusting to 50. High 24. Humidex 30. UV index 7 or high.",
-      "temperature": 24,
-      "temperature_class": "high",
-      "precip_probability": 40,
-      "precip_mm": 7.0
-    },
-    {
       "period": "Monday night",
-      "text_summary": "Clear. Fog patches developing overnight. Wind northwest 20 km/h becoming light this evening. Low 13.",
+      "text_summary": "Partly cloudy with 40 percent chance of showers early this evening. Clearing this evening. Fog patches developing overnight. Wind northwest 30 km/h gusting to 50 becoming light this evening. Low 13.",
       "temperature": 13,
       "temperature_class": "low",
-      "precip_probability": 0,
+      "precip_probability": 40,
       "precip_mm": 0
     },
     {
@@ -161,8 +153,8 @@
     },
     {
       "period": "Tuesday night",
-      "text_summary": "Clear. Low 14.",
-      "temperature": 14,
+      "text_summary": "Clear. Low 15.",
+      "temperature": 15,
       "temperature_class": "low",
       "precip_probability": 0,
       "precip_mm": 0
@@ -214,23 +206,17 @@
       "temperature_class": "low",
       "precip_probability": 0,
       "precip_mm": null
+    },
+    {
+      "period": "Saturday",
+      "text_summary": "A mix of sun and cloud with 40 percent chance of showers. High 27.",
+      "temperature": 27,
+      "temperature_class": "high",
+      "precip_probability": 40,
+      "precip_mm": null
     }
   ],
   "hourly": [
-    {
-      "period": "2026-08-03T18:00:00+00:00",
-      "condition": "Chance of showers",
-      "temperature": 23,
-      "precip_probability": 40,
-      "precip_mm": 0.1
-    },
-    {
-      "period": "2026-08-03T19:00:00+00:00",
-      "condition": "Chance of showers",
-      "temperature": 23,
-      "precip_probability": 40,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-08-03T20:00:00+00:00",
       "condition": "Chance of showers",
@@ -382,6 +368,20 @@
       "period": "2026-08-04T17:00:00+00:00",
       "condition": "Sunny",
       "temperature": 25,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-08-04T18:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 26,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-08-04T19:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 26,
       "precip_probability": 0,
       "precip_mm": 0.0
     }
