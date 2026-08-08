@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-08-08T17:34:56.270305+00:00",
+  "generated_at": "2026-08-08T18:43:25.851818+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 25.3,
+    "temperature": 25.6,
     "condition": "Mostly Cloudy",
     "high_temp": 27,
     "low_temp": 19,
-    "humidity": 87,
+    "humidity": 86,
     "wind_speed": 17,
-    "wind_dir": "SSW",
-    "text_summary": "Today. A mix of sun and cloud with 60 percent chance of showers and risk of a thunderstorm. Wind west 30 km/h gusting to 50. High 27. Humidex 35. UV index 8 or very high."
+    "wind_dir": "S",
+    "text_summary": "Today. Showers with a few thunderstorms ending this afternoon then a mix of sun and cloud with 60 percent chance of showers. Risk of a severe thunderstorm and risk of a thunderstorm this afternoon. Wind southwest 20 km/h. High 27. Humidex 35. UV index 5 or moderate."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 25.3
+      "value": 25.6
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 22.9
+      "value": 23.0
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -31,7 +31,7 @@
     "humidex": {
       "label": "Humidex",
       "unit": null,
-      "value": 35
+      "value": 36
     },
     "pressure": {
       "label": "Pressure",
@@ -46,12 +46,12 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 87
+      "value": 86
     },
     "visibility": {
       "label": "Visibility",
       "unit": "km",
-      "value": 12.9
+      "value": 24.1
     },
     "condition": {
       "label": "Condition",
@@ -65,18 +65,18 @@
     },
     "wind_gust": {
       "label": "Wind Gust",
-      "unit": null,
-      "value": null
+      "unit": "km/h",
+      "value": 27
     },
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "SSW"
+      "value": "S"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 200
+      "value": 191
     },
     "high_temp": {
       "label": "High Temperature",
@@ -91,7 +91,7 @@
     "uv_index": {
       "label": "UV Index",
       "unit": null,
-      "value": 8
+      "value": 5
     },
     "pop": {
       "label": "Chance of Precip.",
@@ -126,18 +126,18 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-08-08T17:00:00+00:00"
+      "value": "2026-08-08T18:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
       "unit": null,
-      "value": "Today. A mix of sun and cloud with 60 percent chance of showers and risk of a thunderstorm. Wind west 30 km/h gusting to 50. High 27. Humidex 35. UV index 8 or very high."
+      "value": "Today. Showers with a few thunderstorms ending this afternoon then a mix of sun and cloud with 60 percent chance of showers. Risk of a severe thunderstorm and risk of a thunderstorm this afternoon. Wind southwest 20 km/h. High 27. Humidex 35. UV index 5 or moderate."
     }
   },
   "daily": [
     {
       "period": "Saturday",
-      "text_summary": "A mix of sun and cloud with 60 percent chance of showers and risk of a thunderstorm. Wind west 30 km/h gusting to 50. High 27. Humidex 35. UV index 8 or very high.",
+      "text_summary": "Showers with a few thunderstorms ending this afternoon then a mix of sun and cloud with 60 percent chance of showers. Risk of a severe thunderstorm and risk of a thunderstorm this afternoon. Wind southwest 20 km/h. High 27. Humidex 35. UV index 5 or moderate.",
       "temperature": 27,
       "temperature_class": "high",
       "precip_probability": 60,
@@ -149,7 +149,7 @@
       "temperature": 19,
       "temperature_class": "low",
       "precip_probability": 30,
-      "precip_mm": 5.5
+      "precip_mm": 9.2
     },
     {
       "period": "Sunday",
@@ -217,13 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-08-08T18:00:00+00:00",
-      "condition": "Chance of showers. Risk of thunderstorms",
-      "temperature": 24,
-      "precip_probability": 60,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-08-08T19:00:00+00:00",
       "condition": "Chance of showers. Risk of thunderstorms",
@@ -382,6 +375,13 @@
       "period": "2026-08-09T17:00:00+00:00",
       "condition": "Sunny",
       "temperature": 25,
+      "precip_probability": 10,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-08-09T18:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 26,
       "precip_probability": 10,
       "precip_mm": 0.0
     }
