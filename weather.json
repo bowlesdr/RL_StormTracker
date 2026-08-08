@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-08-08T22:34:14.199175+00:00",
+  "generated_at": "2026-08-08T23:34:04.453073+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 24.2,
+    "temperature": 23.9,
     "condition": "Mostly Cloudy",
     "high_temp": 28,
     "low_temp": 19,
-    "humidity": 93,
-    "wind_speed": 13,
+    "humidity": 94,
+    "wind_speed": 17,
     "wind_dir": "S",
     "text_summary": "Tonight. Mainly cloudy. 40 percent chance of showers early this evening with risk of a thunderstorm. Low 19."
   },
@@ -16,12 +16,12 @@
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 24.2
+      "value": 23.9
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 23.0
+      "value": 22.9
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -46,7 +46,7 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 93
+      "value": 94
     },
     "visibility": {
       "label": "Visibility",
@@ -61,7 +61,7 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 13
+      "value": 17
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -76,7 +76,7 @@
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 180
+      "value": 188
     },
     "high_temp": {
       "label": "High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-08-08T22:00:00+00:00"
+      "value": "2026-08-08T23:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -217,13 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-08-08T23:00:00+00:00",
-      "condition": "Chance of showers. Risk of thunderstorms",
-      "temperature": 26,
-      "precip_probability": 40,
-      "precip_mm": 0.4
-    },
     {
       "period": "2026-08-09T00:00:00+00:00",
       "condition": "Chance of showers",
@@ -382,6 +375,13 @@
       "period": "2026-08-09T22:00:00+00:00",
       "condition": "Sunny",
       "temperature": 26,
+      "precip_probability": 10,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-08-09T23:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 25,
       "precip_probability": 10,
       "precip_mm": 0.0
     }
