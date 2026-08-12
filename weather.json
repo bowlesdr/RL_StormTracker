@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-08-12T17:00:55.378906+00:00",
+  "generated_at": "2026-08-12T18:03:12.134172+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 24.3,
+    "temperature": 24.6,
     "condition": "Mostly Cloudy",
     "high_temp": 26,
     "low_temp": 15,
-    "humidity": 61,
-    "wind_speed": 16,
-    "wind_dir": "SW",
+    "humidity": 69,
+    "wind_speed": 23,
+    "wind_dir": "SSW",
     "text_summary": "Today. Mainly cloudy. 40 percent chance of showers late this afternoon with risk of a thunderstorm. Wind southwest 20 km/h. High 26. Humidex 29. UV index 7 or high."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 24.3
+      "value": 24.6
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 16.2
+      "value": 18.5
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -31,12 +31,12 @@
     "humidex": {
       "label": "Humidex",
       "unit": null,
-      "value": 29
+      "value": 31
     },
     "pressure": {
       "label": "Pressure",
       "unit": "kPa",
-      "value": 101.1
+      "value": 101.0
     },
     "tendency": {
       "label": "Tendency",
@@ -46,7 +46,7 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 61
+      "value": 69
     },
     "visibility": {
       "label": "Visibility",
@@ -61,7 +61,7 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 16
+      "value": 23
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -71,12 +71,12 @@
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "SW"
+      "value": "SSW"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 220
+      "value": 200
     },
     "high_temp": {
       "label": "High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-08-12T16:00:00+00:00"
+      "value": "2026-08-12T17:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -149,7 +149,7 @@
       "temperature": 15,
       "temperature_class": "low",
       "precip_probability": 60,
-      "precip_mm": 0.7
+      "precip_mm": 0.4
     },
     {
       "period": "Thursday",
@@ -217,13 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-08-12T17:00:00+00:00",
-      "condition": "A mix of sun and cloud",
-      "temperature": 25,
-      "precip_probability": 10,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-08-12T18:00:00+00:00",
       "condition": "Mainly cloudy",
@@ -382,6 +375,13 @@
       "period": "2026-08-13T16:00:00+00:00",
       "condition": "Chance of showers. Risk of thunderstorms",
       "temperature": 22,
+      "precip_probability": 30,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-08-13T17:00:00+00:00",
+      "condition": "Chance of showers. Risk of thunderstorms",
+      "temperature": 24,
       "precip_probability": 30,
       "precip_mm": 0.0
     }
