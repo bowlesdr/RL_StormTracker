@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-08-13T18:16:30.552099+00:00",
+  "generated_at": "2026-08-13T19:58:10.760286+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 23.6,
-    "condition": "Mostly Cloudy",
-    "high_temp": 26,
-    "low_temp": 12,
-    "humidity": 64,
-    "wind_speed": 17,
-    "wind_dir": "S",
-    "text_summary": "Today. A mix of sun and cloud. 40 percent chance of showers this afternoon with risk of a thunderstorm. Wind becoming northwest 20 km/h this afternoon. High 26. Humidex 30. UV index 7 or high."
+    "temperature": 22.6,
+    "condition": "Light Rainshower",
+    "high_temp": 25,
+    "low_temp": 13,
+    "humidity": 80,
+    "wind_speed": 21,
+    "wind_dir": "SSW",
+    "text_summary": "Tonight. Partly cloudy. 40 percent chance of showers early this evening with risk of a thunderstorm. Wind northwest 20 km/h becoming light early this evening. Low 13."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 23.6
+      "value": 22.6
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 16.5
+      "value": 19.0
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -46,22 +46,22 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 64
+      "value": 80
     },
     "visibility": {
       "label": "Visibility",
       "unit": "km",
-      "value": 24.1
+      "value": 19.3
     },
     "condition": {
       "label": "Condition",
       "unit": null,
-      "value": "Mostly Cloudy"
+      "value": "Light Rainshower"
     },
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 17
+      "value": 21
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -71,22 +71,22 @@
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "S"
+      "value": "SSW"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 190
+      "value": 198
     },
     "high_temp": {
       "label": "High Temperature",
       "unit": "C",
-      "value": 26
+      "value": 25
     },
     "low_temp": {
       "label": "Low Temperature",
       "unit": "C",
-      "value": 12
+      "value": 13
     },
     "uv_index": {
       "label": "UV Index",
@@ -101,7 +101,7 @@
     "icon_code": {
       "label": "Icon Code",
       "unit": null,
-      "value": "03"
+      "value": "06"
     },
     "normal_high": {
       "label": "Normal High Temperature",
@@ -126,46 +126,38 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-08-13T17:00:00+00:00"
+      "value": "2026-08-13T19:03:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
       "unit": null,
-      "value": "Today. A mix of sun and cloud. 40 percent chance of showers this afternoon with risk of a thunderstorm. Wind becoming northwest 20 km/h this afternoon. High 26. Humidex 30. UV index 7 or high."
+      "value": "Tonight. Partly cloudy. 40 percent chance of showers early this evening with risk of a thunderstorm. Wind northwest 20 km/h becoming light early this evening. Low 13."
     }
   },
   "daily": [
     {
-      "period": "Thursday",
-      "text_summary": "A mix of sun and cloud. 40 percent chance of showers this afternoon with risk of a thunderstorm. Wind becoming northwest 20 km/h this afternoon. High 26. Humidex 30. UV index 7 or high.",
-      "temperature": 26,
-      "temperature_class": "high",
-      "precip_probability": 40,
-      "precip_mm": 0.3
-    },
-    {
       "period": "Thursday night",
-      "text_summary": "Partly cloudy. 40 percent chance of showers early this evening with risk of a thunderstorm. Low 12.",
-      "temperature": 12,
+      "text_summary": "Partly cloudy. 40 percent chance of showers early this evening with risk of a thunderstorm. Wind northwest 20 km/h becoming light early this evening. Low 13.",
+      "temperature": 13,
       "temperature_class": "low",
       "precip_probability": 40,
       "precip_mm": 0
     },
     {
       "period": "Friday",
-      "text_summary": "A mix of sun and cloud. 40 percent chance of showers in the afternoon with risk of a thunderstorm. High 24. Humidex 26. UV index 7 or high.",
-      "temperature": 24,
+      "text_summary": "A mix of sun and cloud. 40 percent chance of showers in the afternoon with risk of a thunderstorm. High 25. Humidex 27. UV index 7 or high.",
+      "temperature": 25,
       "temperature_class": "high",
       "precip_probability": 40,
       "precip_mm": 0
     },
     {
       "period": "Friday night",
-      "text_summary": "Clear. Low 11.",
+      "text_summary": "Partly cloudy. 40 percent chance of showers early in the evening with risk of a thunderstorm. Low 11.",
       "temperature": 11,
       "temperature_class": "low",
-      "precip_probability": 0,
-      "precip_mm": null
+      "precip_probability": 40,
+      "precip_mm": 0
     },
     {
       "period": "Saturday",
@@ -189,7 +181,7 @@
       "temperature": 24,
       "temperature_class": "high",
       "precip_probability": 40,
-      "precip_mm": 1.3
+      "precip_mm": 3.0
     },
     {
       "period": "Sunday night",
@@ -214,29 +206,23 @@
       "temperature_class": "low",
       "precip_probability": 0,
       "precip_mm": null
+    },
+    {
+      "period": "Tuesday",
+      "text_summary": "Sunny. High 26.",
+      "temperature": 26,
+      "temperature_class": "high",
+      "precip_probability": 0,
+      "precip_mm": null
     }
   ],
   "hourly": [
-    {
-      "period": "2026-08-13T18:00:00+00:00",
-      "condition": "Chance of showers. Risk of thunderstorms",
-      "temperature": 25,
-      "precip_probability": 40,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-08-13T19:00:00+00:00",
-      "condition": "Chance of showers. Risk of thunderstorms",
-      "temperature": 25,
-      "precip_probability": 40,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-08-13T20:00:00+00:00",
       "condition": "Chance of showers. Risk of thunderstorms",
       "temperature": 26,
       "precip_probability": 40,
-      "precip_mm": null
+      "precip_mm": 0.0
     },
     {
       "period": "2026-08-13T21:00:00+00:00",
@@ -268,35 +254,35 @@
     },
     {
       "period": "2026-08-14T01:00:00+00:00",
-      "condition": "A few clouds",
+      "condition": "Partly cloudy",
       "temperature": 22,
       "precip_probability": 20,
-      "precip_mm": 0.0
+      "precip_mm": null
     },
     {
       "period": "2026-08-14T02:00:00+00:00",
-      "condition": "A few clouds",
+      "condition": "Partly cloudy",
       "temperature": 21,
       "precip_probability": 20,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-14T03:00:00+00:00",
-      "condition": "A few clouds",
+      "condition": "Partly cloudy",
       "temperature": 19,
       "precip_probability": 20,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-14T04:00:00+00:00",
-      "condition": "Clear",
+      "condition": "A few clouds",
       "temperature": 17,
       "precip_probability": 0,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-14T05:00:00+00:00",
-      "condition": "Clear",
+      "condition": "A few clouds",
       "temperature": 16,
       "precip_probability": 0,
       "precip_mm": 0.0
@@ -310,71 +296,71 @@
     },
     {
       "period": "2026-08-14T07:00:00+00:00",
+      "condition": "A few clouds",
+      "temperature": 14,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-08-14T08:00:00+00:00",
       "condition": "Partly cloudy",
       "temperature": 13,
       "precip_probability": 0,
       "precip_mm": 0.0
     },
     {
-      "period": "2026-08-14T08:00:00+00:00",
-      "condition": "Mainly cloudy",
-      "temperature": 13,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
-    {
       "period": "2026-08-14T09:00:00+00:00",
-      "condition": "Cloudy",
-      "temperature": 12,
+      "condition": "Partly cloudy",
+      "temperature": 13,
       "precip_probability": 0,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-14T10:00:00+00:00",
-      "condition": "Cloudy",
-      "temperature": 12,
+      "condition": "A mix of sun and cloud",
+      "temperature": 14,
       "precip_probability": 0,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-14T11:00:00+00:00",
-      "condition": "Mainly cloudy",
-      "temperature": 13,
+      "condition": "A mix of sun and cloud",
+      "temperature": 14,
       "precip_probability": 0,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-14T12:00:00+00:00",
       "condition": "A mix of sun and cloud",
-      "temperature": 13,
+      "temperature": 15,
       "precip_probability": 0,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-14T13:00:00+00:00",
-      "condition": "Mainly cloudy",
-      "temperature": 15,
-      "precip_probability": 20,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-08-14T14:00:00+00:00",
-      "condition": "Mainly cloudy",
+      "condition": "A mix of sun and cloud",
       "temperature": 16,
       "precip_probability": 20,
       "precip_mm": 0.0
     },
     {
-      "period": "2026-08-14T15:00:00+00:00",
-      "condition": "Mainly cloudy",
+      "period": "2026-08-14T14:00:00+00:00",
+      "condition": "A mix of sun and cloud",
       "temperature": 18,
+      "precip_probability": 20,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-08-14T15:00:00+00:00",
+      "condition": "A mix of sun and cloud",
+      "temperature": 19,
       "precip_probability": 20,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-14T16:00:00+00:00",
       "condition": "Chance of showers. Risk of thunderstorms",
-      "temperature": 20,
+      "temperature": 21,
       "precip_probability": 40,
       "precip_mm": 0.0
     },
@@ -382,6 +368,20 @@
       "period": "2026-08-14T17:00:00+00:00",
       "condition": "Chance of showers. Risk of thunderstorms",
       "temperature": 22,
+      "precip_probability": 40,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-08-14T18:00:00+00:00",
+      "condition": "Chance of showers. Risk of thunderstorms",
+      "temperature": 24,
+      "precip_probability": 40,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-08-14T19:00:00+00:00",
+      "condition": "Chance of showers. Risk of thunderstorms",
+      "temperature": 24,
       "precip_probability": 40,
       "precip_mm": 0.0
     }
