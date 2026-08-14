@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-08-14T21:29:32.283650+00:00",
+  "generated_at": "2026-08-14T22:28:57.746006+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 21.5,
-    "condition": "Partly Cloudy",
+    "temperature": 22.4,
+    "condition": "Mainly Sunny",
     "high_temp": 25,
     "low_temp": 11,
-    "humidity": 74,
+    "humidity": 62,
     "wind_speed": 8,
     "wind_dir": "ENE",
-    "text_summary": "Tonight. Partly cloudy. 30 percent chance of showers early this evening. Low 11."
+    "text_summary": "Tonight. Partly cloudy. Low 11."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 21.5
+      "value": 22.4
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 16.6
+      "value": 14.8
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -31,7 +31,7 @@
     "humidex": {
       "label": "Humidex",
       "unit": null,
-      "value": 27
+      "value": 26
     },
     "pressure": {
       "label": "Pressure",
@@ -46,7 +46,7 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 74
+      "value": 62
     },
     "visibility": {
       "label": "Visibility",
@@ -56,7 +56,7 @@
     "condition": {
       "label": "Condition",
       "unit": null,
-      "value": "Partly Cloudy"
+      "value": "Mainly Sunny"
     },
     "wind_speed": {
       "label": "Wind Speed",
@@ -76,7 +76,7 @@
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 59
+      "value": 78
     },
     "high_temp": {
       "label": "High Temperature",
@@ -95,13 +95,13 @@
     },
     "pop": {
       "label": "Chance of Precip.",
-      "unit": "%",
-      "value": 30
+      "unit": null,
+      "value": null
     },
     "icon_code": {
       "label": "Icon Code",
       "unit": null,
-      "value": "02"
+      "value": "01"
     },
     "normal_high": {
       "label": "Normal High Temperature",
@@ -126,21 +126,21 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-08-14T21:00:00+00:00"
+      "value": "2026-08-14T22:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
       "unit": null,
-      "value": "Tonight. Partly cloudy. 30 percent chance of showers early this evening. Low 11."
+      "value": "Tonight. Partly cloudy. Low 11."
     }
   },
   "daily": [
     {
       "period": "Friday night",
-      "text_summary": "Partly cloudy. 30 percent chance of showers early this evening. Low 11.",
+      "text_summary": "Partly cloudy. Low 11.",
       "temperature": 11,
       "temperature_class": "low",
-      "precip_probability": 30,
+      "precip_probability": 0,
       "precip_mm": 0
     },
     {
@@ -165,7 +165,7 @@
       "temperature": 26,
       "temperature_class": "high",
       "precip_probability": 40,
-      "precip_mm": 0
+      "precip_mm": 1.5
     },
     {
       "period": "Sunday night",
@@ -173,7 +173,7 @@
       "temperature": 18,
       "temperature_class": "low",
       "precip_probability": 70,
-      "precip_mm": 17.2
+      "precip_mm": 15.5
     },
     {
       "period": "Monday",
@@ -181,7 +181,7 @@
       "temperature": 25,
       "temperature_class": "high",
       "precip_probability": 30,
-      "precip_mm": 0.2
+      "precip_mm": 0.6
     },
     {
       "period": "Monday night",
@@ -218,16 +218,9 @@
   ],
   "hourly": [
     {
-      "period": "2026-08-14T22:00:00+00:00",
-      "condition": "A mix of sun and cloud",
-      "temperature": 23,
-      "precip_probability": 20,
-      "precip_mm": 0.0
-    },
-    {
       "period": "2026-08-14T23:00:00+00:00",
       "condition": "A mix of sun and cloud",
-      "temperature": 22,
+      "temperature": 21,
       "precip_probability": 20,
       "precip_mm": 0.0
     },
@@ -327,7 +320,7 @@
       "condition": "Mainly sunny",
       "temperature": 16,
       "precip_probability": 0,
-      "precip_mm": 0.0
+      "precip_mm": null
     },
     {
       "period": "2026-08-15T14:00:00+00:00",
@@ -383,6 +376,13 @@
       "condition": "Mainly sunny",
       "temperature": 25,
       "precip_probability": 20,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-08-15T22:00:00+00:00",
+      "condition": "Mainly sunny",
+      "temperature": 24,
+      "precip_probability": 0,
       "precip_mm": 0.0
     }
   ]
