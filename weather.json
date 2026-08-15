@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-08-15T21:25:34.838463+00:00",
+  "generated_at": "2026-08-15T22:26:46.492447+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 23.6,
-    "condition": "Partly Cloudy",
+    "temperature": 23.2,
+    "condition": "Mostly Cloudy",
     "high_temp": 26,
     "low_temp": 12,
-    "humidity": 42,
-    "wind_speed": 8,
-    "wind_dir": "NNW",
+    "humidity": 45,
+    "wind_speed": 10,
+    "wind_dir": "NE",
     "text_summary": "Tonight. Clear. Fog patches developing after midnight. Low 12."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 23.6
+      "value": 23.2
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 10.1
+      "value": 10.5
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -46,7 +46,7 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 42
+      "value": 45
     },
     "visibility": {
       "label": "Visibility",
@@ -56,12 +56,12 @@
     "condition": {
       "label": "Condition",
       "unit": null,
-      "value": "Partly Cloudy"
+      "value": "Mostly Cloudy"
     },
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 8
+      "value": 10
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -71,12 +71,12 @@
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "NNW"
+      "value": "NE"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 346
+      "value": 51
     },
     "high_temp": {
       "label": "High Temperature",
@@ -101,7 +101,7 @@
     "icon_code": {
       "label": "Icon Code",
       "unit": null,
-      "value": "02"
+      "value": "03"
     },
     "normal_high": {
       "label": "Normal High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-08-15T21:00:00+00:00"
+      "value": "2026-08-15T22:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -157,7 +157,7 @@
       "temperature": 18,
       "temperature_class": "low",
       "precip_probability": 60,
-      "precip_mm": 6.2
+      "precip_mm": 7.8
     },
     {
       "period": "Monday",
@@ -218,13 +218,6 @@
   ],
   "hourly": [
     {
-      "period": "2026-08-15T22:00:00+00:00",
-      "condition": "Sunny",
-      "temperature": 23,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
-    {
       "period": "2026-08-15T23:00:00+00:00",
       "condition": "Sunny",
       "temperature": 21,
@@ -243,7 +236,7 @@
       "condition": "Clear",
       "temperature": 19,
       "precip_probability": 0,
-      "precip_mm": 0.0
+      "precip_mm": null
     },
     {
       "period": "2026-08-16T02:00:00+00:00",
@@ -383,6 +376,13 @@
       "condition": "Cloudy",
       "temperature": 26,
       "precip_probability": 20,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-08-16T22:00:00+00:00",
+      "condition": "Chance of showers. Risk of thunderstorms",
+      "temperature": 25,
+      "precip_probability": 60,
       "precip_mm": 0.0
     }
   ]
