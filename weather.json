@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-08-15T12:45:07.208297+00:00",
+  "generated_at": "2026-08-15T13:33:53.912851+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 16.9,
+    "temperature": 18.2,
     "condition": "Mostly Cloudy",
     "high_temp": 25,
     "low_temp": 12,
-    "humidity": 71,
-    "wind_speed": 12,
+    "humidity": 61,
+    "wind_speed": 20,
     "wind_dir": "NE",
     "text_summary": "Today. Sunny. Fog patches dissipating early this morning. High 25. Humidex 28. UV index 8 or very high."
   },
@@ -16,12 +16,12 @@
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 16.9
+      "value": 18.2
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 11.5
+      "value": 10.6
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -46,7 +46,7 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 71
+      "value": 61
     },
     "visibility": {
       "label": "Visibility",
@@ -61,12 +61,12 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 12
+      "value": 20
     },
     "wind_gust": {
       "label": "Wind Gust",
-      "unit": null,
-      "value": null
+      "unit": "km/h",
+      "value": 29
     },
     "wind_dir": {
       "label": "Wind Direction",
@@ -76,7 +76,7 @@
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 46
+      "value": 36
     },
     "high_temp": {
       "label": "High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-08-15T12:00:00+00:00"
+      "value": "2026-08-15T13:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -217,13 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-08-15T13:00:00+00:00",
-      "condition": "Sunny",
-      "temperature": 15,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-08-15T14:00:00+00:00",
       "condition": "Sunny",
@@ -383,6 +376,13 @@
       "condition": "Sunny",
       "temperature": 14,
       "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-08-16T13:00:00+00:00",
+      "condition": "Sunny",
+      "temperature": 15,
+      "precip_probability": 20,
       "precip_mm": 0.0
     }
   ]
