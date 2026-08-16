@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-08-16T07:35:06.813229+00:00",
+  "generated_at": "2026-08-16T08:34:31.306746+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 11.5,
+    "temperature": 11.2,
     "condition": null,
     "high_temp": 26,
     "low_temp": 12,
     "humidity": 100,
-    "wind_speed": 5,
-    "wind_dir": "NE",
+    "wind_speed": 7,
+    "wind_dir": "NNE",
     "text_summary": "Tonight. Clear. Fog patches developing after midnight. Low 12."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 11.5
+      "value": 11.2
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 11.5
+      "value": 11.2
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -36,7 +36,7 @@
     "pressure": {
       "label": "Pressure",
       "unit": "kPa",
-      "value": 102.4
+      "value": 102.3
     },
     "tendency": {
       "label": "Tendency",
@@ -61,7 +61,7 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 5
+      "value": 7
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -71,12 +71,12 @@
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "NE"
+      "value": "NNE"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 46
+      "value": 23
     },
     "high_temp": {
       "label": "High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-08-16T07:00:00+00:00"
+      "value": "2026-08-16T08:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -217,13 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-08-16T08:00:00+00:00",
-      "condition": "Clear",
-      "temperature": 13,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-08-16T09:00:00+00:00",
       "condition": "Clear",
@@ -383,7 +376,14 @@
       "condition": "Chance of showers. Risk of thunderstorms",
       "temperature": 19,
       "precip_probability": 60,
-      "precip_mm": 0.5
+      "precip_mm": null
+    },
+    {
+      "period": "2026-08-17T08:00:00+00:00",
+      "condition": "Chance of showers. Risk of thunderstorms",
+      "temperature": 18,
+      "precip_probability": 60,
+      "precip_mm": 1.8
     }
   ]
 }
