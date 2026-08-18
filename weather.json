@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-08-18T01:25:32.233923+00:00",
+  "generated_at": "2026-08-18T02:59:43.862660+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 18.9,
+    "temperature": 18.2,
     "condition": "Shallow Fog",
     "high_temp": 25,
     "low_temp": 14,
     "humidity": 100,
-    "wind_speed": 5,
-    "wind_dir": "W",
+    "wind_speed": 7,
+    "wind_dir": "NNW",
     "text_summary": "Tonight. Clearing early this evening. Fog patches developing after midnight. Low 14."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 18.9
+      "value": 18.2
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 18.9
+      "value": 18.2
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -61,7 +61,7 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 5
+      "value": 7
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -71,12 +71,12 @@
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "W"
+      "value": "NNW"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 277
+      "value": 332
     },
     "high_temp": {
       "label": "High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-08-18T01:00:00+00:00"
+      "value": "2026-08-18T02:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -217,13 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-08-18T02:00:00+00:00",
-      "condition": "Clear",
-      "temperature": 20,
-      "precip_probability": 10,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-08-18T03:00:00+00:00",
       "condition": "Clear",
@@ -382,6 +375,13 @@
       "period": "2026-08-19T01:00:00+00:00",
       "condition": "Clear",
       "temperature": 22,
+      "precip_probability": 10,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-08-19T02:00:00+00:00",
+      "condition": "Clear",
+      "temperature": 20,
       "precip_probability": 10,
       "precip_mm": 0.0
     }
