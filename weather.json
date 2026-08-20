@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-08-20T12:56:49.623648+00:00",
+  "generated_at": "2026-08-20T13:52:13.216461+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 15.5,
+    "temperature": 17.2,
     "condition": "Mostly Cloudy",
     "high_temp": 24,
     "low_temp": 11,
-    "humidity": 84,
-    "wind_speed": 11,
+    "humidity": 77,
+    "wind_speed": 10,
     "wind_dir": "N",
     "text_summary": "Today. A mix of sun and cloud. Fog patches dissipating this morning. High 24. Humidex 27. UV index 7 or high."
   },
@@ -16,12 +16,12 @@
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 15.5
+      "value": 17.2
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 12.8
+      "value": 13.1
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -46,7 +46,7 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 84
+      "value": 77
     },
     "visibility": {
       "label": "Visibility",
@@ -61,7 +61,7 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 11
+      "value": 10
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -76,7 +76,7 @@
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 351
+      "value": 353
     },
     "high_temp": {
       "label": "High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-08-20T12:00:00+00:00"
+      "value": "2026-08-20T13:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -217,13 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-08-20T13:00:00+00:00",
-      "condition": "Mainly sunny",
-      "temperature": 17,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-08-20T14:00:00+00:00",
       "condition": "A mix of sun and cloud",
@@ -382,6 +375,13 @@
       "period": "2026-08-21T12:00:00+00:00",
       "condition": "A mix of sun and cloud",
       "temperature": 16,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-08-21T13:00:00+00:00",
+      "condition": "A mix of sun and cloud",
+      "temperature": 18,
       "precip_probability": 0,
       "precip_mm": 0.0
     }
