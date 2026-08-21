@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-08-21T08:45:45.310318+00:00",
+  "generated_at": "2026-08-21T09:40:53.822189+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 11.9,
+    "temperature": 11.5,
     "condition": null,
     "high_temp": 25,
-    "low_temp": 11,
+    "low_temp": 12,
     "humidity": 100,
-    "wind_speed": 5,
+    "wind_speed": 4,
     "wind_dir": "N",
-    "text_summary": "Tonight. Partly cloudy. Fog patches developing overnight. Low 11."
+    "text_summary": "Today. A mix of sun and cloud. Fog patches dissipating this morning. High 25. Humidex 28. UV index 7 or high."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 11.9
+      "value": 11.5
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 11.9
+      "value": 11.4
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -36,7 +36,7 @@
     "pressure": {
       "label": "Pressure",
       "unit": "kPa",
-      "value": 102.2
+      "value": 102.3
     },
     "tendency": {
       "label": "Tendency",
@@ -61,7 +61,7 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 5
+      "value": 4
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -76,7 +76,7 @@
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 5
+      "value": 7
     },
     "high_temp": {
       "label": "High Temperature",
@@ -86,7 +86,7 @@
     "low_temp": {
       "label": "Low Temperature",
       "unit": "C",
-      "value": 11
+      "value": 12
     },
     "uv_index": {
       "label": "UV Index",
@@ -126,26 +126,18 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-08-21T08:00:00+00:00"
+      "value": "2026-08-21T09:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
       "unit": null,
-      "value": "Tonight. Partly cloudy. Fog patches developing overnight. Low 11."
+      "value": "Today. A mix of sun and cloud. Fog patches dissipating this morning. High 25. Humidex 28. UV index 7 or high."
     }
   },
   "daily": [
     {
-      "period": "Thursday night",
-      "text_summary": "Partly cloudy. Fog patches developing overnight. Low 11.",
-      "temperature": 11,
-      "temperature_class": "low",
-      "precip_probability": 0,
-      "precip_mm": 0
-    },
-    {
       "period": "Friday",
-      "text_summary": "Mainly sunny. Fog patches dissipating in the morning. High 25. Humidex 28. UV index 7 or high.",
+      "text_summary": "A mix of sun and cloud. Fog patches dissipating this morning. High 25. Humidex 28. UV index 7 or high.",
       "temperature": 25,
       "temperature_class": "high",
       "precip_probability": 0,
@@ -161,7 +153,7 @@
     },
     {
       "period": "Saturday",
-      "text_summary": "Sunny. High 27.",
+      "text_summary": "Sunny. Wind becoming south 20 km/h gusting to 40 in the morning. High 27. Humidex 32. UV index 7 or high.",
       "temperature": 27,
       "temperature_class": "high",
       "precip_probability": 0,
@@ -173,7 +165,7 @@
       "temperature": 17,
       "temperature_class": "low",
       "precip_probability": 0,
-      "precip_mm": 10.4
+      "precip_mm": 5.2
     },
     {
       "period": "Sunday",
@@ -181,7 +173,7 @@
       "temperature": 22,
       "temperature_class": "high",
       "precip_probability": 0,
-      "precip_mm": 5.2
+      "precip_mm": 9.2
     },
     {
       "period": "Sunday night",
@@ -189,7 +181,7 @@
       "temperature": 15,
       "temperature_class": "low",
       "precip_probability": 40,
-      "precip_mm": 10.4
+      "precip_mm": 0.5
     },
     {
       "period": "Monday",
@@ -214,16 +206,17 @@
       "temperature_class": "high",
       "precip_probability": 0,
       "precip_mm": null
+    },
+    {
+      "period": "Tuesday night",
+      "text_summary": "Cloudy periods. Low 14.",
+      "temperature": 14,
+      "temperature_class": "low",
+      "precip_probability": 0,
+      "precip_mm": null
     }
   ],
   "hourly": [
-    {
-      "period": "2026-08-21T09:00:00+00:00",
-      "condition": "Partly cloudy",
-      "temperature": 11,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-08-21T10:00:00+00:00",
       "condition": "A mix of sun and cloud",
@@ -240,14 +233,14 @@
     },
     {
       "period": "2026-08-21T12:00:00+00:00",
-      "condition": "Mainly sunny",
+      "condition": "A mix of sun and cloud",
       "temperature": 15,
       "precip_probability": 0,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-21T13:00:00+00:00",
-      "condition": "Mainly sunny",
+      "condition": "A mix of sun and cloud",
       "temperature": 17,
       "precip_probability": 0,
       "precip_mm": 0.0
@@ -261,42 +254,42 @@
     },
     {
       "period": "2026-08-21T15:00:00+00:00",
-      "condition": "Mainly sunny",
+      "condition": "A mix of sun and cloud",
       "temperature": 21,
       "precip_probability": 0,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-21T16:00:00+00:00",
-      "condition": "Mainly sunny",
+      "condition": "A mix of sun and cloud",
       "temperature": 22,
       "precip_probability": 0,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-21T17:00:00+00:00",
-      "condition": "A mix of sun and cloud",
+      "condition": "Mainly cloudy",
       "temperature": 23,
       "precip_probability": 0,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-21T18:00:00+00:00",
-      "condition": "Mainly sunny",
+      "condition": "A mix of sun and cloud",
       "temperature": 24,
       "precip_probability": 0,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-21T19:00:00+00:00",
-      "condition": "Mainly sunny",
+      "condition": "A mix of sun and cloud",
       "temperature": 24,
       "precip_probability": 0,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-21T20:00:00+00:00",
-      "condition": "Sunny",
+      "condition": "Mainly sunny",
       "temperature": 25,
       "precip_probability": 0,
       "precip_mm": 0.0
@@ -382,6 +375,13 @@
       "period": "2026-08-22T08:00:00+00:00",
       "condition": "Clear",
       "temperature": 13,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-08-22T09:00:00+00:00",
+      "condition": "Clear",
+      "temperature": 12,
       "precip_probability": 0,
       "precip_mm": 0.0
     }
