@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-08-22T05:32:06.365376+00:00",
+  "generated_at": "2026-08-22T06:46:36.677709+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 16.5,
+    "temperature": 16.6,
     "condition": null,
     "high_temp": 27,
     "low_temp": 12,
-    "humidity": 85,
-    "wind_speed": 8,
+    "humidity": 82,
+    "wind_speed": 12,
     "wind_dir": "NE",
     "text_summary": "Tonight. Partly cloudy. Becoming clear this evening. Low 12."
   },
@@ -16,12 +16,12 @@
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 16.5
+      "value": 16.6
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 13.9
+      "value": 13.6
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -36,7 +36,7 @@
     "pressure": {
       "label": "Pressure",
       "unit": "kPa",
-      "value": 102.1
+      "value": 102.0
     },
     "tendency": {
       "label": "Tendency",
@@ -46,7 +46,7 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 85
+      "value": 82
     },
     "visibility": {
       "label": "Visibility",
@@ -61,7 +61,7 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 8
+      "value": 12
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -76,7 +76,7 @@
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 42
+      "value": 47
     },
     "high_temp": {
       "label": "High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-08-22T05:00:00+00:00"
+      "value": "2026-08-22T06:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -217,13 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-08-22T06:00:00+00:00",
-      "condition": "Clear",
-      "temperature": 13,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-08-22T07:00:00+00:00",
       "condition": "Clear",
@@ -383,6 +376,13 @@
       "condition": "Cloudy",
       "temperature": 18,
       "precip_probability": 20,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-08-23T06:00:00+00:00",
+      "condition": "Chance of showers",
+      "temperature": 18,
+      "precip_probability": 40,
       "precip_mm": 0.0
     }
   ]
