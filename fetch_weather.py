@@ -88,6 +88,21 @@ def fetch_daily_precip_total_mm(local_date, is_night: bool) -> float | None:
     return round(sum(v or 0 for v in values), 1)
 
 
+def compute_wind_chill(temp_c, wind_kmh):
+    """Environment Canada's own wind chill formula (metric): only defined
+    for temp <= 10C and wind >= 5 km/h -- outside that range EC doesn't
+    apply a chill adjustment at all, so this just returns the plain temp
+    (rounded) rather than fabricating a "feels like" figure that doesn't
+    apply. EC's hourly feed has no humidity/dewpoint, so a humidex-side
+    "feels like" for hot days isn't computable from this data at all."""
+    if temp_c is None:
+        return None
+    if wind_kmh is None or temp_c > 10 or wind_kmh < 5:
+        return round(temp_c)
+    v16 = wind_kmh ** 0.16
+    return round(13.12 + 0.6215 * temp_c - 11.37 * v16 + 0.3965 * temp_c * v16)
+
+
 def value_of(entry):
     v = entry.get("value") if isinstance(entry, dict) else entry
     return v.isoformat() if isinstance(v, datetime) else v
@@ -142,10 +157,15 @@ async def fetch():
     hourly = []
     for h in weather.hourly_forecasts:
         period_iso = h.get("period").isoformat() if h.get("period") else None
+        temperature = h.get("temperature")
+        wind_speed = h.get("wind_speed")
         hourly.append({
             "period": period_iso,
             "condition": h.get("condition"),
-            "temperature": h.get("temperature"),
+            "icon_code": h.get("icon_code"),
+            "temperature": temperature,
+            "feels_like": compute_wind_chill(temperature, wind_speed),
+            "wind_speed": wind_speed,
             "precip_probability": h.get("precip_probability"),
             "precip_mm": fetch_precip_mm(period_iso) if period_iso else None,
         })
