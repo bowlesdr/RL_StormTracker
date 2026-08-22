@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-08-22T11:24:53.813893+00:00",
+  "generated_at": "2026-08-22T12:46:54.696715+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 13.9,
+    "temperature": 17.9,
     "condition": "Partly Cloudy",
     "high_temp": 25,
     "low_temp": 18,
-    "humidity": 97,
-    "wind_speed": 5,
-    "wind_dir": "N",
-    "text_summary": "Today. Mainly sunny. Increasing cloudiness near noon. High 25. Humidex 29. UV index 7 or high."
+    "humidity": 79,
+    "wind_speed": 4,
+    "wind_dir": "ENE",
+    "text_summary": "Today. Increasing cloudiness near noon. High 25. Humidex 29. UV index 7 or high."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 13.9
+      "value": 17.9
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 13.5
+      "value": 14.2
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -41,12 +41,12 @@
     "tendency": {
       "label": "Tendency",
       "unit": "kPa",
-      "value": "falling"
+      "value": "rising"
     },
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 97
+      "value": 79
     },
     "visibility": {
       "label": "Visibility",
@@ -61,7 +61,7 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 5
+      "value": 4
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -71,12 +71,12 @@
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "N"
+      "value": "ENE"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 1
+      "value": 66
     },
     "high_temp": {
       "label": "High Temperature",
@@ -126,18 +126,18 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-08-22T11:00:00+00:00"
+      "value": "2026-08-22T12:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
       "unit": null,
-      "value": "Today. Mainly sunny. Increasing cloudiness near noon. High 25. Humidex 29. UV index 7 or high."
+      "value": "Today. Increasing cloudiness near noon. High 25. Humidex 29. UV index 7 or high."
     }
   },
   "daily": [
     {
       "period": "Saturday",
-      "text_summary": "Mainly sunny. Increasing cloudiness near noon. High 25. Humidex 29. UV index 7 or high.",
+      "text_summary": "Increasing cloudiness near noon. High 25. Humidex 29. UV index 7 or high.",
       "temperature": 25,
       "temperature_class": "high",
       "precip_probability": 0,
@@ -149,7 +149,7 @@
       "temperature": 18,
       "temperature_class": "low",
       "precip_probability": 0,
-      "precip_mm": 0.8
+      "precip_mm": 3.8
     },
     {
       "period": "Sunday",
@@ -157,7 +157,7 @@
       "temperature": 22,
       "temperature_class": "high",
       "precip_probability": 0,
-      "precip_mm": 7.5
+      "precip_mm": 7.1
     },
     {
       "period": "Sunday night",
@@ -218,23 +218,16 @@
   ],
   "hourly": [
     {
-      "period": "2026-08-22T12:00:00+00:00",
-      "condition": "Mainly sunny",
-      "temperature": 13,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
-    {
       "period": "2026-08-22T13:00:00+00:00",
       "condition": "Mainly sunny",
-      "temperature": 16,
+      "temperature": 17,
       "precip_probability": 0,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-22T14:00:00+00:00",
       "condition": "Mainly sunny",
-      "temperature": 18,
+      "temperature": 19,
       "precip_probability": 0,
       "precip_mm": 0.0
     },
@@ -384,6 +377,13 @@
       "temperature": 18,
       "precip_probability": 80,
       "precip_mm": 0.3
+    },
+    {
+      "period": "2026-08-23T12:00:00+00:00",
+      "condition": "Showers. Risk of thunderstorms",
+      "temperature": 18,
+      "precip_probability": 80,
+      "precip_mm": 0.8
     }
   ]
 }
