@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-08-23T06:47:58.043919+00:00",
+  "generated_at": "2026-08-23T07:37:05.558349+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 22.4,
+    "temperature": 22.2,
     "condition": null,
     "high_temp": 22,
     "low_temp": 18,
-    "humidity": 83,
-    "wind_speed": 34,
+    "humidity": 84,
+    "wind_speed": 35,
     "wind_dir": "SSE",
     "text_summary": "Tonight. Mainly cloudy. 40 percent chance of showers late this evening and after midnight. Showers beginning overnight. Risk of a thunderstorm late this evening and overnight. Local amount 5 to 10 mm. Wind south 20 km/h gusting to 40 becoming light early this evening. Wind becoming south 20 gusting to 40 after midnight. Low 18."
   },
@@ -16,12 +16,12 @@
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 22.4
+      "value": 22.2
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 19.3
+      "value": 19.4
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -36,7 +36,7 @@
     "pressure": {
       "label": "Pressure",
       "unit": "kPa",
-      "value": 101.0
+      "value": 100.9
     },
     "tendency": {
       "label": "Tendency",
@@ -46,7 +46,7 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 83
+      "value": 84
     },
     "visibility": {
       "label": "Visibility",
@@ -61,12 +61,12 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 34
+      "value": 35
     },
     "wind_gust": {
       "label": "Wind Gust",
-      "unit": "km/h",
-      "value": 45
+      "unit": null,
+      "value": null
     },
     "wind_dir": {
       "label": "Wind Direction",
@@ -76,7 +76,7 @@
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 157
+      "value": 162
     },
     "high_temp": {
       "label": "High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-08-23T06:00:00+00:00"
+      "value": "2026-08-23T07:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -149,7 +149,7 @@
       "temperature": 22,
       "temperature_class": "high",
       "precip_probability": 0,
-      "precip_mm": 18.1
+      "precip_mm": 14.7
     },
     {
       "period": "Sunday night",
@@ -217,16 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-08-23T07:00:00+00:00",
-      "condition": "Showers. Risk of thunderstorms",
-      "icon_code": "19",
-      "temperature": 20,
-      "feels_like": 20,
-      "wind_speed": 20,
-      "precip_probability": 80,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-08-23T08:00:00+00:00",
       "condition": "Showers. Risk of thunderstorms",
@@ -449,6 +439,16 @@
     },
     {
       "period": "2026-08-24T06:00:00+00:00",
+      "condition": "Chance of showers. Risk of thunderstorms",
+      "icon_code": "39",
+      "temperature": 16,
+      "feels_like": 16,
+      "wind_speed": 5,
+      "precip_probability": 40,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-08-24T07:00:00+00:00",
       "condition": "Chance of showers. Risk of thunderstorms",
       "icon_code": "39",
       "temperature": 16,
