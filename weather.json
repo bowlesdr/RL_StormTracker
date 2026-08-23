@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-08-23T19:26:20.944132+00:00",
+  "generated_at": "2026-08-23T20:28:07.645316+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 22.4,
+    "temperature": 20.9,
     "condition": "Mostly Cloudy",
-    "high_temp": 23,
-    "low_temp": 14,
-    "humidity": 68,
-    "wind_speed": 34,
-    "wind_dir": "SSW",
-    "text_summary": "Today. Cloudy. 40 percent chance of showers early this afternoon. A few showers beginning this afternoon. Risk of a thunderstorm this afternoon. Wind southwest 20 km/h gusting to 40. High 23. Humidex 28. UV index 5 or moderate."
+    "high_temp": 20,
+    "low_temp": 13,
+    "humidity": 76,
+    "wind_speed": 29,
+    "wind_dir": "SW",
+    "text_summary": "Tonight. A few showers ending this evening then mainly cloudy with 40 percent chance of showers. Risk of a thunderstorm early this evening. Wind southwest 30 km/h gusting to 50 becoming light late this evening. Low 13."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 22.4
+      "value": 20.9
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 16.1
+      "value": 16.5
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -31,7 +31,7 @@
     "humidex": {
       "label": "Humidex",
       "unit": null,
-      "value": 27
+      "value": 26
     },
     "pressure": {
       "label": "Pressure",
@@ -46,7 +46,7 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 68
+      "value": 76
     },
     "visibility": {
       "label": "Visibility",
@@ -61,42 +61,42 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 34
+      "value": 29
     },
     "wind_gust": {
       "label": "Wind Gust",
       "unit": "km/h",
-      "value": 43
+      "value": 40
     },
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "SSW"
+      "value": "SW"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 211
+      "value": 221
     },
     "high_temp": {
       "label": "High Temperature",
       "unit": "C",
-      "value": 23
+      "value": 20
     },
     "low_temp": {
       "label": "Low Temperature",
       "unit": "C",
-      "value": 14
+      "value": 13
     },
     "uv_index": {
       "label": "UV Index",
       "unit": null,
-      "value": 5
+      "value": 3
     },
     "pop": {
       "label": "Chance of Precip.",
-      "unit": null,
-      "value": null
+      "unit": "%",
+      "value": 40
     },
     "icon_code": {
       "label": "Icon Code",
@@ -126,45 +126,37 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-08-23T19:00:00+00:00"
+      "value": "2026-08-23T20:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
       "unit": null,
-      "value": "Today. Cloudy. 40 percent chance of showers early this afternoon. A few showers beginning this afternoon. Risk of a thunderstorm this afternoon. Wind southwest 20 km/h gusting to 40. High 23. Humidex 28. UV index 5 or moderate."
+      "value": "Tonight. A few showers ending this evening then mainly cloudy with 40 percent chance of showers. Risk of a thunderstorm early this evening. Wind southwest 30 km/h gusting to 50 becoming light late this evening. Low 13."
     }
   },
   "daily": [
     {
-      "period": "Sunday",
-      "text_summary": "Cloudy. 40 percent chance of showers early this afternoon. A few showers beginning this afternoon. Risk of a thunderstorm this afternoon. Wind southwest 20 km/h gusting to 40. High 23. Humidex 28. UV index 5 or moderate.",
-      "temperature": 23,
-      "temperature_class": "high",
-      "precip_probability": 0,
-      "precip_mm": 9.4
-    },
-    {
       "period": "Sunday night",
-      "text_summary": "A few showers ending this evening then mainly cloudy with 40 percent chance of showers. Risk of a thunderstorm early this evening. Wind southwest 20 km/h becoming light this evening. Low 14.",
-      "temperature": 14,
+      "text_summary": "A few showers ending this evening then mainly cloudy with 40 percent chance of showers. Risk of a thunderstorm early this evening. Wind southwest 30 km/h gusting to 50 becoming light late this evening. Low 13.",
+      "temperature": 13,
       "temperature_class": "low",
       "precip_probability": 40,
       "precip_mm": 0.5
     },
     {
       "period": "Monday",
-      "text_summary": "Cloudy with 60 percent chance of showers. Risk of a thunderstorm in the afternoon. Wind south 20 km/h. High 20. UV index 4 or moderate.",
+      "text_summary": "Showers. Risk of a thunderstorm in the afternoon. Local amount 10 to 15 mm. Wind becoming south 20 km/h gusting to 40 then light late in the morning. High 20. Humidex 25. UV index 3 or moderate.",
       "temperature": 20,
       "temperature_class": "high",
-      "precip_probability": 60,
+      "precip_probability": 0,
       "precip_mm": 5.9
     },
     {
       "period": "Monday night",
-      "text_summary": "Cloudy periods with 40 percent chance of showers. Low 15.",
-      "temperature": 15,
+      "text_summary": "A few showers ending in the evening then mainly cloudy with 30 percent chance of showers. Risk of a thunderstorm early in the evening. Low 14.",
+      "temperature": 14,
       "temperature_class": "low",
-      "precip_probability": 40,
+      "precip_probability": 30,
       "precip_mm": 2.6
     },
     {
@@ -214,25 +206,23 @@
       "temperature_class": "low",
       "precip_probability": 30,
       "precip_mm": null
+    },
+    {
+      "period": "Friday",
+      "text_summary": "A mix of sun and cloud with 30 percent chance of showers. High 24.",
+      "temperature": 24,
+      "temperature_class": "high",
+      "precip_probability": 30,
+      "precip_mm": null
     }
   ],
   "hourly": [
     {
-      "period": "2026-08-23T20:00:00+00:00",
-      "condition": "A few showers. Risk of thunderstorms",
-      "icon_code": "09",
-      "temperature": 22,
-      "feels_like": 22,
-      "wind_speed": 20,
-      "precip_probability": 80,
-      "precip_mm": 0.0
-    },
-    {
       "period": "2026-08-23T21:00:00+00:00",
       "condition": "A few showers. Risk of thunderstorms",
-      "icon_code": "09",
-      "temperature": 22,
-      "feels_like": 22,
+      "icon_code": "19",
+      "temperature": 20,
+      "feels_like": 20,
       "wind_speed": 20,
       "precip_probability": 80,
       "precip_mm": 0.2
@@ -241,8 +231,8 @@
       "period": "2026-08-23T22:00:00+00:00",
       "condition": "A few showers. Risk of thunderstorms",
       "icon_code": "19",
-      "temperature": 21,
-      "feels_like": 21,
+      "temperature": 19,
+      "feels_like": 19,
       "wind_speed": 20,
       "precip_probability": 80,
       "precip_mm": 0.4
@@ -251,8 +241,8 @@
       "period": "2026-08-23T23:00:00+00:00",
       "condition": "A few showers. Risk of thunderstorms",
       "icon_code": "19",
-      "temperature": 21,
-      "feels_like": 21,
+      "temperature": 19,
+      "feels_like": 19,
       "wind_speed": 20,
       "precip_probability": 80,
       "precip_mm": 0.5
@@ -261,9 +251,9 @@
       "period": "2026-08-24T00:00:00+00:00",
       "condition": "A few showers. Risk of thunderstorms",
       "icon_code": "19",
-      "temperature": 20,
-      "feels_like": 20,
-      "wind_speed": 10,
+      "temperature": 18,
+      "feels_like": 18,
+      "wind_speed": 20,
       "precip_probability": 80,
       "precip_mm": 0.0
     },
@@ -271,9 +261,9 @@
       "period": "2026-08-24T01:00:00+00:00",
       "condition": "Chance of showers",
       "icon_code": "12",
-      "temperature": 19,
-      "feels_like": 19,
-      "wind_speed": 10,
+      "temperature": 18,
+      "feels_like": 18,
+      "wind_speed": 20,
       "precip_probability": 40,
       "precip_mm": 0.0
     },
@@ -281,18 +271,18 @@
       "period": "2026-08-24T02:00:00+00:00",
       "condition": "Chance of showers",
       "icon_code": "12",
-      "temperature": 19,
-      "feels_like": 19,
-      "wind_speed": 10,
+      "temperature": 17,
+      "feels_like": 17,
+      "wind_speed": 20,
       "precip_probability": 40,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-24T03:00:00+00:00",
       "condition": "Chance of showers",
-      "icon_code": "36",
-      "temperature": 18,
-      "feels_like": 18,
+      "icon_code": "12",
+      "temperature": 17,
+      "feels_like": 17,
       "wind_speed": 10,
       "precip_probability": 40,
       "precip_mm": 0.0
@@ -301,8 +291,8 @@
       "period": "2026-08-24T04:00:00+00:00",
       "condition": "Chance of showers",
       "icon_code": "12",
-      "temperature": 17,
-      "feels_like": 17,
+      "temperature": 16,
+      "feels_like": 16,
       "wind_speed": 10,
       "precip_probability": 40,
       "precip_mm": 0.0
@@ -310,9 +300,9 @@
     {
       "period": "2026-08-24T05:00:00+00:00",
       "condition": "Chance of showers",
-      "icon_code": "12",
-      "temperature": 17,
-      "feels_like": 17,
+      "icon_code": "36",
+      "temperature": 16,
+      "feels_like": 16,
       "wind_speed": 10,
       "precip_probability": 40,
       "precip_mm": 0.0
@@ -321,8 +311,8 @@
       "period": "2026-08-24T06:00:00+00:00",
       "condition": "Chance of showers",
       "icon_code": "36",
-      "temperature": 16,
-      "feels_like": 16,
+      "temperature": 15,
+      "feels_like": 15,
       "wind_speed": 10,
       "precip_probability": 40,
       "precip_mm": 0.0
@@ -331,8 +321,8 @@
       "period": "2026-08-24T07:00:00+00:00",
       "condition": "Chance of showers",
       "icon_code": "36",
-      "temperature": 15,
-      "feels_like": 15,
+      "temperature": 14,
+      "feels_like": 14,
       "wind_speed": 10,
       "precip_probability": 40,
       "precip_mm": 0.0
@@ -341,8 +331,8 @@
       "period": "2026-08-24T08:00:00+00:00",
       "condition": "Chance of showers",
       "icon_code": "36",
-      "temperature": 15,
-      "feels_like": 15,
+      "temperature": 14,
+      "feels_like": 14,
       "wind_speed": 10,
       "precip_probability": 40,
       "precip_mm": 0.0
@@ -351,110 +341,120 @@
       "period": "2026-08-24T09:00:00+00:00",
       "condition": "Chance of showers",
       "icon_code": "36",
-      "temperature": 14,
-      "feels_like": 14,
+      "temperature": 13,
+      "feels_like": 13,
       "wind_speed": 5,
       "precip_probability": 40,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-24T10:00:00+00:00",
-      "condition": "Chance of showers",
-      "icon_code": "06",
-      "temperature": 15,
-      "feels_like": 15,
+      "condition": "A few showers",
+      "icon_code": "12",
+      "temperature": 14,
+      "feels_like": 14,
       "wind_speed": 5,
-      "precip_probability": 60,
+      "precip_probability": 80,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-24T11:00:00+00:00",
-      "condition": "Chance of showers",
-      "icon_code": "06",
-      "temperature": 15,
-      "feels_like": 15,
+      "condition": "A few showers",
+      "icon_code": "12",
+      "temperature": 14,
+      "feels_like": 14,
       "wind_speed": 5,
-      "precip_probability": 60,
+      "precip_probability": 80,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-24T12:00:00+00:00",
-      "condition": "Chance of showers",
-      "icon_code": "06",
-      "temperature": 16,
-      "feels_like": 16,
+      "condition": "A few showers",
+      "icon_code": "12",
+      "temperature": 15,
+      "feels_like": 15,
       "wind_speed": 20,
-      "precip_probability": 60,
+      "precip_probability": 80,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-24T13:00:00+00:00",
-      "condition": "Chance of showers",
+      "condition": "A few showers",
       "icon_code": "12",
-      "temperature": 17,
-      "feels_like": 17,
+      "temperature": 16,
+      "feels_like": 16,
       "wind_speed": 20,
-      "precip_probability": 60,
+      "precip_probability": 80,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-24T14:00:00+00:00",
-      "condition": "Chance of showers",
+      "condition": "A few showers",
       "icon_code": "12",
       "temperature": 17,
       "feels_like": 17,
       "wind_speed": 20,
-      "precip_probability": 60,
+      "precip_probability": 80,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-24T15:00:00+00:00",
-      "condition": "Chance of showers",
+      "condition": "A few showers",
       "icon_code": "12",
       "temperature": 18,
       "feels_like": 18,
       "wind_speed": 10,
-      "precip_probability": 60,
+      "precip_probability": 80,
       "precip_mm": 0.0
     },
     {
       "period": "2026-08-24T16:00:00+00:00",
-      "condition": "Chance of showers. Risk of thunderstorms",
+      "condition": "A few showers. Risk of thunderstorms",
       "icon_code": "19",
       "temperature": 19,
       "feels_like": 19,
       "wind_speed": 10,
-      "precip_probability": 60,
+      "precip_probability": 80,
       "precip_mm": 0.3
     },
     {
       "period": "2026-08-24T17:00:00+00:00",
-      "condition": "Chance of showers. Risk of thunderstorms",
+      "condition": "A few showers. Risk of thunderstorms",
       "icon_code": "19",
       "temperature": 19,
       "feels_like": 19,
       "wind_speed": 10,
-      "precip_probability": 60,
+      "precip_probability": 80,
       "precip_mm": 3.4
     },
     {
       "period": "2026-08-24T18:00:00+00:00",
-      "condition": "Chance of showers. Risk of thunderstorms",
+      "condition": "A few showers. Risk of thunderstorms",
       "icon_code": "19",
       "temperature": 20,
       "feels_like": 20,
-      "wind_speed": 20,
-      "precip_probability": 60,
+      "wind_speed": 10,
+      "precip_probability": 80,
       "precip_mm": 1.8
     },
     {
       "period": "2026-08-24T19:00:00+00:00",
-      "condition": "Chance of showers. Risk of thunderstorms",
+      "condition": "A few showers. Risk of thunderstorms",
       "icon_code": "19",
       "temperature": 20,
       "feels_like": 20,
-      "wind_speed": 20,
-      "precip_probability": 60,
+      "wind_speed": 10,
+      "precip_probability": 80,
+      "precip_mm": 0.1
+    },
+    {
+      "period": "2026-08-24T20:00:00+00:00",
+      "condition": "A few showers. Risk of thunderstorms",
+      "icon_code": "19",
+      "temperature": 19,
+      "feels_like": 19,
+      "wind_speed": 10,
+      "precip_probability": 80,
       "precip_mm": 0.1
     }
   ]
