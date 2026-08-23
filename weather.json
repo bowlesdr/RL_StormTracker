@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-08-23T21:26:12.819606+00:00",
+  "generated_at": "2026-08-23T22:27:21.290228+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 21.0,
+    "temperature": 19.8,
     "condition": "Mostly Cloudy",
     "high_temp": 20,
     "low_temp": 13,
-    "humidity": 69,
-    "wind_speed": 37,
-    "wind_dir": "SSW",
+    "humidity": 76,
+    "wind_speed": 35,
+    "wind_dir": "SW",
     "text_summary": "Tonight. A few showers ending this evening then mainly cloudy with 40 percent chance of showers. Risk of a thunderstorm early this evening. Wind southwest 30 km/h gusting to 50 becoming light late this evening. Low 13."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 21.0
+      "value": 19.8
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 15.1
+      "value": 15.4
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -31,12 +31,12 @@
     "humidex": {
       "label": "Humidex",
       "unit": null,
-      "value": 25
+      "value": null
     },
     "pressure": {
       "label": "Pressure",
       "unit": "kPa",
-      "value": 100.6
+      "value": 100.7
     },
     "tendency": {
       "label": "Tendency",
@@ -46,7 +46,7 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 69
+      "value": 76
     },
     "visibility": {
       "label": "Visibility",
@@ -61,22 +61,22 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 37
+      "value": 35
     },
     "wind_gust": {
       "label": "Wind Gust",
       "unit": "km/h",
-      "value": 52
+      "value": 49
     },
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "SSW"
+      "value": "SW"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 211
+      "value": 223
     },
     "high_temp": {
       "label": "High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-08-23T21:00:00+00:00"
+      "value": "2026-08-23T22:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -217,16 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-08-23T22:00:00+00:00",
-      "condition": "A few showers. Risk of thunderstorms",
-      "icon_code": "19",
-      "temperature": 19,
-      "feels_like": 19,
-      "wind_speed": 20,
-      "precip_probability": 80,
-      "precip_mm": 0.9
-    },
     {
       "period": "2026-08-23T23:00:00+00:00",
       "condition": "A few showers. Risk of thunderstorms",
@@ -456,6 +446,16 @@
       "wind_speed": 10,
       "precip_probability": 80,
       "precip_mm": 0.6
+    },
+    {
+      "period": "2026-08-24T22:00:00+00:00",
+      "condition": "A few showers. Risk of thunderstorms",
+      "icon_code": "19",
+      "temperature": 18,
+      "feels_like": 18,
+      "wind_speed": 10,
+      "precip_probability": 80,
+      "precip_mm": 0.1
     }
   ]
 }
