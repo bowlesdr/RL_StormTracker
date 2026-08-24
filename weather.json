@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-08-24T03:07:48.184984+00:00",
+  "generated_at": "2026-08-24T04:51:24.536616+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 17.0,
-    "condition": "Light Rainshower",
+    "temperature": 16.3,
+    "condition": null,
     "high_temp": 20,
     "low_temp": 13,
-    "humidity": 94,
+    "humidity": 100,
     "wind_speed": 12,
     "wind_dir": "SW",
     "text_summary": "Tonight. A few showers ending this evening then mainly cloudy with 40 percent chance of showers. Risk of a thunderstorm early this evening. Wind southwest 30 km/h gusting to 50 becoming light late this evening. Low 13."
@@ -16,12 +16,12 @@
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 17.0
+      "value": 16.3
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 16.1
+      "value": 16.3
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -36,27 +36,27 @@
     "pressure": {
       "label": "Pressure",
       "unit": "kPa",
-      "value": 100.9
+      "value": 101.1
     },
     "tendency": {
       "label": "Tendency",
       "unit": "kPa",
-      "value": "rising"
+      "value": "falling"
     },
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 94
+      "value": 100
     },
     "visibility": {
       "label": "Visibility",
-      "unit": "km",
-      "value": 19.3
+      "unit": null,
+      "value": null
     },
     "condition": {
       "label": "Condition",
       "unit": null,
-      "value": "Light Rainshower"
+      "value": null
     },
     "wind_speed": {
       "label": "Wind Speed",
@@ -76,7 +76,7 @@
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 221
+      "value": 219
     },
     "high_temp": {
       "label": "High Temperature",
@@ -101,7 +101,7 @@
     "icon_code": {
       "label": "Icon Code",
       "unit": null,
-      "value": "36"
+      "value": null
     },
     "normal_high": {
       "label": "Normal High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-08-24T03:00:00+00:00"
+      "value": "2026-08-24T04:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -141,7 +141,7 @@
       "temperature": 13,
       "temperature_class": "low",
       "precip_probability": 40,
-      "precip_mm": 0.2
+      "precip_mm": 0.1
     },
     {
       "period": "Monday",
@@ -149,7 +149,7 @@
       "temperature": 20,
       "temperature_class": "high",
       "precip_probability": 0,
-      "precip_mm": 4.8
+      "precip_mm": 4.6
     },
     {
       "period": "Monday night",
@@ -157,7 +157,7 @@
       "temperature": 14,
       "temperature_class": "low",
       "precip_probability": 30,
-      "precip_mm": 3.3
+      "precip_mm": 3.4
     },
     {
       "period": "Tuesday",
@@ -165,7 +165,7 @@
       "temperature": 23,
       "temperature_class": "high",
       "precip_probability": 30,
-      "precip_mm": 0.7
+      "precip_mm": 0.2
     },
     {
       "period": "Tuesday night",
@@ -197,7 +197,7 @@
       "temperature": 26,
       "temperature_class": "high",
       "precip_probability": 40,
-      "precip_mm": null
+      "precip_mm": 0
     },
     {
       "period": "Thursday night",
@@ -217,16 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-08-24T04:00:00+00:00",
-      "condition": "Chance of showers",
-      "icon_code": "12",
-      "temperature": 16,
-      "feels_like": 16,
-      "wind_speed": 10,
-      "precip_probability": 40,
-      "precip_mm": 0.1
-    },
     {
       "period": "2026-08-24T05:00:00+00:00",
       "condition": "Chance of showers",
@@ -335,7 +325,7 @@
       "feels_like": 18,
       "wind_speed": 10,
       "precip_probability": 80,
-      "precip_mm": 0.1
+      "precip_mm": 0.0
     },
     {
       "period": "2026-08-24T16:00:00+00:00",
@@ -345,7 +335,7 @@
       "feels_like": 19,
       "wind_speed": 10,
       "precip_probability": 80,
-      "precip_mm": 2.1
+      "precip_mm": 0.0
     },
     {
       "period": "2026-08-24T17:00:00+00:00",
@@ -355,7 +345,7 @@
       "feels_like": 19,
       "wind_speed": 10,
       "precip_probability": 80,
-      "precip_mm": 0.3
+      "precip_mm": 0.7
     },
     {
       "period": "2026-08-24T18:00:00+00:00",
@@ -365,7 +355,7 @@
       "feels_like": 20,
       "wind_speed": 10,
       "precip_probability": 80,
-      "precip_mm": 0.3
+      "precip_mm": 0.5
     },
     {
       "period": "2026-08-24T19:00:00+00:00",
@@ -375,7 +365,7 @@
       "feels_like": 20,
       "wind_speed": 10,
       "precip_probability": 80,
-      "precip_mm": 1.4
+      "precip_mm": null
     },
     {
       "period": "2026-08-24T20:00:00+00:00",
@@ -385,7 +375,7 @@
       "feels_like": 19,
       "wind_speed": 10,
       "precip_probability": 80,
-      "precip_mm": 0.2
+      "precip_mm": 0.3
     },
     {
       "period": "2026-08-24T21:00:00+00:00",
@@ -395,7 +385,7 @@
       "feels_like": 19,
       "wind_speed": 10,
       "precip_probability": 80,
-      "precip_mm": 0.6
+      "precip_mm": 2.7
     },
     {
       "period": "2026-08-24T22:00:00+00:00",
@@ -405,7 +395,7 @@
       "feels_like": 18,
       "wind_speed": 10,
       "precip_probability": 80,
-      "precip_mm": 0.1
+      "precip_mm": 0.0
     },
     {
       "period": "2026-08-24T23:00:00+00:00",
@@ -415,7 +405,7 @@
       "feels_like": 17,
       "wind_speed": 10,
       "precip_probability": 80,
-      "precip_mm": 0.6
+      "precip_mm": 0.3
     },
     {
       "period": "2026-08-25T00:00:00+00:00",
@@ -425,7 +415,7 @@
       "feels_like": 16,
       "wind_speed": 5,
       "precip_probability": 80,
-      "precip_mm": 0.7
+      "precip_mm": 1.9
     },
     {
       "period": "2026-08-25T01:00:00+00:00",
@@ -435,7 +425,7 @@
       "feels_like": 16,
       "wind_speed": 5,
       "precip_probability": 30,
-      "precip_mm": 0.5
+      "precip_mm": 0.4
     },
     {
       "period": "2026-08-25T02:00:00+00:00",
@@ -445,7 +435,7 @@
       "feels_like": 17,
       "wind_speed": 5,
       "precip_probability": 30,
-      "precip_mm": 1.1
+      "precip_mm": 0.8
     },
     {
       "period": "2026-08-25T03:00:00+00:00",
@@ -455,7 +445,17 @@
       "feels_like": 17,
       "wind_speed": 5,
       "precip_probability": 30,
-      "precip_mm": 0.1
+      "precip_mm": 0.3
+    },
+    {
+      "period": "2026-08-25T04:00:00+00:00",
+      "condition": "Chance of showers",
+      "icon_code": "36",
+      "temperature": 16,
+      "feels_like": 16,
+      "wind_speed": 5,
+      "precip_probability": 30,
+      "precip_mm": 0.0
     }
   ]
 }
