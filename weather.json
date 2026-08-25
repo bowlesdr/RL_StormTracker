@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-08-25T09:40:20.873558+00:00",
+  "generated_at": "2026-08-25T10:37:15.959111+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 15.5,
-    "condition": null,
+    "temperature": 15.7,
+    "condition": "Cloudy",
     "high_temp": 22,
     "low_temp": 12,
     "humidity": 100,
@@ -16,12 +16,12 @@
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 15.5
+      "value": 15.7
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 15.5
+      "value": 15.7
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -36,7 +36,7 @@
     "pressure": {
       "label": "Pressure",
       "unit": "kPa",
-      "value": 101.6
+      "value": 101.4
     },
     "tendency": {
       "label": "Tendency",
@@ -50,13 +50,13 @@
     },
     "visibility": {
       "label": "Visibility",
-      "unit": null,
-      "value": null
+      "unit": "km",
+      "value": 19.3
     },
     "condition": {
       "label": "Condition",
       "unit": null,
-      "value": null
+      "value": "Cloudy"
     },
     "wind_speed": {
       "label": "Wind Speed",
@@ -76,7 +76,7 @@
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 286
+      "value": 302
     },
     "high_temp": {
       "label": "High Temperature",
@@ -101,7 +101,7 @@
     "icon_code": {
       "label": "Icon Code",
       "unit": null,
-      "value": null
+      "value": "10"
     },
     "normal_high": {
       "label": "Normal High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-08-25T09:00:00+00:00"
+      "value": "2026-08-25T10:30:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -217,16 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-08-25T10:00:00+00:00",
-      "condition": "Chance of showers",
-      "icon_code": "12",
-      "temperature": 15,
-      "feels_like": 15,
-      "wind_speed": 5,
-      "precip_probability": 30,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-08-25T11:00:00+00:00",
       "condition": "Chance of showers",
@@ -453,6 +443,16 @@
       "icon_code": "31",
       "temperature": 12,
       "feels_like": 12,
+      "wind_speed": 5,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-08-26T10:00:00+00:00",
+      "condition": "A mix of sun and cloud",
+      "icon_code": "02",
+      "temperature": 13,
+      "feels_like": 13,
       "wind_speed": 5,
       "precip_probability": 0,
       "precip_mm": 0.0
