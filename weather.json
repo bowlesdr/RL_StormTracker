@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-08-31T21:49:37.165989+00:00",
+  "generated_at": "2026-09-01T01:07:33.636701+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 21.8,
+    "temperature": 20.8,
     "condition": "Mostly Cloudy",
     "high_temp": 23,
     "low_temp": 18,
-    "humidity": 81,
-    "wind_speed": 18,
+    "humidity": 88,
+    "wind_speed": 12,
     "wind_dir": "SSE",
-    "text_summary": "Tonight. Cloudy. 40 percent chance of showers early this evening. Showers beginning this evening. Risk of a thunderstorm overnight. Local amount 10 to 15 mm. Low 18."
+    "text_summary": "Tonight. Showers. Risk of a thunderstorm overnight. Local amount 10 to 15 mm. Low 18."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 21.8
+      "value": 20.8
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 18.4
+      "value": 18.8
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -31,12 +31,12 @@
     "humidex": {
       "label": "Humidex",
       "unit": null,
-      "value": 28
+      "value": 27
     },
     "pressure": {
       "label": "Pressure",
       "unit": "kPa",
-      "value": 101.8
+      "value": 101.7
     },
     "tendency": {
       "label": "Tendency",
@@ -46,7 +46,7 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 81
+      "value": 88
     },
     "visibility": {
       "label": "Visibility",
@@ -61,7 +61,7 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 18
+      "value": 12
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -76,7 +76,7 @@
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 161
+      "value": 152
     },
     "high_temp": {
       "label": "High Temperature",
@@ -101,7 +101,7 @@
     "icon_code": {
       "label": "Icon Code",
       "unit": null,
-      "value": "03"
+      "value": "33"
     },
     "normal_high": {
       "label": "Normal High Temperature",
@@ -116,28 +116,28 @@
     "sunrise": {
       "label": "Sunrise",
       "unit": null,
-      "value": "2026-08-31T10:26:00+00:00"
+      "value": "2026-09-01T10:28:00+00:00"
     },
     "sunset": {
       "label": "Sunset",
       "unit": null,
-      "value": "2026-08-31T23:45:00+00:00"
+      "value": "2026-09-01T23:43:00+00:00"
     },
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-08-31T21:00:00+00:00"
+      "value": "2026-09-01T01:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
       "unit": null,
-      "value": "Tonight. Cloudy. 40 percent chance of showers early this evening. Showers beginning this evening. Risk of a thunderstorm overnight. Local amount 10 to 15 mm. Low 18."
+      "value": "Tonight. Showers. Risk of a thunderstorm overnight. Local amount 10 to 15 mm. Low 18."
     }
   },
   "daily": [
     {
       "period": "Monday night",
-      "text_summary": "Cloudy. 40 percent chance of showers early this evening. Showers beginning this evening. Risk of a thunderstorm overnight. Local amount 10 to 15 mm. Low 18.",
+      "text_summary": "Showers. Risk of a thunderstorm overnight. Local amount 10 to 15 mm. Low 18.",
       "temperature": 18,
       "temperature_class": "low",
       "precip_probability": 0,
@@ -217,46 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-08-31T22:00:00+00:00",
-      "condition": "Chance of showers",
-      "icon_code": "12",
-      "temperature": 22,
-      "feels_like": 22,
-      "wind_speed": 10,
-      "precip_probability": 40,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-08-31T23:00:00+00:00",
-      "condition": "Chance of showers",
-      "icon_code": "12",
-      "temperature": 21,
-      "feels_like": 21,
-      "wind_speed": 10,
-      "precip_probability": 40,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-09-01T00:00:00+00:00",
-      "condition": "Showers",
-      "icon_code": "12",
-      "temperature": 21,
-      "feels_like": 21,
-      "wind_speed": 5,
-      "precip_probability": 80,
-      "precip_mm": 0.1
-    },
-    {
-      "period": "2026-09-01T01:00:00+00:00",
-      "condition": "Showers",
-      "icon_code": "12",
-      "temperature": 20,
-      "feels_like": 20,
-      "wind_speed": 5,
-      "precip_probability": 80,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-09-01T02:00:00+00:00",
       "condition": "Showers",
@@ -345,7 +305,7 @@
       "feels_like": 18,
       "wind_speed": 5,
       "precip_probability": 40,
-      "precip_mm": 2.8
+      "precip_mm": null
     },
     {
       "period": "2026-09-01T11:00:00+00:00",
@@ -395,7 +355,7 @@
       "feels_like": 22,
       "wind_speed": 10,
       "precip_probability": 40,
-      "precip_mm": null
+      "precip_mm": 0.1
     },
     {
       "period": "2026-09-01T16:00:00+00:00",
@@ -456,6 +416,46 @@
       "wind_speed": 5,
       "precip_probability": 40,
       "precip_mm": 0.2
+    },
+    {
+      "period": "2026-09-01T22:00:00+00:00",
+      "condition": "Overcast",
+      "icon_code": "10",
+      "temperature": 23,
+      "feels_like": 23,
+      "wind_speed": 5,
+      "precip_probability": 10,
+      "precip_mm": 0.1
+    },
+    {
+      "period": "2026-09-01T23:00:00+00:00",
+      "condition": "Cloudy",
+      "icon_code": "10",
+      "temperature": 23,
+      "feels_like": 23,
+      "wind_speed": 5,
+      "precip_probability": 10,
+      "precip_mm": 0.1
+    },
+    {
+      "period": "2026-09-02T00:00:00+00:00",
+      "condition": "Cloudy",
+      "icon_code": "10",
+      "temperature": 23,
+      "feels_like": 23,
+      "wind_speed": 5,
+      "precip_probability": 10,
+      "precip_mm": 0.1
+    },
+    {
+      "period": "2026-09-02T01:00:00+00:00",
+      "condition": "Cloudy",
+      "icon_code": "10",
+      "temperature": 22,
+      "feels_like": 22,
+      "wind_speed": 5,
+      "precip_probability": 10,
+      "precip_mm": 0.0
     }
   ]
 }
