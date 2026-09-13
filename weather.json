@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-09-13T21:18:00.296706+00:00",
+  "generated_at": "2026-09-13T23:58:59.157514+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 26.6,
-    "condition": "Partly Cloudy",
+    "temperature": 22.5,
+    "condition": "Mostly Cloudy",
     "high_temp": 20,
     "low_temp": 11,
-    "humidity": 56,
-    "wind_speed": 15,
-    "wind_dir": "W",
+    "humidity": 57,
+    "wind_speed": 17,
+    "wind_dir": "WNW",
     "text_summary": "Tonight. Partly cloudy with 30 percent chance of showers. Risk of a thunderstorm early this evening. Wind west 20 km/h gusting to 40 becoming light late this evening. Low 11."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 26.6
+      "value": 22.5
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 17.0
+      "value": 13.6
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -31,22 +31,22 @@
     "humidex": {
       "label": "Humidex",
       "unit": null,
-      "value": 32
+      "value": 26
     },
     "pressure": {
       "label": "Pressure",
       "unit": "kPa",
-      "value": 100.8
+      "value": 101.0
     },
     "tendency": {
       "label": "Tendency",
       "unit": "kPa",
-      "value": "falling"
+      "value": "rising"
     },
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 56
+      "value": 57
     },
     "visibility": {
       "label": "Visibility",
@@ -56,27 +56,27 @@
     "condition": {
       "label": "Condition",
       "unit": null,
-      "value": "Partly Cloudy"
+      "value": "Mostly Cloudy"
     },
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 15
+      "value": 17
     },
     "wind_gust": {
       "label": "Wind Gust",
-      "unit": "km/h",
-      "value": 34
+      "unit": null,
+      "value": null
     },
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "W"
+      "value": "WNW"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 280
+      "value": 288
     },
     "high_temp": {
       "label": "High Temperature",
@@ -101,7 +101,7 @@
     "icon_code": {
       "label": "Icon Code",
       "unit": null,
-      "value": "02"
+      "value": "03"
     },
     "normal_high": {
       "label": "Normal High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-09-13T21:00:00+00:00"
+      "value": "2026-09-13T23:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -173,7 +173,7 @@
       "temperature": 15,
       "temperature_class": "low",
       "precip_probability": 60,
-      "precip_mm": 0.3
+      "precip_mm": 1.0
     },
     {
       "period": "Wednesday",
@@ -189,7 +189,7 @@
       "temperature": 15,
       "temperature_class": "low",
       "precip_probability": 0,
-      "precip_mm": 0
+      "precip_mm": 0.2
     },
     {
       "period": "Thursday",
@@ -217,26 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-09-13T22:00:00+00:00",
-      "condition": "A mix of sun and cloud",
-      "icon_code": "02",
-      "temperature": 23,
-      "feels_like": 23,
-      "wind_speed": 20,
-      "precip_probability": 20,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-09-13T23:00:00+00:00",
-      "condition": "Partly cloudy",
-      "icon_code": "32",
-      "temperature": 22,
-      "feels_like": 22,
-      "wind_speed": 20,
-      "precip_probability": 20,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-09-14T00:00:00+00:00",
       "condition": "Partly cloudy",
@@ -453,6 +433,26 @@
       "icon_code": "01",
       "temperature": 20,
       "feels_like": 20,
+      "wind_speed": 5,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-09-14T22:00:00+00:00",
+      "condition": "Mainly sunny",
+      "icon_code": "01",
+      "temperature": 18,
+      "feels_like": 18,
+      "wind_speed": 5,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-09-14T23:00:00+00:00",
+      "condition": "A few clouds",
+      "icon_code": "31",
+      "temperature": 17,
+      "feels_like": 17,
       "wind_speed": 5,
       "precip_probability": 0,
       "precip_mm": 0.0
