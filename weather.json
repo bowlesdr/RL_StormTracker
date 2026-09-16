@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-09-16T19:54:38.951766+00:00",
+  "generated_at": "2026-09-16T22:46:14.526016+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 22.3,
+    "temperature": 21.4,
     "condition": "Mostly Cloudy",
     "high_temp": 24,
     "low_temp": 13,
-    "humidity": 86,
-    "wind_speed": 14,
+    "humidity": 90,
+    "wind_speed": 12,
     "wind_dir": "S",
     "text_summary": "Tonight. Partly cloudy. Low 13."
   },
@@ -16,12 +16,12 @@
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 22.3
+      "value": 21.4
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 19.9
+      "value": 19.6
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -31,7 +31,7 @@
     "humidex": {
       "label": "Humidex",
       "unit": null,
-      "value": 30
+      "value": 29
     },
     "pressure": {
       "label": "Pressure",
@@ -41,12 +41,12 @@
     "tendency": {
       "label": "Tendency",
       "unit": "kPa",
-      "value": "steady"
+      "value": "falling"
     },
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 86
+      "value": 90
     },
     "visibility": {
       "label": "Visibility",
@@ -61,7 +61,7 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 14
+      "value": 12
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -76,7 +76,7 @@
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 176
+      "value": 185
     },
     "high_temp": {
       "label": "High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-09-16T19:00:00+00:00"
+      "value": "2026-09-16T22:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -217,36 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-09-16T20:00:00+00:00",
-      "condition": "Mainly cloudy",
-      "icon_code": "03",
-      "temperature": 26,
-      "feels_like": 26,
-      "wind_speed": 5,
-      "precip_probability": 20,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-09-16T21:00:00+00:00",
-      "condition": "Mainly cloudy",
-      "icon_code": "03",
-      "temperature": 27,
-      "feels_like": 27,
-      "wind_speed": 5,
-      "precip_probability": 20,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-09-16T22:00:00+00:00",
-      "condition": "Mainly cloudy",
-      "icon_code": "03",
-      "temperature": 25,
-      "feels_like": 25,
-      "wind_speed": 5,
-      "precip_probability": 20,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-09-16T23:00:00+00:00",
       "condition": "Mainly cloudy",
@@ -455,6 +425,36 @@
       "feels_like": 23,
       "wind_speed": 5,
       "precip_probability": 30,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-09-17T20:00:00+00:00",
+      "condition": "Mainly sunny",
+      "icon_code": "01",
+      "temperature": 24,
+      "feels_like": 24,
+      "wind_speed": 5,
+      "precip_probability": 10,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-09-17T21:00:00+00:00",
+      "condition": "Mainly sunny",
+      "icon_code": "01",
+      "temperature": 24,
+      "feels_like": 24,
+      "wind_speed": 5,
+      "precip_probability": 10,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-09-17T22:00:00+00:00",
+      "condition": "Sunny",
+      "icon_code": "00",
+      "temperature": 22,
+      "feels_like": 22,
+      "wind_speed": 5,
+      "precip_probability": 10,
       "precip_mm": 0.0
     }
   ]
