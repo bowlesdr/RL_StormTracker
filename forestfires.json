@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-09-18T15:59:44.528101+00:00",
+  "generated_at": "2026-09-18T20:34:24.746743+00:00",
   "fires": [
     {
-      "id": "2026_NB_2026346",
-      "agency": "NB",
-      "region": null,
-      "size_ha": 3,
-      "stage": "UC",
-      "response_type": "FUL",
-      "situation_report_date": "2026-09-16T13:44:00Z",
-      "status_date": "2026-09-18T08:53:00Z",
-      "lat": 46.68,
-      "lon": -65.694
+      "id": "2026_ON_SLK_FIRE_072",
+      "agency": "ON",
+      "region": "SLK",
+      "size_ha": 23597.1,
+      "stage": "OC",
+      "response_type": "MON",
+      "situation_report_date": "2026-07-11T22:58:00Z",
+      "status_date": "2026-09-17T17:00:00Z",
+      "lat": 51.8318,
+      "lon": -92.1735
     },
     {
       "id": "2026_NB_2026353",
@@ -26,16 +26,16 @@
       "lon": -66.04051
     },
     {
-      "id": "2026_ON_SLK_FIRE_072",
-      "agency": "ON",
-      "region": "SLK",
-      "size_ha": 23597.1,
+      "id": "2026_NB_2026346",
+      "agency": "NB",
+      "region": null,
+      "size_ha": 3,
       "stage": "UC",
       "response_type": "FUL",
-      "situation_report_date": "2026-07-11T22:58:00Z",
-      "status_date": "2026-08-24T20:32:00Z",
-      "lat": 51.8318,
-      "lon": -92.1735
+      "situation_report_date": "2026-09-16T13:44:00Z",
+      "status_date": "2026-09-18T08:53:00Z",
+      "lat": 46.68,
+      "lon": -65.694
     },
     {
       "id": "2026_ON_THU_FIRE_036",
@@ -170,18 +170,6 @@
       "lon": -91.4154
     },
     {
-      "id": "2026_ON_NIP_FIRE_074",
-      "agency": "ON",
-      "region": "NIP",
-      "size_ha": 15,
-      "stage": "OC",
-      "response_type": "MON",
-      "situation_report_date": "2026-07-18T21:50:00Z",
-      "status_date": "2026-07-19T23:00:00Z",
-      "lat": 52.6762,
-      "lon": -86.1931
-    },
-    {
       "id": "2026_ON_NIP_FIRE_075",
       "agency": "ON",
       "region": "NIP",
@@ -192,6 +180,18 @@
       "status_date": "2026-07-19T23:00:00Z",
       "lat": 51.9287,
       "lon": -86.0321
+    },
+    {
+      "id": "2026_ON_NIP_FIRE_074",
+      "agency": "ON",
+      "region": "NIP",
+      "size_ha": 15,
+      "stage": "OC",
+      "response_type": "MON",
+      "situation_report_date": "2026-07-18T21:50:00Z",
+      "status_date": "2026-07-19T23:00:00Z",
+      "lat": 52.6762,
+      "lon": -86.1931
     },
     {
       "id": "2026_ON_COC_FIRE_043",
@@ -266,16 +266,28 @@
       "lon": -88.5725
     },
     {
-      "id": "2026_QC_473",
+      "id": "2026_QC_332",
       "agency": "QC",
       "region": null,
-      "size_ha": 21136,
+      "size_ha": 12892.8,
       "stage": "OC",
       "response_type": "MON",
-      "situation_report_date": "2026-06-27T21:10:00Z",
-      "status_date": "2026-07-02T19:20:00Z",
-      "lat": 50.5758,
-      "lon": -78.5522
+      "situation_report_date": "2026-06-28T00:48:00Z",
+      "status_date": "2026-06-29T13:51:00Z",
+      "lat": 56.3919,
+      "lon": -67.9417
+    },
+    {
+      "id": "2026_QC_284",
+      "agency": "QC",
+      "region": null,
+      "size_ha": 34957.9,
+      "stage": "UC",
+      "response_type": "FUL",
+      "situation_report_date": "2026-06-26T18:43:00Z",
+      "status_date": "2026-07-19T18:49:00Z",
+      "lat": 50.055,
+      "lon": -78.9553
     },
     {
       "id": "2026_QC_409",
@@ -302,18 +314,6 @@
       "lon": -79.1022
     },
     {
-      "id": "2026_QC_332",
-      "agency": "QC",
-      "region": null,
-      "size_ha": 12892.8,
-      "stage": "OC",
-      "response_type": "MON",
-      "situation_report_date": "2026-06-28T00:48:00Z",
-      "status_date": "2026-06-29T13:51:00Z",
-      "lat": 56.3919,
-      "lon": -67.9417
-    },
-    {
       "id": "2026_QC_271",
       "agency": "QC",
       "region": null,
@@ -326,16 +326,16 @@
       "lon": -78.3261
     },
     {
-      "id": "2026_QC_284",
+      "id": "2026_QC_473",
       "agency": "QC",
       "region": null,
-      "size_ha": 34957.9,
-      "stage": "UC",
-      "response_type": "FUL",
-      "situation_report_date": "2026-06-26T18:43:00Z",
-      "status_date": "2026-07-19T18:49:00Z",
-      "lat": 50.055,
-      "lon": -78.9553
+      "size_ha": 21136,
+      "stage": "OC",
+      "response_type": "MON",
+      "situation_report_date": "2026-06-27T21:10:00Z",
+      "status_date": "2026-07-02T19:20:00Z",
+      "lat": 50.5758,
+      "lon": -78.5522
     },
     {
       "id": "2026_QC_459",
@@ -348,6 +348,18 @@
       "status_date": "2026-06-28T22:01:00Z",
       "lat": 53.4958,
       "lon": -70.6275
+    },
+    {
+      "id": "2026_QC_293",
+      "agency": "QC",
+      "region": null,
+      "size_ha": 6814.5,
+      "stage": "OC",
+      "response_type": "MON",
+      "situation_report_date": "2026-06-26T17:02:00Z",
+      "status_date": "2026-06-28T13:06:00Z",
+      "lat": 58.0272,
+      "lon": -67.0631
     },
     {
       "id": "2026_QC_399",
@@ -374,18 +386,6 @@
       "lon": -68.8053
     },
     {
-      "id": "2026_QC_293",
-      "agency": "QC",
-      "region": null,
-      "size_ha": 6814.5,
-      "stage": "OC",
-      "response_type": "MON",
-      "situation_report_date": "2026-06-26T17:02:00Z",
-      "status_date": "2026-06-28T13:06:00Z",
-      "lat": 58.0272,
-      "lon": -67.0631
-    },
-    {
       "id": "2026_QC_641",
       "agency": "QC",
       "region": null,
@@ -398,18 +398,6 @@
       "lon": -75.1242
     },
     {
-      "id": "2026_ON_RED_FIRE_024",
-      "agency": "ON",
-      "region": "RED",
-      "size_ha": 6414.9,
-      "stage": "OC",
-      "response_type": "MOD",
-      "situation_report_date": "2026-07-14T19:46:00Z",
-      "status_date": "2026-08-09T19:27:00Z",
-      "lat": 52.2573,
-      "lon": -92.9977
-    },
-    {
       "id": "2026_ON_RED_FIRE_023",
       "agency": "ON",
       "region": "RED",
@@ -420,6 +408,18 @@
       "status_date": "2026-08-09T19:29:00Z",
       "lat": 52.1932,
       "lon": -92.7637
+    },
+    {
+      "id": "2026_ON_RED_FIRE_024",
+      "agency": "ON",
+      "region": "RED",
+      "size_ha": 6414.9,
+      "stage": "OC",
+      "response_type": "MOD",
+      "situation_report_date": "2026-07-14T19:46:00Z",
+      "status_date": "2026-08-09T19:27:00Z",
+      "lat": 52.2573,
+      "lon": -92.9977
     },
     {
       "id": "2026_QC_645",
@@ -530,18 +530,6 @@
       "lon": -75.2772
     },
     {
-      "id": "2026_QC_635",
-      "agency": "QC",
-      "region": null,
-      "size_ha": 0,
-      "stage": "OC",
-      "response_type": "MON",
-      "situation_report_date": "2026-07-31T04:00:00Z",
-      "status_date": "2026-08-02T21:32:00Z",
-      "lat": 53.8514,
-      "lon": -79.0561
-    },
-    {
       "id": "2026_ON_SLK_FIRE_021",
       "agency": "ON",
       "region": "SLK",
@@ -552,6 +540,18 @@
       "status_date": "2026-08-04T15:23:00Z",
       "lat": 52.8105,
       "lon": -89.247
+    },
+    {
+      "id": "2026_QC_635",
+      "agency": "QC",
+      "region": null,
+      "size_ha": 0,
+      "stage": "OC",
+      "response_type": "MON",
+      "situation_report_date": "2026-07-31T04:00:00Z",
+      "status_date": "2026-08-02T21:32:00Z",
+      "lat": 53.8514,
+      "lon": -79.0561
     },
     {
       "id": "2026_QC_416",
@@ -578,18 +578,6 @@
       "lon": -69.2275
     },
     {
-      "id": "2026_QC_290",
-      "agency": "QC",
-      "region": null,
-      "size_ha": 11183.6,
-      "stage": "OC",
-      "response_type": "MON",
-      "situation_report_date": "2026-06-26T18:53:00Z",
-      "status_date": "2026-07-22T17:05:00Z",
-      "lat": 50.2878,
-      "lon": -78.6331
-    },
-    {
       "id": "2026_QC_335",
       "agency": "QC",
       "region": null,
@@ -600,6 +588,18 @@
       "status_date": "2026-07-01T20:05:00Z",
       "lat": 53.5925,
       "lon": -72.2228
+    },
+    {
+      "id": "2026_QC_290",
+      "agency": "QC",
+      "region": null,
+      "size_ha": 11183.6,
+      "stage": "OC",
+      "response_type": "MON",
+      "situation_report_date": "2026-06-26T18:53:00Z",
+      "status_date": "2026-07-22T17:05:00Z",
+      "lat": 50.2878,
+      "lon": -78.6331
     },
     {
       "id": "2026_QC_638",
@@ -614,18 +614,6 @@
       "lon": -78.9986
     },
     {
-      "id": "2026_ON_NIP_FIRE_047",
-      "agency": "ON",
-      "region": "NIP",
-      "size_ha": 444.4,
-      "stage": "OC",
-      "response_type": "MON",
-      "situation_report_date": "2026-07-14T21:17:00Z",
-      "status_date": "2026-07-24T14:30:00Z",
-      "lat": 51.3497,
-      "lon": -87.2821
-    },
-    {
       "id": "2026_QC_327",
       "agency": "QC",
       "region": null,
@@ -636,6 +624,18 @@
       "status_date": "2026-07-21T09:26:00Z",
       "lat": 52.0072,
       "lon": -77.0572
+    },
+    {
+      "id": "2026_ON_NIP_FIRE_047",
+      "agency": "ON",
+      "region": "NIP",
+      "size_ha": 444.4,
+      "stage": "OC",
+      "response_type": "MON",
+      "situation_report_date": "2026-07-14T21:17:00Z",
+      "status_date": "2026-07-24T14:30:00Z",
+      "lat": 51.3497,
+      "lon": -87.2821
     },
     {
       "id": "2026_ON_NIP_FIRE_048",
@@ -686,18 +686,6 @@
       "lon": -92.0242
     },
     {
-      "id": "2026_QC_289",
-      "agency": "QC",
-      "region": null,
-      "size_ha": 3072.2,
-      "stage": "OC",
-      "response_type": "MOD",
-      "situation_report_date": "2026-06-26T20:56:00Z",
-      "status_date": "2026-07-21T12:32:00Z",
-      "lat": 51.3631,
-      "lon": -78.3894
-    },
-    {
       "id": "2026_QC_491",
       "agency": "QC",
       "region": null,
@@ -708,6 +696,18 @@
       "status_date": "2026-07-01T07:12:00Z",
       "lat": 55.4483,
       "lon": -75.3033
+    },
+    {
+      "id": "2026_QC_289",
+      "agency": "QC",
+      "region": null,
+      "size_ha": 3072.2,
+      "stage": "OC",
+      "response_type": "MOD",
+      "situation_report_date": "2026-06-26T20:56:00Z",
+      "status_date": "2026-07-21T12:32:00Z",
+      "lat": 51.3631,
+      "lon": -78.3894
     },
     {
       "id": "2026_ON_COC_FIRE_048",
@@ -818,18 +818,6 @@
       "lon": -79.4517
     },
     {
-      "id": "2026_ON_NIP_FIRE_045",
-      "agency": "ON",
-      "region": "NIP",
-      "size_ha": 9922,
-      "stage": "OC",
-      "response_type": "MON",
-      "situation_report_date": "2026-07-14T18:46:00Z",
-      "status_date": "2026-07-19T23:00:00Z",
-      "lat": 51.4711,
-      "lon": -87.8415
-    },
-    {
       "id": "2026_ON_NIP_FIRE_052",
       "agency": "ON",
       "region": "NIP",
@@ -840,6 +828,18 @@
       "status_date": "2026-07-19T23:00:00Z",
       "lat": 50.4924,
       "lon": -86.386
+    },
+    {
+      "id": "2026_ON_NIP_FIRE_045",
+      "agency": "ON",
+      "region": "NIP",
+      "size_ha": 9922,
+      "stage": "OC",
+      "response_type": "MON",
+      "situation_report_date": "2026-07-14T18:46:00Z",
+      "status_date": "2026-07-19T23:00:00Z",
+      "lat": 51.4711,
+      "lon": -87.8415
     },
     {
       "id": "2026_QC_562",
@@ -926,18 +926,6 @@
       "lon": -62.5819
     },
     {
-      "id": "2023_QC_270",
-      "agency": "QC",
-      "region": null,
-      "size_ha": 6167.4,
-      "stage": "OC",
-      "response_type": "MON",
-      "situation_report_date": "2023-05-25T18:20:00Z",
-      "status_date": "2023-05-25T18:20:00Z",
-      "lat": 53.1167,
-      "lon": -69.1489
-    },
-    {
       "id": "2026_QC_475",
       "agency": "QC",
       "region": null,
@@ -948,6 +936,18 @@
       "status_date": "2026-07-03T12:33:00Z",
       "lat": 50.5164,
       "lon": -78.0989
+    },
+    {
+      "id": "2023_QC_270",
+      "agency": "QC",
+      "region": null,
+      "size_ha": 6167.4,
+      "stage": "OC",
+      "response_type": "MON",
+      "situation_report_date": "2023-05-25T18:20:00Z",
+      "status_date": "2023-05-25T18:20:00Z",
+      "lat": 53.1167,
+      "lon": -69.1489
     },
     {
       "id": "2026_ON_COC_FIRE_019",
