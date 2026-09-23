@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-09-23T20:02:40.178441+00:00",
+  "generated_at": "2026-09-23T23:29:36.109449+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 19.6,
-    "condition": null,
+    "temperature": 16.9,
+    "condition": "Sunny",
     "high_temp": 20,
     "low_temp": 3,
-    "humidity": 39,
-    "wind_speed": 23,
+    "humidity": 49,
+    "wind_speed": 12,
     "wind_dir": "NE",
     "text_summary": "Tonight. Clear. Wind northeast 20 km/h becoming light this evening. Low plus 3 with patchy frost."
   },
@@ -16,12 +16,12 @@
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 19.6
+      "value": 16.9
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 5.2
+      "value": 6.0
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -36,7 +36,7 @@
     "pressure": {
       "label": "Pressure",
       "unit": "kPa",
-      "value": 103.6
+      "value": 103.4
     },
     "tendency": {
       "label": "Tendency",
@@ -46,22 +46,22 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 39
+      "value": 49
     },
     "visibility": {
       "label": "Visibility",
-      "unit": null,
-      "value": null
+      "unit": "km",
+      "value": 24.1
     },
     "condition": {
       "label": "Condition",
       "unit": null,
-      "value": null
+      "value": "Sunny"
     },
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 23
+      "value": 12
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -76,7 +76,7 @@
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 44
+      "value": 40
     },
     "high_temp": {
       "label": "High Temperature",
@@ -101,7 +101,7 @@
     "icon_code": {
       "label": "Icon Code",
       "unit": null,
-      "value": null
+      "value": "00"
     },
     "normal_high": {
       "label": "Normal High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-09-23T20:00:00+00:00"
+      "value": "2026-09-23T23:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -217,36 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-09-23T21:00:00+00:00",
-      "condition": "Sunny",
-      "icon_code": "00",
-      "temperature": 17,
-      "feels_like": 17,
-      "wind_speed": 20,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-09-23T22:00:00+00:00",
-      "condition": "Sunny",
-      "icon_code": "00",
-      "temperature": 16,
-      "feels_like": 16,
-      "wind_speed": 20,
-      "precip_probability": 0,
-      "precip_mm": null
-    },
-    {
-      "period": "2026-09-23T23:00:00+00:00",
-      "condition": "Clear",
-      "icon_code": "30",
-      "temperature": 15,
-      "feels_like": 15,
-      "wind_speed": 20,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-09-24T00:00:00+00:00",
       "condition": "Clear",
@@ -453,6 +423,36 @@
       "icon_code": "00",
       "temperature": 19,
       "feels_like": 19,
+      "wind_speed": 10,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-09-24T21:00:00+00:00",
+      "condition": "Sunny",
+      "icon_code": "00",
+      "temperature": 20,
+      "feels_like": 20,
+      "wind_speed": 10,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-09-24T22:00:00+00:00",
+      "condition": "Sunny",
+      "icon_code": "00",
+      "temperature": 19,
+      "feels_like": 19,
+      "wind_speed": 10,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-09-24T23:00:00+00:00",
+      "condition": "Clear",
+      "icon_code": "30",
+      "temperature": 18,
+      "feels_like": 18,
       "wind_speed": 10,
       "precip_probability": 0,
       "precip_mm": 0.0
