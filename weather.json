@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-10-03T20:49:38.301837+00:00",
+  "generated_at": "2026-10-03T23:38:08.188470+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 16.5,
-    "condition": "Mainly Sunny",
+    "temperature": 12.9,
+    "condition": "Clear",
     "high_temp": 17,
     "low_temp": 1,
-    "humidity": 40,
-    "wind_speed": 12,
-    "wind_dir": "NE",
+    "humidity": 55,
+    "wind_speed": 8,
+    "wind_dir": "ENE",
     "text_summary": "Tonight. Clear. Low plus 1 with patchy frost."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 16.5
+      "value": 12.9
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 2.9
+      "value": 4.0
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -46,7 +46,7 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 40
+      "value": 55
     },
     "visibility": {
       "label": "Visibility",
@@ -56,12 +56,12 @@
     "condition": {
       "label": "Condition",
       "unit": null,
-      "value": "Mainly Sunny"
+      "value": "Clear"
     },
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 12
+      "value": 8
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -71,12 +71,12 @@
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "NE"
+      "value": "ENE"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 39
+      "value": 58
     },
     "high_temp": {
       "label": "High Temperature",
@@ -101,7 +101,7 @@
     "icon_code": {
       "label": "Icon Code",
       "unit": null,
-      "value": "01"
+      "value": "30"
     },
     "normal_high": {
       "label": "Normal High Temperature",
@@ -126,7 +126,7 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-10-03T20:00:00+00:00"
+      "value": "2026-10-03T23:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -157,7 +157,7 @@
       "temperature": 8,
       "temperature_class": "low",
       "precip_probability": 60,
-      "precip_mm": 0.1
+      "precip_mm": 0
     },
     {
       "period": "Monday",
@@ -217,36 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-10-03T21:00:00+00:00",
-      "condition": "Mainly sunny",
-      "icon_code": "01",
-      "temperature": 15,
-      "feels_like": 15,
-      "wind_speed": 5,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-10-03T22:00:00+00:00",
-      "condition": "Sunny",
-      "icon_code": "00",
-      "temperature": 13,
-      "feels_like": 13,
-      "wind_speed": 5,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-10-03T23:00:00+00:00",
-      "condition": "Clear",
-      "icon_code": "30",
-      "temperature": 10,
-      "feels_like": 10,
-      "wind_speed": 5,
-      "precip_probability": 0,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-10-04T00:00:00+00:00",
       "condition": "Clear",
@@ -455,6 +425,36 @@
       "feels_like": 17,
       "wind_speed": 20,
       "precip_probability": 30,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-10-04T21:00:00+00:00",
+      "condition": "Chance of showers",
+      "icon_code": "06",
+      "temperature": 17,
+      "feels_like": 17,
+      "wind_speed": 20,
+      "precip_probability": 30,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-10-04T22:00:00+00:00",
+      "condition": "A mix of sun and cloud",
+      "icon_code": "02",
+      "temperature": 17,
+      "feels_like": 17,
+      "wind_speed": 20,
+      "precip_probability": 20,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-10-04T23:00:00+00:00",
+      "condition": "Partly cloudy",
+      "icon_code": "32",
+      "temperature": 16,
+      "feels_like": 16,
+      "wind_speed": 20,
+      "precip_probability": 20,
       "precip_mm": 0.0
     }
   ]
