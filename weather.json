@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-10-14T06:02:14.876329+00:00",
+  "generated_at": "2026-10-14T12:44:52.699283+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 9.8,
-    "condition": null,
+    "temperature": 10.3,
+    "condition": "Mostly Cloudy",
     "high_temp": 16,
-    "low_temp": 9,
-    "humidity": 98,
-    "wind_speed": 8,
-    "wind_dir": "SSW",
-    "text_summary": "Tonight. A few showers ending early this evening then cloudy with 60 percent chance of showers or drizzle. Risk of a thunderstorm this evening. Fog patches developing near midnight. Temperature steady near 9."
+    "low_temp": 4,
+    "humidity": 100,
+    "wind_speed": 0,
+    "wind_dir": "N",
+    "text_summary": "Today. Cloudy. 30 percent chance of showers or drizzle this morning. Wind becoming northwest 20 km/h late this morning. High 16. UV index 2 or low."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 9.8
+      "value": 10.3
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": 9.5
+      "value": 10.3
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -36,7 +36,7 @@
     "pressure": {
       "label": "Pressure",
       "unit": "kPa",
-      "value": 101.1
+      "value": 101.2
     },
     "tendency": {
       "label": "Tendency",
@@ -46,22 +46,22 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 98
+      "value": 100
     },
     "visibility": {
       "label": "Visibility",
-      "unit": null,
-      "value": null
+      "unit": "km",
+      "value": 24.1
     },
     "condition": {
       "label": "Condition",
       "unit": null,
-      "value": null
+      "value": "Mostly Cloudy"
     },
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 8
+      "value": 0
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -71,12 +71,12 @@
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "SSW"
+      "value": "N"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 210
+      "value": 0
     },
     "high_temp": {
       "label": "High Temperature",
@@ -86,22 +86,22 @@
     "low_temp": {
       "label": "Low Temperature",
       "unit": "C",
-      "value": 9
+      "value": 4
     },
     "uv_index": {
       "label": "UV Index",
       "unit": null,
-      "value": 3
+      "value": 2
     },
     "pop": {
       "label": "Chance of Precip.",
       "unit": "%",
-      "value": 60
+      "value": 30
     },
     "icon_code": {
       "label": "Icon Code",
       "unit": null,
-      "value": null
+      "value": "03"
     },
     "normal_high": {
       "label": "Normal High Temperature",
@@ -126,34 +126,26 @@
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-10-14T06:00:00+00:00"
+      "value": "2026-10-14T12:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
       "unit": null,
-      "value": "Tonight. A few showers ending early this evening then cloudy with 60 percent chance of showers or drizzle. Risk of a thunderstorm this evening. Fog patches developing near midnight. Temperature steady near 9."
+      "value": "Today. Cloudy. 30 percent chance of showers or drizzle this morning. Wind becoming northwest 20 km/h late this morning. High 16. UV index 2 or low."
     }
   },
   "daily": [
     {
-      "period": "Tuesday night",
-      "text_summary": "A few showers ending early this evening then cloudy with 60 percent chance of showers or drizzle. Risk of a thunderstorm this evening. Fog patches developing near midnight. Temperature steady near 9.",
-      "temperature": 9,
-      "temperature_class": "low",
-      "precip_probability": 60,
-      "precip_mm": 1.8
-    },
-    {
       "period": "Wednesday",
-      "text_summary": "Cloudy. 30 percent chance of showers or drizzle in the morning. Fog patches dissipating in the morning. Wind becoming northwest 20 km/h late in the morning. High 16. UV index 3 or moderate.",
+      "text_summary": "Cloudy. 30 percent chance of showers or drizzle this morning. Wind becoming northwest 20 km/h late this morning. High 16. UV index 2 or low.",
       "temperature": 16,
       "temperature_class": "high",
       "precip_probability": 30,
-      "precip_mm": 0.3
+      "precip_mm": 0.8
     },
     {
       "period": "Wednesday night",
-      "text_summary": "Cloudy. Wind becoming north 20 km/h gusting to 40 near midnight. Low plus 4.",
+      "text_summary": "Cloudy. Wind becoming north 20 km/h after midnight. Low plus 4.",
       "temperature": 4,
       "temperature_class": "low",
       "precip_probability": 0,
@@ -161,8 +153,8 @@
     },
     {
       "period": "Thursday",
-      "text_summary": "A mix of sun and cloud. High 11.",
-      "temperature": 11,
+      "text_summary": "Clearing in the morning. Wind north 20 km/h becoming light in the morning. High 12. UV index 4 or moderate.",
+      "temperature": 12,
       "temperature_class": "high",
       "precip_probability": 0,
       "precip_mm": 0
@@ -173,7 +165,7 @@
       "temperature": 6,
       "temperature_class": "low",
       "precip_probability": 60,
-      "precip_mm": 8.5
+      "precip_mm": 6.8
     },
     {
       "period": "Friday",
@@ -181,7 +173,7 @@
       "temperature": 10,
       "temperature_class": "high",
       "precip_probability": 0,
-      "precip_mm": 8.8
+      "precip_mm": 17.9
     },
     {
       "period": "Friday night",
@@ -189,7 +181,7 @@
       "temperature": 0,
       "temperature_class": "low",
       "precip_probability": 60,
-      "precip_mm": 0.1
+      "precip_mm": 0.2
     },
     {
       "period": "Saturday",
@@ -214,78 +206,26 @@
       "temperature_class": "high",
       "precip_probability": 0,
       "precip_mm": null
+    },
+    {
+      "period": "Sunday night",
+      "text_summary": "Clear. Low plus 4.",
+      "temperature": 4,
+      "temperature_class": "low",
+      "precip_probability": 0,
+      "precip_mm": null
     }
   ],
   "hourly": [
-    {
-      "period": "2026-10-14T07:00:00+00:00",
-      "condition": "Chance of showers or drizzle",
-      "icon_code": "12",
-      "temperature": 9,
-      "feels_like": 9,
-      "wind_speed": 5,
-      "precip_probability": 40,
-      "precip_mm": 0.1
-    },
-    {
-      "period": "2026-10-14T08:00:00+00:00",
-      "condition": "Chance of showers or drizzle",
-      "icon_code": "12",
-      "temperature": 9,
-      "feels_like": 9,
-      "wind_speed": 5,
-      "precip_probability": 40,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-10-14T09:00:00+00:00",
-      "condition": "Chance of showers or drizzle",
-      "icon_code": "12",
-      "temperature": 9,
-      "feels_like": 9,
-      "wind_speed": 5,
-      "precip_probability": 40,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-10-14T10:00:00+00:00",
-      "condition": "Chance of showers or drizzle",
-      "icon_code": "12",
-      "temperature": 9,
-      "feels_like": 9,
-      "wind_speed": 5,
-      "precip_probability": 30,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-10-14T11:00:00+00:00",
-      "condition": "Chance of showers or drizzle",
-      "icon_code": "12",
-      "temperature": 9,
-      "feels_like": 9,
-      "wind_speed": 5,
-      "precip_probability": 30,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-10-14T12:00:00+00:00",
-      "condition": "Chance of showers or drizzle",
-      "icon_code": "12",
-      "temperature": 9,
-      "feels_like": 7,
-      "wind_speed": 10,
-      "precip_probability": 30,
-      "precip_mm": 0.1
-    },
     {
       "period": "2026-10-14T13:00:00+00:00",
       "condition": "Chance of showers or drizzle",
       "icon_code": "12",
       "temperature": 10,
-      "feels_like": 9,
-      "wind_speed": 10,
+      "feels_like": 10,
+      "wind_speed": 5,
       "precip_probability": 30,
-      "precip_mm": 0.0
+      "precip_mm": 0.2
     },
     {
       "period": "2026-10-14T14:00:00+00:00",
@@ -293,9 +233,9 @@
       "icon_code": "12",
       "temperature": 11,
       "feels_like": 11,
-      "wind_speed": 10,
+      "wind_speed": 5,
       "precip_probability": 30,
-      "precip_mm": 0.1
+      "precip_mm": 0.4
     },
     {
       "period": "2026-10-14T15:00:00+00:00",
@@ -305,11 +245,11 @@
       "feels_like": 12,
       "wind_speed": 20,
       "precip_probability": 30,
-      "precip_mm": 0.1
+      "precip_mm": 0.0
     },
     {
       "period": "2026-10-14T16:00:00+00:00",
-      "condition": "Cloudy",
+      "condition": "Overcast",
       "icon_code": "10",
       "temperature": 13,
       "feels_like": 13,
@@ -389,7 +329,7 @@
     },
     {
       "period": "2026-10-15T00:00:00+00:00",
-      "condition": "Cloudy",
+      "condition": "Overcast",
       "icon_code": "10",
       "temperature": 12,
       "feels_like": 12,
@@ -399,7 +339,7 @@
     },
     {
       "period": "2026-10-15T01:00:00+00:00",
-      "condition": "Cloudy",
+      "condition": "Overcast",
       "icon_code": "10",
       "temperature": 11,
       "feels_like": 11,
@@ -422,8 +362,8 @@
       "condition": "Cloudy",
       "icon_code": "10",
       "temperature": 10,
-      "feels_like": 7,
-      "wind_speed": 20,
+      "feels_like": 9,
+      "wind_speed": 10,
       "precip_probability": 10,
       "precip_mm": 0.0
     },
@@ -432,8 +372,8 @@
       "condition": "Cloudy",
       "icon_code": "10",
       "temperature": 9,
-      "feels_like": 6,
-      "wind_speed": 20,
+      "feels_like": 7,
+      "wind_speed": 10,
       "precip_probability": 10,
       "precip_mm": 0.0
     },
@@ -442,8 +382,8 @@
       "condition": "Cloudy",
       "icon_code": "10",
       "temperature": 8,
-      "feels_like": 5,
-      "wind_speed": 20,
+      "feels_like": 6,
+      "wind_speed": 10,
       "precip_probability": 10,
       "precip_mm": 0.0
     },
@@ -455,6 +395,66 @@
       "feels_like": 4,
       "wind_speed": 20,
       "precip_probability": 10,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-10-15T07:00:00+00:00",
+      "condition": "Cloudy",
+      "icon_code": "10",
+      "temperature": 7,
+      "feels_like": 4,
+      "wind_speed": 20,
+      "precip_probability": 10,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-10-15T08:00:00+00:00",
+      "condition": "Cloudy",
+      "icon_code": "10",
+      "temperature": 6,
+      "feels_like": 2,
+      "wind_speed": 20,
+      "precip_probability": 10,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-10-15T09:00:00+00:00",
+      "condition": "Cloudy",
+      "icon_code": "10",
+      "temperature": 6,
+      "feels_like": 2,
+      "wind_speed": 20,
+      "precip_probability": 10,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-10-15T10:00:00+00:00",
+      "condition": "Cloudy",
+      "icon_code": "10",
+      "temperature": 5,
+      "feels_like": 1,
+      "wind_speed": 20,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-10-15T11:00:00+00:00",
+      "condition": "Mainly cloudy",
+      "icon_code": "03",
+      "temperature": 5,
+      "feels_like": 1,
+      "wind_speed": 20,
+      "precip_probability": 0,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-10-15T12:00:00+00:00",
+      "condition": "Mainly cloudy",
+      "icon_code": "03",
+      "temperature": 4,
+      "feels_like": 1,
+      "wind_speed": 10,
+      "precip_probability": 0,
       "precip_mm": 0.0
     }
   ]
