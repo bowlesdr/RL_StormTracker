@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T16:57:18.170485+00:00",
+  "generated_at": "2026-10-31T21:07:56.167476+00:00",
   "fires": [
     {
       "id": "2026_NB_2026383",
@@ -146,28 +146,16 @@
       "lon": -91.4154
     },
     {
-      "id": "2026_QC_332",
+      "id": "2026_QC_413",
       "agency": "QC",
       "region": null,
-      "size_ha": 12892.8,
-      "stage": "OC",
-      "response_type": "MON",
-      "situation_report_date": "2026-06-28T00:48:00Z",
-      "status_date": "2026-06-29T13:51:00Z",
-      "lat": 56.3919,
-      "lon": -67.9417
-    },
-    {
-      "id": "2026_QC_473",
-      "agency": "QC",
-      "region": null,
-      "size_ha": 21136,
+      "size_ha": 64636.7,
       "stage": "OC",
       "response_type": "MON",
       "situation_report_date": "2026-06-27T21:10:00Z",
-      "status_date": "2026-07-02T19:20:00Z",
-      "lat": 50.5758,
-      "lon": -78.5522
+      "status_date": "2026-07-02T11:54:00Z",
+      "lat": 50.0783,
+      "lon": -79.1022
     },
     {
       "id": "2026_QC_271",
@@ -206,6 +194,18 @@
       "lon": -70.6275
     },
     {
+      "id": "2026_QC_473",
+      "agency": "QC",
+      "region": null,
+      "size_ha": 21136,
+      "stage": "OC",
+      "response_type": "MON",
+      "situation_report_date": "2026-06-27T21:10:00Z",
+      "status_date": "2026-07-02T19:20:00Z",
+      "lat": 50.5758,
+      "lon": -78.5522
+    },
+    {
       "id": "2026_QC_409",
       "agency": "QC",
       "region": null,
@@ -218,16 +218,16 @@
       "lon": -74.1025
     },
     {
-      "id": "2026_QC_413",
+      "id": "2026_QC_332",
       "agency": "QC",
       "region": null,
-      "size_ha": 64636.7,
+      "size_ha": 12892.8,
       "stage": "OC",
       "response_type": "MON",
-      "situation_report_date": "2026-06-27T21:10:00Z",
-      "status_date": "2026-07-02T11:54:00Z",
-      "lat": 50.0783,
-      "lon": -79.1022
+      "situation_report_date": "2026-06-28T00:48:00Z",
+      "status_date": "2026-06-29T13:51:00Z",
+      "lat": 56.3919,
+      "lon": -67.9417
     },
     {
       "id": "2026_QC_293",
