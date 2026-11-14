@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-11-13T21:18:33.263155+00:00",
+  "generated_at": "2026-11-14T02:04:36.861342+00:00",
   "location": "Westport",
   "station": "Kingston Airport",
   "current": {
-    "temperature": 3.2,
+    "temperature": 3.0,
     "condition": "Cloudy",
     "high_temp": 4,
     "low_temp": 1,
-    "humidity": 62,
-    "wind_speed": 15,
-    "wind_dir": "NNW",
+    "humidity": 61,
+    "wind_speed": 13,
+    "wind_dir": "NW",
     "text_summary": "Tonight. Cloudy. 30 percent chance of flurries overnight. Wind north 20 km/h becoming light early this evening. Low plus 1."
   },
   "current_details": {
     "temperature": {
       "label": "Temperature",
       "unit": "C",
-      "value": 3.2
+      "value": 3.0
     },
     "dewpoint": {
       "label": "Dew Point",
       "unit": "C",
-      "value": -3.4
+      "value": -3.8
     },
     "wind_chill": {
       "label": "Wind Chill",
@@ -36,7 +36,7 @@
     "pressure": {
       "label": "Pressure",
       "unit": "kPa",
-      "value": 100.9
+      "value": 101.0
     },
     "tendency": {
       "label": "Tendency",
@@ -46,7 +46,7 @@
     "humidity": {
       "label": "Humidity",
       "unit": "%",
-      "value": 62
+      "value": 61
     },
     "visibility": {
       "label": "Visibility",
@@ -61,7 +61,7 @@
     "wind_speed": {
       "label": "Wind Speed",
       "unit": "km/h",
-      "value": 15
+      "value": 13
     },
     "wind_gust": {
       "label": "Wind Gust",
@@ -71,12 +71,12 @@
     "wind_dir": {
       "label": "Wind Direction",
       "unit": null,
-      "value": "NNW"
+      "value": "NW"
     },
     "wind_bearing": {
       "label": "Wind Bearing",
       "unit": "degrees",
-      "value": 338
+      "value": 306
     },
     "high_temp": {
       "label": "High Temperature",
@@ -116,17 +116,17 @@
     "sunrise": {
       "label": "Sunrise",
       "unit": null,
-      "value": "2026-11-13T11:59:00+00:00"
+      "value": "2026-11-14T12:01:00+00:00"
     },
     "sunset": {
       "label": "Sunset",
       "unit": null,
-      "value": "2026-11-13T21:40:00+00:00"
+      "value": "2026-11-14T21:39:00+00:00"
     },
     "observationTime": {
       "label": "Observation Time",
       "unit": null,
-      "value": "2026-11-13T21:00:00+00:00"
+      "value": "2026-11-14T02:00:00+00:00"
     },
     "text_summary": {
       "label": "Forecast",
@@ -149,7 +149,7 @@
       "temperature": 4,
       "temperature_class": "high",
       "precip_probability": 60,
-      "precip_mm": 1.1
+      "precip_mm": 1.8
     },
     {
       "period": "Saturday night",
@@ -217,56 +217,6 @@
     }
   ],
   "hourly": [
-    {
-      "period": "2026-11-13T22:00:00+00:00",
-      "condition": "Overcast",
-      "icon_code": "10",
-      "temperature": 3,
-      "feels_like": -1,
-      "wind_speed": 20,
-      "precip_probability": 20,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-11-13T23:00:00+00:00",
-      "condition": "Overcast",
-      "icon_code": "10",
-      "temperature": 3,
-      "feels_like": -1,
-      "wind_speed": 20,
-      "precip_probability": 20,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-11-14T00:00:00+00:00",
-      "condition": "Overcast",
-      "icon_code": "10",
-      "temperature": 3,
-      "feels_like": 2,
-      "wind_speed": 5,
-      "precip_probability": 20,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-11-14T01:00:00+00:00",
-      "condition": "Overcast",
-      "icon_code": "10",
-      "temperature": 3,
-      "feels_like": 2,
-      "wind_speed": 5,
-      "precip_probability": 20,
-      "precip_mm": 0.0
-    },
-    {
-      "period": "2026-11-14T02:00:00+00:00",
-      "condition": "Overcast",
-      "icon_code": "10",
-      "temperature": 2,
-      "feels_like": 1,
-      "wind_speed": 5,
-      "precip_probability": 20,
-      "precip_mm": 0.0
-    },
     {
       "period": "2026-11-14T03:00:00+00:00",
       "condition": "Overcast",
@@ -385,7 +335,7 @@
       "feels_like": -3,
       "wind_speed": 20,
       "precip_probability": 60,
-      "precip_mm": 0.0
+      "precip_mm": 0.1
     },
     {
       "period": "2026-11-14T15:00:00+00:00",
@@ -395,7 +345,7 @@
       "feels_like": -1,
       "wind_speed": 20,
       "precip_probability": 60,
-      "precip_mm": 0.3
+      "precip_mm": 0.4
     },
     {
       "period": "2026-11-14T16:00:00+00:00",
@@ -425,7 +375,7 @@
       "feels_like": -1,
       "wind_speed": 20,
       "precip_probability": 60,
-      "precip_mm": 0.3
+      "precip_mm": 0.2
     },
     {
       "period": "2026-11-14T19:00:00+00:00",
@@ -435,7 +385,7 @@
       "feels_like": -1,
       "wind_speed": 20,
       "precip_probability": 60,
-      "precip_mm": 0.0
+      "precip_mm": 0.1
     },
     {
       "period": "2026-11-14T20:00:00+00:00",
@@ -445,7 +395,7 @@
       "feels_like": 0,
       "wind_speed": 20,
       "precip_probability": 60,
-      "precip_mm": 0.0
+      "precip_mm": 0.1
     },
     {
       "period": "2026-11-14T21:00:00+00:00",
@@ -455,6 +405,56 @@
       "feels_like": 0,
       "wind_speed": 20,
       "precip_probability": 60,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-11-14T22:00:00+00:00",
+      "condition": "Chance of rain showers or flurries",
+      "icon_code": "15",
+      "temperature": 4,
+      "feels_like": 0,
+      "wind_speed": 20,
+      "precip_probability": 60,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-11-14T23:00:00+00:00",
+      "condition": "Chance of rain showers or flurries",
+      "icon_code": "15",
+      "temperature": 3,
+      "feels_like": -1,
+      "wind_speed": 20,
+      "precip_probability": 40,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-11-15T00:00:00+00:00",
+      "condition": "Chance of rain showers or flurries",
+      "icon_code": "15",
+      "temperature": 3,
+      "feels_like": -1,
+      "wind_speed": 20,
+      "precip_probability": 40,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-11-15T01:00:00+00:00",
+      "condition": "Chance of rain showers or flurries",
+      "icon_code": "15",
+      "temperature": 3,
+      "feels_like": -1,
+      "wind_speed": 20,
+      "precip_probability": 40,
+      "precip_mm": 0.0
+    },
+    {
+      "period": "2026-11-15T02:00:00+00:00",
+      "condition": "Chance of rain showers or flurries",
+      "icon_code": "15",
+      "temperature": 3,
+      "feels_like": -1,
+      "wind_speed": 20,
+      "precip_probability": 40,
       "precip_mm": 0.0
     }
   ]
